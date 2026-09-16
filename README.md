@@ -1,5 +1,42 @@
 # jcos
 
-YouTube 채널 운영 계획 및 전략 문서 저장소.
+YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상 채널: 아기 수면음악 [@PPAIEO](https://www.youtube.com/@PPAIEO)
 
-- `plans/` : 채널별 개선 계획서
+## 구성
+
+| 경로 | 내용 |
+|---|---|
+| `plans/youtube_baby_sleep_exposure_v2_20260916.md` | 노출 개선 종합대책 v2. 진단 트리, 우선순위별 처방, 4주 계획, KPI |
+| `templates/title_description_templates.md` | 제목 공식, 키워드 풀, 한·영·일 제목 샘플 20종, 설명문 템플릿 |
+| `templates/thumbnail_guide.md` | 썸네일 규격·색상·시리즈별 변형·A/B 테스트 로그 |
+| `templates/launch_7day_checklist.md` | 공개 전날부터 7일까지 운영 체크리스트와 배포 문안 |
+| `templates/community_copy.md` | 커뮤니티 주간 루틴, 설문·팁 카드·고정댓글 문안 |
+| `calendar/4week_calendar.xlsx` | 4주 실행 캘린더. 시작일을 바꾸면 날짜 자동 재계산 |
+| `tools/kpi_tracker.xlsx` | 28일 KPI 추적 시트 + 영상별 첫 7일 로그 |
+| `tools/analytics_dashboard.html` | 스튜디오 CSV 또는 직접 입력으로 노출 진단·처방을 보여주는 단일 파일 대시보드 |
+| `tools/check_metadata.py` | 영상 제목·설명·시청자층·재생목록 규칙 점검 스크립트 |
+| `scripts/build_workbooks.py` | 위 두 xlsx 파일을 생성하는 스크립트 |
+
+## 사용법
+
+### 메타데이터 점검
+
+```bash
+python3 tools/check_metadata.py tools/sample_videos.csv
+python3 tools/check_metadata.py my_videos.csv --format md > report.md
+```
+
+CSV 열: `title, description, made_for_kids, playlist, end_screen, duration_min`. FAIL이 하나라도 있으면 종료 코드 1.
+
+### 대시보드
+
+`tools/analytics_dashboard.html`을 브라우저에서 열고, 스튜디오 분석 > 고급 모드 > 내보내기로 받은 "차트 데이터" CSV(일별)와 "표 데이터" CSV(트래픽 소스)를 올립니다. 외부 통신 없이 브라우저 안에서만 동작합니다. "예시 데이터 보기"로 동작을 먼저 확인할 수 있습니다.
+
+### 엑셀 파일
+
+노란 배경·파란 글씨 셀만 입력합니다. 수식은 파일을 열 때 자동 재계산됩니다.
+
+```bash
+pip install openpyxl
+python3 scripts/build_workbooks.py   # 재생성
+```
