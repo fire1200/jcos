@@ -1,6 +1,6 @@
 # jcos
 
-YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: 아기 수면음악 신규 채널 (2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
+YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포근한 밤 자장가** (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
 
 ## 구성
 

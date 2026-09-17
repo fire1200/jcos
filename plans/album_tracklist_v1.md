@@ -1,9 +1,9 @@
 # 유통용 앨범 트랙리스트 v1
 
 원 채널의 2분짜리 33편에서 추출. 곡명 15개 × 허밍/무가사 2버전. 중복 업로드된 곡은 조회수 높은 ID를 앞에 적었다.
-아티스트명은 새 채널명으로 통일. ISRC는 유통사 발급. 장르 New Age/Ambient (Children's Music 금지).
+아티스트명은 채널명 **포근한 밤 자장가**로 통일(영문 표기 Cozy Night Lullaby). ISRC는 유통사 발급. 장르 New Age/Ambient (Children's Music 금지).
 
-## 앨범 1: 엄마 허밍 자장가 Vol.1 (Mom's Humming Lullabies Vol.1)
+## 앨범 1: 포근한 밤 자장가 - 엄마 허밍 Vol.1 (Cozy Night Lullaby - Mom's Humming Vol.1)
 
 | 트랙 | 곡명(한) | 곡명(영) | 원본 영상 ID | ISRC | 비고 |
 |---|---|---|---|---|---|
@@ -23,7 +23,7 @@
 | 14 | 소복소복 물결 허밍 | Snowy Ripples (Humming) | KhXx4gAZSrs | |  |
 | 15 | 몽실몽실 꿈자리 허밍 | Fluffy Dreams (Humming) | t1D0bfek2hk | |  |
 
-## 앨범 2: 무가사 자장가 Vol.1 (Wordless Lullabies Vol.1)
+## 앨범 2: 포근한 밤 자장가 - 무가사 피아노 Vol.1 (Cozy Night Lullaby - Wordless Piano Vol.1)
 
 | 트랙 | 곡명(한) | 곡명(영) | 원본 영상 ID | ISRC | 비고 |
 |---|---|---|---|---|---|
@@ -47,7 +47,7 @@
 
 | 항목 | 값 |
 |---|---|
-| 아티스트 | (새 채널명) |
+| 아티스트 | 포근한 밤 자장가 (영문: Cozy Night Lullaby) |
 | 앨범 커버 | 밤잠 시리즈 레이아웃을 3000×3000 정사각형으로 |
 | 발매일 | 새 채널 롱폼 #2 공개 이후 (2026-09-29 이후 권장) |
 | 작곡·작사 | (실명) |
