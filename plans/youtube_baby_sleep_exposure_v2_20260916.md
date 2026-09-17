@@ -65,6 +65,7 @@
 - 최종화면 마지막 20초에 "다음 재생" 영상을 채널 내 같은 시리즈로 지정.
 - 설명 상단에 재생목록 링크. 시리즈 번호(예: "밤 시리즈 #12")로 연속 시청 유도.
 - 영상 길이 다양화: 1시간(낮잠) / 3시간 / 10시간(밤샘). 짧은 영상이 끝나면 긴 영상으로 이어지도록 최종화면 연결.
+- **수면 타이머 변수**: 2024년부터 모바일 앱에 내장된 수면 타이머는 설정 시간 뒤 재생을 멈추고 자동재생도 막는다. 타이머를 쓰는 부모에게는 세션 연결 장치가 작동하지 않으므로, 첫 30~60분 안에 가장 좋은 구간을 배치해 그 시간 안의 만족도를 확보하는 것이 우선이다.
 
 ### 3-3. 제목·썸네일 시스템
 > 실행 문서: `templates/title_description_templates.md`, `templates/thumbnail_guide.md`
@@ -116,6 +117,27 @@
 - 고정 업로드 요일·시간 공표(예: 화·금 저녁 8시).
 - 커뮤니티 탭 주 2회: 설문("오늘 밤 어떤 소리로 재울까요?"), 다음 영상 예고.
 - 댓글 답변으로 시청자 요청 사운드를 다음 영상으로 제작 → 만족도·재방문 신호.
+
+### 3-9. 추가 노출 표면: YouTube Music·팟캐스트 (2026-09-17 추가)
+
+유튜브 본편 추천·검색 외에 수면음악이 많이 소비되는 별도 표면이 두 곳 있다. 둘 다 기존 음원을 재활용하므로 제작 비용이 거의 없다.
+
+**YouTube Music 유통**
+- 유통사(국내: 뮤즈플랫폼 등, 해외: DistroKid 등)를 통해 음원을 발매하면 YouTube Music에 자동으로 "Topic" 채널과 아트 트랙이 생성된다. YouTube Music 앱의 수면 재생목록·검색·자동 믹스에 실린다.
+- 유통사에 공식 아티스트 채널(OAC) 신청을 하면 기존 채널과 Topic 채널이 통합되어, 유튜브 검색 결과에 아티스트 카드가 노출되고 구독자·조회수가 합산된다.
+- 조건: 자체 제작 또는 독점 라이선스 음원만 가능. ISRC 코드와 아티스트명을 발매마다 동일하게 유지.
+- 기대 효과: YouTube Music 사용자는 화면을 보지 않고 오디오만 듣는 경우가 많아 수면음악 소비 비중이 높다. 별도 광고 수익(오디오 스트리밍)도 생긴다.
+
+**팟캐스트 RSS 연동**
+- 10시간 수면음악을 오디오 에피소드로 묶어 팟캐스트 호스팅(RSS)에 올리고 YouTube 스튜디오에서 RSS를 연결하면, 채널에 "팟캐스트" 탭이 생기고 홈 화면 팟캐스트 캐러셀, TV 앱, YouTube Music 팟캐스트 섹션에 별도로 노출된다.
+- 같은 RSS를 Spotify·Apple Podcasts에도 등록하면 유튜브 밖 청취자를 채널로 유도할 수 있다.
+- 에피소드 제목은 롱폼 제목 공식을 그대로 쓴다. 설명 첫 두 문장도 동일 규칙.
+
+**실행 순서**
+1. 음원 출처표(`templates/audio_production_spec.md` 4절)에서 자체 제작·독점 라이선스 음원을 추린다.
+2. 유통사 계정 개설, 첫 앨범(수면음악 10곡) 발매, OAC 신청.
+3. 팟캐스트 호스팅 계정 개설, 10시간 롱폼 3편을 에피소드로 등록, 스튜디오에서 RSS 연결.
+4. 4주 뒤 스튜디오 트래픽 소스에서 "YouTube Music"·"팟캐스트" 항목이 생겼는지 확인.
 
 ---
 
@@ -178,3 +200,9 @@
 - Metricool, "YouTube Auto-Dubbing now available to all creators" — https://metricool.com/youtube-multi-language-audio-tracks-now-available-for-more-creators/
 - 네이트 연예, "피아니스트 윤한, 700만 조회 수면음악 채널" (2026-07) — https://m.news.nate.com/view/20260714n37349
 - 디지털 인사이트, "2026 유튜브 SEO 가이드" — https://ditoday.com/youtube-seo-strategy-2025/
+- YouTube for Artists — https://artists.youtube/
+- DistroKid, "Distribute your music to YouTube Music" — https://distrokid.com/youtube/
+- 나무위키, "유튜브/공식 아티스트 채널" — https://namu.wiki/w/%EC%9C%A0%ED%8A%9C%EB%B8%8C/%EA%B3%B5%EC%8B%9D%20%EC%95%84%ED%8B%B0%EC%8A%A4%ED%8A%B8%20%EC%B1%84%EB%84%90
+- YouTube Music 고객센터, "Deliver podcasts using an RSS feed" — https://support.google.com/youtubemusic/answer/13525207
+- Castos, "How YouTube Podcasts Work in 2026" — https://castos.com/youtube-podcasts/
+- Mental Floss, "How to Use YouTube's Sleep Timer" — https://www.mentalfloss.com/technology/how-to-use-youtube-sleep-timer
