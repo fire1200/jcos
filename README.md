@@ -1,12 +1,14 @@
 # jcos
 
-YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상 채널: 아기 수면음악 [@PPAIEO](https://www.youtube.com/@PPAIEO)
+YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: 아기 수면음악 신규 채널 (2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
 
 ## 구성
 
 | 경로 | 내용 |
 |---|---|
 | `plans/youtube_baby_sleep_exposure_v2_20260916.md` | 노출 개선 종합대책 v2. 진단 트리, 우선순위별 처방, 4주 계획, KPI |
+| `plans/analysis_28d_20260819-0916.md` | @PPAIEO 28일 실측 분석. 두 장르 혼재, CTR 1.66%, 우선순위 재조정 |
+| `plans/channel_split_plan_20260917.md` | 수면음악 신규 채널 분리 실행 계획. 개설 설정, 콘텐츠 이관, 8주 일정, 첫 달 목표 |
 | `templates/title_description_templates.md` | 제목 공식, 키워드 풀, 한·영·일 제목 샘플 20종, 설명문 템플릿 |
 | `templates/thumbnail_guide.md` | 썸네일 규격·색상·시리즈별 변형·A/B 테스트 로그 |
 | `templates/launch_7day_checklist.md` | 공개 전날부터 7일까지 운영 체크리스트와 배포 문안 |
