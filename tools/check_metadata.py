@@ -29,6 +29,7 @@ CORE_KEYWORDS = [
     "아기 수면음악", "아기 잠자는 음악", "신생아 자장가", "아기 자장가",
     "아기 백색소음", "신생아 백색소음", "태교음악", "임산부 음악",
     "자궁소리", "심장박동", "아기 낮잠", "울음 멈추는", "피아노 자장가", "오르골 자장가",
+    "신생아 수면음악", "영유아 수면음악", "엄마 허밍",
     "baby sleep music", "lullaby", "white noise", "prenatal music", "womb sounds",
 ]
 KIDS_TRIGGER_WORDS = ["키즈", "어린이", "아이들", "kids", "children", "동요", "만화", "캐릭터"]
@@ -36,6 +37,11 @@ CLICKBAIT_WORDS = ["충격", "절대", "미친", "경악", "!!!"]
 LENGTH_WORDS = re.compile(r"(\d+\s*시간|\d+\s*분|\d+\s*hours?|\d+\s*min)", re.I)
 NO_ADS_WORDS = ["광고없음", "광고 없음", "무광고", "no ads"]
 HASHTAG = re.compile(r"#\S+")
+
+def _norm(text: str) -> str:
+    """키워드 비교용: 소문자화 + 공백 제거 ("아기 수면 음악" == "아기 수면음악")."""
+    return re.sub(r"\s+", "", text.lower())
+
 
 TITLE_MAX = 60          # 검색 결과 노출 기준 안전선
 KEYWORD_WINDOW = 30     # 핵심 키워드가 들어와야 하는 앞부분 글자 수
@@ -70,8 +76,8 @@ def check_row(row: dict[str, str], seen_first_sentences: dict[str, str]) -> Resu
     if not title:
         r.errors.append("제목 없음")
     else:
-        head = title[:KEYWORD_WINDOW].lower()
-        if not any(k.lower() in head for k in CORE_KEYWORDS):
+        head = _norm(title[:KEYWORD_WINDOW])
+        if not any(_norm(k) in head for k in CORE_KEYWORDS):
             r.errors.append(f"앞 {KEYWORD_WINDOW}자 안에 핵심 키워드 없음")
         if len(title) > TITLE_MAX:
             r.warnings.append(f"제목 {len(title)}자 (권장 {TITLE_MAX}자 이하)")
@@ -97,7 +103,7 @@ def check_row(row: dict[str, str], seen_first_sentences: dict[str, str]) -> Resu
             r.warnings.append(f"설명 첫 줄 {len(first_line)}자, 줄글 문장으로 {MIN_DESC_SENTENCE_CHARS}자 이상 권장")
         if first_line.startswith("#") or HASHTAG.search(first_line):
             r.warnings.append("설명 첫 줄이 해시태그/키워드 나열")
-        if title and not any(k.lower() in desc.lower() for k in CORE_KEYWORDS):
+        if title and not any(_norm(k) in _norm(desc) for k in CORE_KEYWORDS):
             r.warnings.append("설명에 핵심 키워드 없음")
         tags = HASHTAG.findall(desc)
         if len(tags) > 15:
