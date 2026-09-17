@@ -51,6 +51,10 @@ class TitleRules(unittest.TestCase):
         res, _ = issues(row(title="아주 길고 장식적인 수식어를 잔뜩 붙인 도입부가 이어지는 제목 아기 수면음악"))
         self.assertTrue(any("핵심 키워드" in e for e in res.errors))
 
+    def test_keyword_match_ignores_spacing(self):
+        res, _ = issues(row(title="아기 수면 음악 30분 | 무가사 자장가 15곡 | 신생아·영유아"))
+        self.assertFalse(any("핵심 키워드" in e for e in res.errors), res.errors)
+
     def test_english_keyword_counts(self):
         res, _ = issues(row(title="Baby Sleep Music | 10 Hours No Ads"))
         self.assertFalse(any("핵심 키워드" in e for e in res.errors), res.errors)
