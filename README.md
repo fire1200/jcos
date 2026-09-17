@@ -11,10 +11,15 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상 채널: 
 | `templates/thumbnail_guide.md` | 썸네일 규격·색상·시리즈별 변형·A/B 테스트 로그 |
 | `templates/launch_7day_checklist.md` | 공개 전날부터 7일까지 운영 체크리스트와 배포 문안 |
 | `templates/community_copy.md` | 커뮤니티 주간 루틴, 설문·팁 카드·고정댓글 문안 |
+| `templates/session_design_worksheet.md` | 재생목록 구조, 최종화면 연결도, 시리즈 운영 (처방 3-2) |
+| `templates/audio_production_spec.md` | 라우드니스 수치, 구간별 타임라인, 음원 출처 관리 (처방 3-4) |
+| `templates/shorts_playbook.md` | 쇼츠 규격, 훅 5종 대본, 롱폼 전환 설계 (처방 3-5) |
+| `templates/live_stream_runbook.md` | 24시간 라이브 송출·자동 재시작·장애 대응 (처방 3-6) |
 | `calendar/4week_calendar.xlsx` | 4주 실행 캘린더. 시작일을 바꾸면 날짜 자동 재계산 |
 | `tools/kpi_tracker.xlsx` | 28일 KPI 추적 시트 + 영상별 첫 7일 로그 |
 | `tools/analytics_dashboard.html` | 스튜디오 CSV 또는 직접 입력으로 노출 진단·처방을 보여주는 단일 파일 대시보드 |
 | `tools/check_metadata.py` | 영상 제목·설명·시청자층·재생목록 규칙 점검 스크립트 |
+| `tools/test_check_metadata.py` | 위 점검 스크립트의 규칙 테스트 (20건) |
 | `scripts/build_workbooks.py` | 위 두 xlsx 파일을 생성하는 스크립트 |
 
 ## 사용법
@@ -27,6 +32,12 @@ python3 tools/check_metadata.py my_videos.csv --format md > report.md
 ```
 
 CSV 열: `title, description, made_for_kids, playlist, end_screen, duration_min`. FAIL이 하나라도 있으면 종료 코드 1.
+
+규칙 테스트:
+
+```bash
+python3 tools/test_check_metadata.py
+```
 
 ### 대시보드
 
