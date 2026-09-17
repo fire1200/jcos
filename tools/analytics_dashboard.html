@@ -344,6 +344,11 @@ function diagnose(v){
     const ext=traffic.find(x=>/외부|external/i.test(x.name));
     if(!shorts||shorts.views/tot<0.03) add('warn','쇼츠 피드 유입 '+(shorts?fmtPct(shorts.views/tot*100):'0%'),
       '신규 시청자 유입 경로가 검색에 한정되어 있습니다.', '쇼츠 15~30초 훅형 영상에 롱폼·라이브 관련 동영상 링크를 붙여 주 3회 이상 발행합니다.', '처방 3-5');
+    const ytm=traffic.find(x=>/youtube music/i.test(x.name));
+    const pod=traffic.find(x=>/팟캐스트|podcast/i.test(x.name));
+    if(!ytm&&!pod) add('warn','YouTube Music·팟캐스트 유입 없음',
+      '오디오 전용 청취 표면(YouTube Music 앱, 팟캐스트 섹션)에 아직 진입하지 않았습니다. 기존 음원 재활용으로 비용 없이 열 수 있는 노출 경로입니다.',
+      '자체 제작·독점 라이선스 음원을 유통사로 발매해 Topic 채널을 만들고, 10시간 롱폼을 팟캐스트 RSS로 연결합니다.', '처방 3-9, templates/music_distribution_podcast_checklist.md');
     if(ext&&ext.views/tot>0.25) add('warn','외부 유입 '+fmtPct(ext.views/tot*100)+' (25% 초과)',
       '외부 임베드 의존이 크면 유튜브 내부 추천 신호가 약합니다. 외부 유입 자체는 좋지만 내부 전환이 필요합니다.',
       '외부에서 들어온 시청자를 재생목록·구독으로 전환하는 최종화면과 고정댓글을 강화합니다.', '처방 3-2');

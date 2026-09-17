@@ -120,6 +120,8 @@
 
 ### 3-9. 추가 노출 표면: YouTube Music·팟캐스트 (2026-09-17 추가)
 
+> 실행 문서: `templates/music_distribution_podcast_checklist.md`
+
 유튜브 본편 추천·검색 외에 수면음악이 많이 소비되는 별도 표면이 두 곳 있다. 둘 다 기존 음원을 재활용하므로 제작 비용이 거의 없다.
 
 **YouTube Music 유통**
