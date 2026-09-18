@@ -1,6 +1,6 @@
 # jcos
 
-YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포근한 밤 자장가** (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
+YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포근한 밤 자장가** [@dodamam](https://www.youtube.com/@dodamam) (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
 
 ## 구성
 
@@ -10,6 +10,7 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포�
 | `plans/analysis_28d_20260819-0916.md` | @PPAIEO 28일 실측 분석. 두 장르 혼재, CTR 1.66%, 우선순위 재조정 |
 | `plans/channel_split_plan_20260917.md` | 수면음악 신규 채널 분리 실행 계획. 개설 설정, 콘텐츠 이관, 8주 일정, 첫 달 목표 |
 | `plans/todo_operator_20260917.md` | **운영자 실행 목록.** 채널 개설부터 4주 운영까지 메뉴 경로와 체크박스로 정리 |
+| `plans/migration_ppaieo_to_dodamam_20260918.md` | **콘텐츠 이동 절차.** @PPAIEO 39편의 그룹별 처리, 영상 ID별 재업로드 순서, 일부공개 절차, 일정 |
 | `plans/reupload_package_v1.md` | 새 채널 롱폼 6편 재업로드 메타데이터: 제목(한·영·일)·설명·태그·재생목록·최종화면·썸네일 문구·예약 시각 |
 | `plans/album_tracklist_v1.md` | 유통용 앨범 2장(허밍·무가사 각 15곡) 트랙리스트와 원본 영상 매핑 |
 | `templates/title_description_templates.md` | 제목 공식, 키워드 풀, 한·영·일 제목 샘플 20종, 설명문 템플릿 |
