@@ -2,6 +2,14 @@
 
 YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포근한 밤 자장가** [@dodamam](https://www.youtube.com/@dodamam) (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
 
+## 대상 채널
+
+| 채널 | 주제 | 상태 |
+|---|---|---|
+| [@dodamam](https://www.youtube.com/@dodamam) 포근한 밤 자장가 | 아기 수면음악 | 2026-09-18 개설, 주력 |
+| [@PPAIEO](https://www.youtube.com/@PPAIEO) | 러닝 케이던스 음악 (롱폼 + 쇼츠) | 수면 콘텐츠 분리 중 |
+| [@jkos_kr](https://www.youtube.com/@jkos_kr) | 러닝 쇼츠 | @PPAIEO와 통합 검토 중 (`plans/analysis_3channels_20260920.md` 4-5) |
+
 ## 구성
 
 | 경로 | 내용 |
