@@ -8,7 +8,7 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포�
 |---|---|---|
 | [@dodamam](https://www.youtube.com/@dodamam) 포근한 밤 자장가 | 아기 수면음악 | 2026-09-18 개설, 주력 |
 | [@PPAIEO](https://www.youtube.com/@PPAIEO) | 러닝 케이던스 음악 (롱폼 + 쇼츠) | 수면 콘텐츠 분리 중 |
-| [@jkos_kr](https://www.youtube.com/@jkos_kr) | 중경외시 광고채널 | 광고 도달 유지 + 콘텐츠 채널 전환 추진 (`plans/jkos_content_strategy_20260921.md`) |
+| [@jkos_kr](https://www.youtube.com/@jkos_kr) | 입시 앱 마케팅 (중경외시 소재) | 쇼츠로 앱 설치, 롱폼으로 구독 자산 (`plans/jkos_content_strategy_20260921.md`) |
 
 ## 구성
 
@@ -18,7 +18,7 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포�
 | `plans/analysis_28d_20260819-0916.md` | @PPAIEO 28일 실측 분석. 두 장르 혼재, CTR 1.66%, 우선순위 재조정 |
 | `plans/strategy_direction_20260920.md` | 다각도 재분석(수명 곡선, 노출 구간별 CTR, 길이별 유지율, 구독 전환, 업로드 밀도, 제목 패턴)과 두 채널의 전략 방향 |
 | `plans/analysis_3channels_20260920.md` | 3개 채널 비교 분석. 채널 분리 효과 검증(유지율 8%→60%), 트래픽 소스 품질, 신규 채널 첫 주 진단 |
-| `plans/jkos_content_strategy_20260921.md` | @jkos_kr 콘텐츠 채널 전환 전략. 광고를 콘텐츠 안에 넣는 구조, 검색용 롱폼 주제 20개, 시즌 캘린더, KPI |
+| `plans/jkos_content_strategy_20260921.md` | @jkos_kr 앱 마케팅 전략. 설치 축(쇼츠)과 자산 축(롱폼) 분리, 설치 추적 설정, 검색용 주제 20개, 시즌 캘린더 |
 | `plans/channel_split_plan_20260917.md` | 수면음악 신규 채널 분리 실행 계획. 개설 설정, 콘텐츠 이관, 8주 일정, 첫 달 목표 |
 | `plans/todo_operator_20260917.md` | **운영자 실행 목록.** 채널 개설부터 4주 운영까지 메뉴 경로와 체크박스로 정리 |
 | `plans/migration_ppaieo_to_dodamam_20260918.md` | **콘텐츠 이동 절차.** @PPAIEO 39편의 그룹별 처리, 영상 ID별 재업로드 순서, 일부공개 절차, 일정 |
