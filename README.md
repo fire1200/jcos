@@ -1,12 +1,12 @@
 # jcos
 
-YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포근한 밤 자장가** [@dodamam](https://www.youtube.com/@dodamam) (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
+YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **토담토담** [@dodamam](https://www.youtube.com/@dodamam) (아기 수면음악 신규 채널, 2026-09-17 [@PPAIEO](https://www.youtube.com/@PPAIEO)에서 분리 결정)
 
 ## 대상 채널
 
 | 채널 | 주제 | 상태 |
 |---|---|---|
-| [@dodamam](https://www.youtube.com/@dodamam) 포근한 밤 자장가 | 아기 수면음악 | 2026-09-18 개설, 주력 |
+| [@dodamam](https://www.youtube.com/@dodamam) 토담토담 | 아기 수면음악 | 2026-09-18 개설, 주력 |
 | [@PPAIEO](https://www.youtube.com/@PPAIEO) | 러닝 케이던스 음악 (롱폼 + 쇼츠) | 수면 콘텐츠 분리 중 |
 | [@jkos_kr](https://www.youtube.com/@jkos_kr) | 입시 앱 마케팅 (중경외시 소재) | 쇼츠로 앱 설치, 롱폼으로 구독 자산 (`plans/jkos_content_strategy_20260921.md`) |
 
