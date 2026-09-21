@@ -10,10 +10,15 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **포�
 | [@PPAIEO](https://www.youtube.com/@PPAIEO) | 러닝 케이던스 음악 (롱폼 + 쇼츠) | 수면 콘텐츠 분리 중 |
 | [@jkos_kr](https://www.youtube.com/@jkos_kr) | 입시 앱 마케팅 (중경외시 소재) | 쇼츠로 앱 설치, 롱폼으로 구독 자산 (`plans/jkos_content_strategy_20260921.md`) |
 
+## 시작점
+
+**[`plans/master_strategy_20260921.md`](plans/master_strategy_20260921.md) — 3개 채널 통합 전략.** 여기서 시작하세요.
+
 ## 구성
 
 | 경로 | 내용 |
 |---|---|
+| `plans/master_strategy_20260921.md` | **3채널 통합 전략.** 자원 배분, 마일스톤 계산, 주간 루틴, 위험 요소 |
 | `plans/youtube_baby_sleep_exposure_v2_20260916.md` | 노출 개선 종합대책 v2. 진단 트리, 우선순위별 처방, 4주 계획, KPI |
 | `plans/analysis_28d_20260819-0916.md` | @PPAIEO 28일 실측 분석. 두 장르 혼재, CTR 1.66%, 우선순위 재조정 |
 | `plans/strategy_direction_20260920.md` | 다각도 재분석(수명 곡선, 노출 구간별 CTR, 길이별 유지율, 구독 전환, 업로드 밀도, 제목 패턴)과 두 채널의 전략 방향 |
