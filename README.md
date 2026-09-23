@@ -39,6 +39,7 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **토�
 | `templates/audio_production_spec.md` | 라우드니스 수치, 구간별 타임라인, 음원 출처 관리 (처방 3-4) |
 | `templates/shorts_playbook.md` | 쇼츠 규격, 훅 5종 대본, 롱폼 전환 설계 (처방 3-5) |
 | `templates/live_stream_runbook.md` | 24시간 라이브 송출·자동 재시작·장애 대응 (처방 3-6) |
+| `templates/suno_prompts.md` | Suno 음원 생성 스크립트. 트랙별 프롬프트, 정책 주의, 후처리 8단계 |
 | `templates/music_distribution_podcast_checklist.md` | YouTube Music 유통, 공식 아티스트 채널, 팟캐스트 RSS 연동 (처방 3-9) |
 | `calendar/4week_calendar.xlsx` | 4주 실행 캘린더. 시작일을 바꾸면 날짜 자동 재계산 |
 | `tools/kpi_tracker.xlsx` | 28일 KPI 추적 시트 + 영상별 첫 7일 로그 |
