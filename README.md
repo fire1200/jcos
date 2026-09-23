@@ -12,12 +12,14 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **토�
 
 ## 시작점
 
-**[`plans/master_strategy_20260921.md`](plans/master_strategy_20260921.md) — 3개 채널 통합 전략.** 여기서 시작하세요.
+**[`plans/SUMMARY.md`](plans/SUMMARY.md) — 전체 정리.** 처음이라면 여기만 읽으면 됩니다.
+그다음 [`plans/master_strategy_20260921.md`](plans/master_strategy_20260921.md)에 3채널 통합 전략이 있습니다.
 
 ## 구성
 
 | 경로 | 내용 |
 |---|---|
+| `plans/SUMMARY.md` | **전체 정리.** 한 장 요약, 데이터 사실, 결정 기록, 채널별 전략, 문서 지도 |
 | `plans/master_strategy_20260921.md` | **3채널 통합 전략.** 자원 배분, 마일스톤 계산, 주간 루틴, 위험 요소 |
 | `plans/todam_growth_plan_20260923.md` | **토담토담 조회수 성장 통합안.** 외부 자문과 내부 분석 병합, 9/26 판단 분기, 변경 이력 관리 |
 | `plans/todam_schedule_20260923.md` | **토담토담 실행 일정표.** 9/23~12/23 날짜별 계획, 4주·8주·3개월 리뷰 기준, 주간 루틴 |
