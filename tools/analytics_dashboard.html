@@ -380,7 +380,7 @@ function diagnose(v){
     '재생목록 전수 배치, 최종화면 다음 영상 지정, 썸네일 레이아웃 통일. 24시간 라이브로 세션 시간을 보강합니다.', '처방 3-2, 3-3, 3-6');
   if(v.ctr!=null&&v.ctr<3) add('bad','노출 클릭률 '+fmtPct(v.ctr)+' (3% 미만)',
     '노출은 나오는데 클릭이 안 됩니다. 썸네일과 제목이 부모의 상황을 말하지 못하고 있습니다.',
-    '제목 공식(키워드 | 상황 훅 | 길이 | 무광고) 적용, 썸네일 3종 A/B 테스트를 매 영상에 등록합니다.', '처방 3-3, templates/title_description_templates.md');
+    '제목 공식(키워드 | 상황 훅 | 길이 | 연속재생) 적용, 썸네일 3종 A/B 테스트를 매 영상에 등록합니다.', '처방 3-3, templates/title_description_templates.md');
   else if(v.ctr!=null&&v.ctr<TARGET.ctr) add('warn','노출 클릭률 '+fmtPct(v.ctr)+' (목표 4% 미만)',
     '경계 구간입니다. 영상별 편차를 확인해 하위 영상의 썸네일부터 교체합니다.', '스튜디오 콘텐츠 탭에서 CTR 하위 5편 썸네일 재제작.', '처방 3-3');
   if(v.avd!=null&&v.avd<8) add('bad','평균 시청 지속 시간 '+fmtMin(v.avd)+' (8분 미만)',

@@ -91,8 +91,12 @@ def check_row(row: dict[str, str], seen_first_sentences: dict[str, str]) -> Resu
             r.warnings.append(f"클릭베이트 표현: {', '.join(bait)}")
         if title.count("!") > 1:
             r.warnings.append("느낌표 2개 이상")
-        if any(w in title.lower() for w in NO_ADS_WORDS) and duration and duration.isdigit() and int(duration) >= 480:
-            r.warnings.append("'광고없음' 표기: 미드롤 광고 설정이 꺼져 있는지 확인")
+        if any(w in title.lower() for w in NO_ADS_WORDS):
+            r.warnings.append(
+                "'광고없음' 표기: 유튜브는 수익 창출을 하지 않는 채널의 영상에도 "
+                "광고를 표시할 수 있어(한국 2021-06-01 적용) 운영자가 보장할 수 없다. "
+                "'연속재생' 등 검증 가능한 표현으로 바꿀 것"
+            )
 
     # --- 설명 ---
     if not desc:

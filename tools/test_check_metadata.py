@@ -76,8 +76,18 @@ class TitleRules(unittest.TestCase):
         res, _ = issues(row(title="아기 수면음악 | 자장가 10시간 광고없음", duration_min="600"))
         self.assertTrue(any("광고없음" in w for w in res.warnings))
 
-    def test_no_ads_claim_on_short_video_does_not_warn(self):
+    def test_no_ads_warns_on_short_video_too(self):
+        """길이와 무관하게 경고한다. 유튜브는 비수익 채널 영상에도 광고를 붙일 수 있다."""
         res, _ = issues(row(title="아기 수면음악 | 자장가 60분 광고없음", duration_min="60"))
+        self.assertTrue(any("광고없음" in w for w in res.warnings))
+
+    def test_continuous_playback_wording_passes(self):
+        """'연속재생'은 검증 가능한 표현이므로 경고하지 않는다."""
+        res, _ = issues(row(title="아기 수면음악 | 엄마 허밍 자장가 3시간 연속재생", duration_min="180"))
+        self.assertFalse(any("광고없음" in w for w in res.warnings))
+
+    def test_no_ads_claim_on_short_video_does_not_warn(self):
+        res, _ = issues(row(title="아기 수면음악 | 엄마 허밍 자장가 60분 연속재생", duration_min="60"))
         self.assertFalse(any("광고없음" in w for w in res.warnings))
 
 
