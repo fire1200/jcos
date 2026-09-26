@@ -14,7 +14,7 @@
 | `plans/channel_split_plan_20260917.md` | 토담토담 분리·개설 계획 |
 | `plans/migration_ppaieo_to_dodamam_20260918.md` | 빠이요 → 토담토담 콘텐츠 이동 절차 |
 | `plans/reupload_package_v1.md` | 토담토담 재업로드 6편 메타데이터 |
-| `plans/jkos_content_strategy_20260921.md` | 중경외시 앱 마케팅 전략 |
+| `jkos/strategy_20260921.md` | 중경외시 앱 마케팅 전략 |
 | `plans/analysis_3channels_20260920.md` | 3채널 데이터 분석 |
 | `plans/strategy_direction_20260920.md` | 다각도 분석과 방향 |
 | `templates/` | 제목·썸네일·오디오·쇼츠·라이브·커뮤니티 실행 문서 |
