@@ -12,6 +12,8 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **토�
 
 ## 시작점
 
+**토담토담 전략은 [`todam/README.md`](todam/README.md)에서 세웁니다.** 현재 상태·확정 전략·일정·문서 지도가 한곳에 있고, 결정 이력은 [`todam/decision_log.md`](todam/decision_log.md)에 기록합니다.
+
 **[`plans/SUMMARY.md`](plans/SUMMARY.md) — 전체 정리.** 처음이라면 여기만 읽으면 됩니다.
 그다음 [`plans/master_strategy_20260921.md`](plans/master_strategy_20260921.md)에 3채널 통합 전략이 있습니다.
 
@@ -19,6 +21,7 @@ YouTube 채널 운영 계획 및 전략 문서 저장소. 현재 대상: **토�
 
 | 경로 | 내용 |
 |---|---|
+| `todam/` | **토담토담 전략 작업 공간.** `README.md`(허브), `decision_log.md`(결정·변경 이력) |
 | `plans/SUMMARY.md` | **전체 정리.** 한 장 요약, 데이터 사실, 결정 기록, 채널별 전략, 문서 지도 |
 | `plans/master_strategy_20260921.md` | **3채널 통합 전략.** 자원 배분, 마일스톤 계산, 주간 루틴, 위험 요소 |
 | `plans/todam_growth_plan_20260923.md` | **토담토담 조회수 성장 통합안.** 외부 자문과 내부 분석 병합, 9/26 판단 분기, 변경 이력 관리 |
