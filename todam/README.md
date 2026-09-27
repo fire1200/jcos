@@ -13,6 +13,7 @@
 | `todam/dongyo_copyright_20260927.md` | 동요를 Suno로 만들 때의 저작권 검토. 곡별 판정, Suno·유튜브 조건, 적용 제안 |
 | `todam/dongyo_pd_list_20260927.md` | **쓸 수 있는 동요·자장가 선율 목록.** 홍난파 동요, 세계 자장가, 외국 민요, 전래, 크리스마스, 첫 편 8곡 구성 |
 | `todam/melody_lullaby_01_workbook.md` | **동요 선율 자장가 #1 작업서.** 목적, 원칙, 날짜별 작업 목록, 곡별 카드와 Suno 프롬프트, 메타데이터, 체크리스트를 한 파일에 |
+| `todam/visual_melody_lullaby_01.md` | 동요 선율 자장가 #1 썸네일 문구, 이미지 프롬프트, 영상 합성 명령 (`scripts/win/melody01_visual.bat`) |
 | `todam/spec_melody_lullaby_01_20260927.md` | **동요 선율 자장가 #1 제작 사양** (11/3 공개). 곡 구성, MIDI→Suno 절차, 마스터링, 메타데이터 확정판, 일정, 체크리스트 |
 
 새 전략 문서는 `todam/` 아래에 `주제_YYYYMMDD.md`로 만들고, 이 문서의 5장 문서 지도에 한 줄 추가합니다.
