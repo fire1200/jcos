@@ -1,8 +1,10 @@
 # 동요 선율 자장가 #1 — 썸네일 문구와 영상 합성 (2026-09-27)
 
+> **실행은 `todam/melody_lullaby_01_finish.md` 하나로 합쳤습니다.** 배치 파일도 음원 처리까지 포함한 `melody01_all.bat`으로 바뀌었습니다. 이 문서는 설계 근거로 남깁니다.
+
 작업서: `todam/melody_lullaby_01_workbook.md` 8장
 썸네일 규칙: `templates/thumbnail_guide.md`
-실행 파일: `scripts/win/melody01_visual.bat` (Windows, 더블클릭)
+실행 파일: `scripts/win/melody01_all.bat` (Windows, 더블클릭)
 
 ---
 
@@ -86,7 +88,7 @@ isolated on transparent background, soft lighting, no text, top-down symmetrical
 
 ## 3. 실행 — 배치 파일 (권장)
 
-1. 저장소의 `scripts/win/melody01_visual.bat`을 `D:\Music\토담토담`에 복사
+1. 저장소의 `scripts/win/melody01_all.bat`을 `D:\Music\토담토담`에 복사
 2. 같은 폴더에 아래 파일을 **영문 이름 그대로** 둡니다
 
 | 파일 | 내용 |
