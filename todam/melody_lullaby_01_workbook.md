@@ -911,15 +911,17 @@ Keep the volume under 50dB and the device at least 2m away from your baby.
 
 | # | 곡 | 악보 출처 | MIDI 파일 | Suno 생성 일시 | 요금제 | 선택한 생성본 | 자체 레이어 | 비고 |
 |---:|---|---|---|---|---|---|---|---|
-| 1 | 반짝반짝 작은별 | 직접 채보 | twinkle_melody.mid | | Pro | | | |
-| 2 | 브람스 자장가 | IMSLP | brahms_melody.mid | | Pro | | | |
-| 3 | 나비야 | 직접 채보 | nabiya_melody.mid | | Pro | | | |
-| 4 | 고향의 봄 | 공유마당 원판 | gohyang_melody.mid | | Pro | | | |
-| 5 | 모차르트 자장가 | IMSLP | flies_melody.mid | | Pro | | | |
-| 6 | 낮에 나온 반달 | 공유마당 원판 | banddal_melody.mid | | Pro | | | |
-| 7 | 슈베르트 자장가 | IMSLP | schubert_melody.mid | | Pro | | | |
-| 8 | 저녁 기도 | IMSLP | abendsegen_melody.mid | | Pro | | | |
+| 1 | 반짝반짝 작은별 | 직접 채보 | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/5cc1d9e9-764c-4fd9-8ef0-704a0812dcc2) | 없음 | 8분판 루프, 재구성 필요 |
+| 2 | 브람스 자장가 | IMSLP | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/1175a058-756f-4aef-844a-b9954807a0c3) | 없음 | 8분판 루프, 재구성 필요 |
+| 3 | 나비야 | 직접 채보 | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/af62b6a5-ef12-4897-8119-544e36294ade) | 없음 | 8분판 루프, 재구성 필요 |
+| 4 | 고향의 봄 | 공유마당 원판 | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/3d65a226-de48-484f-aa71-48ee8a01182c) | 없음 | 8분판 루프, 재구성 필요 |
+| 5 | 모차르트 자장가 | IMSLP | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/19bbcf83-6021-44ea-8e5e-012a88120437) | 없음 | 8분판 루프, 재구성 필요 |
+| 6 | 낮에 나온 반달 | 공유마당 원판 | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/e6735bd8-92ef-46df-bc5f-e2b6b5c96c7f) | 없음 | 8분판 루프, 재구성 필요 |
+| 7 | 슈베르트 자장가 | IMSLP | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/5e87dbe6-8139-4d00-a0d1-fb52f0c97d68) | 없음 | 8분판 루프, 재구성 필요 |
+| 8 | 저녁 기도 | IMSLP | **없음 (프롬프트만)** | 2026-09-27 | Pro | [suno](https://suno.com/song/f48089bb-8a5d-4f57-a6e9-5b637a2f1b69) | 없음 | 8분판 루프, 재구성 필요 |
 
+> **2026-09-27 초안 제작 완료 (운영자, Suno v6).** 2차 검토에서 작업서와 다른 점 8건 — `todam/review_melody_lullaby_01_audio_20260927.md` 6장.
+>
 > **1차 검수 (2026-09-27):** 1~3번 생성본 검수 결과는 `todam/review_melody_lullaby_01_audio_20260927.md`. 8분판은 루프가 아니라 Extend 또는 생성본 교대로 다시 만들기.
 
 ## 부록 B. 근거 문서
