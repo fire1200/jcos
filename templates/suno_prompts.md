@@ -344,6 +344,7 @@ instrumental only, no vocals, for expecting mothers
 | 10/11 | 오르골 시험 3곡 | 후보 영상 | Suno Cover | 4 | 2시간 |
 | 10/26 | 허밍 나머지 7곡 확장 | 10시간판 (11/17) | 원본 프로젝트 우선 | 2 | 4시간 |
 | **11/8** | **크리스마스 캐롤 오르골 4곡** | 11/20 공개 | Suno | **4-2 (신규)** | 3시간 |
+| **10/26~10/29** | **동요 선율 자장가 8곡** (선율 MIDI 업로드 → Cover → Extend) | 11/3 공개 | Suno | **11 (신규)** | 3.3시간 |
 | 필요 시 | 브람스 자장가 편곡 | 후보 영상 | Suno | 5 | 1시간 |
 
 ### 새로 만들 필요가 **없는** 것
@@ -367,3 +368,353 @@ instrumental only, no vocals, for expecting mothers
 허밍 8곡 확장이 진짜 병목입니다. **원본 프로젝트 파일이 있는지**가 작업량을 3시간과 12시간으로 갈라 놓습니다(`plans/todam_schedule_20260923.md` 9-2-3절).
 
 **기존 15곡의 확장은 가능하면 원본 프로젝트 파일로 하세요.** Suno Extend는 그것이 불가능할 때의 대안이고, 원곡과 음색이 미묘하게 어긋나 이어 붙인 자리가 들립니다.
+
+---
+
+## 11. 동요 선율 자장가 #1 — 곡별 프롬프트 (11/3 공개분)
+
+제작 사양: `todam/spec_melody_lullaby_01_20260927.md` (곡 순서·조성·템포는 1장, 절차는 2장)
+저작권: 8곡 모두 선율 저작권 만료 (`todam/dongyo_pd_list_20260927.md`). **가사는 어떤 언어로도 넣지 않습니다.**
+
+### 11-0. 공통 사용법
+
+| 항목 | 값 |
+|---|---|
+| 요금제 | **Pro 구독 중에만** 생성 |
+| 모드 | Custom |
+| 입력 | 사양 2-1에서 직접 만든 선율 WAV (`곡명_melody.wav`, 30~60초)를 **Upload → Cover** |
+| 고급 옵션 (있을 때) | Audio Influence **높게(70~80%)** — 선율 유지 / Weirdness **낮게(15~25%)** / Style Influence 중간(50~60%) |
+| 생성 수 | 곡당 4~6회, 선율이 원곡과 가장 가까운 것 선택 |
+| 확장 | 고른 결과를 **Extend**로 8분까지. 확장할 때 가사란은 각 곡의 "확장용" 블록으로 교체 |
+| 곡명이 거부될 때 | 스타일 프롬프트에서 곡·작곡가 이름 줄만 지우고 다시 생성 (선율은 업로드 음원이 잡아 줌) |
+
+**스타일 프롬프트는 곡별 블록을 통째로 복사합니다.** 공통 문구를 이미 합쳐 두었습니다.
+
+**허밍 곡의 가사란 `Mmm` 개수는 원곡 한 소절의 음표 수에 맞췄습니다.** Suno가 소절 길이를 맞추는 데만 쓰는 것이고, 실제 선율은 업로드 음원을 따릅니다. 원곡 가사를 대신 넣으면 안 됩니다.
+
+---
+
+### 11-1. 반짝반짝 작은별 — 오르골 (0:00~8:00)
+
+업로드: `twinkle_melody.wav` (F장조, 56 bpm)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+music box lullaby of Twinkle Twinkle Little Star,
+antique wind-up music box timbre, F major, 56 bpm,
+simple theme then very gentle variations, sparse single note melody,
+soft mechanical click extremely quiet, long decay, warm and nostalgic,
+slight detune for vintage feel, instrumental only, no percussion, no vocals,
+low-pass filtered above 10kHz, soothing for newborn sleep
+```
+
+가사란:
+```
+[Instrumental]
+[Intro]
+[Melody]
+[Melody - softer]
+[Outro]
+```
+
+확장용:
+```
+[Instrumental]
+[Melody - gentle variation]
+[Melody - sparser, slower feel]
+```
+
+---
+
+### 11-2. 브람스 자장가 — 엄마 허밍 (8:00~16:00)
+
+업로드: `brahms_melody.wav` (F장조, 54 bpm)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+Brahms Lullaby, gentle female humming lullaby,
+solo soft felt piano accompaniment in a lilting 3/4 waltz feel,
+F major, 54 bpm, warm intimate close-mic vocal, breathy and tender,
+minimal arrangement, long reverb tail, no percussion, no lyrics,
+Korean lullaby feel, low-pass filtered above 10kHz, soothing for newborn sleep
+```
+
+가사란:
+```
+[Instrumental intro]
+
+[Humming]
+Mmm mmm mmm, mmm mmm mmm
+Mmm mmm mmm, mmm mmm mmm mmm
+Mmm mmm mmm, mmm mmm mmm
+Mmm mmm mmm, mmm mmm mmm mmm
+
+[Humming softer]
+Mmm mmm mmm mmm, mmm mmm mmm
+Mmm mmm mmm mmm, mmm mmm
+
+[Humming, fading]
+Mmm mmm mmm, mmm mmm mmm
+```
+
+확장용:
+```
+[Humming softer]
+Mmm mmm mmm, mmm mmm mmm
+Mmm mmm mmm, mmm mmm mmm mmm
+
+[Piano interlude]
+
+[Humming, very soft]
+Mmm mmm mmm, mmm mmm mmm
+```
+
+---
+
+### 11-3. 나비야 — 오르골, 원곡 절반 템포 (16:00~24:00)
+
+업로드: `nabiya_melody.wav` (F장조, 52 bpm — **원래 경쾌한 곡을 절반 속도로 입력**)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+slow music box lullaby, a lively children's folk tune reimagined at half speed,
+very legato and calm, antique wind-up music box timbre, F major, 52 bpm,
+sparse single note melody, soft sustained pad underneath very quiet,
+soft mechanical click extremely quiet, long decay, dreamy and tender,
+instrumental only, no percussion, no vocals, no bouncy rhythm,
+low-pass filtered above 10kHz, soothing for newborn sleep
+```
+
+가사란:
+```
+[Instrumental]
+[Intro]
+[Melody - slow and legato]
+[Melody - softer]
+[Outro]
+```
+
+확장용:
+```
+[Instrumental]
+[Melody - slower, fewer notes]
+[Pad interlude]
+```
+
+| 주의 | 이유 |
+|---|---|
+| 결과가 통통 튀면 버립니다 | 원곡의 놀이 리듬이 살아나면 수면용이 아닙니다. `no bouncy rhythm` 이 안 먹히면 업로드 음원 자체를 더 레가토로 다시 입력 |
+
+---
+
+### 11-4. 고향의 봄 — 엄마 허밍 (24:00~32:00)
+
+업로드: `gohyang_melody.wav` (B♭장조, 52 bpm). 선율 출처는 홍난파 원곡 악보 (공유마당 『조선동요백곡집』 원판)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+gentle female humming lullaby, nostalgic Korean spring memory,
+solo soft felt piano accompaniment with warm open chords,
+B-flat major, 52 bpm, warm intimate close-mic vocal, breathy and tender,
+minimal arrangement, long reverb tail, no percussion, no lyrics,
+Korean lullaby feel, low-pass filtered above 10kHz, soothing for newborn sleep
+```
+
+가사란 (소절당 7음 + 5음):
+```
+[Instrumental intro]
+
+[Humming]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+
+[Humming, fading]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+```
+
+확장용:
+```
+[Humming softer]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+
+[Piano interlude]
+
+[Humming, very soft]
+Mmm mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+```
+
+**작사(이원수) 가사는 보호 중입니다.** Suno 가사란은 물론 설명란·자막에도 넣지 않습니다.
+
+---
+
+### 11-5. 모차르트 자장가 — 피아노 (32:00~40:00)
+
+업로드: `flies_melody.wav` (B♭장조, 50 bpm)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+Wiegenlied lullaby commonly known as Mozart's Lullaby,
+solo piano lullaby, felt piano with soft hammers, gentle rocking feel,
+B-flat major, 50 bpm, sustain pedal heavy, intimate close recording,
+simple right hand melody, minimal left hand broken chords,
+long natural reverb, warm and dark tone, no percussion,
+instrumental only, no vocals, low-pass filtered above 10kHz, for newborn sleep
+```
+
+가사란:
+```
+[Instrumental]
+[Intro]
+[Melody]
+[Melody - softer, sparser left hand]
+[Outro]
+```
+
+확장용:
+```
+[Instrumental]
+[Melody - gentle variation]
+[Melody - very soft]
+```
+
+---
+
+### 11-6. 낮에 나온 반달 — 엄마 허밍 (40:00~48:00)
+
+업로드: `banddal_melody.wav` (B♭장조, 50 bpm). 선율 출처는 홍난파 원곡 악보
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+gentle female humming lullaby, pale half moon in a quiet afternoon sky,
+wistful and tender, solo soft felt piano accompaniment, sparse celesta touches very quiet,
+B-flat major, 50 bpm, warm intimate close-mic vocal, breathy,
+minimal arrangement, long reverb tail, no percussion, no lyrics,
+Korean lullaby feel, low-pass filtered above 10kHz, soothing for newborn sleep
+```
+
+가사란 (소절당 7음 + 5음):
+```
+[Instrumental intro]
+
+[Humming]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+
+[Humming softer]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+
+[Humming, fading]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+```
+
+확장용:
+```
+[Humming, very soft]
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+Mmm mmm mmm mmm mmm mmm mmm, mmm mmm mmm mmm mmm
+
+[Piano and celesta interlude]
+```
+
+**작사(윤석중) 가사는 보호 중입니다.** 넣지 않습니다.
+
+---
+
+### 11-7. 슈베르트 자장가 — 피아노 (48:00~56:00)
+
+업로드: `schubert_melody.wav` (F장조, 48 bpm)
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+Schubert Wiegenlied D 498, solo piano lullaby in simple art song style,
+felt piano with soft hammers, gentle repeated broken chord accompaniment,
+F major, 48 bpm, sustain pedal heavy, intimate close recording,
+long natural reverb, warm and dark tone, very calm, no percussion,
+instrumental only, no vocals, low-pass filtered above 10kHz, for newborn sleep
+```
+
+가사란:
+```
+[Instrumental]
+[Intro]
+[Melody]
+[Melody - softer]
+[Outro]
+```
+
+확장용:
+```
+[Instrumental]
+[Melody - slower feel, fewer notes]
+[Chord interlude, very soft]
+```
+
+---
+
+### 11-8. 저녁 기도 (훔퍼딩크) — 낮은 허밍 + 피아노 (56:00~64:00)
+
+업로드: `abendsegen_melody.wav` (F장조, 46 bpm) — 순환의 마지막 곡, 가장 느리고 낮게
+
+스타일:
+```
+follow the uploaded melody faithfully, do not add a new melody,
+Evening Prayer from Hansel and Gretel by Humperdinck,
+very low soft female alto humming, reverent and peaceful, hymn-like chorale chords,
+soft felt piano underneath, very low register, F major, 46 bpm,
+warm intimate close-mic vocal, breathy, minimal arrangement,
+very long reverb tail, no percussion, no lyrics, drifting into sleep,
+low-pass filtered above 9kHz, soothing for newborn sleep
+```
+
+가사란:
+```
+[Instrumental intro]
+
+[Low humming]
+Mmm mmm mmm mmm, mmm mmm mmm mmm
+Mmm mmm mmm mmm, mmm mmm mmm mmm
+
+[Low humming, softer]
+Mmm mmm mmm mmm, mmm mmm mmm mmm
+Mmm mmm mmm mmm, mmm mmm mmm
+
+[Piano chorale, fading]
+```
+
+확장용:
+```
+[Low humming, very soft]
+Mmm mmm mmm mmm, mmm mmm mmm mmm
+
+[Piano chorale, very sparse]
+```
+
+| 주의 | 이유 |
+|---|---|
+| 이 곡 끝이 1회차 순환의 끝입니다 | 다음 순환 1번(반짝반짝 작은별 오르골)으로 넘어갈 때 음량이 튀지 않게, 조립 단계에서 오르골 쪽 도입을 -3 dB로 시작 |
+
+---
+
+### 11-9. 생성 후 확인 (곡마다)
+
+| 확인 | 기준 | 불합격이면 |
+|---|---|---|
+| 선율 | 원곡을 아는 부모가 첫 소절에 알아듣는가 | Audio Influence 올려 재생성 |
+| 다른 곡 섞임 | 원곡에 없는 선율이 8마디 넘게 이어지는가 | 버림. 다른 저작물과 닮을 위험 |
+| 가사 | 알아들을 수 있는 단어가 나오는가 | 버림. 허밍만 허용 |
+| 리듬 | 타악기·통통 튀는 리듬이 있는가 | 버림 |
+| 고역 | 오르골·첼레스타가 귀에 찌르는가 | 후처리 EQ로 해결, 안 되면 재생성 |
+| 기록 | 생성 일시·Pro 요금제 화면 캡처 | 8-3 기록표에 한 줄 |
+
+이후는 `todam/spec_melody_lullaby_01_20260927.md` 2-3절(곡별 트림·자체 레이어)로 넘어갑니다.

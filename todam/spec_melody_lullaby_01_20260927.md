@@ -82,6 +82,8 @@
 
 ### 2-2. Suno 생성 (곡당 25분)
 
+**곡별로 복사해 쓰는 완성 프롬프트는 `templates/suno_prompts.md` 11장에 있습니다.** 아래는 구성 원리입니다.
+
 Suno **Audio Upload**에 2-1의 WAV를 올리고, 편성별 스타일 프롬프트를 적용합니다. 가사란은 허밍이면 `templates/suno_prompts.md` 2-2의 허밍 표기, 나머지는 `[Instrumental]`.
 
 모든 편성 프롬프트 맨 앞에 이 줄을 붙입니다.
