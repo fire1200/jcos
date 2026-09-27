@@ -920,6 +920,8 @@ Keep the volume under 50dB and the device at least 2m away from your baby.
 | 7 | 슈베르트 자장가 | IMSLP | schubert_melody.mid | | Pro | | | |
 | 8 | 저녁 기도 | IMSLP | abendsegen_melody.mid | | Pro | | | |
 
+> **1차 검수 (2026-09-27):** 1~3번 생성본 검수 결과는 `todam/review_melody_lullaby_01_audio_20260927.md`. 8분판은 루프가 아니라 Extend 또는 생성본 교대로 다시 만들기.
+
 ## 부록 B. 근거 문서
 
 | 문서 | 내용 |
