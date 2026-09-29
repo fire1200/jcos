@@ -6,6 +6,21 @@
 
 ---
 
+## ✅ 9/29 생성 완료 — 결과와 배정
+
+`D:\Music\토담토담\suno_1001_1120\final_wav` (10분·8분판, 6초 크로스페이드 반복) / `raw_wav` (Suno 원본)
+
+| 소재 | 1안 | 2안 | 쓰는 곳 |
+|---|---|---|---|
+| 빗소리 | `01_rain_option_1_window_night_10min.wav` → **10/9 #3** | `02_rain_option_2_warm_roof_window_10min.wav` → **10/13 #5** | 두 영상이 다른 빗소리 |
+| 물소리 | `03_water_option_1_small_stream_stones_10min.wav` → **10/13 #5** | `04_…distant_calm_brook…` → 예비 | |
+| 쉬 소리 | `05_shush_option_1_continuous_soft_10min.wav` → **10/13 #5** | `06_shush_option_2_rhythmic_parent_10min.wav` → **11/3 #2 울음 멈추는 소리** | |
+| 캐롤 4곡 | 8개 (곡당 2버전) | | **두 버전 모두 글로만 생성** → 선율이 원곡인지 **11/8 전 청음 필수**. 틀리면 MIDI 업로드로 재생성 |
+
+**청음은 아직 안 됨.** 각 파일의 "고르는 기준"으로 들어 보고, 탈락 파일이 있으면 알려 주세요.
+
+---
+
 ## 0. 한눈에
 
 | 순서 | 무엇 | 마감 | 쓰는 영상 | 저장할 파일 이름 | 필요 길이 |

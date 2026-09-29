@@ -7,6 +7,7 @@ rem 안내서: todam/rain03_finish.md
 rem
 rem 같은 폴더에 둘 파일 (확장자는 그대로, mp3·wav·mp4 모두 가능):
 rem   rain_source.*    빗소리 5분 이상 (10분 이상 권장)
+rem                    없으면 Suno 1안 01_rain_option_1_window_night_10min.wav 를 자동으로 씀
 rem   piano_1.*        소담소담 빗방울 (무가사)
 rem   piano_2.*        새근새근 숲속 (무가사)
 rem   piano_3.*        살랑이는 모래 (무가사)
@@ -24,6 +25,7 @@ set P2=
 set P3=
 set RVID=
 for %%F in (rain_source.*) do set RAIN=%%F
+if "%RAIN%"=="" if exist 01_rain_option_1_window_night_10min.wav set RAIN=01_rain_option_1_window_night_10min.wav
 for %%F in (piano_1.*) do set P1=%%F
 for %%F in (piano_2.*) do set P2=%%F
 for %%F in (piano_3.*) do set P3=%%F

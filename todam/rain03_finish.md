@@ -21,6 +21,8 @@
 
 ## 1. 준비물
 
+> **9/29 추가:** 빗소리도 준비됐습니다 — Suno 1안 `01_rain_option_1_window_night_10min.wav`. 이 파일을 #3 폴더에 복사하면 배치 파일이 **이름을 바꾸지 않아도** 자동으로 씁니다. (2안은 10/13 #5용)
+>
 > **9/29 준비 상태:** 피아노 3곡 ✅ (`piano_1~3.mp3`, 해시 확인), 배경 그림 ✅ (`rain_bg.png`, 1672×941 — 자동으로 1920×1080에 맞춤, 시험 렌더 통과). **남은 것은 빗소리 하나.**
 >
 > Kling으로 만든 10초 창문 영상(`02_rainy_window_remake_raw.mp4`)은 30분 동안 180번 반복되어 눈에 띄므로 쓰지 않습니다. **폴더에 `rain_window` 이름으로 두지 마세요** — 그 이름이 있으면 배치 파일이 그림 대신 영상을 씁니다.
@@ -252,6 +254,7 @@ rem 안내서: todam/rain03_finish.md
 rem
 rem 같은 폴더에 둘 파일 (확장자는 그대로, mp3·wav·mp4 모두 가능):
 rem   rain_source.*    빗소리 5분 이상 (10분 이상 권장)
+rem                    없으면 Suno 1안 01_rain_option_1_window_night_10min.wav 를 자동으로 씀
 rem   piano_1.*        소담소담 빗방울 (무가사)
 rem   piano_2.*        새근새근 숲속 (무가사)
 rem   piano_3.*        살랑이는 모래 (무가사)
@@ -269,6 +272,7 @@ set P2=
 set P3=
 set RVID=
 for %%F in (rain_source.*) do set RAIN=%%F
+if "%RAIN%"=="" if exist 01_rain_option_1_window_night_10min.wav set RAIN=01_rain_option_1_window_night_10min.wav
 for %%F in (piano_1.*) do set P1=%%F
 for %%F in (piano_2.*) do set P2=%%F
 for %%F in (piano_3.*) do set P3=%%F
