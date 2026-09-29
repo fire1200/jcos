@@ -21,6 +21,10 @@
 
 ## 1. 준비물
 
+> **9/29 준비 상태:** 피아노 3곡 ✅ (`piano_1~3.mp3`, 해시 확인), 배경 그림 ✅ (`rain_bg.png`, 1672×941 — 자동으로 1920×1080에 맞춤, 시험 렌더 통과). **남은 것은 빗소리 하나.**
+>
+> Kling으로 만든 10초 창문 영상(`02_rainy_window_remake_raw.mp4`)은 30분 동안 180번 반복되어 눈에 띄므로 쓰지 않습니다. **폴더에 `rain_window` 이름으로 두지 마세요** — 그 이름이 있으면 배치 파일이 그림 대신 영상을 씁니다.
+
 ### 1-1. 빗소리 `rain_source.확장자` (5분 이상, 10분 이상 권장)
 
 | 방법 | 방법 | 판단 |
@@ -282,9 +286,9 @@ if "%RVID%"=="" if not exist rain_bg.png (echo 화면 소재가 없습니다. ra
 
 echo.
 echo [1/6] 소재 준비 - 빗소리·피아노 반복 이음새 정리, 심장박동 합성
-if not exist rain03_prep_rain.wav ffmpeg -v error -y -i %RAIN% -t 5 -i %RAIN% -filter_complex "[0:a]aformat=sample_rates=48000:channel_layouts=stereo,atrim=start=5,asetpts=PTS-STARTPTS[b];[1:a]aformat=sample_rates=48000:channel_layouts=stereo,asetpts=PTS-STARTPTS[h];[b][h]%XF%,loudnorm=I=-20:TP=-3:LRA=7,aresample=48000[o]" -map "[o]" -c:a pcm_s24le rain03_prep_rain.wav
+if not exist rain03_prep_rain.wav ffmpeg -v error -y -i "%RAIN%" -t 5 -i "%RAIN%" -filter_complex "[0:a]aformat=sample_rates=48000:channel_layouts=stereo,atrim=start=5,asetpts=PTS-STARTPTS[b];[1:a]aformat=sample_rates=48000:channel_layouts=stereo,asetpts=PTS-STARTPTS[h];[b][h]%XF%,loudnorm=I=-20:TP=-3:LRA=7,aresample=48000[o]" -map "[o]" -c:a pcm_s24le rain03_prep_rain.wav
 if not exist rain03_prep_heart.wav ffmpeg -v error -y -f lavfi -i "aevalsrc='(sin(2*PI*52*mod(t,60/70))*exp(-mod(t,60/70)*28)*(1-exp(-mod(t,60/70)*400))+if(gte(mod(t,60/70),0.28),0.6*sin(2*PI*46*(mod(t,60/70)-0.28))*exp(-(mod(t,60/70)-0.28)*28)*(1-exp(-(mod(t,60/70)-0.28)*400)),0))*0.8':s=48000:d=60" -af "lowpass=f=160,aformat=channel_layouts=stereo,loudnorm=I=-26:TP=-3,aresample=48000" -c:a pcm_s24le rain03_prep_heart.wav
-if not exist rain03_piano_seq.wav ffmpeg -v error -y -i %P1% -i %P2% -i %P3% -filter_complex "[0:a]aformat=sample_rates=48000:channel_layouts=stereo[p0];[1:a]aformat=sample_rates=48000:channel_layouts=stereo[p1];[2:a]aformat=sample_rates=48000:channel_layouts=stereo[p2];[p0][p1]acrossfade=d=4[x];[x][p2]acrossfade=d=4[o]" -map "[o]" -c:a pcm_s24le rain03_piano_seq.wav
+if not exist rain03_piano_seq.wav ffmpeg -v error -y -i "%P1%" -i "%P2%" -i "%P3%" -filter_complex "[0:a]aformat=sample_rates=48000:channel_layouts=stereo[p0];[1:a]aformat=sample_rates=48000:channel_layouts=stereo[p1];[2:a]aformat=sample_rates=48000:channel_layouts=stereo[p2];[p0][p1]acrossfade=d=4[x];[x][p2]acrossfade=d=4[o]" -map "[o]" -c:a pcm_s24le rain03_piano_seq.wav
 if not exist rain03_prep_piano.wav ffmpeg -v error -y -i rain03_piano_seq.wav -t 5 -i rain03_piano_seq.wav -filter_complex "[0:a]atrim=start=5,asetpts=PTS-STARTPTS[b];[1:a]asetpts=PTS-STARTPTS[h];[b][h]%XF%,loudnorm=I=-24:TP=-3:LRA=7,aresample=48000[o]" -map "[o]" -c:a pcm_s24le rain03_prep_piano.wav
 if not exist rain03_prep_rain.wav (echo 빗소리 준비 실패 & pause & exit /b 1)
 if not exist rain03_prep_piano.wav (echo 피아노 준비 실패 & pause & exit /b 1)
@@ -300,7 +304,7 @@ if not exist %FINAL% (echo 최종 음원 만들기 실패 & pause & exit /b 1)
 echo.
 echo [3/6] 30분 반복 배경 영상 - 약 20~40분
 if exist rain03_loop30.mp4 (echo       이미 있음, 건너뜀) else (
-if not "%RVID%"=="" ffmpeg -v error -stats -y -stream_loop -1 -i %RVID% -t 1800 -an -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=brightness=-0.06:saturation=0.8,fps=30,format=yuv420p" -c:v libx264 -preset medium -crf 26 -g 300 rain03_loop30.mp4
+if not "%RVID%"=="" ffmpeg -v error -stats -y -stream_loop -1 -i "%RVID%" -t 1800 -an -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=brightness=-0.06:saturation=0.8,fps=30,format=yuv420p" -c:v libx264 -preset medium -crf 26 -g 300 rain03_loop30.mp4
 if "%RVID%"=="" ffmpeg -v error -stats -y -loop 1 -framerate 30 -t 1800 -i rain_bg.png -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,eq=brightness='0.015*sin(2*PI*t/60)':eval=frame,format=yuv420p" -c:v libx264 -preset slow -crf 28 -tune stillimage -g 300 -r 30 rain03_loop30.mp4
 )
 if not exist rain03_loop30.mp4 (echo 배경 영상 만들기 실패 & pause & exit /b 1)

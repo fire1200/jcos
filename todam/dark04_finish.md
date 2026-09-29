@@ -18,16 +18,18 @@
 
 ## 1. 준비 (5분)
 
-`D:\Music\토담토담` 같은 작업 폴더에 두 파일만 넣습니다.
+**방법 A (권장, 복사 불필요):** `dark04_all.bat`을 작업 폴더에 두고, 기존 원본 파일을 **배치 파일 아이콘 위로 끌어다 놓습니다.** 바로 실행됩니다.
 
-| 파일 | 내용 |
-|---|---|
-| `dark04_all.bat` | 7장 원문 또는 저장소 `scripts/win/dark04_all.bat` (UTF-8로 저장) |
-| `muga_3h_source.확장자` | 기존 **"아기 수면 음악 3시간 \| 무가사 피아노 자장가 14곡"** 영상의 원본 파일. 이름만 `muga_3h_source`로 바꾸고 **확장자는 그대로** (mp3·wav·mp4 모두 됨) |
+현재 확인된 원본 (9/29 운영자 보고):
+```
+D:\Music\Children\result\longform_test_20260909\아기_수면_음악_3시간_무가사_14곡.mp4
+10,800.081초 · H.264 1920×1080 · AAC 48kHz 스테레오
+SHA256 461A8671…6476
+```
 
-원본이 없으면 스튜디오 → 콘텐츠 → 그 영상 → 점 세 개 → **다운로드**로 받은 mp4를 쓰면 됩니다. 음질은 원본보다 약간 낮지만 이 용도에는 충분합니다.
+**방법 B:** 같은 폴더에 원본을 `muga_3h_source.확장자`로 복사·이름 변경 후 더블클릭 (확장자 그대로, mp3·wav·mp4 모두 가능).
 
-썸네일 글자·별 이미지·배경은 배치 파일이 **전부 자동으로** 만듭니다.
+썸네일 글자·별 이미지·배경은 배치 파일이 **전부 자동으로** 만듭니다. 결과 파일은 배치 파일이 있는 폴더에 생깁니다.
 
 ---
 
@@ -195,8 +197,9 @@ rem ============================================================
 rem 10/6 #4 어두운 화면 3시간 - 한 번에 끝내기
 rem 안내서: todam/dark04_finish.md
 rem
-rem 준비: 이 파일을 작업 폴더에 두고, 같은 폴더에 기존 "3시간 무가사 피아노" 원본을
-rem       muga_3h_source 라는 이름으로 넣으세요. 확장자는 그대로 (mp3, wav, mp4 모두 가능).
+rem 준비 (둘 중 하나):
+rem   1) 기존 "3시간 무가사 피아노" 원본 파일을 이 배치 파일 아이콘 위로 끌어다 놓기 (복사 불필요)
+rem   2) 같은 폴더에 muga_3h_source 라는 이름으로 넣고 더블클릭 (확장자는 그대로)
 rem       이미지·글자 파일은 필요 없습니다. 전부 자동으로 만듭니다.
 rem 필요: ffmpeg full 빌드 (drawtext 포함)
 rem 결과: Dark04_Upload.mp4, dark04_thumb.jpg
@@ -207,17 +210,19 @@ cd /d "%~dp0"
 set FONT=C\:/Windows/Fonts/malgunbd.ttf
 set SRC=
 for %%F in (muga_3h_source.*) do set SRC=%%F
+if not "%~1"=="" set "SRC=%~1"
 set FINAL=Dark04_Final.wav
 set UPLOAD=Dark04_Upload.mp4
 
 where ffmpeg >nul 2>nul || (echo ffmpeg를 찾을 수 없습니다. & pause & exit /b 1)
-if "%SRC%"=="" (echo muga_3h_source 파일이 없습니다. 안내서 2장을 보세요. & pause & exit /b 1)
+if "%SRC%"=="" (echo 원본이 없습니다. 원본 파일을 배치 파일 위로 끌어다 놓거나 muga_3h_source 로 이름을 바꿔 넣으세요. & pause & exit /b 1)
+if not exist "%SRC%" (echo 원본 파일을 찾을 수 없습니다: %SRC% & pause & exit /b 1)
 echo 원본: %SRC%
 
 echo.
 echo [1/5] 최종 음원 - 핑크노이즈와 음량 정리, 약 10~20분
 if exist %FINAL% (echo       이미 있음, 건너뜀) else (
-ffmpeg -v error -stats -y -i %SRC% -f lavfi -i "anoisesrc=color=pink:sample_rate=48000:amplitude=1:seed=20261006" -filter_complex "[0:a]aformat=channel_layouts=stereo,acompressor=threshold=-30dB:ratio=2.5:attack=200:release=3000:makeup=1,loudnorm=I=-16:LRA=4:TP=-1.5,aresample=48000[m];[1:a]lowpass=f=10000,lowpass=f=10000,volume=-28dB,aformat=channel_layouts=stereo[bed];[m][bed]amix=inputs=2:duration=first:dropout_transition=0:normalize=0,loudnorm=I=-16:LRA=4:TP=-1.5,aresample=48000[out]" -map "[out]" -map_metadata -1 -c:a pcm_s24le -ar 48000 -t 10800 %FINAL%
+ffmpeg -v error -stats -y -i "%SRC%" -f lavfi -i "anoisesrc=color=pink:sample_rate=48000:amplitude=1:seed=20261006" -filter_complex "[0:a]aformat=channel_layouts=stereo,acompressor=threshold=-30dB:ratio=2.5:attack=200:release=3000:makeup=1,loudnorm=I=-16:LRA=4:TP=-1.5,aresample=48000[m];[1:a]lowpass=f=10000,lowpass=f=10000,volume=-28dB,aformat=channel_layouts=stereo[bed];[m][bed]amix=inputs=2:duration=first:dropout_transition=0:normalize=0,loudnorm=I=-16:LRA=4:TP=-1.5,aresample=48000[out]" -map "[out]" -map_metadata -1 -c:a pcm_s24le -ar 48000 -t 10800 %FINAL%
 )
 if not exist %FINAL% (echo 최종 음원 만들기 실패 & pause & exit /b 1)
 
