@@ -178,7 +178,9 @@ def main():
             ("car10", art_car, "차 안에서", "A9C8F0", False)]
     for vid, fn, text, color, light in arts:
         d = out / vid; d.mkdir(exist_ok=True)
-        bg = fn().convert("RGB"); bg.save(d / "bg.png")
+        bg = np.asarray(fn().convert("RGB")).astype(np.float32)
+        bg += np.random.default_rng(1).normal(0, 1.2, bg.shape)  # 디더링: 영상 압축 때 그라데이션 줄무늬 방지
+        bg = Image.fromarray(np.clip(bg, 0, 255).astype(np.uint8)); bg.save(d / "bg.png")
         thumb(bg, text, color, 140, a.font, d / f"{vid}_thumb.jpg", light)
 
     # 10/6 #4: 배치 파일과 같은 별 배경 + 초승달
