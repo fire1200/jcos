@@ -4,6 +4,7 @@ rem Todamtodam 10/23 #8 daytime nap, humming + pink noise 2h - all in one  (guid
 rem Put in this folder:
 rem   songs\   the song files, named 01_..., 02_... in play order (any audio format)
 rem   bg.png   background picture (optional - a plain gradient is used if missing)
+rem   nap08_thumb.jpg  finished thumbnail (optional - if present, the thumbnail step is skipped)
 rem Songs are played in 3 different orders, so one full cycle is 3x the song set.
 rem Needs: ffmpeg full build (drawtext). Output: Nap08_Upload.mp4, nap08_thumb.jpg
 rem Existing results are skipped. Delete a result file to rebuild it.
@@ -76,9 +77,14 @@ if not exist %ID%_loop30.mp4 (echo ERROR: background video failed & pause & exit
 
 echo.
 echo [4/6] Thumbnail
+if not exist %ID%_thumb.jpg goto makethumb
+echo       already exists, skipped (delete %ID%_thumb.jpg to rebuild)
+goto thumbdone
+:makethumb
 powershell -NoProfile -Command "[IO.File]::WriteAllText('%ID%_thumb.txt', -join [char[]](0xB0AE,0xC7A0,0x0020,0xD5C8,0xBC0D))"
 ffmpeg -v error -y -ss 60 -i %ID%_loop30.mp4 -frames:v 1 %ID%_frame.png
 ffmpeg -v error -y -i %ID%_frame.png -vf "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,eq=brightness=0.04:contrast=1.1,drawbox=x=0:y=ih*0.58:w=iw:h=ih*0.42:color=black@0.35:t=fill,drawtext=fontfile='%FONT%':textfile=%ID%_thumb.txt:fontsize=140:fontcolor=0xFFE3A3:shadowcolor=black@0.7:shadowx=4:shadowy=4:x=80:y=h-th-90" -frames:v 1 -q:v 2 %ID%_thumb.jpg
+:thumbdone
 
 echo.
 echo [5/6] Upload video - a few minutes
