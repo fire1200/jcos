@@ -209,7 +209,7 @@ def current(sched, t):
     return idx, (t - sched[idx][0]) if idx >= 0 else t
 
 # ---------- 출력 ----------
-def render(draw, audio, out, total, ctx, fps=FPS, preview=None):
+def render(draw, audio, out, total, ctx, fps=FPS, preview=None, fade=2.5, tail=1.5):
     """preview=[t1,t2,...] 이면 그 시각의 정지 화면만 PNG로 저장."""
     if preview:
         for t in preview:
@@ -217,8 +217,10 @@ def render(draw, audio, out, total, ctx, fps=FPS, preview=None):
         return
     p = subprocess.Popen([FFMPEG, "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(fps), "-i", "-",
                           "-i", audio, "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
-                          "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
-    n = int(total * fps)
+                          # 곡 끝이 뚝 끊기지 않게: 마지막 fade초 동안 소리를 줄이고, 뒤에 tail초 조용한 마무리 화면
+                          "-af", f"afade=t=out:st={max(0, total - fade):.2f}:d={fade},apad=pad_dur={tail}",
+                          "-c:a", "aac", "-b:a", "256k", "-t", f"{total + tail:.2f}", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
+    n = int((total + tail) * fps)
     for i in range(n):
         p.stdin.write(draw(i / fps, ctx).convert("RGB").tobytes())
     p.stdin.close(); p.wait()

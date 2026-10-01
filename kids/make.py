@@ -14,4 +14,4 @@ if __name__ == "__main__":
     mod = importlib.import_module(f"kids.songs.s{n}")
     total = duration(audio)
     ctx = mod.setup(json.load(open(lines)), total)
-    engine.render(mod.draw, audio, out, total, ctx, preview=prev)
+    engine.render(mod.draw, audio, out, total, ctx, preview=prev, fade=getattr(mod, "FADE_OUT", 2.5))
