@@ -2,7 +2,7 @@
 
 곡별 장면은 kids/songs/sNN.py 에서 draw(frame, t, ctx)로 그린다.
 """
-import math, random, subprocess, json, os
+import math, random, subprocess, json, os, re
 from functools import lru_cache
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -176,7 +176,7 @@ def caption_schedule(lines, total):
         nxt = lines[i + 1]["start"] if i + 1 < len(lines) else total
         est = l["start"] + max(2.6, 0.42 * len(l["text"].replace(" ", ""))) + 1.6
         end = nxt if nxt - l["start"] <= 5.5 else min(nxt, est)
-        out.append((l["start"], end, l["text"], l["section"]))
+        out.append((l["start"], end, re.sub(r"\s+", " ", l["text"].replace("(", " ").replace(")", " ")).strip(), l["section"]))
     return out
 
 @lru_cache(maxsize=None)
@@ -376,3 +376,264 @@ def footprint(s, col=(120, 160, 110)):
     for i, x in enumerate([0.35, 1.0, 1.65]):
         g.ellipse([x * s - s * 0.28, s * 0.15 + (0.2 if i != 1 else 0) * s, x * s + s * 0.28, s * 0.7 + (0.2 if i != 1 else 0) * s], fill=col + (200,))
     return L
+
+
+# ---------- 4~10번용 스프라이트 ----------
+@lru_cache(maxsize=None)
+def fairy(r, kind="smile", wing_open=1.0):
+    L = new_layer(int(r * 4.2), int(r * 3), (210, 230, 255)); g = ImageDraw.Draw(L); cx, cy = r * 2.1, r * 1.5
+    for sgn in (-1, 1):
+        w = r * (0.9 + 0.5 * wing_open)
+        g.ellipse([cx + sgn * r * 0.6 - w / 2 + sgn * w / 2, cy - r * 1.0, cx + sgn * r * 0.6 + w / 2 + sgn * w / 2, cy + r * 0.1], fill=(215, 235, 255, 200))
+        g.ellipse([cx + sgn * r * 0.5 - w * 0.35 + sgn * w * 0.35, cy - r * 0.1, cx + sgn * r * 0.5 + w * 0.35 + sgn * w * 0.35, cy + r * 0.65], fill=(235, 220, 255, 190))
+    L.alpha_composite(star(r, (255, 220, 110), kind), (int(cx - r * 1.2), int(cy - r * 1.2)))
+    return L
+
+@lru_cache(maxsize=None)
+def moon(r, col=(255, 236, 160), face_kind="smile"):
+    L = new_layer(int(r * 2.4), int(r * 2.4), col); g = ImageDraw.Draw(L); c = r * 1.2
+    g.ellipse([c - r, c - r, c + r, c + r], fill=col + (255,))
+    g.ellipse([c - r + r * 0.55, c - r - r * 0.25, c + r + r * 0.55, c + r - r * 0.25], fill=col + (0,))
+    m = Image.new("L", L.size, 0); ImageDraw.Draw(m).ellipse([c - r, c - r, c + r, c + r], fill=255)
+    ImageDraw.Draw(m).ellipse([c - r + r * 0.55, c - r - r * 0.25, c + r + r * 0.55, c + r - r * 0.25], fill=0)
+    L.putalpha(m)
+    if face_kind: face(L, c - r * 0.45, c + r * 0.15, r * 0.35, face_kind)
+    return L
+
+@lru_cache(maxsize=None)
+def bunny(s, kind="smile", col=(250, 245, 240)):
+    L = new_layer(int(s * 2.2), int(s * 3.4), col); g = ImageDraw.Draw(L); cx, cy = s * 1.1, s * 2.0
+    for sgn in (-1, 1):
+        g.ellipse([cx + sgn * s * 0.38 - s * 0.22, cy - s * 1.95, cx + sgn * s * 0.38 + s * 0.22, cy - s * 0.5], fill=col + (255,))
+        g.ellipse([cx + sgn * s * 0.38 - s * 0.1, cy - s * 1.75, cx + sgn * s * 0.38 + s * 0.1, cy - s * 0.65], fill=(255, 190, 200, 255))
+    g.ellipse([cx - s * 0.75, cy + s * 0.3, cx + s * 0.75, cy + s * 1.35], fill=col + (255,))
+    g.ellipse([cx - s * 0.85, cy - s * 0.75, cx + s * 0.85, cy + s * 0.75], fill=col + (255,))
+    face(L, cx, cy, s * 0.6, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def bear(s, kind="smile", col=(205, 150, 105)):
+    L = new_layer(int(s * 2.4), int(s * 2.9), col); g = ImageDraw.Draw(L); cx, cy = s * 1.2, s * 1.1
+    lt = tuple(min(255, v + 45) for v in col)
+    for sgn in (-1, 1):
+        g.ellipse([cx + sgn * s * 0.72 - s * 0.3, cy - s * 0.95, cx + sgn * s * 0.72 + s * 0.3, cy - s * 0.35], fill=col + (255,))
+        g.ellipse([cx + sgn * s * 0.72 - s * 0.15, cy - s * 0.8, cx + sgn * s * 0.72 + s * 0.15, cy - s * 0.5], fill=lt + (255,))
+        g.ellipse([cx + sgn * s * 0.8 - s * 0.25, cy + s * 0.9, cx + sgn * s * 0.8 + s * 0.25, cy + s * 1.45], fill=col + (255,))
+    g.ellipse([cx - s * 0.75, cy + s * 0.5, cx + s * 0.75, cy + s * 1.75], fill=col + (255,))
+    g.ellipse([cx - s * 0.45, cy + s * 0.75, cx + s * 0.45, cy + s * 1.5], fill=lt + (255,))
+    g.ellipse([cx - s * 0.9, cy - s * 0.8, cx + s * 0.9, cy + s * 0.8], fill=col + (255,))
+    g.ellipse([cx - s * 0.32, cy + s * 0.1, cx + s * 0.32, cy + s * 0.55], fill=lt + (255,))
+    g.ellipse([cx - s * 0.1, cy + s * 0.12, cx + s * 0.1, cy + s * 0.26], fill=(70, 50, 50, 255))
+    face(L, cx, cy - s * 0.1, s * 0.65, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def robot(s, kind="smile", col=(150, 190, 230)):
+    L = new_layer(int(s * 2.2), int(s * 3.2), col); g = ImageDraw.Draw(L); cx = s * 1.1
+    g.line([cx, s * 0.05, cx, s * 0.35], fill=(120, 120, 140, 255), width=int(s * 0.06)); g.ellipse([cx - s * 0.1, 0, cx + s * 0.1, s * 0.2], fill=(255, 120, 120, 255))
+    g.rounded_rectangle([cx - s * 0.75, s * 0.3, cx + s * 0.75, s * 1.4], int(s * 0.2), fill=col + (255,))
+    g.rounded_rectangle([cx - s * 0.55, s * 0.5, cx + s * 0.55, s * 1.2], int(s * 0.15), fill=(235, 245, 255, 255))
+    g.rounded_rectangle([cx - s * 0.65, s * 1.5, cx + s * 0.65, s * 2.6], int(s * 0.15), fill=col + (255,))
+    for i, c in enumerate([(255, 200, 90), (130, 220, 150), (255, 140, 160)]):
+        g.ellipse([cx - s * 0.4 + i * s * 0.3, s * 1.8, cx - s * 0.25 + i * s * 0.3, s * 1.95], fill=c + (255,))
+    for sgn in (-1, 1):
+        g.rounded_rectangle([cx + sgn * s * 0.35 - s * 0.15, s * 2.6, cx + sgn * s * 0.35 + s * 0.15, s * 3.1], int(s * 0.07), fill=(120, 140, 170, 255))
+        g.rounded_rectangle([cx + sgn * s * 0.95 - s * 0.13, s * 1.55, cx + sgn * s * 0.95 + s * 0.13, s * 2.3], int(s * 0.07), fill=col + (255,))
+    face(L, cx, s * 0.9, s * 0.45, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def train(s, wheel=0):
+    cols = [(240, 120, 120), (120, 180, 240), (250, 210, 100)]
+    L = new_layer(int(s * 6.6), int(s * 2.2), (200, 200, 200)); g = ImageDraw.Draw(L)
+    for i, c in enumerate(cols):
+        x0 = s * 0.2 + i * s * 2.15
+        if i == 0:
+            g.rounded_rectangle([x0, s * 0.2, x0 + s * 0.8, s * 1.0], int(s * 0.1), fill=c + (255,))
+            g.rectangle([x0 + s * 0.25, 0, x0 + s * 0.55, s * 0.3], fill=(90, 90, 110, 255))
+        g.rounded_rectangle([x0, s * 0.8, x0 + s * 1.95, s * 1.75], int(s * 0.18), fill=c + (255,))
+        g.rounded_rectangle([x0 + s * 0.25, s * 0.95, x0 + s * 0.75, s * 1.3], int(s * 0.08), fill=(235, 245, 255, 255))
+        for wx in (0.45, 1.5):
+            cxw, cyw = x0 + wx * s, s * 1.8
+            g.ellipse([cxw - s * 0.28, cyw - s * 0.28, cxw + s * 0.28, cyw + s * 0.28], fill=(80, 80, 100, 255))
+            a = wheel * 0.8; g.line([cxw, cyw, cxw + s * 0.22 * math.cos(a), cyw + s * 0.22 * math.sin(a)], fill=(220, 220, 230, 255), width=4)
+    face(L, s * 1.35, s * 1.3, s * 0.32, "smile")
+    return L
+
+@lru_cache(maxsize=None)
+def toybox(s, open_=0.0, col=(240, 170, 110)):
+    L = new_layer(int(s * 3.2), int(s * 3.0), col); g = ImageDraw.Draw(L)
+    g.rounded_rectangle([s * 0.2, s * 1.4, s * 3.0, s * 2.9], int(s * 0.12), fill=col + (255,))
+    for i, c in enumerate([(255, 220, 120), (140, 200, 240), (250, 140, 160)]):
+        g.ellipse([s * (0.55 + i * 0.85), s * 1.9, s * (0.95 + i * 0.85), s * 2.3], fill=c + (255,))
+    lid = Image.new("RGBA", (int(s * 3), int(s * 0.4)), col + (0,)); ImageDraw.Draw(lid).rounded_rectangle([0, 0, s * 3, s * 0.4], int(s * 0.1), fill=tuple(int(v * 0.9) for v in col) + (255,))
+    lid = lid.rotate(35 * open_, expand=True, resample=Image.BICUBIC)
+    L.alpha_composite(lid, (int(s * 0.1), int(s * 1.05 - lid.height + s * 0.4 * (1 - open_ * 0.3))))
+    return L
+
+@lru_cache(maxsize=None)
+def window(w, h, sky=(30, 40, 90), frame=(240, 225, 200)):
+    L = new_layer(w, h, frame); g = ImageDraw.Draw(L)
+    g.rounded_rectangle([0, 0, w, h], 24, fill=frame + (255,))
+    g.rounded_rectangle([18, 18, w - 18, h - 18], 14, fill=sky + (255,))
+    g.rectangle([w / 2 - 8, 18, w / 2 + 8, h - 18], fill=frame + (255,)); g.rectangle([18, h / 2 - 8, w - 18, h / 2 + 8], fill=frame + (255,))
+    return L
+
+@lru_cache(maxsize=None)
+def sock(s, kind="smile", col=(240, 110, 120), stripe=(255, 255, 255)):
+    L = new_layer(int(s * 2.4), int(s * 3.2), col); g = ImageDraw.Draw(L)
+    g.rounded_rectangle([s * 0.4, 0, s * 1.4, s * 2.2], int(s * 0.3), fill=col + (255,))
+    g.ellipse([s * 0.4, s * 1.6, s * 2.3, s * 2.9], fill=col + (255,))
+    for y in (0.3, 0.75, 1.2):
+        g.rectangle([s * 0.4, s * y, s * 1.4, s * (y + 0.18)], fill=stripe + (255,))
+    face(L, s * 0.9, s * 0.95, s * 0.42, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def cat(s, kind="smile", col=(150, 150, 165)):
+    L = new_layer(int(s * 2.4), int(s * 2.6), col); g = ImageDraw.Draw(L); cx, cy = s * 1.2, s * 1.1
+    for sgn in (-1, 1):
+        g.polygon([(cx + sgn * s * 0.85, cy - s * 0.2), (cx + sgn * s * 0.7, cy - s * 1.05), (cx + sgn * s * 0.2, cy - s * 0.7)], fill=col + (255,))
+    g.ellipse([cx - s * 0.7, cy + s * 0.4, cx + s * 0.7, cy + s * 1.45], fill=col + (255,))
+    g.ellipse([cx - s * 0.9, cy - s * 0.75, cx + s * 0.9, cy + s * 0.75], fill=col + (255,))
+    for sgn in (-1, 1):
+        for dy in (0.15, 0.32):
+            g.line([cx + sgn * s * 0.35, cy + s * dy, cx + sgn * s * 0.95, cy + s * (dy - 0.06)], fill=(90, 90, 100, 255), width=3)
+    face(L, cx, cy, s * 0.6, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def bubble(r, tint=(200, 230, 255)):
+    L = new_layer(int(r * 2.2), int(r * 2.2), tint); g = ImageDraw.Draw(L); c = r * 1.1
+    g.ellipse([c - r, c - r, c + r, c + r], fill=tint + (60,), outline=(255, 255, 255, 220), width=max(3, int(r * 0.05)))
+    g.arc([c - r * 0.75, c - r * 0.75, c + r * 0.75, c + r * 0.75], 200, 250, fill=(255, 255, 255, 230), width=max(4, int(r * 0.08)))
+    g.arc([c - r * 0.95, c - r * 0.95, c + r * 0.95, c + r * 0.95], 20, 60, fill=(255, 190, 230, 160), width=max(3, int(r * 0.05)))
+    return L
+
+@lru_cache(maxsize=None)
+def dolphin(s, col=(120, 170, 230)):
+    L = new_layer(int(s * 3.4), int(s * 1.8), col); g = ImageDraw.Draw(L)
+    g.ellipse([s * 0.5, s * 0.4, s * 2.8, s * 1.4], fill=col + (255,))
+    g.ellipse([s * 2.5, s * 0.75, s * 3.3, s * 1.1], fill=col + (255,))
+    g.polygon([(s * 1.5, s * 0.5), (s * 1.9, 0), (s * 2.0, s * 0.55)], fill=col + (255,))
+    g.polygon([(s * 0.6, s * 0.9), (0, s * 0.45), (s * 0.15, s * 1.25)], fill=col + (255,))
+    g.ellipse([s * 1.2, s * 0.95, s * 2.6, s * 1.35], fill=(225, 240, 255, 255))
+    face(L, s * 2.3, s * 0.85, s * 0.3, "smile")
+    return L
+
+@lru_cache(maxsize=None)
+def gull(s):
+    L = new_layer(int(s * 2.4), int(s * 1.2), (255, 255, 255)); g = ImageDraw.Draw(L)
+    g.arc([0, s * 0.2, s * 1.2, s * 1.2], 200, 340, fill=(250, 250, 255, 255), width=int(s * 0.16))
+    g.arc([s * 1.2, s * 0.2, s * 2.4, s * 1.2], 200, 340, fill=(250, 250, 255, 255), width=int(s * 0.16))
+    return L
+
+@lru_cache(maxsize=None)
+def turtle(s, kind="smile"):
+    L = new_layer(int(s * 3), int(s * 2), (120, 190, 120)); g = ImageDraw.Draw(L)
+    for x in (0.7, 2.1):
+        g.ellipse([s * x - s * 0.25, s * 1.2, s * x + s * 0.25, s * 1.75], fill=(150, 210, 140, 255))
+    g.ellipse([s * 2.2, s * 0.6, s * 2.95, s * 1.3], fill=(150, 210, 140, 255))
+    g.chord([s * 0.2, s * 0.2, s * 2.5, s * 2.2], 180, 360, fill=(110, 170, 110, 255))
+    for x in (0.7, 1.35, 2.0): g.ellipse([s * x - s * 0.25, s * 0.55, s * x + s * 0.25, s * 0.95], fill=(140, 200, 120, 255))
+    face(L, s * 2.6, s * 0.95, s * 0.28, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def crab(s, kind="laugh"):
+    L = new_layer(int(s * 3), int(s * 2), (240, 110, 90)); g = ImageDraw.Draw(L); col = (240, 110, 90, 255)
+    for sgn in (-1, 1):
+        cx = s * 1.5 + sgn * s * 1.15
+        g.ellipse([cx - s * 0.32, s * 0.15, cx + s * 0.32, s * 0.7], fill=col)
+        for k in range(3): g.line([s * 1.5 + sgn * s * 0.5, s * 1.3 + k * s * 0.15, s * 1.5 + sgn * s * 1.0, s * 1.55 + k * s * 0.15], fill=col, width=int(s * 0.08))
+    g.ellipse([s * 0.65, s * 0.6, s * 2.35, s * 1.6], fill=col)
+    face(L, s * 1.5, s * 1.05, s * 0.45, kind)
+    return L
+
+@lru_cache(maxsize=None)
+def acorn(s):
+    L = new_layer(int(s * 1.4), int(s * 1.9), (190, 130, 70)); g = ImageDraw.Draw(L)
+    g.ellipse([s * 0.15, s * 0.5, s * 1.25, s * 1.85], fill=(200, 140, 80, 255))
+    g.chord([0, s * 0.2, s * 1.4, s * 1.0], 180, 360, fill=(140, 95, 60, 255)); g.rectangle([0, s * 0.58, s * 1.4, s * 0.68], fill=(140, 95, 60, 255))
+    g.line([s * 0.7, 0, s * 0.7, s * 0.3], fill=(110, 75, 50, 255), width=max(3, int(s * 0.1)))
+    g.ellipse([s * 0.35, s * 0.85, s * 0.6, s * 1.2], fill=(235, 190, 130, 180))
+    return L
+
+@lru_cache(maxsize=None)
+def squirrel(s, kind="smile", cheeks=0.0, col=(205, 125, 70)):
+    L = new_layer(int(s * 3.2), int(s * 3.0), col); g = ImageDraw.Draw(L); cx, cy = s * 1.9, s * 1.3
+    g.ellipse([cx - s * 2.0, cy - s * 1.2, cx - s * 0.4, cy + s * 1.4], fill=tuple(int(v * 0.92) for v in col) + (255,))  # 꼬리
+    g.ellipse([cx - s * 1.65, cy - s * 0.85, cx - s * 0.75, cy + s * 0.6], fill=tuple(min(255, v + 30) for v in col) + (255,))
+    g.ellipse([cx - s * 0.7, cy + s * 0.3, cx + s * 0.7, cy + s * 1.6], fill=col + (255,))
+    g.ellipse([cx - s * 0.4, cy + s * 0.55, cx + s * 0.4, cy + s * 1.4], fill=(250, 225, 190, 255))
+    for sgn in (-1, 1):
+        g.polygon([(cx + sgn * s * 0.55, cy - s * 0.45), (cx + sgn * s * 0.6, cy - s * 1.05), (cx + sgn * s * 0.15, cy - s * 0.6)], fill=col + (255,))
+    w = 0.8 + 0.25 * cheeks
+    g.ellipse([cx - s * w, cy - s * 0.75, cx + s * w, cy + s * 0.65], fill=col + (255,))
+    g.ellipse([cx - s * 0.3, cy + s * 0.05, cx + s * 0.3, cy + s * 0.55], fill=(250, 225, 190, 255))
+    face(L, cx, cy - s * 0.1, s * 0.55, kind, blush=(255, 150, 140) if cheeks < 0.5 else (255, 120, 110))
+    return L
+
+@lru_cache(maxsize=None)
+def sprout(s, grow=1.0):
+    L = new_layer(int(s * 2), int(s * 2.2), (120, 200, 110)); g = ImageDraw.Draw(L); cx = s
+    h = s * 1.6 * grow
+    g.line([cx, s * 2.1, cx, s * 2.1 - h], fill=(100, 170, 90, 255), width=max(3, int(s * 0.1)))
+    if grow > 0.3:
+        k = min(1, (grow - 0.3) / 0.7)
+        g.ellipse([cx - s * 0.8 * k, s * 2.1 - h - s * 0.3 * k, cx, s * 2.1 - h + s * 0.2 * k], fill=(130, 210, 120, 255))
+        g.ellipse([cx, s * 2.1 - h - s * 0.3 * k, cx + s * 0.8 * k, s * 2.1 - h + s * 0.2 * k], fill=(130, 210, 120, 255))
+    return L
+
+@lru_cache(maxsize=None)
+def cub(s, kind="smile", step=0):
+    """그림자 놀이를 하는 아기 곰 (서 있는 모습)."""
+    L = new_layer(int(s * 2.4), int(s * 3.6), (215, 160, 110)); col = (215, 160, 110); g = ImageDraw.Draw(L); cx = s * 1.2
+    lt = (245, 215, 175); ph = step / 8 * 2 * math.pi
+    for sgn, off in ((-1, 0), (1, math.pi)):
+        lift = max(0, math.sin(ph + off)) * s * 0.15
+        g.rounded_rectangle([cx + sgn * s * 0.35 - s * 0.2, s * 2.7 - lift, cx + sgn * s * 0.35 + s * 0.2, s * 3.5 - lift], int(s * 0.15), fill=col + (255,))
+    g.ellipse([cx - s * 0.75, s * 1.6, cx + s * 0.75, s * 3.0], fill=col + (255,))
+    g.ellipse([cx - s * 0.45, s * 1.9, cx + s * 0.45, s * 2.8], fill=lt + (255,))
+    for sgn in (-1, 1):
+        g.ellipse([cx + sgn * s * 0.75 - s * 0.28, s * 0.05, cx + sgn * s * 0.75 + s * 0.28, s * 0.6], fill=col + (255,))
+    g.ellipse([cx - s * 0.9, s * 0.15, cx + s * 0.9, s * 1.75], fill=col + (255,))
+    g.ellipse([cx - s * 0.3, s * 0.95, cx + s * 0.3, s * 1.38], fill=lt + (255,))
+    g.ellipse([cx - s * 0.1, s * 0.98, cx + s * 0.1, s * 1.12], fill=(70, 50, 50, 255))
+    face(L, cx, s * 0.85, s * 0.62, kind)
+    return L
+
+def shadow_of(sprite, length=1.0, alpha=120):
+    """스프라이트를 발밑에서 오른쪽 뒤로 눕힌 그림자. 반환 이미지의 왼쪽 위가 발 위치."""
+    a = sprite.split()[3].transpose(Image.FLIP_TOP_BOTTOM)
+    w, h = sprite.size; nh = max(1, int(h * 0.5 * length)); shear = 1.1
+    a = a.resize((w, nh), Image.BILINEAR)
+    nw = int(w + nh * shear)
+    a = a.transform((nw, nh), Image.AFFINE, (1, -shear, 0, 0, 1, 0), resample=Image.BILINEAR)
+    sh = Image.new("RGBA", (nw, nh), (40, 50, 90, 0)); sh.putalpha(a.point(lambda v: v * alpha // 255))
+    return sh
+
+@lru_cache(maxsize=None)
+def wavebar(w, col, amp=18, per=260, ph=0.0, h=400):
+    L = new_layer(w, h, col); g = ImageDraw.Draw(L)
+    pts = [(x, amp + amp * math.sin(x / per * 2 * math.pi + ph)) for x in range(0, w + 10, 10)] + [(w, h), (0, h)]
+    g.polygon(pts, fill=col + (255,))
+    return L
+
+@lru_cache(maxsize=None)
+def rainbow(r, width):
+    cols = [(255, 120, 120), (255, 180, 100), (255, 230, 110), (140, 220, 140), (120, 180, 255), (110, 130, 230), (170, 140, 240)]
+    L = new_layer(int(r * 2 + 20), int(r + 20), (255, 255, 255)); g = ImageDraw.Draw(L); c = (r + 10, r + 10)
+    for i, col in enumerate(cols):
+        rr = r - i * width
+        g.arc([c[0] - rr, c[1] - rr, c[0] + rr, c[1] + rr], 180, 360, fill=col + (255,), width=int(width) + 1)
+    return L
+
+def sub_index(ctx, sec, s0, t):
+    """현재 구간(같은 이름이 연속된 덩어리) 안에서 몇 번째 줄인지."""
+    ls = [l for l in ctx["lines"] if l["section"] == sec and l["start"] >= s0 - 0.05]
+    out = []
+    for l in ls:
+        if out and l["start"] - out[-1]["start"] > 25: break
+        out.append(l)
+    return max([i for i, l in enumerate(out) if l["start"] <= t], default=0)
