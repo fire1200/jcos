@@ -46,3 +46,37 @@ if __name__ == "__main__":
     res = to_lines(cues, meta)
     json.dump(res, open(sys.argv[3], "w"), ensure_ascii=False, indent=1)
     for r in res: print(f"{r['start']:7.2f} [{r['section']}] {r['text']}")
+
+
+def to_lines_refined(cues, meta_lines, obs):
+    """자막 한 칸에 여러 줄이 묶여 있으면, 그 칸 시간 범위 안에서 음성 인식 관측값으로 각 줄의 시작을 찾는다.
+    못 찾으면 글자 수 비율. 첫 줄은 칸 시작 시각 (유튜브 동기화가 가장 정확한 부분)."""
+    good = [o for o in obs if o["t0"] - o["win"] > 0.25 and "[" not in o["text"] and "(" not in o["text"]]
+    base = to_lines(cues, meta_lines)  # 구간 이름과 비율 추정
+    out, k = [], 0
+    for t0, t1, rows in cues:
+        prev = t0 - 1
+        for j, r in enumerate(rows):
+            b = base[k]; k += 1
+            if j == 0:
+                start = t0
+            else:
+                key = "".join(norm(r)); cands = []
+                for o in good:
+                    if not (t0 + 0.3 <= o["t0"] <= t1 - 0.4): continue
+                    x = "".join(norm(o["text"]))[: int(len(key) * 1.3) + 1]
+                    if len(x) >= max(1, len(key) * 0.5) and _score(x, key) >= 0.4: cands.append(o["t0"])
+                cands = sorted(c for c in cands if c > prev + 0.6)
+                start = cands[0] if cands else max(b["start"], prev + 0.8)
+            start = min(start, t1 - 0.3)
+            out.append(dict(section=b["section"], text=r, start=round(start - 0.05, 2), conf=1.0))
+            prev = start
+    return out
+
+
+def fix_sections(lines):
+    """가사 태그에 [Outro]가 곡 중간(전주 등)에 잘못 붙은 경우, 앞 줄의 구간 이름으로 바꾼다."""
+    for i, l in enumerate(lines):
+        if l["section"] == "Outro" and any(x["section"] != "Outro" for x in lines[i + 1:]):
+            l["section"] = lines[i - 1]["section"] if i > 0 else "Intro"
+    return lines
