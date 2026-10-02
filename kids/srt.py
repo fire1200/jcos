@@ -80,3 +80,12 @@ def fix_sections(lines):
         if l["section"] == "Outro" and any(x["section"] != "Outro" for x in lines[i + 1:]):
             l["section"] = lines[i - 1]["section"] if i > 0 else "Intro"
     return lines
+
+
+def from_tap(tap, meta_lines):
+    """가사 박자 맞추기 도구의 결과 JSON → 줄 시각. 건너뛴 줄은 뺀다."""
+    rows = [l for l in tap["lines"] if l.get("t") is not None and not l.get("skip")]
+    cues = [(r["t"], r["t"] + 1.0, [r["text"]]) for r in rows]
+    out = to_lines(cues, meta_lines)
+    for o, r in zip(out, rows): o["start"] = r["t"]
+    return fix_sections(out)
