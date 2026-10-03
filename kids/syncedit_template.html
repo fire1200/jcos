@@ -379,7 +379,11 @@ $("wave").addEventListener("pointermove", ev => {
   times[drag.i] = Math.max(0, +(drag.t0 + (ev.clientX - r.left) / r.width * view).toFixed(2));
   const inp = $("t" + drag.i); if (inp) inp.value = times[drag.i].toFixed(2); draw();
 });
-$("wave").addEventListener("pointerup", () => { if (!drag) return; const i = drag.i; drag = null; changed(); if (audio.src) { audio.currentTime = Math.max(0, times[i] - 0.5); audio.play(); } });
+$("wave").addEventListener("pointerup", () => {
+  if (!drag) return; const i = drag.i, was = drag.wasPlaying; drag = null; changed();
+  // 멈춘 상태에서 옮겼으면 멈춘 채로 두고, 재생 중에 옮겼을 때만 그 줄 앞부터 다시 재생
+  if (audio.src && was) { audio.currentTime = Math.max(0, times[i] - 0.5); audio.play(); }
+});
 $("over").addEventListener("pointerdown", ev => { if (!audio.src) return; const r = $("over").getBoundingClientRect(); audio.currentTime = (ev.clientX - r.left) / r.width * (dur || 1); });
 addEventListener("resize", draw);
 
