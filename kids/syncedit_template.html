@@ -93,6 +93,8 @@ details summary { cursor: pointer; color: var(--muted); }
       <label class="k" for="file">음원</label>
       <input id="file" type="file" accept="audio/*,video/*,.mp3,.mp4,.m4a,.wav">
       <span class="src" id="srcInfo"></span>
+      <button class="btn" id="dlSrt" type="button">⬇ 자막 파일 내려받기 (.srt)</button>
+      <button class="btn" id="cpSrt" type="button">📋 자막(SRT) 복사</button>
     </div>
   </section>
 
@@ -105,6 +107,7 @@ details summary { cursor: pointer; color: var(--muted); }
         <tbody id="rows"></tbody>
       </table>
     </div>
+    <p class="src" id="dlNote">내려받은 파일 이름 끝의 <b>.txt</b>를 지우면 유튜브에 올릴 수 있는 <b>.srt</b> 자막 파일이 됩니다 (보안 정책상 .txt로만 저장됩니다).</p>
     <details>
       <summary>저장이 안 될 때: 결과 직접 복사</summary>
       <textarea id="out" readonly></textarea>
@@ -396,6 +399,27 @@ document.addEventListener("keydown", e => {
     case "s": case "S": snapshot(); skips[sel] = !skips[sel]; changed(); break;
   }
 });
+function srtTime(t) { const ms = Math.round(t * 1000), h = Math.floor(ms / 3600000), m = Math.floor(ms / 60000) % 60, sec = Math.floor(ms / 1000) % 60, r = ms % 1000;
+  const p = (v, n = 2) => String(v).padStart(n, "0"); return `${p(h)}:${p(m)}:${p(sec)},${p(r, 3)}`; }
+function buildSrt() {
+  const idx = times.map((t, i) => i).filter(i => !skips[i] && times[i] != null).sort((a, b) => times[a] - times[b]);
+  return idx.map((i, k) => {
+    const st = times[i], nx = k + 1 < idx.length ? times[idx[k + 1]] : (dur || st + 4);
+    const en = Math.max(st + 0.3, Math.min(nx - 0.05, st + 6));
+    return `${k + 1}\n${srtTime(st)} --> ${srtTime(en)}\n${texts[i].replace(/[()]/g, " ").replace(/\s+/g, " ").trim()}\n`;
+  }).join("\n");
+}
+let downloads = null;
+$("dlSrt").addEventListener("click", async () => {
+  const srt = buildSrt(); if (!srt) { setSave("시각이 맞춰진 줄이 없습니다", "warn"); return; }
+  if (!downloads) { $("cpSrt").click(); setSave("이 화면에서는 파일 저장이 안 되어 자막을 복사했습니다. 메모장에 붙여 .srt로 저장하세요", "warn"); return; }
+  try { await downloads.save({ filename: `kids${song.id}_자막.srt.txt`, data: srt }); setSave("자막 파일을 내려받았습니다. 이름 끝의 .txt를 지우세요", "ok"); }
+  catch (e) { if (e && e.code === "declined") return; $("cpSrt").click(); setSave("파일 저장이 안 되어 자막을 복사했습니다 (" + (e && e.code || "오류") + ")", "warn"); }
+});
+$("cpSrt").addEventListener("click", () => {
+  const srt = buildSrt(); $("out").value = srt; $("out").closest("details").open = true;
+  try { navigator.clipboard.writeText(srt).then(() => setSave("SRT 자막을 복사했습니다", "ok"), () => $("out").select()); } catch (e) { $("out").select(); }
+});
 $("copy").addEventListener("click", () => { const t = $("out").value; try { navigator.clipboard.writeText(t).catch(() => $("out").select()); } catch (e) { $("out").select(); } });
 
 /* ---------- 시작 ---------- */
@@ -404,6 +428,7 @@ $("song").addEventListener("change", e => selectSong(e.target.value));
 $("song").value = "03"; selectSong("03").then(() => setSave(db ? "Claude 저장 연결됨" : "연결 확인 중…"));
 requestAnimationFrame(tick);
 (async () => {
+  try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; }
   try { db = await window.claude?.use?.("db"); } catch (e) { db = null; }
   if (db) { setSave("Claude 저장 연결됨", "ok"); selectSong(song.id); } else setSave("이 창에만 저장됨 (아래 결과 복사로 보내 주세요)", "warn");
 })();
