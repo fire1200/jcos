@@ -31,7 +31,7 @@ FONT_BODY = os.path.join(ASSETS, "fonts", "NotoSansKR.ttf")
 FONT_SOFT = os.path.join(ASSETS, "fonts", "GowunDodum.ttf")
 SONG = os.path.join(ASSETS, "song.mp3")
 IMAGES = os.environ.get("IMAGES", os.path.join(SONG_DIR, "images"))
-SONG = {
+CFG = {
     "duration": 185.6,
     "title": "연도 랩!",
     "subtitle": "1866 ~ 1953 한국 근현대사",
@@ -42,11 +42,11 @@ SONG = {
 }
 if os.path.exists(os.path.join(SONG_DIR, "song.json")):
     import json
-    SONG.update(json.load(open(os.path.join(SONG_DIR, "song.json"), encoding="utf-8")))
-DURATION = SONG["duration"]
-TITLE = SONG["title"]
-SUBTITLE = SONG["subtitle"]
-TIMELINE_YEARS = SONG["timeline_years"]
+    CFG.update(json.load(open(os.path.join(SONG_DIR, "song.json"), encoding="utf-8")))
+DURATION = CFG["duration"]
+TITLE = CFG["title"]
+SUBTITLE = CFG["subtitle"]
+TIMELINE_YEARS = CFG["timeline_years"]
 
 
 def hexc(s):
@@ -166,8 +166,8 @@ SCENES = {
 TIMELINE = [(0, "magic", 11), (20.0, "sea_dawn", 21), (43.2, "hanok_sunset", 31), (75.5, "magic", 12),
             (86.0, "storm", 41), (92.4, "breaking", 42), (102.0, "summer", 51), (108.4, "war_night", 52),
             (114.8, "starry", 61), (151.2, "magic", 13), (163.0, "sunrise", 71)]
-if SONG["scenes"]:
-    TIMELINE = [tuple(x) for x in SONG["scenes"]]
+if CFG["scenes"]:
+    TIMELINE = [tuple(x) for x in CFG["scenes"]]
 XFADE = 1.0
 CLOUD_PAD = 520
 
@@ -884,7 +884,7 @@ def scene_frame(t):
 
 def overlay(img, t):
     r = active(t)
-    t_in, t_out = SONG["intro_end"], SONG["outro_start"]
+    t_in, t_out = CFG["intro_end"], CFG["outro_start"]
     if t < t_in:
         draw_title(img, t, 0.2, t_in)
     if t >= t_out:
