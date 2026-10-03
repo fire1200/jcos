@@ -214,7 +214,7 @@ class Scene:
         vy = np.linspace(-1, 1, H)[:, None]
         vx = np.linspace(-1, 1, W)[None, :]
         vig = 1 - .35 * np.clip(vx ** 2 * .6 + vy ** 2 * .8, 0, 1) - p.get("dark", 0)
-        bottom = 1 - .45 * smoothstep(.72, 1.0, np.linspace(0, 1, H))[:, None]
+        bottom = 1 - .55 * smoothstep(.55, 1.0, np.linspace(0, 1, H))[:, None]
         self.vig = (vig * bottom).astype(np.float32)[..., None]
 
         self.parts = p["parts"]
@@ -690,7 +690,7 @@ def render_shot(s, t):
         vx = np.linspace(-1, 1, W)[None, :]
         vig = 1 - .3 * np.clip(vx ** 2 * .6 + vy ** 2 * .8, 0, 1)
         top = 1 - .25 * (1 - smoothstep(0, .45, np.linspace(0, 1, H)))[:, None]
-        bottom = 1 - .55 * smoothstep(.7, 1.0, np.linspace(0, 1, H))[:, None]
+        bottom = 1 - .6 * smoothstep(.55, 1.0, np.linspace(0, 1, H))[:, None]
         _SHOT_VIG = (vig * top * bottom).astype(np.float32)[..., None]
     return img * _SHOT_VIG
 
@@ -726,20 +726,51 @@ def years_of(s):
     return [int(y) for y in re.findall(r"\d{4}", s or "")]
 
 
+SUB_SIZE, SUB_SIZE_HOOK = 116, 128
+SUB_MAXW = 1800
+SUB_BOTTOM = 968
+
+
+def wrap_lines(text, size):
+    """Split into at most two lines that fit SUB_MAXW, shrinking the font only if needed."""
+    while True:
+        f = tx().font(FONT_BODY, size, "Bold")
+        width = lambda s: f.getbbox(s)[2]
+        if width(text) <= SUB_MAXW:
+            return [text], size
+        spaces = [i for i, c in enumerate(text) if c == " "]
+        best = None
+        for i in spaces:
+            l1, l2 = text[:i], text[i + 1:]
+            worst = max(width(l1), width(l2))
+            if worst <= SUB_MAXW and (best is None or worst < best[0]):
+                best = (worst, [l1, l2])
+        if best:
+            return best[1], size
+        size -= 4
+
+
 def draw_subtitle(img, r, t):
     T = tx()
-    text = r["text"]
     p = (t - r["start"]) / (r["end"] - r["start"])
     a_in = ease((t - r["start"]) / .25) * ease((r["end"] - t) / .2)
-    size = 58 if r["kind"] not in ("hook", "gang") else 64
-    dim = T.label(text, FONT_BODY, size, "Bold", (255, 255, 255), shadow=8, maxw=1760)
-    hi = T.label(text, FONT_BODY, size, "Bold", (255, 226, 140), shadow=8, maxw=1760)
-    x = (W - dim.shape[1]) // 2
-    y = 935 - dim.shape[0] // 2
-    over(img, dim, x, y, a_in * .92)
-    cut = int(dim.shape[1] * min(1, max(0, (p - .02) / .9)))
-    if cut > 0:
-        over(img, hi[:, :cut], x, y, a_in)
+    size = SUB_SIZE if r["kind"] not in ("hook", "gang") else SUB_SIZE_HOOK
+    lines, size = wrap_lines(r["text"], size)
+    dims = [T.label(l, FONT_BODY, size, "Bold", (255, 255, 255), shadow=12) for l in lines]
+    his = [T.label(l, FONT_BODY, size, "Bold", (255, 226, 140), shadow=12) for l in lines]
+    pad = 40
+    step = int(size * 1.22)
+    y = SUB_BOTTOM - (dims[-1].shape[0] - pad) - step * (len(lines) - 1) - pad
+    widths = [d.shape[1] - 2 * pad for d in dims]
+    done = sum(widths) * min(1, max(0, (p - .02) / .9))
+    for dim, hi, w in zip(dims, his, widths):
+        x = (W - dim.shape[1]) // 2
+        over(img, dim, x, y, a_in * .92)
+        cut = int(min(w, max(0, done))) + pad if done > 0 else 0
+        if cut > pad:
+            over(img, hi[:, :cut], x, y, a_in)
+        done -= w
+        y += step
 
 
 def draw_card(img, r, t):
@@ -769,17 +800,17 @@ def draw_card(img, r, t):
 
 def draw_timeline(img, t, r):
     T = tx()
-    x0, x1, y = 170, 1750, 1040
+    x0, x1, y = 130, 1790, 1046
     pos = {yv: x0 + (x1 - x0) * i / (len(TIMELINE_YEARS) - 1) for i, yv in enumerate(TIMELINE_YEARS)}
-    img[y - 1:y + 2, x0:x1] = img[y - 1:y + 2, x0:x1] * .4 + .6
+    img[y - 2:y + 2, x0:x1] = img[y - 2:y + 2, x0:x1] * .4 + .6
     act = set(years_of(r["year"])) if r else set()
-    dot = gauss_sprite(9)
+    dot = gauss_sprite(12)
     for yv, x in pos.items():
         on = yv in act
-        add_sprite(img, dot, x, y, hexc("#ffd890") if on else hexc("#ffffff"), 1.6 if on else .45)
-        lab = T.label(str(yv), FONT_BODY, 24 if on else 20, "Bold" if on else "Medium",
-                      (255, 220, 140) if on else (235, 235, 245), shadow=4)
-        over(img, lab, int(x - lab.shape[1] / 2), y - 64, 1.0 if on else .7)
+        add_sprite(img, dot, x, y, hexc("#ffd890") if on else hexc("#ffffff"), 1.8 if on else .5)
+        lab = T.label(str(yv), FONT_BODY, 44 if on else 36, "Black" if on else "Bold",
+                      (255, 220, 140) if on else (240, 240, 248), shadow=6)
+        over(img, lab, int(x - lab.shape[1] / 2), y - 14 - (lab.shape[0] - 40), 1.0 if on else .8)
 
 
 def draw_title(img, t, t0, t1, y=380):
