@@ -68,7 +68,7 @@ if __name__ == "__main__":
     parts = []
     card(f"{TMP}/intro.mp4", 5.0, intro_drawer(title)); parts.append(("intro", f"{TMP}/intro.mp4"))
     for i, n in enumerate(songs, 1):
-        card(f"{TMP}/next{n}.mp4", 4.0, next_drawer(n, i)); parts.append(("next", f"{TMP}/next{n}.mp4"))
+        card(f"{TMP}/next{i:02d}_{n}.mp4", 4.0, next_drawer(n, i)); parts.append(("next", f"{TMP}/next{i:02d}_{n}.mp4"))
         parts.append((n, glob.glob(f"{FINAL}/kids{n}_*.mp4")[0]))
     card(f"{TMP}/outro.mp4", 6.0, outro_drawer()); parts.append(("outro", f"{TMP}/outro.mp4"))
     # 챕터 시각
