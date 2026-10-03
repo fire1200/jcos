@@ -44,6 +44,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, canvas:focus-vi
 canvas { display: block; width: 100%; border-radius: 12px; background: var(--bg); touch-action: none; }
 #wave { height: 170px; cursor: crosshair; }
 #over { height: 38px; margin-top: 8px; cursor: pointer; }
+.empty-wave[hidden] { display: none; }
 .empty-wave { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 12px; pointer-events: none; }
 .keys { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 0; }
 kbd { font-family: inherit; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px; background: var(--bg); color: var(--ink); }
@@ -146,17 +147,43 @@ details summary { cursor: pointer; color: var(--muted); }
 const SONGS = __DATA__;
 const ENTER_LAG = 0.12;             // 재생 중 Enter를 누를 때의 반응 지연 보정
 const $ = id => document.getElementById(id);
-const audio = new Audio();
+// 뷰어 보안 정책이 <audio>의 blob 주소를 막을 수 있어, Web Audio 버퍼로 직접 재생한다
+class Player {
+  constructor() { this.ctx = null; this.buf = null; this.node = null; this.pos = 0; this.t0 = 0; this.p0 = 0; this.rate = 1; this.playing = false; this.ls = { play: [], pause: [] }; }
+  get src() { return !!this.buf; }
+  get paused() { return !this.playing; }
+  get duration() { return this.buf ? this.buf.duration : 0; }
+  get currentTime() { return this.playing ? Math.min(this.duration, this.p0 + (this.ctx.currentTime - this.t0) * this.rate) : this.pos; }
+  set currentTime(t) { const was = this.playing; if (was) this._stop(); this.pos = Math.max(0, Math.min(this.duration, t)); if (was) this._start(); }
+  set playbackRate(r) { const t = this.currentTime, was = this.playing; if (was) this._stop(); this.rate = r; this.pos = t; if (was) this._start(); }
+  addEventListener(n, f) { (this.ls[n] || (this.ls[n] = [])).push(f); }
+  _emit(n) { (this.ls[n] || []).forEach(f => f()); }
+  async load(arrayBuffer) {
+    this.unload();
+    if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    this.buf = await this.ctx.decodeAudioData(arrayBuffer); this.pos = 0; return this.buf;
+  }
+  unload() { if (this.playing) this.pause(); this.buf = null; this.pos = 0; }
+  _start() {
+    const n = this.ctx.createBufferSource(); n.buffer = this.buf; n.playbackRate.value = this.rate; n.connect(this.ctx.destination);
+    n.onended = () => { if (this.node === n && this.playing) { this.playing = false; this.pos = this.duration; this._emit("pause"); } };
+    this.node = n; this.t0 = this.ctx.currentTime; this.p0 = this.pos; this.playing = true; n.start(0, this.pos);
+  }
+  _stop() { this.pos = this.currentTime; this.playing = false; const n = this.node; this.node = null; try { n && n.stop(); } catch (e) {} }
+  play() { if (!this.buf || this.playing) return; if (this.ctx.state === "suspended") this.ctx.resume(); if (this.pos >= this.duration - 0.05) this.pos = 0; this._start(); this._emit("play"); }
+  pause() { if (!this.playing) return; this._stop(); this._emit("pause"); }
+}
+const audio = new Player();
 let song = SONGS[0], times = [], skips = [], texts = [], sel = 0, peaks = null, dur = 0, view = 12, loopOn = false;
-let history = [], db = null, saveTimer = null, playingIdx = -1, drag = null;
+let undoStack = [], db = null, saveTimer = null, playingIdx = -1, drag = null;
 
 const fmt = t => { if (t == null || isNaN(t)) return "—"; const m = Math.floor(t / 60), s = t - m * 60; return m + ":" + (s < 10 ? "0" : "") + s.toFixed(2); };
 const docPath = () => "sync/kids" + song.id;
 function setSave(text, cls) { const el = $("save"); el.textContent = text; el.className = "save " + (cls || ""); }
 
 /* ---------- 상태 ---------- */
-function snapshot() { history.push(JSON.stringify({ times, skips, texts })); if (history.length > 200) history.shift(); }
-function undo() { const s = history.pop(); if (!s) return; ({ times, skips, texts } = JSON.parse(s)); changed(); }
+function snapshot() { undoStack.push(JSON.stringify({ times, skips, texts })); if (undoStack.length > 200) undoStack.shift(); }
+function undo() { const s = undoStack.pop(); if (!s) return; ({ times, skips, texts } = JSON.parse(s)); changed(); }
 function changed() { renderRows(); draw(); output(); queueSave(); }
 function output() {
   const lines = texts.map((text, i) => ({ i: i + 1, t: skips[i] ? null : +(+times[i]).toFixed(2), text, edited: text !== song.lines[i] || undefined, skip: skips[i] || undefined }));
@@ -178,7 +205,7 @@ async function saveNow() {
 
 /* ---------- 곡 불러오기 ---------- */
 async function selectSong(id) {
-  song = SONGS.find(s => s.id === id); history = []; sel = 0; loopOn = false; $("loop").classList.remove("on");
+  song = SONGS.find(s => s.id === id); undoStack = []; sel = 0; loopOn = false; $("loop").classList.remove("on");
   times = song.lines.map((_, i) => song.seed[i] ?? null); skips = song.lines.map(() => false); texts = song.lines.slice();
   let src = "자동으로 맞춘 시각";
   if (db) {
@@ -191,7 +218,7 @@ async function selectSong(id) {
     try { const s = JSON.parse(localStorage.getItem("syncedit_" + id) || "null"); if (s && s.times.length === song.lines.length) { ({ times, skips } = s); texts = s.texts || song.lines.slice(); src = "이 창에 저장된 시각"; } } catch (e) {}
   }
   fillGaps(); $("srcInfo").textContent = "시작값: " + src;
-  audio.pause(); peaks = null; dur = 0; $("file").value = ""; $("emptyWave").hidden = false;
+  audio.unload(); peaks = null; dur = 0; $("file").value = ""; $("emptyWave").hidden = false;
   renderRows(); draw(); output(); renderCap(0);
 }
 function fillGaps() { // 시각이 없는 줄은 앞뒤 사이로 채움
@@ -204,14 +231,13 @@ function fillGaps() { // 시각이 없는 줄은 앞뒤 사이로 채움
 }
 $("file").addEventListener("change", async e => {
   const f = e.target.files[0]; if (!f) return;
-  audio.src = URL.createObjectURL(f);
+  setSave("음원 여는 중…");
   try {
-    const buf = await f.arrayBuffer(); const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const ab = await ctx.decodeAudioData(buf); dur = ab.duration;
+    const ab = await audio.load(await f.arrayBuffer()); dur = ab.duration;
     const ch = ab.getChannelData(0), step = Math.floor(ab.sampleRate / 100); peaks = new Float32Array(Math.ceil(ch.length / step));
     for (let i = 0; i < peaks.length; i++) { let m = 0; for (let j = i * step; j < Math.min(ch.length, (i + 1) * step); j++) { const v = Math.abs(ch[j]); if (v > m) m = v; } peaks[i] = m; }
-    ctx.close && ctx.close();
-  } catch (err) { peaks = null; }
+    setSave(db ? "Claude 저장 연결됨" : "이 창에만 저장됨 (아래 결과 복사로 보내 주세요)", db ? "ok" : "warn");
+  } catch (err) { peaks = null; setSave("이 파일은 열 수 없습니다. mp3 파일을 골라 주세요", "warn"); return; }
   $("emptyWave").hidden = true; draw();
 });
 
