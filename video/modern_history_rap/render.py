@@ -28,6 +28,7 @@ FONT_DISPLAY = os.path.join(ASSETS, "fonts", "BlackHanSans-Regular.ttf")
 FONT_BODY = os.path.join(ASSETS, "fonts", "NotoSansKR.ttf")
 FONT_SOFT = os.path.join(ASSETS, "fonts", "GowunDodum.ttf")
 SONG = os.path.join(ASSETS, "song.mp3")
+IMAGES = os.environ.get("IMAGES", os.path.join(HERE, "images"))
 DURATION = 185.6
 TITLE = "연도 랩!"
 SUBTITLE = "1866 ~ 1953 한국 근현대사"
@@ -605,6 +606,114 @@ def load_lines():
 LINES = load_lines()
 
 
+# ---------------------------------------------------------------- image shots
+
+SHOT_FADE = .5
+SHOT_SCALE = 1.14
+
+
+def load_shots():
+    path = os.path.join(HERE, "shots.csv")
+    if not os.path.exists(path):
+        return []
+    rows = []
+    with open(path, encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            r["start"], r["end"] = float(r["start"]), float(r["end"])
+            if os.path.exists(os.path.join(IMAGES, r["image"])):
+                rows.append(r)
+    return rows
+
+
+SHOTS = load_shots()
+_IMG = {}
+
+
+def shot_image(name):
+    """Cover-fit the picture to a canvas slightly larger than the frame (room for pan/zoom)."""
+    if name not in _IMG:
+        if len(_IMG) >= 6:
+            _IMG.pop(next(iter(_IMG)))
+        im = Image.open(os.path.join(IMAGES, name)).convert("RGB")
+        cw, ch = int(W * SHOT_SCALE), int(H * SHOT_SCALE)
+        k = max(cw / im.width, ch / im.height)
+        im = im.resize((math.ceil(im.width * k), math.ceil(im.height * k)), Image.LANCZOS)
+        x0, y0 = (im.width - cw) // 2, (im.height - ch) // 2
+        _IMG[name] = im.crop((x0, y0, x0 + cw, y0 + ch))
+    return _IMG[name]
+
+
+class FX:
+    """Particle overlays for picture shots, borrowing the scene particle code."""
+    _particles = Scene._particles
+    _rain_tex = Scene._rain_tex
+    _petals = Scene._petals
+
+    def __init__(self, kind):
+        self.seed = 500
+        self.parts = [] if kind in ("", "none") else [kind]
+        self.dot, self.dot_small = gauss_sprite(10), gauss_sprite(4)
+        self.pseed = np.random.default_rng(599).random((140, 6)).astype(np.float32)
+        if "rain" in self.parts:
+            self.rain = self._rain_tex()
+        if "petals" in self.parts:
+            self.petal_sprites = self._petals()
+
+
+_FX = {}
+_SHOT_VIG = None
+
+
+def render_shot(s, t):
+    global _SHOT_VIG
+    im = shot_image(s["image"])
+    p = min(1, max(0, (t - s["start"]) / (s["end"] - s["start"])))
+    p = p * p * (3 - 2 * p) * .6 + p * .4
+    cw, ch = im.size
+    if s["motion"] == "in":
+        z = 1 + (SHOT_SCALE - 1) * p
+        w, h = cw / z, ch / z
+        x0, y0 = (cw - w) / 2, (ch - h) / 2
+    else:
+        z = 1 + (SHOT_SCALE - 1) * .55
+        w, h = cw / z, ch / z
+        span = cw - w
+        x0 = span * (1 - p) if s["motion"] == "left" else span * p
+        y0 = (ch - h) / 2
+    img = np.asarray(im.resize((W, H), Image.BILINEAR, box=(x0, y0, x0 + w, y0 + h))).astype(np.float32) / 255
+    kind = s.get("effect", "none")
+    if kind not in _FX:
+        _FX[kind] = FX(kind)
+    _FX[kind]._particles(img, t)
+    if _SHOT_VIG is None:
+        vy = np.linspace(-1, 1, H)[:, None]
+        vx = np.linspace(-1, 1, W)[None, :]
+        vig = 1 - .3 * np.clip(vx ** 2 * .6 + vy ** 2 * .8, 0, 1)
+        top = 1 - .25 * (1 - smoothstep(0, .45, np.linspace(0, 1, H)))[:, None]
+        bottom = 1 - .55 * smoothstep(.7, 1.0, np.linspace(0, 1, H))[:, None]
+        _SHOT_VIG = (vig * top * bottom).astype(np.float32)[..., None]
+    return img * _SHOT_VIG
+
+
+def shot_layer(t):
+    """(layer, alpha) for the picture shot at time t, or (None, 0)."""
+    cur = next((s for s in SHOTS if s["start"] <= t < s["end"]), None)
+    if cur is None:
+        return None, 0.0
+    layer, alpha = render_shot(cur, t), 1.0
+    prev = next((s for s in SHOTS if abs(s["end"] - cur["start"]) < 1e-6), None)
+    nxt = next((s for s in SHOTS if abs(s["start"] - cur["end"]) < 1e-6), None)
+    k = (t - cur["start"]) / SHOT_FADE
+    if k < 1:
+        if prev is not None:
+            layer = render_shot(prev, t) * (1 - k) + layer * k
+        else:
+            alpha = k
+    if nxt is None:
+        alpha = min(alpha, (cur["end"] - t) / SHOT_FADE)
+    return layer, max(0.0, min(1.0, alpha))
+
+
 def active(t):
     for r in LINES:
         if r["start"] <= t < r["end"]:
@@ -699,6 +808,17 @@ def get_scene(i):
 
 
 def frame(t):
+    layer, alpha = shot_layer(t)
+    if alpha >= 1:
+        img = layer
+    else:
+        img = scene_frame(t)
+        if alpha > 0:
+            img = img * (1 - alpha) + layer * alpha
+    return overlay(img, t)
+
+
+def scene_frame(t):
     idx = max(i for i, s in enumerate(TIMELINE) if s[0] <= t)
     t0, _ = scene_span(idx)
     img = get_scene(idx).render(t - t0)
@@ -711,7 +831,10 @@ def frame(t):
         pt0, _ = scene_span(idx - 1)
         k = (t - (t0 - XFADE / 2)) / XFADE
         img = get_scene(idx - 1).render(t - pt0) * (1 - k) + img * k
+    return img
 
+
+def overlay(img, t):
     r = active(t)
     if t < 10.0:
         draw_title(img, t, 0.2, 10.0)
