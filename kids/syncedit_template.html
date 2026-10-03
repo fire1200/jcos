@@ -194,7 +194,7 @@ class ElPlayer {
 const webPlayer = new Player();
 let audio = webPlayer;
 function bindPlayer(p) { p.addEventListener("play", () => $("playBtn").textContent = "⏸ 멈춤"); p.addEventListener("pause", () => $("playBtn").textContent = "▶ 재생"); }
-let song = SONGS[0], times = [], skips = [], texts = [], sel = 0, peaks = null, dur = 0, view = 12, loopOn = false;
+let song = SONGS[0], times = [], skips = [], texts = [], secs = [], sel = 0, peaks = null, dur = 0, view = 12, loopOn = false;
 let undoStack = [], db = null, saveTimer = null, playingIdx = -1, drag = null;
 
 const fmt = t => { if (t == null || isNaN(t)) return "—"; const m = Math.floor(t / 60), s = t - m * 60; return m + ":" + (s < 10 ? "0" : "") + s.toFixed(2); };
@@ -202,16 +202,16 @@ const docPath = () => "sync/kids" + song.id;
 function setSave(text, cls) { const el = $("save"); el.textContent = text; el.className = "save " + (cls || ""); }
 
 /* ---------- 상태 ---------- */
-function snapshot() { undoStack.push(JSON.stringify({ times, skips, texts })); if (undoStack.length > 200) undoStack.shift(); }
-function undo() { const s = undoStack.pop(); if (!s) return; ({ times, skips, texts } = JSON.parse(s)); changed(); }
+function snapshot() { undoStack.push(JSON.stringify({ times, skips, texts, secs })); if (undoStack.length > 200) undoStack.shift(); }
+function undo() { const s = undoStack.pop(); if (!s) return; ({ times, skips, texts, secs } = JSON.parse(s)); if (sel >= texts.length) sel = texts.length - 1; changed(); }
 function changed() { renderRows(); draw(); output(); queueSave(); }
 function output() {
-  const lines = texts.map((text, i) => ({ i: i + 1, t: skips[i] || times[i] == null ? null : +(+times[i]).toFixed(2), text, edited: text !== song.lines[i] || undefined, skip: skips[i] || undefined }));
+  const lines = texts.map((text, i) => ({ i: i + 1, t: skips[i] || times[i] == null ? null : +(+times[i]).toFixed(2), text, sec: secs[i] || undefined, skip: skips[i] || undefined }));
   $("out").value = JSON.stringify({ song: "kids" + song.id, lines });
   return lines;
 }
 function queueSave() {
-  try { localStorage.setItem("syncedit_" + song.id, JSON.stringify({ times, skips, texts })); } catch (e) {}
+  try { localStorage.setItem("syncedit_" + song.id, JSON.stringify({ times, skips, texts, secs })); } catch (e) {}
   clearTimeout(saveTimer); setSave("저장 대기…");
   saveTimer = setTimeout(saveNow, 1200);
 }
@@ -226,16 +226,18 @@ async function saveNow() {
 /* ---------- 곡 불러오기 ---------- */
 async function selectSong(id) {
   song = SONGS.find(s => s.id === id); undoStack = []; sel = 0; loopOn = false; $("loop").classList.remove("on");
-  times = song.lines.map((_, i) => song.seed[i] ?? null); skips = song.lines.map(() => false); texts = song.lines.slice();
+  times = song.lines.map((_, i) => song.seed[i] ?? null); skips = song.lines.map(() => false); texts = song.lines.slice(); secs = song.secs.slice();
   let src = "자동으로 맞춘 시각";
   if (db) {
     try { const snap = await db.doc(docPath()).get(); const d = snap.exists ? snap.data() : null;
-      if (d && Array.isArray(d.lines) && d.lines.length === song.lines.length) {
-        times = d.lines.map((l, i) => l.t ?? times[i]); skips = d.lines.map(l => !!l.skip); texts = d.lines.map((l, i) => l.text || song.lines[i]);
+      if (d && Array.isArray(d.lines) && d.lines.length) {
+        const same = d.lines.length === song.lines.length;
+        times = d.lines.map((l, i) => l.t ?? (same ? times[i] : null)); skips = d.lines.map(l => !!l.skip); texts = d.lines.map((l, i) => l.text || song.lines[i] || "");
+        secs = d.lines.map((l, i) => l.sec || (same ? song.secs[i] : "") || "");
         src = d.source === "human" ? "지난번에 고친 시각" : "자동으로 맞춘 시각";
       } } catch (e) {}
   } else {
-    try { const s = JSON.parse(localStorage.getItem("syncedit_" + id) || "null"); if (s && s.times.length === song.lines.length) { ({ times, skips } = s); texts = s.texts || song.lines.slice(); src = "이 창에 저장된 시각"; } } catch (e) {}
+    try { const s = JSON.parse(localStorage.getItem("syncedit_" + id) || "null"); if (s && s.times && s.times.length) { ({ times, skips } = s); texts = s.texts || song.lines.slice(); secs = s.secs || song.secs.slice(); src = "이 창에 저장된 시각"; } } catch (e) {}
   }
   fillGaps(); $("srcInfo").textContent = "시작값: " + src;
   audio.unload(); audio = webPlayer; peaks = null; dur = 0; $("file").value = ""; $("emptyWave").hidden = false;
@@ -271,18 +273,18 @@ function renderRows() {
   const tb = $("rows"); tb.innerHTML = "";
   texts.forEach((text, i) => {
     const tr = document.createElement("tr"); tr.id = "r" + i;
-    tr.className = (i === sel ? "sel " : "") + (skips[i] ? "skip " : "") + (i === playingIdx ? "playing " : "") + (song.secs[i] && (i === 0 || song.secs[i] !== song.secs[i - 1]) ? "secstart" : "");
+    tr.className = (i === sel ? "sel " : "") + (skips[i] ? "skip " : "") + (i === playingIdx ? "playing " : "") + (secs[i] && (i === 0 || secs[i] !== secs[i - 1]) ? "secstart" : "");
     tr.innerHTML = `<td class="n">${i + 1}</td><td class="time"><input id="t${i}" type="number" step="0.05" min="0" aria-label="${i + 1}번 줄 시작 초" value="${times[i] == null ? "" : (+times[i]).toFixed(2)}" placeholder="—"></td><td class="txt"><input id="x${i}" type="text" aria-label="${i + 1}번 줄 가사"></td>
-      <td class="ops"><button type="button" data-a="play" data-i="${i}" title="이 줄부터 듣기">▶</button><button type="button" data-a="here" data-i="${i}" title="지금 재생 위치로">여기로</button><button type="button" data-a="m" data-i="${i}" aria-label="0.05초 앞으로">−</button><button type="button" data-a="p" data-i="${i}" aria-label="0.05초 뒤로">+</button><button type="button" data-a="skip" data-i="${i}" title="안 부른 줄">${skips[i] ? "되살리기" : "건너뜀"}</button></td>`;
+      <td class="ops"><button type="button" data-a="play" data-i="${i}" title="이 줄부터 듣기">▶</button><button type="button" data-a="here" data-i="${i}" title="지금 재생 위치로">여기로</button><button type="button" data-a="m" data-i="${i}" aria-label="0.05초 앞으로">−</button><button type="button" data-a="p" data-i="${i}" aria-label="0.05초 뒤로">+</button><button type="button" data-a="skip" data-i="${i}" title="안 부른 줄">${skips[i] ? "되살리기" : "건너뜀"}</button><button type="button" data-a="add" data-i="${i}" title="이 줄 아래에 새 자막 줄 추가">＋ 줄</button><button type="button" data-a="del" data-i="${i}" title="이 자막 줄 삭제 (Ctrl+Z로 되돌리기)">삭제</button></td>`;
     tr.querySelector(".txt input").value = text;
-    if (song.secs[i] && (i === 0 || song.secs[i] !== song.secs[i - 1])) tr.querySelector(".n").title = song.secs[i];
+    if (secs[i] && (i === 0 || secs[i] !== secs[i - 1])) tr.querySelector(".n").title = secs[i];
     tr.addEventListener("click", e => { if (e.target.closest("button,input")) return; select(i); });
     tb.appendChild(tr);
   });
 }
 $("rows").addEventListener("change", e => {
   let m = e.target.id.match(/^t(\d+)$/); if (m) { snapshot(); times[+m[1]] = Math.max(0, +e.target.value || 0); changed(); return; }
-  m = e.target.id.match(/^x(\d+)$/); if (m) { snapshot(); texts[+m[1]] = e.target.value.trim() || song.lines[+m[1]]; changed(); }
+  m = e.target.id.match(/^x(\d+)$/); if (m) { snapshot(); texts[+m[1]] = e.target.value.trim() || texts[+m[1]]; changed(); }
 });
 $("rows").addEventListener("focusin", e => { const m = e.target.id && e.target.id.match(/^[tx](\d+)$/); if (m) select(+m[1], false); });
 $("rows").addEventListener("click", e => {
@@ -291,9 +293,27 @@ $("rows").addEventListener("click", e => {
   else if (b.dataset.a === "here") { if (!audio.src) return; snapshot(); times[i] = +audio.currentTime.toFixed(2); changed(); }
   else if (b.dataset.a === "m" || b.dataset.a === "p") nudge(b.dataset.a === "m" ? -0.05 : 0.05);
   else if (b.dataset.a === "skip") { snapshot(); skips[i] = !skips[i]; changed(); }
+  else if (b.dataset.a === "add") addLine(i);
+  else if (b.dataset.a === "del") delLine(i);
 });
+function addLine(i) {
+  snapshot();
+  let t = null;
+  if (audio.src && audio.currentTime > (times[i] ?? -1)) t = +audio.currentTime.toFixed(2);
+  else if (times[i] != null) { let n = i + 1; while (n < times.length && times[n] == null) n++; t = +((n < times.length ? (times[i] + times[n]) / 2 : times[i] + 2)).toFixed(2); }
+  times.splice(i + 1, 0, t); skips.splice(i + 1, 0, false); texts.splice(i + 1, 0, "새 자막"); secs.splice(i + 1, 0, secs[i] || "");
+  sel = i + 1; changed(); select(sel);
+  const inp = $("x" + sel); if (inp) { inp.focus(); inp.select(); }
+  setSave("새 줄을 넣었습니다. 가사를 입력하세요", "ok");
+}
+function delLine(i) {
+  if (texts.length <= 1) return;
+  snapshot(); times.splice(i, 1); skips.splice(i, 1); texts.splice(i, 1); secs.splice(i, 1);
+  if (sel >= texts.length) sel = texts.length - 1; changed(); select(sel);
+  setSave("줄을 삭제했습니다 (Ctrl+Z로 되돌리기)", "ok");
+}
 function select(i, scroll = true) {
-  sel = Math.max(0, Math.min(song.lines.length - 1, i));
+  sel = Math.max(0, Math.min(texts.length - 1, i));
   document.querySelectorAll("#rows tr").forEach((tr, k) => tr.classList.toggle("sel", k === sel));
   if (scroll) { const r = $("r" + sel); r && r.scrollIntoView({ block: "nearest" }); }
   draw();
