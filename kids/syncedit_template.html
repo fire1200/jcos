@@ -89,7 +89,7 @@ details summary { cursor: pointer; color: var(--muted); }
       <label class="k" for="song">곡</label>
       <select id="song"></select>
       <label class="k" for="file">음원</label>
-      <input id="file" type="file" accept="audio/*">
+      <input id="file" type="file" accept="audio/*,video/*,.mp3,.mp4,.m4a,.wav">
       <span class="src" id="srcInfo"></span>
     </div>
   </section>
@@ -128,7 +128,7 @@ details summary { cursor: pointer; color: var(--muted); }
     </div>
     <div class="wavebox">
       <canvas id="wave" tabindex="0" aria-label="파형. 세로 막대가 가사 줄 시작이며 끌어서 옮길 수 있습니다"></canvas>
-      <div class="empty-wave" id="emptyWave">음원 파일을 고르면 파형이 나타납니다<br><span class="src">D:\Music\토담토담\kids_songs_20260930\audio · 7번은 C 버전</span></div>
+      <div class="empty-wave" id="emptyWave">음원 파일을 고르면 파형이 나타납니다<br><span class="src">mp3 또는 mp4 (만든 동요 영상 파일도 됩니다) · 7번은 C 버전</span></div>
     </div>
     <canvas id="over" aria-label="곡 전체 보기. 누르면 그 위치로 이동"></canvas>
     <p class="keys">
@@ -173,7 +173,20 @@ class Player {
   play() { if (!this.buf || this.playing) return; if (this.ctx.state === "suspended") this.ctx.resume(); if (this.pos >= this.duration - 0.05) this.pos = 0; this._start(); this._emit("play"); }
   pause() { if (!this.playing) return; this._stop(); this._emit("pause"); }
 }
-const audio = new Player();
+// 디코딩이 안 되는 파일(일부 mp4)은 브라우저 기본 재생기로 대신 재생 (이때는 파형 없이 막대만 보임)
+class ElPlayer {
+  constructor(url) { this.el = new Audio(url); this.ls = { play: [], pause: [] }; this.el.addEventListener("play", () => this._emit("play")); this.el.addEventListener("pause", () => this._emit("pause")); }
+  ready() { return new Promise((ok, no) => { this.el.addEventListener("loadedmetadata", () => ok(this), { once: true }); this.el.addEventListener("error", () => no(new Error("media")), { once: true }); setTimeout(() => no(new Error("timeout")), 8000); }); }
+  get src() { return true; } get paused() { return this.el.paused; } get duration() { return this.el.duration || 0; }
+  get currentTime() { return this.el.currentTime; } set currentTime(t) { this.el.currentTime = Math.max(0, t); }
+  set playbackRate(r) { this.el.playbackRate = r; }
+  addEventListener(n, f) { (this.ls[n] || (this.ls[n] = [])).push(f); } _emit(n) { (this.ls[n] || []).forEach(f => f()); }
+  play() { this.el.play().catch(() => {}); } pause() { this.el.pause(); }
+  unload() { this.el.pause(); this.el.removeAttribute("src"); this.ls = { play: [], pause: [] }; }
+}
+const webPlayer = new Player();
+let audio = webPlayer;
+function bindPlayer(p) { p.addEventListener("play", () => $("playBtn").textContent = "⏸ 멈춤"); p.addEventListener("pause", () => $("playBtn").textContent = "▶ 재생"); }
 let song = SONGS[0], times = [], skips = [], texts = [], sel = 0, peaks = null, dur = 0, view = 12, loopOn = false;
 let undoStack = [], db = null, saveTimer = null, playingIdx = -1, drag = null;
 
@@ -218,7 +231,7 @@ async function selectSong(id) {
     try { const s = JSON.parse(localStorage.getItem("syncedit_" + id) || "null"); if (s && s.times.length === song.lines.length) { ({ times, skips } = s); texts = s.texts || song.lines.slice(); src = "이 창에 저장된 시각"; } } catch (e) {}
   }
   fillGaps(); $("srcInfo").textContent = "시작값: " + src;
-  audio.unload(); peaks = null; dur = 0; $("file").value = ""; $("emptyWave").hidden = false;
+  audio.unload(); audio = webPlayer; peaks = null; dur = 0; $("file").value = ""; $("emptyWave").hidden = false;
   renderRows(); draw(); output(); renderCap(0);
 }
 function fillGaps() { // 시각이 없는 줄은 앞뒤 사이로 채움
@@ -231,13 +244,18 @@ function fillGaps() { // 시각이 없는 줄은 앞뒤 사이로 채움
 }
 $("file").addEventListener("change", async e => {
   const f = e.target.files[0]; if (!f) return;
-  setSave("음원 여는 중…");
+  setSave("음원 여는 중…"); audio.unload(); audio = webPlayer;
   try {
-    const ab = await audio.load(await f.arrayBuffer()); dur = ab.duration;
+    const ab = await webPlayer.load(await f.arrayBuffer()); dur = ab.duration;
     const ch = ab.getChannelData(0), step = Math.floor(ab.sampleRate / 100); peaks = new Float32Array(Math.ceil(ch.length / step));
     for (let i = 0; i < peaks.length; i++) { let m = 0; for (let j = i * step; j < Math.min(ch.length, (i + 1) * step); j++) { const v = Math.abs(ch[j]); if (v > m) m = v; } peaks[i] = m; }
     setSave(db ? "Claude 저장 연결됨" : "이 창에만 저장됨 (아래 결과 복사로 보내 주세요)", db ? "ok" : "warn");
-  } catch (err) { peaks = null; setSave("이 파일은 열 수 없습니다. mp3 파일을 골라 주세요", "warn"); return; }
+  } catch (err) {
+    peaks = null;
+    try { const ep = new ElPlayer(URL.createObjectURL(f)); await ep.ready(); bindPlayer(ep); audio = ep; dur = ep.duration;
+      setSave("파형 없이 재생합니다 (막대는 그대로 쓸 수 있어요)", "warn"); }
+    catch (e2) { setSave("이 파일은 열 수 없습니다. mp3 파일을 골라 주세요", "warn"); return; }
+  }
   $("emptyWave").hidden = true; draw();
 });
 
@@ -292,8 +310,7 @@ function tick() {
   renderCap(t); draw(); requestAnimationFrame(tick);
 }
 $("playBtn").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
-audio.addEventListener("play", () => $("playBtn").textContent = "⏸ 멈춤");
-audio.addEventListener("pause", () => $("playBtn").textContent = "▶ 재생");
+bindPlayer(webPlayer);
 $("back").addEventListener("click", () => audio.currentTime = Math.max(0, audio.currentTime - 3));
 $("loop").addEventListener("click", () => { loopOn = !loopOn; $("loop").classList.toggle("on", loopOn); if (loopOn) playFrom(sel); });
 document.querySelectorAll("[data-rate]").forEach(b => b.addEventListener("click", () => { audio.playbackRate = +b.dataset.rate; document.querySelectorAll("[data-rate]").forEach(x => x.classList.toggle("on", x === b)); }));
