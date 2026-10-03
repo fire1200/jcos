@@ -16,11 +16,11 @@ CHANNEL = "호크마 차일드 스터디"
 
 THUMBS = [
     # (파일 이름, 배경 그림, 윗줄, 큰 제목, 연도 범위, 아랫줄, 강조색)
-    ("thumb_1_joseon_early", "joseon_early_rap/images/06a.png", "조선 전기", "연도 랩!", "1388~1592",
+    ("thumb_1_joseon_early", "joseon_early_rap/images/06a.png", "조선 전기", "연도 암기송", "1388~1592",
      "노래로 3분 만에 외우는 한국사", (255, 214, 64)),
-    ("thumb_2_joseon_late", "joseon_late_rap/images/10b.png", "조선 후기", "연도 랩!", "1608~1863",
+    ("thumb_2_joseon_late", "joseon_late_rap/images/10b.png", "조선 후기", "연도 암기송", "1608~1863",
      "노래로 3분 만에 외우는 한국사", (120, 220, 255)),
-    ("thumb_3_modern", "modern_history_rap/images/11b.png", "근현대사", "연도 랩!", "1866~1953",
+    ("thumb_3_modern", "modern_history_rap/images/11b.png", "근현대사", "연도 암기송", "1866~1953",
      "노래로 3분 만에 외우는 한국사", (255, 140, 120)),
 ]
 
@@ -60,7 +60,7 @@ def make(name, bg, top, title, years, bottom, accent):
     d = ImageDraw.Draw(img)
     # 시리즈 배지
     bf = font("NotoSansKR.ttf", 34, "Black")
-    badge = "초등 한국사 암기송"
+    badge = "초등 한국사"
     bw = d.textlength(badge, font=bf)
     d.rounded_rectangle([48, 40, 48 + bw + 44, 40 + 62], radius=31, fill=accent)
     d.text((70, 44), badge, font=bf, fill=(20, 20, 30))
