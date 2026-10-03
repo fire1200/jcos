@@ -703,14 +703,15 @@ def shot_layer(t):
     layer, alpha = render_shot(cur, t), 1.0
     prev = next((s for s in SHOTS if abs(s["end"] - cur["start"]) < 1e-6), None)
     nxt = next((s for s in SHOTS if abs(s["start"] - cur["end"]) < 1e-6), None)
-    k = (t - cur["start"]) / SHOT_FADE
+    fade = min(SHOT_FADE, .25 * (cur["end"] - cur["start"]))
+    k = (t - cur["start"]) / fade
     if k < 1:
         if prev is not None:
             layer = render_shot(prev, t) * (1 - k) + layer * k
         else:
             alpha = k
     if nxt is None:
-        alpha = min(alpha, (cur["end"] - t) / SHOT_FADE)
+        alpha = min(alpha, (cur["end"] - t) / fade)
     return layer, max(0.0, min(1.0, alpha))
 
 
