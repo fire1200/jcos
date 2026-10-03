@@ -22,17 +22,31 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 W, H, FPS = 1920, 1080, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
-ASSETS = os.environ.get("ASSETS", os.path.join(HERE, "assets"))
-OUT = os.environ.get("OUT", os.path.join(HERE, "out"))
+# 곡 폴더: timing.csv, shots.csv, images/, assets/, out/, song.json(선택)이 있는 곳
+SONG_DIR = os.path.abspath(os.environ.get("SONG_DIR", HERE))
+ASSETS = os.environ.get("ASSETS", os.path.join(SONG_DIR, "assets"))
+OUT = os.environ.get("OUT", os.path.join(SONG_DIR, "out"))
 FONT_DISPLAY = os.path.join(ASSETS, "fonts", "BlackHanSans-Regular.ttf")
 FONT_BODY = os.path.join(ASSETS, "fonts", "NotoSansKR.ttf")
 FONT_SOFT = os.path.join(ASSETS, "fonts", "GowunDodum.ttf")
 SONG = os.path.join(ASSETS, "song.mp3")
-IMAGES = os.environ.get("IMAGES", os.path.join(HERE, "images"))
-DURATION = 185.6
-TITLE = "연도 랩!"
-SUBTITLE = "1866 ~ 1953 한국 근현대사"
-TIMELINE_YEARS = [1866, 1871, 1876, 1884, 1894, 1897, 1905, 1910, 1919, 1945, 1948, 1950, 1953]
+IMAGES = os.environ.get("IMAGES", os.path.join(SONG_DIR, "images"))
+SONG = {
+    "duration": 185.6,
+    "title": "연도 랩!",
+    "subtitle": "1866 ~ 1953 한국 근현대사",
+    "timeline_years": [1866, 1871, 1876, 1884, 1894, 1897, 1905, 1910, 1919, 1945, 1948, 1950, 1953],
+    "intro_end": 10.0,      # 처음 제목이 사라지는 시각, 연도 바가 나타나는 시각
+    "outro_start": 173.0,   # 끝 제목이 나타나는 시각, 연도 바가 사라지는 시각
+    "scenes": None,         # [[시각, 장면, 시드], ...] 없으면 아래 TIMELINE 사용
+}
+if os.path.exists(os.path.join(SONG_DIR, "song.json")):
+    import json
+    SONG.update(json.load(open(os.path.join(SONG_DIR, "song.json"), encoding="utf-8")))
+DURATION = SONG["duration"]
+TITLE = SONG["title"]
+SUBTITLE = SONG["subtitle"]
+TIMELINE_YEARS = SONG["timeline_years"]
 
 
 def hexc(s):
@@ -152,6 +166,8 @@ SCENES = {
 TIMELINE = [(0, "magic", 11), (20.0, "sea_dawn", 21), (43.2, "hanok_sunset", 31), (75.5, "magic", 12),
             (86.0, "storm", 41), (92.4, "breaking", 42), (102.0, "summer", 51), (108.4, "war_night", 52),
             (114.8, "starry", 61), (151.2, "magic", 13), (163.0, "sunrise", 71)]
+if SONG["scenes"]:
+    TIMELINE = [tuple(x) for x in SONG["scenes"]]
 XFADE = 1.0
 CLOUD_PAD = 520
 
@@ -596,7 +612,7 @@ def ease(x):
 
 def load_lines():
     rows = []
-    with open(os.path.join(HERE, "timing.csv"), encoding="utf-8") as f:
+    with open(os.path.join(SONG_DIR, "timing.csv"), encoding="utf-8") as f:
         for r in csv.DictReader(f):
             r["start"], r["end"] = float(r["start"]), float(r["end"])
             rows.append(r)
@@ -613,7 +629,7 @@ SHOT_SCALE = 1.14
 
 
 def load_shots():
-    path = os.path.join(HERE, "shots.csv")
+    path = os.path.join(SONG_DIR, "shots.csv")
     if not os.path.exists(path):
         return []
     rows = []
@@ -868,15 +884,16 @@ def scene_frame(t):
 
 def overlay(img, t):
     r = active(t)
-    if t < 10.0:
-        draw_title(img, t, 0.2, 10.0)
-    if t >= 173.0:
-        draw_title(img, t, 173.4, DURATION + 5, y=440)
+    t_in, t_out = SONG["intro_end"], SONG["outro_start"]
+    if t < t_in:
+        draw_title(img, t, 0.2, t_in)
+    if t >= t_out:
+        draw_title(img, t, t_out + .4, DURATION + 5, y=440)
     if r:
         if r["kind"] not in ("intro", "outro"):
             draw_card(img, r, t)
         draw_subtitle(img, r, t)
-    if 10 <= t < 173:
+    if t_in <= t < t_out:
         draw_timeline(img, t, r)
     fade = min(1, t / .8, (DURATION - t) / 1.5)
     img *= max(0, fade)
