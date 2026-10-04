@@ -353,13 +353,37 @@ document.addEventListener("click", (e) => {
   if (e.target.closest && e.target.closest("button, label, input[type=range], input[type=checkbox]"))
     setTimeout(() => { const a = document.activeElement; if (a && a !== document.body && !isTyping(a)) a.blur(); }, 0);
 });
-document.addEventListener("keydown", (e) => {
+// 종류 상자는 고르고 나면 바로 초점을 풀어 스페이스가 다시 재생/멈춤이 되게 함
+$("ed-kind").addEventListener("change", () => $("ed-kind").blur());
+// 화면 밖(주소창, 다른 창, 바깥 페이지)을 누르면 키가 이 화면에 오지 않으므로 알려 줌
+const keyHint = document.createElement("div");
+keyHint.textContent = "⌨ 단축키 꺼짐 — 화면 아무 곳이나 한 번 누르면 스페이스가 다시 돼요";
+keyHint.style.cssText = "position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:99;" +
+  "background:#d7283a;color:#fff;padding:8px 16px;border-radius:20px;font-weight:700;display:none;cursor:pointer";
+document.body.appendChild(keyHint);
+const typingHint = () => isTyping(document.activeElement)
+  ? "✏ 글자 입력 중 — Esc 또는 Enter를 누르면 스페이스가 다시 재생/멈춤이 돼요" : "";
+function showKeyHint() {
+  const t = !document.hasFocus() ? "⌨ 단축키 꺼짐 — 화면 아무 곳이나 한 번 누르면 스페이스가 다시 돼요" : typingHint();
+  keyHint.textContent = t; keyHint.style.display = t ? "block" : "none";
+}
+window.addEventListener("blur", showKeyHint); window.addEventListener("focus", showKeyHint);
+document.addEventListener("focusin", showKeyHint); document.addEventListener("focusout", () => setTimeout(showKeyHint, 0));
+keyHint.addEventListener("mousedown", (e) => { e.preventDefault(); const a = document.activeElement; if (a && a.blur) a.blur(); window.focus(); setTimeout(showKeyHint, 0); });
+// 버튼에 초점이 남아 있으면 스페이스를 뗄 때 그 버튼이 한 번 더 눌리므로 막음
+window.addEventListener("keyup", (e) => { if (e.key === " " && !isTyping(e.target)) e.preventDefault(); }, true);
+window.addEventListener("keydown", (e) => {
   if (isTyping(e.target)) {
     if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); e.target.blur(); }
     return;
   }
   const k = e.key, step = e.shiftKey ? .5 : .1;
-  if (k === " " || k === "k" || k === "K") { e.preventDefault(); video.paused ? video.play() : video.pause(); }
+  if (k === " " || e.code === "Space" || k === "k" || k === "K") {
+    e.preventDefault(); e.stopPropagation();
+    if (e.repeat) return;
+    const a = document.activeElement; if (a && a !== document.body && a.blur) a.blur();
+    video.paused ? video.play() : video.pause();
+  }
   else if (k === "Enter" || k === "t" || k === "T") { e.preventDefault(); tap(); }
   else if (k === "e" || k === "E") { snapshot(); setEnd(sel, video.currentTime); save(); render(); }
   else if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); snapshot(); setStart(sel, rows[sel].start + (k === "ArrowLeft" ? -step : step)); save(); render(); }
@@ -372,7 +396,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "l" || k === "L") video.currentTime += 2;
   else if (k === "p" || k === "P") { video.currentTime = Math.max(0, rows[sel].start - 1); video.play(); }
   else if ((e.ctrlKey || e.metaKey) && (k === "z" || k === "Z")) { e.preventDefault(); undo(); }
-});
+}, true);
 // ---- 글자 편집, 줄 추가·삭제
 let edShown = -1, edSnap = false;
 function syncEditor() {
