@@ -17,7 +17,7 @@ def ts(t):
 
 os.makedirs(OUT, exist_ok=True)
 for song in SONGS:
-    rows = list(csv.DictReader(open(os.path.join(HERE, song, "timing.csv"), encoding="utf-8")))
+    rows = list(csv.DictReader(open(os.path.join(HERE, song, "timing.csv"), encoding="utf-8-sig")))
     path = os.path.join(OUT, song + ".srt")
     with open(path, "w", encoding="utf-8") as f:
         for i, r in enumerate(rows, 1):

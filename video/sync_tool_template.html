@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연도 암기송 싱크 도구</title>
+<style>
+  :root {
+    --bg: #14161c; --panel: #1d2029; --line: #2c3040; --text: #e9ebf2; --muted: #9aa0b4;
+    --accent: #ffd36b; --sel: #3a4a7a; --play: #2f5a3f; --warn: #ff8a7a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 "Noto Sans KR", system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 17px; margin: 0 10px 0 0; }
+  select, button, input[type=number] { background: #262a36; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font: inherit; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #1a1a1a; border-color: var(--accent); font-weight: 700; }
+  label.file { background: #262a36; border: 1px dashed var(--muted); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+  label.file input { display: none; }
+  main { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 12px; padding: 12px; height: calc(100vh - 58px); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; height: auto; } }
+  .stage { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+  .player { position: relative; background: #000; border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9; }
+  .player video { width: 100%; height: 100%; display: block; }
+  .player .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 20px; }
+  .ov-card { position: absolute; top: 7%; left: 0; right: 0; text-align: center; pointer-events: none; text-shadow: 0 2px 10px #000, 0 0 3px #000; }
+  .ov-card .y { font-size: clamp(18px, 3.6vw, 48px); font-weight: 900; }
+  .ov-card .e { font-size: clamp(12px, 2vw, 22px); font-weight: 700; }
+  .ov-sub { position: absolute; bottom: 9%; left: 4%; right: 4%; text-align: center; font-size: clamp(14px, 3vw, 34px); font-weight: 800; pointer-events: none; text-shadow: 0 2px 10px #000, 0 0 3px #000; }
+  .ov-sub .done { color: var(--accent); }
+  .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .time { font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 700; min-width: 110px; }
+  canvas { width: 100%; height: 70px; background: var(--panel); border-radius: 8px; display: block; }
+  .help { background: var(--panel); border-radius: 8px; padding: 10px 12px; color: var(--muted); font-size: 13.5px; }
+  .help b { color: var(--text); }
+  kbd { background: #2a2e3b; border: 1px solid #3a3f52; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; font: 12px/1.6 ui-monospace, monospace; color: var(--text); }
+  .list { overflow: auto; background: var(--panel); border-radius: 8px; min-height: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { position: sticky; top: 0; background: #23273a; text-align: left; font-size: 13px; color: var(--muted); z-index: 1; }
+  td.t { font-variant-numeric: tabular-nums; white-space: nowrap; width: 1%; }
+  td.k { color: var(--muted); font-size: 12px; width: 1%; white-space: nowrap; }
+  th { white-space: nowrap; }
+  tr { cursor: pointer; }
+  tr.playing td { background: var(--play); }
+  tr.sel td { background: var(--sel); }
+  tr.sel td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
+  tr.changed td.t { color: var(--accent); }
+  .msg { color: var(--accent); min-height: 1.4em; }
+  .warn { color: var(--warn); }
+</style>
+</head>
+<body>
+<header>
+  <h1>연도 암기송 싱크 도구</h1>
+  <select id="song"></select>
+  <label class="file">🎬 영상·음원 열기<input id="media" type="file" accept="video/*,audio/*"></label>
+  <label class="file">📄 timing.csv 불러오기<input id="csvin" type="file" accept=".csv,text/csv"></label>
+  <button id="undo" title="Ctrl+Z">되돌리기</button>
+  <button id="reset">처음 값으로</button>
+  <span style="flex:1"></span>
+  <button id="srt">SRT 저장</button>
+  <button id="save" class="primary">timing.csv 저장</button>
+</header>
+<main>
+  <section class="stage">
+    <div class="player" id="player">
+      <video id="video" playsinline></video>
+      <div class="empty" id="empty">위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요.<br>파일은 이 컴퓨터 안에서만 재생되고 어디에도 올라가지 않습니다.</div>
+      <div class="ov-card" id="ovcard"><div class="y"></div><div class="e"></div></div>
+      <div class="ov-sub" id="ovsub"></div>
+    </div>
+    <div class="bar">
+      <span class="time" id="time">0:00.00</span>
+      <button id="play">▶ 재생 (Space)</button>
+      <button data-seek="-5">−5초</button><button data-seek="-2">−2초 (J)</button>
+      <button data-seek="2">+2초 (L)</button><button data-seek="5">+5초</button>
+      <select id="rate"><option value="0.5">0.5배</option><option value="0.75">0.75배</option><option value="1" selected>1배</option></select>
+      <span style="flex:1"></span>
+      전체 이동 <input id="shift" type="number" step="0.1" value="0" style="width:80px">초 <button id="shiftbtn">적용</button>
+    </div>
+    <canvas id="tl" width="1200" height="70"></canvas>
+    <div class="msg" id="msg"></div>
+    <div class="help">
+      <b>기본 작업 순서</b>: 첫 줄을 고르고 재생 → 가사가 <b>시작되는 순간</b>마다 <kbd>Enter</kbd>. 시작 시각이 찍히고 다음 줄로 넘어갑니다. 앞 줄의 끝은 자동으로 맞춰집니다.<br>
+      <kbd>Space</kbd> 재생/멈춤 · <kbd>Enter</kbd> 지금 시각을 고른 줄의 시작으로 · <kbd>E</kbd> 지금 시각을 고른 줄의 끝으로 (노래가 쉬는 구간 앞)<br>
+      <kbd>←</kbd><kbd>→</kbd> 고른 줄 시작 ±0.1초 (<kbd>Shift</kbd> ±0.5초) · <kbd>,</kbd><kbd>.</kbd> 고른 줄 끝 ±0.1초 · <kbd>↑</kbd><kbd>↓</kbd> 줄 고르기<br>
+      <kbd>J</kbd><kbd>L</kbd> 2초 뒤로/앞으로 · <kbd>P</kbd> 고른 줄 1초 전부터 다시 듣기 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 · 줄을 클릭하면 그 줄로 이동<br>
+      작업 내용은 이 브라우저에 자동 저장됩니다. 끝나면 <b>timing.csv 저장</b>을 눌러 받은 파일을 그대로 보내 주세요.
+    </div>
+  </section>
+  <section class="list">
+    <table>
+      <thead><tr><th>#</th><th>시작</th><th>끝</th><th>종류</th><th>자막</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+</main>
+<script>
+const SONGS = /*DATA*/;
+const FIELDS = ["start", "end", "kind", "text", "year", "event", "shots"];
+const KIND = { intro: "인트로", hook: "훅", line: "가사", gang: "구호", quiz: "퀴즈", quizr: "퀴즈", outro: "마무리" };
+const $ = (id) => document.getElementById(id);
+const video = $("video");
+let songKey = Object.keys(SONGS)[0];
+let rows = [], original = [], sel = 0, history = [], lastScrolled = -1;
+
+function parseCSV(text) {
+  const out = []; let row = [], f = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(f); out.push(row); row = []; f = ""; }
+    else f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); out.push(row); }
+  const head = out.shift().map((h) => h.trim().replace(/^﻿/, ""));
+  return out.filter((r) => r.length > 1).map((r) => {
+    const o = {}; head.forEach((h, i) => (o[h] = r[i] ?? "")); o.start = +o.start; o.end = +o.end; return o;
+  });
+}
+function toCSV(list) {
+  const esc = (v) => { v = String(v ?? ""); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  const lines = [FIELDS.join(",")];
+  for (const r of list) lines.push(FIELDS.map((k) => (k === "start" || k === "end") ? r[k].toFixed(2) : esc(r[k])).join(","));
+  return lines.join("\n") + "\n";
+}
+const fmt = (t) => { t = Math.max(0, t); const m = Math.floor(t / 60); return m + ":" + (t - m * 60).toFixed(2).padStart(5, "0"); };
+const srtTime = (t) => { const ms = Math.round(t * 1000); const p = (n, w = 2) => String(n).padStart(w, "0");
+  return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
+const storeKey = () => "yeondo-sync-" + songKey;
+function save() { try { localStorage.setItem(storeKey(), JSON.stringify(rows)); } catch (e) {} }
+function snapshot() { history.push(JSON.stringify(rows)); if (history.length > 200) history.shift(); }
+function msg(t, warn) { const m = $("msg"); m.textContent = t; m.className = "msg" + (warn ? " warn" : ""); }
+
+function load(key) {
+  songKey = key; original = parseCSV(SONGS[key].csv); history = [];
+  let saved = null; try { saved = JSON.parse(localStorage.getItem(storeKey()) || "null"); } catch (e) {}
+  rows = saved && saved.length ? saved : JSON.parse(JSON.stringify(original));
+  sel = 0; render(); msg(saved ? "이전에 작업하던 내용을 불러왔습니다." : "");
+}
+function render() {
+  const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1;
+  rows.forEach((r, i) => {
+    const tr = document.createElement("tr"); tr.dataset.i = i;
+    const o = original[i]; if (o && (Math.abs(o.start - r.start) > .005 || Math.abs(o.end - r.end) > .005)) tr.className = "changed";
+    tr.innerHTML = `<td class="k">${i + 1}</td><td class="t">${fmt(r.start)}</td><td class="t">${fmt(r.end)}</td><td class="k">${KIND[r.kind] || r.kind}</td><td></td>`;
+    tr.lastChild.textContent = r.text;
+    tr.onclick = () => { sel = i; video.currentTime = Math.max(0, r.start - 1); paint(); };
+    tb.appendChild(tr);
+  });
+  paint();
+}
+function activeIndex(t) { for (let i = 0; i < rows.length; i++) if (rows[i].start <= t && t < rows[i].end) return i; return -1; }
+function paint() {
+  const t = video.currentTime || 0, a = activeIndex(t);
+  [...$("rows").children].forEach((tr, i) => {
+    tr.classList.toggle("playing", i === a); tr.classList.toggle("sel", i === sel);
+    tr.children[1].textContent = fmt(rows[i].start); tr.children[2].textContent = fmt(rows[i].end);
+  });
+  const selTr = $("rows").children[sel];
+  if (selTr && sel !== lastScrolled) { lastScrolled = sel; const box = selTr.parentElement.parentElement.parentElement, r = selTr.getBoundingClientRect(), b = box.getBoundingClientRect();
+    if (r.top < b.top + 30 || r.bottom > b.bottom) selTr.scrollIntoView({ block: "center" }); }
+  $("time").textContent = fmt(t);
+  const sub = $("ovsub"), card = $("ovcard");
+  if (a >= 0) {
+    const r = rows[a], p = Math.min(1, Math.max(0, (t - r.start) / (r.end - r.start) / .92));
+    const n = Math.round(r.text.length * p);
+    sub.innerHTML = ""; const d = document.createElement("span"); d.className = "done"; d.textContent = r.text.slice(0, n);
+    sub.append(d, document.createTextNode(r.text.slice(n)));
+    card.querySelector(".y").textContent = r.year || ""; card.querySelector(".e").textContent = r.event || "";
+  } else { sub.textContent = ""; card.querySelector(".y").textContent = ""; card.querySelector(".e").textContent = ""; }
+  drawTimeline(t);
+}
+function drawTimeline(t) {
+  const c = $("tl"), g = c.getContext("2d"), W = c.width, H = c.height, span = 16, x = (s) => (s - (t - span / 2)) / span * W;
+  g.clearRect(0, 0, W, H);
+  rows.forEach((r, i) => {
+    if (r.end < t - span / 2 || r.start > t + span / 2) return;
+    const x0 = x(r.start), x1 = x(r.end);
+    g.fillStyle = i === sel ? "#5a6fb0" : (r.kind === "line" ? "#3b4a63" : "#4b3f63");
+    g.fillRect(x0 + 1, 18, Math.max(2, x1 - x0 - 2), H - 26);
+    g.fillStyle = "#ffd36b"; g.fillRect(x0, 14, 2, H - 18);
+    g.save(); g.beginPath(); g.rect(x0 + 4, 18, Math.max(0, x1 - x0 - 8), H - 26); g.clip();
+    g.fillStyle = "#e9ebf2"; g.font = "15px sans-serif"; g.fillText(r.text, x0 + 6, 46); g.restore();
+  });
+  g.fillStyle = "#9aa0b4"; g.font = "12px sans-serif";
+  for (let s = Math.ceil(t - span / 2); s <= t + span / 2; s++) { const xx = x(s); g.fillRect(xx, 0, 1, s % 5 ? 5 : 10); if (s % 5 === 0) g.fillText(fmt(s).replace(".00", ""), xx + 3, 11); }
+  g.fillStyle = "#ff6b6b"; g.fillRect(W / 2 - 1, 0, 2, H);
+}
+
+function setStart(i, t) {
+  const r = rows[i], prev = rows[i - 1];
+  const touching = prev && Math.abs(prev.end - r.start) < .06;
+  r.start = Math.max(0, +t.toFixed(2));
+  if (prev && (touching || prev.end > r.start)) prev.end = Math.max(prev.start + .1, r.start);
+  if (r.end <= r.start + .1) { const nx = rows[i + 1]; r.end = nx && nx.start > r.start + .3 ? nx.start : +(r.start + 2).toFixed(2); }
+}
+function tap() {
+  if (!rows.length) return; snapshot();
+  setStart(sel, video.currentTime);
+  const nx = rows[sel + 1]; if (nx && nx.start < rows[sel].start + .1) nx.start = rows[sel].end = +(rows[sel].start + .1).toFixed(2);
+  if (sel < rows.length - 1) sel++; save(); render();
+}
+function setEnd(i, t) { const r = rows[i]; r.end = Math.max(r.start + .1, +t.toFixed(2)); const nx = rows[i + 1]; if (nx && nx.start < r.end) nx.start = r.end; }
+
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const k = e.key, step = e.shiftKey ? .5 : .1;
+  if (k === " " || k === "k" || k === "K") { e.preventDefault(); video.paused ? video.play() : video.pause(); }
+  else if (k === "Enter" || k === "t" || k === "T") { e.preventDefault(); tap(); }
+  else if (k === "e" || k === "E") { snapshot(); setEnd(sel, video.currentTime); save(); render(); }
+  else if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); snapshot(); setStart(sel, rows[sel].start + (k === "ArrowLeft" ? -step : step)); save(); render(); }
+  else if (k === "," || k === ".") { snapshot(); setEnd(sel, rows[sel].end + (k === "," ? -.1 : .1)); save(); render(); }
+  else if (k === "ArrowUp" || k === "ArrowDown") { e.preventDefault(); sel = Math.max(0, Math.min(rows.length - 1, sel + (k === "ArrowUp" ? -1 : 1))); paint(); }
+  else if (k === "j" || k === "J") video.currentTime -= 2;
+  else if (k === "l" || k === "L") video.currentTime += 2;
+  else if (k === "p" || k === "P") { video.currentTime = Math.max(0, rows[sel].start - 1); video.play(); }
+  else if ((e.ctrlKey || e.metaKey) && (k === "z" || k === "Z")) { e.preventDefault(); undo(); }
+});
+function undo() { if (!history.length) return msg("되돌릴 것이 없습니다."); rows = JSON.parse(history.pop()); save(); render(); msg("되돌렸습니다."); }
+
+function download(name, text) {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + text], { type: "text/plain;charset=utf-8" }));
+  a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function check() {
+  const bad = []; rows.forEach((r, i) => { if (r.end <= r.start) bad.push(i + 1); if (i && rows[i - 1].end > r.start + .01) bad.push(i + 1); });
+  return [...new Set(bad)];
+}
+$("save").onclick = () => { const bad = check(); download(SONGS[songKey].file + "_timing.csv", toCSV(rows));
+  msg(bad.length ? "저장했습니다. 확인할 줄: " + bad.join(", ") + " (끝이 시작보다 빠르거나 다음 줄과 겹침)" : "저장했습니다. 받은 파일을 그대로 보내 주세요.", bad.length); };
+$("srt").onclick = () => download(SONGS[songKey].file + ".srt", rows.map((r, i) => `${i + 1}\n${srtTime(r.start)} --> ${srtTime(r.end)}\n${r.text}\n`).join("\n"));
+$("undo").onclick = undo;
+$("reset").onclick = () => { if (!confirm("이 곡의 시간을 처음 값으로 되돌릴까요?")) return; snapshot(); rows = JSON.parse(JSON.stringify(original)); save(); render(); };
+$("shiftbtn").onclick = () => { const d = +$("shift").value || 0; if (!d) return; snapshot();
+  rows.forEach((r) => { r.start = Math.max(0, +(r.start + d).toFixed(2)); r.end = Math.max(r.start + .1, +(r.end + d).toFixed(2)); }); save(); render(); msg(`모든 줄을 ${d}초 옮겼습니다.`); };
+$("play").onclick = () => (video.paused ? video.play() : video.pause());
+document.querySelectorAll("[data-seek]").forEach((b) => (b.onclick = () => (video.currentTime += +b.dataset.seek)));
+$("rate").onchange = (e) => (video.playbackRate = +e.target.value);
+$("media").onchange = (e) => { const f = e.target.files[0]; if (!f) return; video.src = URL.createObjectURL(f); $("empty").style.display = "none"; msg("열었습니다: " + f.name); };
+$("csvin").onchange = async (e) => { const f = e.target.files[0]; if (!f) return; snapshot(); rows = parseCSV(await f.text()); sel = 0; save(); render(); msg("불러왔습니다: " + f.name); };
+const player = $("player");
+player.addEventListener("dragover", (e) => e.preventDefault());
+player.addEventListener("drop", (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) { video.src = URL.createObjectURL(f); $("empty").style.display = "none"; } });
+video.addEventListener("play", () => ($("play").textContent = "⏸ 멈춤 (Space)"));
+video.addEventListener("pause", () => ($("play").textContent = "▶ 재생 (Space)"));
+(function loop() { paint(); requestAnimationFrame(loop); })();
+
+const sel0 = $("song");
+for (const [k, v] of Object.entries(SONGS)) { const o = document.createElement("option"); o.value = k; o.textContent = v.name; sel0.appendChild(o); }
+sel0.onchange = (e) => load(e.target.value);
+load(songKey);
+</script>
+</body>
+</html>

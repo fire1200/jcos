@@ -612,7 +612,7 @@ def ease(x):
 
 def load_lines():
     rows = []
-    with open(os.path.join(SONG_DIR, "timing.csv"), encoding="utf-8") as f:
+    with open(os.path.join(SONG_DIR, "timing.csv"), encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
             r["start"], r["end"] = float(r["start"]), float(r["end"])
             rows.append(r)
@@ -882,7 +882,13 @@ def scene_frame(t):
     return img
 
 
+# CLEAN=1: 자막·연도 카드·연도 바 없이 그림만 (싱크 도구에서 쓸 미리보기용)
+CLEAN = os.environ.get("CLEAN") == "1"
+
+
 def overlay(img, t):
+    if CLEAN:
+        return (np.clip(img, 0, 1) * 255 + .5).astype(np.uint8)
     r = active(t)
     t_in, t_out = CFG["intro_end"], CFG["outro_start"]
     if t < t_in:
