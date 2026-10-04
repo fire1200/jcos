@@ -8,6 +8,7 @@
   :root {
     --bg: #14161c; --panel: #1d2029; --line: #2c3040; --text: #e9ebf2; --muted: #9aa0b4;
     --accent: #ffd36b; --sel: #3a4a7a; --play: #2f5a3f; --warn: #ff8a7a;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 "Noto Sans KR", system-ui, sans-serif; }
@@ -49,6 +50,8 @@
   tr.sel td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
   tr.changed td.t { color: var(--accent); }
   .msg { color: var(--accent); min-height: 1.4em; }
+  .cloud { color: var(--muted); font-size: 13px; }
+  .cloud.ok { color: #8fd6a3; }
   .warn { color: var(--warn); }
 </style>
 </head>
@@ -61,6 +64,7 @@
   <button id="undo" title="Ctrl+Z">되돌리기</button>
   <button id="reset">처음 값으로</button>
   <span style="flex:1"></span>
+  <span id="cloud" class="cloud"></span>
   <button id="srt">SRT 저장</button>
   <button id="save" class="primary">timing.csv 저장</button>
 </header>
@@ -88,7 +92,8 @@
       <kbd>Space</kbd> 재생/멈춤 · <kbd>Enter</kbd> 지금 시각을 고른 줄의 시작으로 · <kbd>E</kbd> 지금 시각을 고른 줄의 끝으로 (노래가 쉬는 구간 앞)<br>
       <kbd>←</kbd><kbd>→</kbd> 고른 줄 시작 ±0.1초 (<kbd>Shift</kbd> ±0.5초) · <kbd>,</kbd><kbd>.</kbd> 고른 줄 끝 ±0.1초 · <kbd>↑</kbd><kbd>↓</kbd> 줄 고르기<br>
       <kbd>J</kbd><kbd>L</kbd> 2초 뒤로/앞으로 · <kbd>P</kbd> 고른 줄 1초 전부터 다시 듣기 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 · 줄을 클릭하면 그 줄로 이동<br>
-      작업 내용은 이 브라우저에 자동 저장됩니다. 끝나면 <b>timing.csv 저장</b>을 눌러 받은 파일을 그대로 보내 주세요.
+      작업 내용은 자동 저장됩니다. 링크로 열었다면 위에 <b>☁ 저장됨</b>이 보이고, Claude가 그 내용을 바로 읽을 수 있어 <b>파일을 따로 보낼 필요가 없습니다</b>.
+      내려받은 파일로 열었다면 끝난 뒤 <b>timing.csv 저장</b>을 눌러 받은 파일을 보내 주세요.
     </div>
   </section>
   <section class="list">
@@ -133,15 +138,37 @@ const fmt = (t) => { t = Math.max(0, t); const m = Math.floor(t / 60); return m 
 const srtTime = (t) => { const ms = Math.round(t * 1000); const p = (n, w = 2) => String(n).padStart(w, "0");
   return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
 const storeKey = () => "yeondo-sync-" + songKey;
-function save() { try { localStorage.setItem(storeKey(), JSON.stringify(rows)); } catch (e) {} }
+let db = null, remoteTimer = null;
+function save() {
+  const at = Date.now();
+  try { localStorage.setItem(storeKey(), JSON.stringify({ rows, at })); } catch (e) {}
+  if (!db) return;
+  clearTimeout(remoteTimer); setCloud("저장 중…");
+  const key = songKey, csv = toCSV(rows);
+  remoteTimer = setTimeout(async () => {
+    try { await db.doc("timings/" + key).set({ csv, updatedAt: at }); setCloud("☁ 저장됨 " + new Date().toLocaleTimeString("ko-KR"), true); }
+    catch (e) { setCloud("☁ 저장 실패: 파일로 저장해 보내 주세요"); }
+  }, 1500);
+}
+function setCloud(t, ok) { const c = $("cloud"); c.textContent = t; c.className = "cloud" + (ok ? " ok" : ""); }
+function readLocal() {
+  try { const v = JSON.parse(localStorage.getItem(storeKey()) || "null"); if (!v) return null;
+    return Array.isArray(v) ? { rows: v, at: 0 } : v; } catch (e) { return null; }
+}
 function snapshot() { history.push(JSON.stringify(rows)); if (history.length > 200) history.shift(); }
 function msg(t, warn) { const m = $("msg"); m.textContent = t; m.className = "msg" + (warn ? " warn" : ""); }
 
-function load(key) {
+async function load(key) {
   songKey = key; original = parseCSV(SONGS[key].csv); history = [];
-  let saved = null; try { saved = JSON.parse(localStorage.getItem(storeKey()) || "null"); } catch (e) {}
-  rows = saved && saved.length ? saved : JSON.parse(JSON.stringify(original));
-  sel = 0; render(); msg(saved ? "이전에 작업하던 내용을 불러왔습니다." : "");
+  let best = readLocal(), from = best ? "이 브라우저" : "";
+  if (db) {
+    try { const d = await db.doc("timings/" + key).get();
+      if (d.exists && d.data().csv && (!best || (d.data().updatedAt || 0) > best.at)) { best = { rows: parseCSV(d.data().csv), at: d.data().updatedAt }; from = "저장된 작업"; } }
+    catch (e) {}
+  }
+  if (key !== songKey) return;
+  rows = best && best.rows.length ? best.rows : JSON.parse(JSON.stringify(original));
+  sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : "");
 }
 function render() {
   const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1;
@@ -224,7 +251,12 @@ document.addEventListener("keydown", (e) => {
 });
 function undo() { if (!history.length) return msg("되돌릴 것이 없습니다."); rows = JSON.parse(history.pop()); save(); render(); msg("되돌렸습니다."); }
 
-function download(name, text) {
+async function download(name, text) {
+  let dl = null; try { dl = window.claude ? await window.claude.use("downloads") : null; } catch (e) {}
+  if (dl) {
+    try { await dl.save({ filename: name, data: "\ufeff" + text }); return true; }
+    catch (e) { msg(e && e.code === "declined" ? "저장을 취소했습니다." : "파일 저장이 막혔습니다. 작업 내용은 자동 저장되어 있습니다.", true); return false; }
+  }
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + text], { type: "text/plain;charset=utf-8" }));
   a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
@@ -232,11 +264,17 @@ function check() {
   const bad = []; rows.forEach((r, i) => { if (r.end <= r.start) bad.push(i + 1); if (i && rows[i - 1].end > r.start + .01) bad.push(i + 1); });
   return [...new Set(bad)];
 }
-$("save").onclick = () => { const bad = check(); download(SONGS[songKey].file + "_timing.csv", toCSV(rows));
+$("save").onclick = async () => { const bad = check(); if (await download(SONGS[songKey].file + "_timing.csv", toCSV(rows)) === false) return;
   msg(bad.length ? "저장했습니다. 확인할 줄: " + bad.join(", ") + " (끝이 시작보다 빠르거나 다음 줄과 겹침)" : "저장했습니다. 받은 파일을 그대로 보내 주세요.", bad.length); };
 $("srt").onclick = () => download(SONGS[songKey].file + ".srt", rows.map((r, i) => `${i + 1}\n${srtTime(r.start)} --> ${srtTime(r.end)}\n${r.text}\n`).join("\n"));
 $("undo").onclick = undo;
-$("reset").onclick = () => { if (!confirm("이 곡의 시간을 처음 값으로 되돌릴까요?")) return; snapshot(); rows = JSON.parse(JSON.stringify(original)); save(); render(); };
+let resetArmed = null;
+$("reset").onclick = () => {
+  const b = $("reset");
+  if (!resetArmed) { b.textContent = "한 번 더 누르면 되돌림"; resetArmed = setTimeout(() => { resetArmed = null; b.textContent = "처음 값으로"; }, 3000); return; }
+  clearTimeout(resetArmed); resetArmed = null; b.textContent = "처음 값으로";
+  snapshot(); rows = JSON.parse(JSON.stringify(original)); save(); render(); msg("처음 값으로 되돌렸습니다. 되돌리기(Ctrl+Z)로 취소할 수 있습니다.");
+};
 $("shiftbtn").onclick = () => { const d = +$("shift").value || 0; if (!d) return; snapshot();
   rows.forEach((r) => { r.start = Math.max(0, +(r.start + d).toFixed(2)); r.end = Math.max(r.start + .1, +(r.end + d).toFixed(2)); }); save(); render(); msg(`모든 줄을 ${d}초 옮겼습니다.`); };
 $("play").onclick = () => (video.paused ? video.play() : video.pause());
@@ -255,6 +293,7 @@ const sel0 = $("song");
 for (const [k, v] of Object.entries(SONGS)) { const o = document.createElement("option"); o.value = k; o.textContent = v.name; sel0.appendChild(o); }
 sel0.onchange = (e) => load(e.target.value);
 load(songKey);
+if (window.claude) window.claude.use("db").then((d) => { if (!d) return; db = d; setCloud("☁ 자동 저장 켜짐", true); load(songKey); }).catch(() => {});
 </script>
 </body>
 </html>
