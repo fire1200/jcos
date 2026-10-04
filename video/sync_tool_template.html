@@ -72,7 +72,7 @@
   <section class="stage">
     <div class="player" id="player">
       <video id="video" playsinline></video>
-      <div class="empty" id="empty">위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요.<br>파일은 이 컴퓨터 안에서만 재생되고 어디에도 올라가지 않습니다.</div>
+      <div class="empty" id="empty">영상을 불러오는 중…</div>
       <div class="ov-card" id="ovcard"><div class="y"></div><div class="e"></div></div>
       <div class="ov-sub" id="ovsub"></div>
     </div>
@@ -158,8 +158,15 @@ function readLocal() {
 function snapshot() { history.push(JSON.stringify(rows)); if (history.length > 200) history.shift(); }
 function msg(t, warn) { const m = $("msg"); m.textContent = t; m.className = "msg" + (warn ? " warn" : ""); }
 
+function setVideo(src, label) {
+  const e = $("empty"); e.style.display = "grid"; e.innerHTML = "영상을 불러오는 중…";
+  video.onloadeddata = () => { e.style.display = "none"; if (label) msg("영상: " + label); };
+  video.onerror = () => { e.innerHTML = "영상을 자동으로 불러오지 못했습니다.<br>위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요."; };
+  video.src = src;
+}
 async function load(key) {
-  songKey = key; original = parseCSV(SONGS[key].csv); history = [];
+  songKey = key;
+  if (SONGS[key].video) setVideo(SONGS[key].video); else { $("empty").innerHTML = "위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요."; } original = parseCSV(SONGS[key].csv); history = [];
   let best = readLocal(), from = best ? "이 브라우저" : "";
   if (db) {
     try { const d = await db.doc("timings/" + key).get();
@@ -280,11 +287,11 @@ $("shiftbtn").onclick = () => { const d = +$("shift").value || 0; if (!d) return
 $("play").onclick = () => (video.paused ? video.play() : video.pause());
 document.querySelectorAll("[data-seek]").forEach((b) => (b.onclick = () => (video.currentTime += +b.dataset.seek)));
 $("rate").onchange = (e) => (video.playbackRate = +e.target.value);
-$("media").onchange = (e) => { const f = e.target.files[0]; if (!f) return; video.src = URL.createObjectURL(f); $("empty").style.display = "none"; msg("열었습니다: " + f.name); };
+$("media").onchange = (e) => { const f = e.target.files[0]; if (!f) return; setVideo(URL.createObjectURL(f), f.name); };
 $("csvin").onchange = async (e) => { const f = e.target.files[0]; if (!f) return; snapshot(); rows = parseCSV(await f.text()); sel = 0; save(); render(); msg("불러왔습니다: " + f.name); };
 const player = $("player");
 player.addEventListener("dragover", (e) => e.preventDefault());
-player.addEventListener("drop", (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) { video.src = URL.createObjectURL(f); $("empty").style.display = "none"; } });
+player.addEventListener("drop", (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) setVideo(URL.createObjectURL(f), f.name); });
 video.addEventListener("play", () => ($("play").textContent = "⏸ 멈춤 (Space)"));
 video.addEventListener("pause", () => ($("play").textContent = "▶ 재생 (Space)"));
 (function loop() { paint(); requestAnimationFrame(loop); })();
