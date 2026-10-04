@@ -61,7 +61,7 @@
 <header>
   <h1>연도 암기송 싱크 도구</h1>
   <select id="song"></select>
-  <label class="file">🎬 영상·음원 열기<input id="media" type="file" accept="video/*,audio/*"></label>
+  <label class="file">🎬 영상·음원 열기<input id="media" type="file" accept="video/*,audio/*,.webm,.mp4,.mp3"></label>
   <label class="file">📄 timing.csv 불러오기<input id="csvin" type="file" accept=".csv,text/csv"></label>
   <button id="undo" title="Ctrl+Z">되돌리기</button>
   <button id="reset">처음 값으로</button>
@@ -164,11 +164,29 @@ function readLocal() {
 function snapshot() { history.push(JSON.stringify(rows)); if (history.length > 200) history.shift(); }
 function msg(t, warn) { const m = $("msg"); m.textContent = t; m.className = "msg" + (warn ? " warn" : ""); }
 
-function setVideo(src, label) {
-  const e = $("empty"); e.style.display = "grid"; e.innerHTML = "영상을 불러오는 중…";
-  video.onloadeddata = () => { e.style.display = "none"; if (label) msg("영상: " + label); };
-  video.onerror = () => { e.innerHTML = "영상을 자동으로 불러오지 못했습니다.<br>위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요."; };
-  video.src = src;
+// 후보 영상을 차례로 시도: WebM(브라우저 자체 재생) → mp4(윈도우 코덱 필요)
+function setVideo(srcs, label) {
+  srcs = [].concat(srcs);
+  const e = $("empty"), tried = [];
+  e.style.display = "grid"; e.innerHTML = "영상을 불러오는 중…";
+  const next = () => {
+    const src = srcs.shift();
+    if (!src) {
+      const mp4 = video.canPlayType('video/mp4; codecs="avc1.42E01E"') ? "가능" : "불가";
+      const webm = video.canPlayType('video/webm; codecs="vp9"') ? "가능" : "불가";
+      e.innerHTML = "영상을 열지 못했습니다.<br><small>시도한 파일: " + tried.join(", ") +
+        "<br>이 브라우저의 재생 지원: mp4 " + mp4 + " · webm " + webm +
+        "<br>도구와 같은 폴더에 영상이 있는지, 파일 이름이 그대로인지 확인하세요." +
+        (mp4 === "불가" ? "<br>mp4가 안 되면 .webm 영상을 쓰거나 크롬으로 여세요." : "") +
+        "<br>위의 <b>🎬 영상·음원 열기</b>로 직접 열 수도 있습니다.</small>";
+      return;
+    }
+    tried.push(decodeURIComponent(String(src).split("/").pop()).slice(0, 40));
+    video.onloadeddata = () => { e.style.display = "none"; msg("영상: " + (label || tried[tried.length - 1])); };
+    video.onerror = next;
+    video.src = src;
+  };
+  next();
 }
 async function load(key) {
   songKey = key;
