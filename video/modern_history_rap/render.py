@@ -39,6 +39,7 @@ CFG = {
     "intro_end": 10.0,      # 처음 제목이 사라지는 시각, 연도 바가 나타나는 시각
     "outro_start": 173.0,   # 끝 제목이 나타나는 시각, 연도 바가 사라지는 시각
     "scenes": None,         # [[시각, 장면, 시드], ...] 없으면 아래 TIMELINE 사용
+    "channel": "호크마 차일드 스터디",  # 화면 위쪽에 살짝 보이는 채널 이름 ("" 이면 안 보임)
 }
 if os.path.exists(os.path.join(SONG_DIR, "song.json")):
     import json
@@ -840,6 +841,13 @@ def draw_title(img, t, t0, t1, y=380):
     over(img, sub, (W - sub.shape[1]) // 2, y + big.shape[0] // 2 - 40, a)
 
 
+def draw_channel(img):
+    if not CFG["channel"]:
+        return
+    lab = tx().label(CFG["channel"], FONT_BODY, 34, "Bold", (255, 255, 255), shadow=8)
+    over(img, lab, (W - lab.shape[1]) // 2, 6, .7)
+
+
 # ---------------------------------------------------------------- frame
 
 _SCENES = {}
@@ -901,6 +909,7 @@ def overlay(img, t):
         draw_subtitle(img, r, t)
     if t_in <= t < t_out:
         draw_timeline(img, t, r)
+    draw_channel(img)
     fade = min(1, t / .8, (DURATION - t) / 1.5)
     img *= max(0, fade)
     return (np.clip(img, 0, 1) * 255 + .5).astype(np.uint8)
