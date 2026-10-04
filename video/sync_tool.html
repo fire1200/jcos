@@ -36,6 +36,14 @@
   .time { font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 700; min-width: 160px; }
   canvas { width: 100%; height: 96px; background: var(--panel); border-radius: 8px; display: block; touch-action: none; cursor: pointer; }
   #seek { width: 100%; accent-color: var(--accent); }
+  .editor { display: grid; grid-template-columns: 1fr 140px 1fr auto; gap: 6px 8px; align-items: end; background: var(--panel); border-radius: 8px; padding: 10px 12px; }
+  .editor label { display: grid; gap: 3px; font-size: 12px; color: var(--muted); min-width: 0; }
+  .editor input, .editor select { width: 100%; background: #262a36; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; }
+  .editor input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  .editor .wide { grid-column: 1 / -1; }
+  .editor .btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  button.danger:hover { border-color: var(--warn); color: var(--warn); }
+  @media (max-width: 700px) { .editor { grid-template-columns: 1fr 1fr; } }
   .tlbar { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 13px; }
   .help { background: var(--panel); border-radius: 8px; padding: 10px 12px; color: var(--muted); font-size: 13.5px; }
   .help b { color: var(--text); }
@@ -93,12 +101,21 @@
     <div class="tlbar"><span>타임라인: 노란 선이나 블록 끝을 끌어 시간 조정 · 빈 곳 클릭으로 이동 · 휠로 확대/축소</span><span style="flex:1"></span>
       <button id="zoomout">－ 넓게</button><button id="zoomin">＋ 좁게</button></div>
     <canvas id="tl" width="1200" height="96"></canvas>
+    <div class="editor" id="editor">
+      <label class="wide">고른 줄의 자막 (고치면 바로 반영)<input id="ed-text" autocomplete="off"></label>
+      <label>연도 카드<input id="ed-year" autocomplete="off" placeholder="예: 1866"></label>
+      <label>사건 이름<input id="ed-event" autocomplete="off" placeholder="예: 병인양요"></label>
+      <label>종류<select id="ed-kind"><option value="intro">인트로</option><option value="hook">훅</option><option value="line">가사</option>
+        <option value="gang">구호</option><option value="quiz">퀴즈(연도→사건)</option><option value="quizr">퀴즈(사건→연도)</option><option value="outro">마무리</option></select></label>
+      <div class="btns"><button id="addrow" title="Insert 키">＋ 아래에 줄 추가</button><button id="delrow" class="danger" title="Delete 키">－ 이 줄 삭제</button></div>
+    </div>
     <div class="msg" id="msg"></div>
     <div class="help">
       <b>기본 작업 순서</b>: 첫 줄을 고르고 재생 → 가사가 <b>시작되는 순간</b>마다 <kbd>Enter</kbd>. 시작 시각이 찍히고 다음 줄로 넘어갑니다. 앞 줄의 끝은 자동으로 맞춰집니다.<br>
       <kbd>Space</kbd> 재생/멈춤 · <kbd>Enter</kbd> 지금 시각을 고른 줄의 시작으로 · <kbd>E</kbd> 지금 시각을 고른 줄의 끝으로 (노래가 쉬는 구간 앞)<br>
       <kbd>←</kbd><kbd>→</kbd> 고른 줄 시작 ±0.1초 (<kbd>Shift</kbd> ±0.5초) · <kbd>,</kbd><kbd>.</kbd> 고른 줄 끝 ±0.1초 · <kbd>↑</kbd><kbd>↓</kbd> 줄 고르기<br>
       <b>마우스로</b>: 타임라인의 노란 선(줄 시작)이나 블록 오른쪽 끝을 끌면 그 시간이 바뀝니다. 블록 가운데를 끌면 줄 전체가 움직입니다. 빈 곳을 클릭하거나 끌면 재생 위치가 이동합니다.<br>
+      <b>글자 고치기</b>: 줄을 고른 뒤 위 편집 칸에서 자막·연도 카드·사건 이름을 고칩니다 (줄을 더블클릭해도 편집 칸으로). <kbd>Insert</kbd> 줄 추가 · <kbd>Delete</kbd> 줄 삭제<br>
       <kbd>S</kbd> 도구 자막 켜기/끄기 (자막이 박힌 영상을 열었을 때) · <kbd>J</kbd><kbd>L</kbd> 2초 뒤로/앞으로 · <kbd>P</kbd> 고른 줄 1초 전부터 다시 듣기 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 · 줄을 클릭하면 그 줄로 이동<br>
       작업 내용은 자동 저장됩니다. 링크로 열었다면 위에 <b>☁ 저장됨</b>이 보이고, Claude가 그 내용을 바로 읽을 수 있어 <b>파일을 따로 보낼 필요가 없습니다</b>.
       내려받은 파일로 열었다면 끝난 뒤 <b>timing.csv 저장</b>을 눌러 받은 파일을 보내 주세요.
@@ -204,13 +221,15 @@ async function load(key) {
   sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : "");
 }
 function render() {
-  const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1;
+  const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1; edShown = -1;
   rows.forEach((r, i) => {
     const tr = document.createElement("tr"); tr.dataset.i = i;
-    const o = original[i]; if (o && (Math.abs(o.start - r.start) > .005 || Math.abs(o.end - r.end) > .005)) tr.className = "changed";
+    const o = rows.length === original.length ? original[i] : null;
+    if (o && (Math.abs(o.start - r.start) > .005 || Math.abs(o.end - r.end) > .005 || o.text !== r.text)) tr.className = "changed";
     tr.innerHTML = `<td class="k">${i + 1}</td><td class="t">${fmt(r.start)}</td><td class="t">${fmt(r.end)}</td><td class="k">${KIND[r.kind] || r.kind}</td><td></td>`;
     tr.lastChild.textContent = r.text;
     tr.onclick = () => { sel = i; video.currentTime = Math.max(0, r.start - 1); paint(); };
+    tr.ondblclick = () => { sel = i; paint(); $("ed-text").focus(); $("ed-text").select(); };
     tb.appendChild(tr);
   });
   paint();
@@ -225,6 +244,7 @@ function paint() {
   const selTr = $("rows").children[sel];
   if (selTr && sel !== lastScrolled) { lastScrolled = sel; const box = selTr.parentElement.parentElement.parentElement, r = selTr.getBoundingClientRect(), b = box.getBoundingClientRect();
     if (r.top < b.top + 30 || r.bottom > b.bottom) selTr.scrollIntoView({ block: "center" }); }
+  syncEditor();
   $("time").textContent = fmt(t) + (video.duration ? " / " + fmt(video.duration) : "");
   if (document.activeElement !== $("seek")) $("seek").value = t;
   const sub = $("ovsub"), card = $("ovcard");
@@ -325,7 +345,10 @@ function setEnd(i, t) {
 }
 
 document.addEventListener("keydown", (e) => {
-  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") {
+    if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); e.target.blur(); }
+    return;
+  }
   const k = e.key, step = e.shiftKey ? .5 : .1;
   if (k === " " || k === "k" || k === "K") { e.preventDefault(); video.paused ? video.play() : video.pause(); }
   else if (k === "Enter" || k === "t" || k === "T") { e.preventDefault(); tap(); }
@@ -333,13 +356,60 @@ document.addEventListener("keydown", (e) => {
   else if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); snapshot(); setStart(sel, rows[sel].start + (k === "ArrowLeft" ? -step : step)); save(); render(); }
   else if (k === "," || k === ".") { snapshot(); setEnd(sel, rows[sel].end + (k === "," ? -.1 : .1)); save(); render(); }
   else if (k === "ArrowUp" || k === "ArrowDown") { e.preventDefault(); sel = Math.max(0, Math.min(rows.length - 1, sel + (k === "ArrowUp" ? -1 : 1))); paint(); }
+  else if (k === "Insert") { e.preventDefault(); addRow(); }
+  else if (k === "Delete") { e.preventDefault(); delRow(); }
   else if (k === "s" || k === "S") { const c = $("showsub"); c.checked = !c.checked; c.onchange(); }
   else if (k === "j" || k === "J") video.currentTime -= 2;
   else if (k === "l" || k === "L") video.currentTime += 2;
   else if (k === "p" || k === "P") { video.currentTime = Math.max(0, rows[sel].start - 1); video.play(); }
   else if ((e.ctrlKey || e.metaKey) && (k === "z" || k === "Z")) { e.preventDefault(); undo(); }
 });
-function undo() { if (!history.length) return msg("되돌릴 것이 없습니다."); rows = JSON.parse(history.pop()); save(); render(); msg("되돌렸습니다."); }
+// ---- 글자 편집, 줄 추가·삭제
+let edShown = -1, edSnap = false;
+function syncEditor() {
+  const r = rows[sel]; if (!r) return;
+  if (edShown === sel && rows.length) return;
+  edShown = sel;
+  $("ed-text").value = r.text || ""; $("ed-year").value = r.year || ""; $("ed-event").value = r.event || ""; $("ed-kind").value = r.kind || "line";
+}
+for (const [id, field] of [["ed-text", "text"], ["ed-year", "year"], ["ed-event", "event"], ["ed-kind", "kind"]]) {
+  const el = $(id);
+  el.addEventListener("focus", () => { edSnap = false; });
+  el.addEventListener(id === "ed-kind" ? "change" : "input", () => {
+    if (!rows[sel]) return;
+    if (!edSnap) { snapshot(); edSnap = true; }
+    rows[sel][field] = el.value;
+    const tr = $("rows").children[sel];
+    if (tr) { if (field === "text") tr.lastChild.textContent = el.value; if (field === "kind") tr.children[3].textContent = KIND[el.value] || el.value; }
+    save();
+  });
+}
+function addRow() {
+  if (!rows.length) return;
+  snapshot();
+  const cur = rows[sel], next = rows[sel + 1], now = video.currentTime || 0;
+  let start = now > cur.start + .1 && (!next || now < next.start - .2) ? now : cur.end;
+  start = +start.toFixed(2);
+  let end = next ? Math.min(next.start, start + 2.5) : start + 2.5;
+  if (end < start + .3) end = start + .3;
+  if (cur.end > start) cur.end = start;
+  if (next && next.start < end) next.start = +end.toFixed(2);
+  const row = { start, end: +end.toFixed(2), kind: "line", text: "", year: "", event: "", shots: "" };
+  rows.splice(sel + 1, 0, row); sel++; edShown = -1;
+  save(); render(); $("ed-text").focus();
+  msg("새 줄을 추가했습니다. 편집 칸에 자막을 입력하세요.");
+}
+function delRow() {
+  if (!rows.length) return;
+  snapshot();
+  const gone = rows.splice(sel, 1)[0];
+  sel = Math.min(sel, rows.length - 1); edShown = -1;
+  save(); render();
+  msg("「" + (gone.text || "빈 줄") + "」 줄을 지웠습니다. 되돌리기는 Ctrl+Z" + (gone.shots ? " (이 줄의 장면 그림도 빠집니다)" : ""));
+}
+$("addrow").onclick = addRow;
+$("delrow").onclick = delRow;
+function undo() { if (!history.length) return msg("되돌릴 것이 없습니다."); rows = JSON.parse(history.pop()); sel = Math.min(sel, rows.length - 1); edShown = -1; save(); render(); msg("되돌렸습니다."); }
 
 async function download(name, text) {
   let dl = null; try { dl = window.claude ? await window.claude.use("downloads") : null; } catch (e) {}
