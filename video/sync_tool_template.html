@@ -323,6 +323,7 @@ $("zoomin").onclick = () => { span = Math.max(4, span / 1.5); paint(); };
 $("zoomout").onclick = () => { span = Math.min(60, span * 1.5); paint(); };
 const seek = $("seek");
 seek.addEventListener("input", () => { video.currentTime = +seek.value; });
+seek.addEventListener("change", () => seek.blur());
 video.addEventListener("loadedmetadata", () => { seek.max = video.duration || 1; });
 
 function setStart(i, t) {
@@ -344,8 +345,16 @@ function setEnd(i, t) {
   if (nx && (touching || nx.start < r.end)) nx.start = Math.min(r.end, nx.end - .1);
 }
 
+// 글자를 입력하는 칸에 있을 때만 단축키를 끔 (재생 막대·체크 상자·버튼은 단축키 유지)
+const isTyping = (el) => !!el && (el.tagName === "TEXTAREA" || el.tagName === "SELECT" ||
+  (el.tagName === "INPUT" && !["range", "checkbox", "button", "file", "radio"].includes(el.type)));
+// 버튼·막대·체크 상자를 누른 뒤 초점을 풀어, 스페이스가 그 버튼을 다시 누르지 않게 함
+document.addEventListener("click", (e) => {
+  if (e.target.closest && e.target.closest("button, label, input[type=range], input[type=checkbox]"))
+    setTimeout(() => { const a = document.activeElement; if (a && a !== document.body && !isTyping(a)) a.blur(); }, 0);
+});
 document.addEventListener("keydown", (e) => {
-  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") {
+  if (isTyping(e.target)) {
     if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); e.target.blur(); }
     return;
   }
