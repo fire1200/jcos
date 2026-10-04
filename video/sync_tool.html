@@ -11,6 +11,7 @@
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 "Noto Sans KR", system-ui, sans-serif; }
   header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
   header h1 { font-size: 17px; margin: 0 10px 0 0; }
@@ -83,6 +84,7 @@
       <button id="play">▶ 재생 (Space)</button>
       <button data-seek="-5">−5초</button><button data-seek="-2">−2초 (J)</button>
       <button data-seek="2">+2초 (L)</button><button data-seek="5">+5초</button>
+      <label title="S 키"><input id="showsub" type="checkbox" checked> 도구 자막 보기 (S)</label>
       <select id="rate"><option value="0.5">0.5배</option><option value="0.75">0.75배</option><option value="1" selected>1배</option></select>
       <span style="flex:1"></span>
       전체 이동 <input id="shift" type="number" step="0.1" value="0" style="width:80px">초 <button id="shiftbtn">적용</button>
@@ -97,7 +99,7 @@
       <kbd>Space</kbd> 재생/멈춤 · <kbd>Enter</kbd> 지금 시각을 고른 줄의 시작으로 · <kbd>E</kbd> 지금 시각을 고른 줄의 끝으로 (노래가 쉬는 구간 앞)<br>
       <kbd>←</kbd><kbd>→</kbd> 고른 줄 시작 ±0.1초 (<kbd>Shift</kbd> ±0.5초) · <kbd>,</kbd><kbd>.</kbd> 고른 줄 끝 ±0.1초 · <kbd>↑</kbd><kbd>↓</kbd> 줄 고르기<br>
       <b>마우스로</b>: 타임라인의 노란 선(줄 시작)이나 블록 오른쪽 끝을 끌면 그 시간이 바뀝니다. 블록 가운데를 끌면 줄 전체가 움직입니다. 빈 곳을 클릭하거나 끌면 재생 위치가 이동합니다.<br>
-      <kbd>J</kbd><kbd>L</kbd> 2초 뒤로/앞으로 · <kbd>P</kbd> 고른 줄 1초 전부터 다시 듣기 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 · 줄을 클릭하면 그 줄로 이동<br>
+      <kbd>S</kbd> 도구 자막 켜기/끄기 (자막이 박힌 영상을 열었을 때) · <kbd>J</kbd><kbd>L</kbd> 2초 뒤로/앞으로 · <kbd>P</kbd> 고른 줄 1초 전부터 다시 듣기 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 · 줄을 클릭하면 그 줄로 이동<br>
       작업 내용은 자동 저장됩니다. 링크로 열었다면 위에 <b>☁ 저장됨</b>이 보이고, Claude가 그 내용을 바로 읽을 수 있어 <b>파일을 따로 보낼 필요가 없습니다</b>.
       내려받은 파일로 열었다면 끝난 뒤 <b>timing.csv 저장</b>을 눌러 받은 파일을 보내 주세요.
     </div>
@@ -331,6 +333,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); snapshot(); setStart(sel, rows[sel].start + (k === "ArrowLeft" ? -step : step)); save(); render(); }
   else if (k === "," || k === ".") { snapshot(); setEnd(sel, rows[sel].end + (k === "," ? -.1 : .1)); save(); render(); }
   else if (k === "ArrowUp" || k === "ArrowDown") { e.preventDefault(); sel = Math.max(0, Math.min(rows.length - 1, sel + (k === "ArrowUp" ? -1 : 1))); paint(); }
+  else if (k === "s" || k === "S") { const c = $("showsub"); c.checked = !c.checked; c.onchange(); }
   else if (k === "j" || k === "J") video.currentTime -= 2;
   else if (k === "l" || k === "L") video.currentTime += 2;
   else if (k === "p" || k === "P") { video.currentTime = Math.max(0, rows[sel].start - 1); video.play(); }
@@ -367,6 +370,9 @@ $("shiftbtn").onclick = () => { const d = +$("shift").value || 0; if (!d) return
 $("play").onclick = () => (video.paused ? video.play() : video.pause());
 document.querySelectorAll("[data-seek]").forEach((b) => (b.onclick = () => (video.currentTime += +b.dataset.seek)));
 $("rate").onchange = (e) => (video.playbackRate = +e.target.value);
+$("showsub").onchange = () => { const on = $("showsub").checked; $("ovsub").hidden = !on; $("ovcard").hidden = !on;
+  try { localStorage.setItem("yeondo-sync-showsub", on ? "1" : "0"); } catch (e) {} };
+try { if (localStorage.getItem("yeondo-sync-showsub") === "0") { $("showsub").checked = false; $("showsub").onchange(); } } catch (e) {}
 $("media").onchange = (e) => { const f = e.target.files[0]; if (!f) return; setVideo(URL.createObjectURL(f), f.name); };
 $("csvin").onchange = async (e) => { const f = e.target.files[0]; if (!f) return; snapshot(); rows = parseCSV(await f.text()); sel = 0; save(); render(); msg("불러왔습니다: " + f.name); };
 const player = $("player");
