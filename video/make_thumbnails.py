@@ -15,6 +15,10 @@ W, H = 1280, 720
 CHANNEL = "호크마 차일드 스터디"
 
 THUMBS = [
+    ("thumb_0a_goryeo_early", "goryeo_early_rap/images/07b.png", "고려 전기", "연도 암기송", "918~1145",
+     "노래로 3분 만에 외우는 한국사", (140, 230, 160)),
+    ("thumb_0b_goryeo_late", "goryeo_late_rap/images/11c.png", "고려 후기", "연도 암기송", "1170~1392",
+     "노래로 3분 만에 외우는 한국사", (255, 190, 90)),
     # (파일 이름, 배경 그림, 윗줄, 큰 제목, 연도 범위, 아랫줄, 강조색)
     ("thumb_1_joseon_early", "joseon_early_rap/images/06a.png", "조선 전기", "연도 암기송", "1388~1592",
      "노래로 3분 만에 외우는 한국사", (255, 214, 64)),
