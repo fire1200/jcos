@@ -6,7 +6,9 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SONGS = [("joseon_early_rap", "① 조선 전기 (1388~1592)", "조선전기"),
+SONGS = [("goryeo_early_rap", "Ⓐ 고려 전기 (918~1145)", "고려전기"),
+         ("goryeo_late_rap", "Ⓑ 고려 후기 (1170~1392)", "고려후기"),
+         ("joseon_early_rap", "① 조선 전기 (1388~1592)", "조선전기"),
          ("joseon_late_rap", "② 조선 후기 (1608~1863)", "조선후기"),
          ("modern_history_rap", "③ 근현대사 (1866~1953)", "근현대사")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
@@ -18,7 +20,7 @@ WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
 def build(web):
     data = {k: {"name": n, "file": f,
                 # 내려받아 쓰는 버전: 같은 폴더의 싱크용 영상을 자동으로 엶
-                "video": WEB_VIDEO[k] if web else [f"싱크용_{f}.webm", f"싱크용_{f}_720p.mp4"],
+                "video": WEB_VIDEO.get(k, "") if web else [f"싱크용_{f}.webm", f"싱크용_{f}_720p.mp4"],
                 "csv": open(os.path.join(HERE, k, "timing.csv"), encoding="utf-8-sig").read()}
             for k, n, f in SONGS}
     tpl = open(os.path.join(HERE, "sync_tool_template.html"), encoding="utf-8").read()
