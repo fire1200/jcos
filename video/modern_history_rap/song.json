@@ -67,5 +67,19 @@
       "sunrise",
       71
     ]
-  ]
+  ],
+  "fill_gaps": true,
+  "intro_shots": [
+    "01a",
+    "04a",
+    "06a",
+    "08a",
+    "10a"
+  ],
+  "outro_shots": [
+    "13c",
+    "16c",
+    "14c"
+  ],
+  "duration": 185.6
 }
