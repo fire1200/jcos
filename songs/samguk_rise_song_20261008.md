@@ -1,19 +1,17 @@
 # 고조선과 삼국 연도 암기송! 기원전 2333~553 — Suno 제작 문서 (2026-10-08)
 
 고대사 3부작의 **첫 곡**입니다. 고조선 건국부터 진흥왕의 한강 차지까지 **연도와 사건을 짝지어** 외웁니다.
-이번 곡은 **밝고 엉뚱하고 중독성 있는 걸그룹 일렉트로팝**(이국적인 피리 가락, 통통 튀는 박자, 귀여운 떼창)으로 만듭니다.
+이번 곡은 **90년대 펑키 팝 랩**("U Can't Touch This" 스타일: 계속 도는 펑키 베이스 리프, 드럼 머신과 큰 손뼉, 랩 사이사이 짧은 외침, "스톱!" 브레이크)으로 만듭니다.
 
 | 항목 | 내용 |
 |---|---|
 | 곡 제목 | 고조선과 삼국 연도 암기송! 기원전 2333~553 |
 | 대상 | 초등 고학년 (5학년 2학기 사회), 중학생 역사 |
 | 목표 | 연도 12개와 사건 12개를 짝지어 암기 |
-| 스타일 | 밝고 재미있는 걸그룹 일렉트로팝. 노래 + 숫자 외치기(챈트) |
+| 스타일 | 90년대 펑키 팝 랩 (130 BPM). 랩 + 외침 구호 "못 잊어 이거!" + 스톱 브레이크 |
 | 가사 원칙 | **교과서에 나오는 단어 그대로.** 교과서에 없는 표현은 넣지 않음 |
 | 길이 | 약 3분 20초~3분 50초 |
 | 다음 곡 | ② 삼국 통일 전쟁 (562~676) → ③ 남북국 시대 (676~935) → 고려 전기 |
-
-> Suno는 가수·그룹 이름을 Style 칸에 넣으면 거절합니다. 그래서 원하신 곡의 느낌(이국적인 멜로디 + 통통 튀는 걸그룹 팝 + 반복되는 후렴)을 **말로 풀어서** 적었습니다.
 
 > **확인 필요**: 초·중학교 교과서에 공통으로 나오는 서술로 썼습니다. 쓰시는 교과서 문장을 보내 주시면 그 문장으로 바꾸겠습니다.
 
@@ -94,8 +92,9 @@
 
 | 장치 | 어디에 | 왜 효과가 있나 |
 |---|---|---|
-| **"기원전 / 기원후"로 나눈 후렴** | "기원전! 이삼삼삼! 일공팔! …" / "기원후! 사이! 삼칠일! …" | 기원전 5개, 기원후 7개를 두 묶음으로 외웁니다 |
-| **랄랄라 꼬리말** | 후렴 끝 "한국사 연도송~ 랄랄라" | 원하신 곡처럼 귀에 맴도는 반복 구절. 아이들이 따라 부르는 신호 |
+| **"기원전"으로 시작하는 후렴** | "기원전! 이삼삼삼! 일공팔! / 오칠! 삼칠! 일팔!" 뒤에 기원후 7개 | 기원전 5개, 기원후 7개를 두 묶음으로 외웁니다 |
+| **"못 잊어 이거!" 외침** | 랩 두 줄마다, 후렴 한 줄마다 | 원곡처럼 짧은 구호가 계속 반복. 아이들이 이것만 따라 외쳐도 곡에 참여합니다 |
+| **스톱 브레이크** | 3절 앞 "스톱! 연도 타임!" | 음악이 멈추는 순간 집중이 확 올라갑니다. 뒤에 나오는 4~6세기 전성기를 강조 |
 | **절 끝 숫자 외치기** | "오칠 신라! 삼칠 고구려! 일팔 백제!" | 노래로 부른 내용을 숫자 + 이름으로 한 번 더 박아 넣습니다 |
 | **세기별 전성기** | 3절 4세기 백제 → 4절 5세기 고구려 → 6세기 신라 | 시험에 자주 나오는 "전성기 순서: 백제 → 고구려 → 신라" |
 | **양방향 퀴즈** | 브리지 "기원전 오칠?" → "신라!" / "이차돈 순교는?" → "오이칠!" | 연도 → 사건, 사건 → 연도 둘 다 연습 |
@@ -120,119 +119,171 @@
 
 ---
 
-## 3. 곡 구조
+## 3. 원하신 곡 분석: "U Can't Touch This" (1990)
 
-| 구간 | 내용 | 대략 시간 |
+Suno는 곡 이름·가수 이름을 Style 칸에 넣으면 거절합니다. 그래서 곡을 뜯어서 **소리의 특징**을 말로 바꿔 적었습니다. 가사와 멜로디는 베끼지 않고, **구조와 느낌만** 가져옵니다.
+
+| 특징 | 원곡에서 어떻게 쓰였나 | 이번 곡에 가져온 방식 |
 |---|---|---|
-| Intro | 말로 시작 | 0:00~0:10 |
-| Hook 1 | 연도 12개 이어 부르기 + 랄랄라 | 0:10~0:35 |
-| Verse 1 | 기원전 2333·108 (고조선) | 0:35~1:00 |
-| Verse 2 | 기원전 57·37·18, 42 (삼국과 가야의 건국) | 1:00~1:25 |
-| Hook 2 | 연도 12개 | 1:25~1:50 |
-| Verse 3 | 371·372·391 (4세기, 백제와 고구려) | 1:50~2:15 |
-| Verse 4 | 427·527·553 (5~6세기, 고구려와 신라) | 2:15~2:40 |
-| Bridge | 12개 양방향 퀴즈 | 2:40~3:15 |
-| Final Hook | 연도 12개 + 마무리 | 3:15~3:40 |
-| Outro | 다음 곡 예고 | 3:40~3:45 |
+| **템포** | 약 133 BPM. 빠르지만 춤추기 좋은 속도 | 130 BPM |
+| **계속 반복되는 펑키 베이스 리프** | 곡 처음부터 끝까지 같은 베이스 + 기타 리프가 돌아감. 리프만 들어도 곡이 떠오름 | `iconic funky bass guitar riff loop`. 처음부터 끝까지 같은 리프 |
+| **드럼 머신 + 손뼉** | 단순한 드럼 머신 비트에 크고 또렷한 손뼉 소리 | `drum machine, big hand claps` |
+| **랩 한두 줄마다 끼어드는 짧은 외침** | 랩 사이사이에 같은 짧은 구호가 계속 들어감. 듣는 사람이 그 구호만 따라 해도 곡에 참여하게 됨 | 랩 두 줄마다 **"못 잊어 이거!"** 를 외침. 아이들이 따라 외치는 자리 |
+| **"오-오, 오-오-오" 떼창** | 후렴 끝에 여럿이 부르는 짧은 소리 | 후렴 끝 **"오-오, 오-오-오! 못 잊어 이거!"** |
+| **"스톱!" 하고 음악이 멈추는 순간** | 곡 중간에 음악이 딱 멈추고 외친 뒤 다시 터짐. 원곡의 가장 유명한 장면 | 3절 앞에서 **"스톱! 연도 타임!"** 하고 멈췄다가 다시 시작 |
+| **"브레이크 다운" 구간** | 비트만 남기고 외치는 구간 | 퀴즈 브리지를 비트만 남긴 묻고 답하기로 |
+| **자신감 넘치는 남자 래퍼 + 파티 분위기** | 춤추며 무대를 휘어잡는 래퍼, 관객 함성 | `confident charismatic male rapper, party crowd shouts` |
+
+> "못 잊어 이거!"는 원곡 구호의 **역할**(짧고, 계속 반복되고, 따라 외치기 쉬움)만 가져온 새 문장입니다. 원곡 가사를 번역하거나 베낀 것이 아닙니다.
 
 ---
 
-## 4. Suno 입력값 (복사해서 붙여 넣기)
+## 4. 곡 구조
+
+| 구간 | 내용 | 대략 시간 |
+|---|---|---|
+| Intro | 베이스 리프 + "자, 한국사 연도 타임!" | 0:00~0:12 |
+| Verse 1 | 기원전 2333·108 (고조선) + 사이사이 "못 잊어 이거!" | 0:12~0:35 |
+| Chorus 1 | 연도 12개 + "오-오, 오-오-오!" | 0:35~0:55 |
+| Verse 2 | 기원전 57·37·18, 42 (삼국과 가야의 건국) | 0:55~1:20 |
+| Chorus 2 | 연도 12개 | 1:20~1:40 |
+| **Stop break** | 음악 멈춤 → "스톱! 연도 타임!" → 다시 시작 | 1:40~1:45 |
+| Verse 3 | 371·372·391 (4세기, 백제와 고구려) | 1:45~2:10 |
+| Verse 4 | 427·527·553 (5~6세기, 고구려와 신라) | 2:10~2:35 |
+| Breakdown | 비트만 남기고 12개 양방향 퀴즈 | 2:35~3:10 |
+| Final Chorus | 연도 12개 + 마무리 | 3:10~3:30 |
+| Outro | 다음 곡 예고 | 3:30~3:35 |
+
+---
+
+## 5. Suno 입력값 (복사해서 붙여 넣기)
 
 Suno에서 **Custom 모드**를 켜고 네 칸을 채웁니다.
 
-### 4-1. Title
+### 5-1. Title
 
 ```
 고조선과 삼국 연도 암기송! 기원전 2333~553
 ```
 
-### 4-2. Style of Music (기본안)
+### 5-2. Style of Music (기본안)
 
 ```
-bright quirky K-pop girl group, playful retro electropop, 128 BPM, exotic snake charmer flute synth riff, harmonic minor melody, bouncy four on the floor beat, darbuka and hand claps, cute high female duo vocals, playful spoken chants, catchy repetitive sing-along chorus with la la la, clear Korean diction, numbers chanted clearly, call and response, fun, novelty, educational, kids
+early 90s pop rap, funky dance hip hop, 130 BPM, iconic funky bass guitar riff loop repeated throughout, drum machine beat, big hand claps, funky guitar stabs, synth brass hits, confident charismatic male rapper, clear Korean diction, short shouted catchphrase between rap lines, crowd gang vocals oh oh oh, party crowd shouts, dramatic stop break, call and response, fun, energetic, educational
 ```
 
-- **이국적인 피리 신스 가락**(뱀 부리는 피리 같은 소리)과 **통통 튀는 박자**, **귀여운 두 명 여자 보컬**이 원하신 곡의 핵심 느낌입니다.
-- 숫자가 노래 속에 묻히지 않도록 `numbers chanted clearly`를 넣었습니다.
+- **곡 전체를 끌고 가는 펑키 베이스 리프**, **드럼 머신 + 큰 손뼉**, **랩 사이사이 짧은 외침**, **스톱 브레이크**가 핵심입니다.
+- 숫자가 잘 들리도록 `clear Korean diction`을 넣었습니다.
 
-### 4-3. Exclude Styles
+### 5-3. Exclude Styles
 
 ```
-dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, explicit lyrics, distortion, slow tempo
+trap, mumble rap, heavy autotune, explicit lyrics, dark, sad, ballad, female vocals, slow tempo, heavy metal, EDM drop
 ```
 
-### 4-4. Lyrics
+### 5-4. Lyrics
 
 ```
 [Intro]
-[Spoken, cute]
-안녕! 한국사 연도송!
+[Funky bass riff]
+[Spoken]
+자, 한국사 연도 타임!
 기원전 이삼삼삼부터 오오삼까지
-준비됐니? 출발!
-
-[Chorus]
-[Chant]
-기원전! 이삼삼삼! 일공팔!
-오칠! 삼칠! 일팔! 신라 고구려 백제!
-기원후! 사이 가야! 삼칠일! 삼칠이!
-삼구일! 사이칠! 오이칠! 오오삼!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+가 보자!
 
 [Verse 1]
-[Sung]
-기원전 이삼삼삼, 단군왕검이 세운
-우리 역사 첫 나라, 고조선!
-널리 인간을 이롭게, 홍익인간
-팔조법으로 질서를 지켰어
-기원전 일공팔, 한나라가 쳐들어와
+[Rap]
+기원전 이삼삼삼, 단군왕검이 고조선을 세워
+[Shout]
+못 잊어 이거!
+[Rap]
+널리 인간을 이롭게, 홍익인간, 팔조법으로 질서를 지켜
+[Shout]
+못 잊어 이거!
+[Rap]
+기원전 일공팔, 한나라의 침입으로
 고조선이 멸망했어
-[Chant]
-이삼삼삼 건국! 일공팔 멸망!
+[Shout]
+못 잊어 이거!
+
+[Chorus]
+[Gang vocals]
+기원전! 이삼삼삼! 일공팔!
+못 잊어 이거!
+오칠! 삼칠! 일팔!
+못 잊어 이거!
+사이! 삼칠일! 삼칠이! 삼구일!
+못 잊어 이거!
+사이칠! 오이칠! 오오삼!
+오-오, 오-오-오! 못 잊어 이거!
 
 [Verse 2]
-[Sung]
-기원전 오칠, 박혁거세 신라
+[Rap]
+기원전 오칠, 박혁거세가 신라를 세워
+[Shout]
+못 잊어 이거!
+[Rap]
 기원전 삼칠, 주몽이 고구려
 기원전 일팔, 온조가 백제
-사이 년엔 김수로, 금관가야
+[Shout]
+못 잊어 이거!
+[Rap]
+사이, 김수로의 금관가야
 철이 풍부한 나라, 가야!
-[Chant]
+[Shout]
 오칠 신라! 삼칠 고구려! 일팔 백제! 사이 가야!
 
 [Chorus]
-[Chant]
+[Gang vocals]
 기원전! 이삼삼삼! 일공팔!
-오칠! 삼칠! 일팔! 신라 고구려 백제!
-기원후! 사이 가야! 삼칠일! 삼칠이!
-삼구일! 사이칠! 오이칠! 오오삼!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+못 잊어 이거!
+오칠! 삼칠! 일팔!
+못 잊어 이거!
+사이! 삼칠일! 삼칠이! 삼구일!
+못 잊어 이거!
+사이칠! 오이칠! 오오삼!
+오-오, 오-오-오! 못 잊어 이거!
+
+[Stop]
+[Music stops]
+[Shout]
+스톱! 연도 타임!
+[Beat drops back in]
 
 [Verse 3]
-[Sung]
-삼칠일, 백제 근초고왕
-고구려 평양성을 공격했어, 백제의 전성기!
+[Rap]
+삼칠일, 백제 근초고왕, 고구려 평양성을 공격
+백제의 전성기!
+[Shout]
+못 잊어 이거!
+[Rap]
 삼칠이, 고구려 소수림왕
 불교를 받아들이고 태학을 세웠어
-삼구일, 광개토 대왕
-영토를 크게 넓힌 고구려의 왕!
-[Chant]
+[Shout]
+못 잊어 이거!
+[Rap]
+삼구일, 광개토 대왕, 영토를 크게 넓혀
+[Shout]
 칠일 근초고! 칠이 소수림! 구일 광개토!
 
 [Verse 4]
-[Sung]
-사이칠, 장수왕은 평양으로 도읍을 옮기고
-남쪽으로 남쪽으로, 한강 유역까지 차지했어, 고구려의 전성기!
-오이칠, 신라 법흥왕
-이차돈의 순교로 불교를 공인했어
-오오삼, 신라 진흥왕
-한강 유역을 차지했어, 신라의 전성기!
-[Chant]
+[Rap]
+사이칠, 장수왕이 평양으로 도읍을 옮기고
+남쪽으로 한강 유역까지, 고구려의 전성기!
+[Shout]
+못 잊어 이거!
+[Rap]
+오이칠, 신라 법흥왕, 이차돈의 순교로 불교를 공인
+[Shout]
+못 잊어 이거!
+[Rap]
+오오삼, 신라 진흥왕이 한강 유역을 차지
+신라의 전성기!
+[Shout]
 사이칠 장수왕! 오이칠 법흥왕! 오오삼 진흥왕!
 
-[Bridge]
+[Breakdown]
+[Drums and bass only]
 [Call and response]
 기원전 이삼삼삼? 고조선 건국!
 기원전 일공팔? 고조선 멸망!
@@ -248,95 +299,99 @@ dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, expl
 진흥왕 한강은? 오오삼!
 
 [Final Chorus]
-[Chant]
+[Gang vocals]
 기원전! 이삼삼삼! 일공팔!
-오칠! 삼칠! 일팔! 신라 고구려 백제!
-기원후! 사이 가야! 삼칠일! 삼칠이!
-삼구일! 사이칠! 오이칠! 오오삼!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
-고조선과 삼국, 완성!
+못 잊어 이거!
+오칠! 삼칠! 일팔!
+못 잊어 이거!
+사이! 삼칠일! 삼칠이! 삼구일!
+못 잊어 이거!
+사이칠! 오이칠! 오오삼!
+오-오, 오-오-오! 고조선과 삼국, 완성!
 
 [Outro]
-[Spoken, cute]
-다음은 삼국 통일 전쟁! 기대해~
+[Spoken]
+다음은 삼국 통일 전쟁!
 ```
 
-### 4-5. 가사 메타태그 설명
+### 5-5. 가사 메타태그 설명
 
 | 태그 | Suno에 주는 신호 |
 |---|---|
-| `[Chorus]` | 반복되는 핵심 구간. 연도 12개 |
-| `[Chant]` | 노래보다 또박또박 외치기. 숫자가 또렷하게 들림 |
-| `[Sung]` | 멜로디로 부르기 |
-| `[Spoken, cute]` | 귀엽게 말하듯이 |
-| `[Call and response]` | 한 명이 묻고 여럿이 답하기. 퀴즈 브리지용 |
+| `[Funky bass riff]` | 곡을 베이스 리프로 시작 |
+| `[Rap]` | 랩으로 |
+| `[Shout]` | 짧게 외치기. "못 잊어 이거!"와 절 끝 숫자 외치기 |
+| `[Gang vocals]` | 여럿이 함께 외치기. 후렴 |
+| `[Stop]` `[Music stops]` | 음악을 딱 멈추는 신호 |
+| `[Beat drops back in]` | 멈췄던 음악이 다시 터짐 |
+| `[Breakdown]` `[Drums and bass only]` | 다른 악기를 빼고 드럼·베이스만 |
+| `[Call and response]` | 한 명이 묻고 여럿이 답하기 |
 
 ---
 
-## 5. 스타일 변형안
+## 6. 스타일 변형안
 
 가사는 그대로 두고 Style 칸만 바꿉니다.
 
-### A. 이국적인 걸그룹 일렉트로팝 (기본안)
+### A. 90년대 펑키 팝 랩 (기본안)
 
-위 4-2와 같습니다.
+위 5-2와 같습니다.
 
-### B. 더 엉뚱하게 (뽕짝 느낌을 섞은 레트로 댄스)
-
-```
-quirky retro K-pop dance, playful trot-pop fusion, 130 BPM, exotic flute synth hook, bouncy beat, accordion stabs, cheerful female duo vocals, funny spoken ad-libs, clear Korean diction, chanted numbers, sing-along la la la chorus, call and response, novelty, educational
-```
-
-### C. 국악 섞은 버전 (한국사 분위기)
+### B. 국악 섞은 펑키 랩 (한국사 분위기)
 
 ```
-bright quirky K-pop girl group, playful electropop, 126 BPM, exotic flute synth riff mixed with gayageum and janggu, bouncy beat, cute high female duo vocals, chanted numbers, catchy repetitive la la la chorus, clear Korean diction, call and response, fun, educational, kids
+early 90s pop rap, funky dance hip hop, 128 BPM, funky bass guitar riff loop, drum machine, big hand claps, janggu and buk drum accents, gayageum stabs, confident male rapper, clear Korean diction, short shouted catchphrase between lines, crowd gang vocals, stop break, call and response, fun, educational
+```
+
+### C. 아이들 목소리 떼창을 더 크게 (교실용)
+
+```
+early 90s pop rap, funky dance hip hop, 126 BPM, funky bass guitar riff loop, drum machine, big hand claps, confident male rapper with big kids choir shouting the catchphrase, clear Korean diction, crowd gang vocals oh oh oh, stop break, call and response, fun, educational, kids
 ```
 
 ### D. 천천히 따라 하기 (처음 외울 때)
 
 ```
-cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy beat, sweet female duo vocals, very clear Korean diction, slow chanted numbers, sing-along la la la chorus, call and response, educational, kids
+funky pop rap, 110 BPM, funky bass guitar riff loop, simple drum machine, hand claps, friendly male rapper, very clear Korean diction, slow steady flow, short shouted catchphrase, crowd gang vocals, call and response, educational
 ```
 
-128 BPM에서 숫자가 뭉개지면 **D로 먼저 들어 보고**, 괜찮은 것을 고르세요.
+130 BPM에서 숫자가 뭉개지면 **D로 먼저 들어 보고**, 괜찮은 것을 고르세요.
 
 ---
 
-## 6. 생성 체크리스트
+## 7. 생성 체크리스트
 
-### 6-1. 생성 전
+### 7-1. 생성 전
 
 - [ ] Custom 모드 켜기
 - [ ] Title, Style, Exclude, Lyrics 네 칸 다 채우기
 - [ ] 가사의 연도는 모두 한글 ("553" ✕ → "오오삼" ○)
 
-### 6-2. 생성 후 고르는 기준
+### 7-2. 생성 후 고르는 기준
 
 | 순위 | 확인할 것 | 탈락 기준 |
 |---|---|---|
 | 1 | **후렴의 연도 12개가 순서대로 다 들리는가** | 하나라도 빠지거나 바뀌면 탈락 |
-| 2 | **"기원전"과 "기원후"가 또렷한가** | 기원전이 안 들리면 탈락 (시험에서 가장 많이 틀리는 부분) |
-| 3 | 절마다 연도와 사건이 짝이 맞는가 | 단어를 바꿔 부르면 탈락 |
-| 4 | 어려운 단어가 또렷한가 | "홍익인간", "팔조법", "근초고왕", "소수림왕", "이차돈"이 뭉개지면 탈락 |
-| 5 | 랄랄라 후렴이 귀에 남는가 | 원하신 느낌이 나는지 |
-| 6 | 길이 3분 20초~4분 | 길면 Outro 잘라내기 |
+| 2 | **"기원전"이 또렷한가** | 기원전이 안 들리면 탈락 (시험에서 가장 많이 틀리는 부분) |
+| 3 | **펑키 베이스 리프가 곡 내내 돌아가는가** | 리프가 없으면 원하신 느낌이 안 남. 탈락 |
+| 4 | **"스톱! 연도 타임!"에서 음악이 멈추는가** | 안 멈춰도 쓸 수는 있지만 아쉬움 |
+| 5 | 어려운 단어가 또렷한가 | "홍익인간", "팔조법", "근초고왕", "소수림왕", "이차돈"이 뭉개지면 탈락 |
+| 6 | 길이 3분 10초~3분 50초 | 길면 Outro 잘라내기 |
 
-### 6-3. 문제가 생겼을 때
+### 7-3. 문제가 생겼을 때
 
 | 증상 | 고치는 법 |
 |---|---|
-| 숫자가 뭉개짐 | D 스타일(108 BPM). 숫자 사이에 쉼표: `오칠, 삼칠, 일팔` |
-| 숫자까지 전부 노래로 불러 안 들림 | 후렴 위 `[Chant]`를 `[Shouted chant]`로 바꾸기 |
-| 이국적인 피리 소리가 안 남 | Style 맨 앞을 `exotic snake charmer flute synth riff, ` 로 시작 |
-| 남자 목소리가 나옴 | Exclude에 `male vocals`가 있는지 확인 |
-| "사이 가야"를 "사이가야"로 붙여 부름 | `사이! 가야!`로 바꾸기 |
-| 곡이 너무 길어짐 | Bridge를 6줄로 줄이기 (기원전 5개 + 진흥왕) |
+| 숫자가 뭉개짐 | D 스타일(110 BPM). 숫자 사이에 쉼표: `오칠, 삼칠, 일팔` |
+| 베이스 리프가 약함 | Style 맨 앞을 `funky slap bass riff loop, ` 로 시작 |
+| 스톱 브레이크에서 안 멈춤 | `[Stop]` 아래에 `[Silence]` 한 줄 더 넣기 |
+| "못 잊어 이거!"를 노래로 부름 | `[Shout]`를 `[Shouted]`로 바꾸거나 `(못 잊어 이거!)`처럼 괄호로 감싸기 |
+| 트랩·요즘 힙합처럼 나옴 | Style 맨 앞에 `1990, old school, ` 추가 |
+| 여자 목소리가 나옴 | Exclude에 `female vocals`가 있는지 확인 |
 
 ---
 
-## 7. 내용 정확성 메모
+## 8. 내용 정확성 메모
 
 | 항목 | 메모 |
 |---|---|
@@ -354,7 +409,7 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 8. 영상 만들 때 (다음 단계)
+## 9. 영상 만들 때 (다음 단계)
 
 곡을 만들어 mp3를 주시면 이전 영상처럼 만듭니다. 장면 그림 스크립트는 `video/samguk_rise_song/shots_chatgpt.md`에 있습니다(사건 12개 × 3장 = 36장).
 
@@ -370,7 +425,7 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 9. 시리즈로 이어 듣기
+## 10. 시리즈로 이어 듣기
 
 | 순서 | 곡 | 시기 |
 |---|---|---|
@@ -385,8 +440,9 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 10. 변경 이력
+## 11. 변경 이력
 
 | 날짜 | 변경 |
 |---|---|
+| 2026-10-08 | 스타일 변경: 걸그룹 일렉트로팝 → 90년대 펑키 팝 랩("U Can't Touch This" 분석). 원곡 분석표, "못 잊어 이거!" 외침, 스톱 브레이크, 새 변형안 4종 |
 | 2026-10-08 | 첫 작성. 교과서 공통 서술로 연표 12개 구성, 밝고 엉뚱한 걸그룹 일렉트로팝 가사(후렴 숫자 외치기 + 랄랄라), 변형 4종, 체크리스트, 정확성 메모 |
