@@ -1,0 +1,40 @@
+{
+  "duration": 232.8,
+  "title": "선사 시대 암기송!",
+  "subtitle": "구석기부터 철기까지",
+  "timeline_years": [
+    "70만 년 전",
+    "1만 년 전",
+    "BC 20세기",
+    "BC 5세기"
+  ],
+  "intro_end": 21.0,
+  "outro_start": 224.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {
+    "01": "fireflies",
+    "08": "sparkle"
+  },
+  "fill_gaps": true,
+  "intro_shots": [
+    "01a",
+    "01c",
+    "02c",
+    "03a",
+    "04c",
+    "06a",
+    "07b",
+    "08b"
+  ],
+  "outro_shots": [
+    "08c",
+    "06a",
+    "01c"
+  ]
+}

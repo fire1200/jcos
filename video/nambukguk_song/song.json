@@ -1,0 +1,46 @@
+{
+  "duration": 212.4,
+  "title": "남북국 시대 연도 암기송!",
+  "subtitle": "685 ~ 935 통일 신라와 발해",
+  "timeline_years": [
+    685,
+    687,
+    698,
+    751,
+    788,
+    828,
+    889,
+    900,
+    901,
+    926,
+    935
+  ],
+  "intro_end": 12.5,
+  "outro_start": 208.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {
+    "05": "sparkle",
+    "11": "sparkle"
+  },
+  "fill_gaps": true,
+  "intro_shots": [
+    "01a",
+    "03a",
+    "04a",
+    "05a",
+    "07a",
+    "09a",
+    "12a"
+  ],
+  "outro_shots": [
+    "12b",
+    "12c",
+    "04a"
+  ]
+}

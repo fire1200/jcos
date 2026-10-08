@@ -1,0 +1,43 @@
+{
+  "duration": 216.4,
+  "title": "삼국 통일 전쟁 연도 암기송!",
+  "subtitle": "562 ~ 676 삼국 통일 전쟁",
+  "timeline_years": [
+    562,
+    612,
+    642,
+    645,
+    648,
+    660,
+    668,
+    675,
+    676
+  ],
+  "intro_end": 22.5,
+  "outro_start": 208.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {
+    "10": "sparkle"
+  },
+  "fill_gaps": true,
+  "intro_shots": [
+    "01b",
+    "02b",
+    "04b",
+    "06b",
+    "08a",
+    "09b",
+    "10b"
+  ],
+  "outro_shots": [
+    "10c",
+    "05a",
+    "10a"
+  ]
+}

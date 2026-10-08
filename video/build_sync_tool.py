@@ -6,7 +6,10 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SONGS = [("samguk_rise_song", "① 고조선과 삼국 (기원전 2333~553)", "고조선삼국"),
+SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시대"),
+         ("samguk_rise_song", "① 고조선과 삼국 (기원전 2333~553)", "고조선삼국"),
+         ("samguk_war_song", "② 삼국 통일 전쟁 (562~676)", "삼국통일"),
+         ("nambukguk_song", "③ 남북국 시대 (685~935)", "남북국"),
          ("goryeo_early_rap", "④ 고려 전기 (918~1145)", "고려전기"),
          ("goryeo_late_rap", "⑤ 고려 후기 (1170~1392)", "고려후기"),
          ("joseon_early_rap", "⑥ 조선 전기 (1388~1592)", "조선전기"),
