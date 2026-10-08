@@ -743,6 +743,18 @@ def years_of(s):
     return [int(y) for y in re.findall(r"\d{4}", s or "")]
 
 
+def timeline_keys(s):
+    """연도 칸("918 · 936", "기원전 2333", "70만 년 전")에서 연도 바 글자와 맞출 값들."""
+    keys = set()
+    for part in (s or "").split("·"):
+        part = part.strip()
+        if part:
+            keys.add(part)
+            keys.add(part.replace("기원전 ", "BC "))
+    keys |= {str(y) for y in re.findall(r"(?<![\d만])\d{3,4}(?![\d만])", s or "") if "기원전" not in (s or "")}
+    return keys
+
+
 SUB_SIZE, SUB_SIZE_HOOK = 116, 128
 SUB_MAXW = 1800
 SUB_BOTTOM = 968
@@ -820,13 +832,19 @@ def draw_timeline(img, t, r):
     x0, x1, y = 130, 1790, 1046
     pos = {yv: x0 + (x1 - x0) * i / (len(TIMELINE_YEARS) - 1) for i, yv in enumerate(TIMELINE_YEARS)}
     img[y - 2:y + 2, x0:x1] = img[y - 2:y + 2, x0:x1] * .4 + .6
-    act = set(years_of(r["year"])) if r else set()
+    act = timeline_keys(r["year"]) if r else set()
+    gap = (x1 - x0) / max(1, len(TIMELINE_YEARS) - 1)
     dot = gauss_sprite(12)
     for yv, x in pos.items():
-        on = yv in act
+        on = str(yv) in act
         add_sprite(img, dot, x, y, hexc("#ffd890") if on else hexc("#ffffff"), 1.8 if on else .5)
-        lab = T.label(str(yv), FONT_BODY, 44 if on else 36, "Black" if on else "Bold",
+        size = 44 if on else 36
+        lab = T.label(str(yv), FONT_BODY, size, "Black" if on else "Bold",
                       (255, 220, 140) if on else (240, 240, 248), shadow=6)
+        while lab.shape[1] - 12 > gap * (1.25 if on else 1.0) and size > 20:   # "BC 2333"처럼 긴 글자는 줄여서 맞춤
+            size -= 2
+            lab = T.label(str(yv), FONT_BODY, size, "Black" if on else "Bold",
+                          (255, 220, 140) if on else (240, 240, 248), shadow=6)
         over(img, lab, int(x - lab.shape[1] / 2), y - 14 - (lab.shape[0] - 40), 1.0 if on else .8)
 
 
