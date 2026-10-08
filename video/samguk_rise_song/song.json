@@ -73,5 +73,24 @@
   "effects": {
     "03": "sparkle",
     "11": "sparkle"
-  }
+  },
+  "fill_gaps": true,
+  "intro_shots": [
+    "01a",
+    "03c",
+    "04a",
+    "05a",
+    "06b",
+    "09b",
+    "10a",
+    "12a",
+    "07b",
+    "11b"
+  ],
+  "outro_shots": [
+    "12b",
+    "09a",
+    "04b",
+    "01a"
+  ]
 }

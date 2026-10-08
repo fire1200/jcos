@@ -853,7 +853,8 @@ def draw_title(img, t, t0, t1, y=380):
     a = ease((t - t0) / .8) * ease((t1 - t) / .6)
     if a <= 0:
         return
-    big = T.label(TITLE, FONT_DISPLAY, 230, None, (255, 255, 255), shadow=18, glow=((255, 190, 150), 30, .6))
+    big = T.label(TITLE, FONT_DISPLAY, 230, None, (255, 255, 255), shadow=18, glow=((255, 190, 150), 30, .6),
+                  maxw=1780)
     sub = T.label(SUBTITLE, FONT_BODY, 60, "Bold", (255, 244, 230), shadow=12)
     over(img, big, (W - big.shape[1]) // 2, y - big.shape[0] // 2, a)
     over(img, sub, (W - sub.shape[1]) // 2, y + big.shape[0] // 2 - 40, a)

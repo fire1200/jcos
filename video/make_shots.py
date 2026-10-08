@@ -33,6 +33,32 @@ def split(t0, t1, n, beats, tol=.25, min_len=.6):
     return list(zip(cuts[:-1], cuts[1:]))
 
 
+def montage(t0, t1, imgs, beats, each=2.6):
+    """t0~t1 동안 그림 여러 장을 박자에 맞춰 차례로 (인트로·아웃트로용)."""
+    n = max(1, min(len(imgs), round((t1 - t0) / each)))
+    return [(a, b, imgs[i % len(imgs)], "none") for i, (a, b) in enumerate(split(t0, t1, n, beats))]
+
+
+def fill_gaps(rows, cfg, beats):
+    """그림이 없는 틈(인트로, "못 잊어 이거!" 같은 짧은 줄, 아웃트로)을 그림으로 채움.
+    song.json: "fill_gaps": true, "intro_shots": [...], "outro_shots": [...]"""
+    if not rows:
+        return rows
+    out = []
+    first = rows[0][0]
+    if first > .5:
+        out += montage(0, first, cfg.get("intro_shots") or [rows[0][2]], beats)
+    for i, (a, b, im, fx) in enumerate(rows):
+        nxt = rows[i + 1][0] if i + 1 < len(rows) else None
+        if nxt is not None and nxt > b:
+            b = nxt          # 다음 그림까지 이어서 보여 줌
+        out.append((a, b, im, fx))
+    end = cfg.get("duration", out[-1][1])
+    if end - out[-1][1] > .5:
+        out += montage(out[-1][1], end, cfg.get("outro_shots") or [out[-1][2]], beats)
+    return out
+
+
 def build(song):
     d = os.path.join(HERE, song)
     beats_path = os.path.join(d, "beats.txt")
@@ -55,6 +81,8 @@ def build(song):
         for (a, b), im in zip(parts, imgs):
             rows.append((a, b, im, effects.get(im[:2], "none") if fx_ok else "none"))
     rows.sort()
+    if cfg.get("fill_gaps"):
+        rows = fill_gaps(rows, cfg, beats)
     with open(os.path.join(d, "shots.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["start", "end", "image", "effect", "motion"])
