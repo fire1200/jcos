@@ -1,14 +1,14 @@
 # 선사 시대 암기송! 구석기부터 철기까지 — Suno 제작 문서 (2026-10-08)
 
 한국사 연도 암기송 시리즈의 **⓪번 곡**입니다. 고조선 이전, 글로 남긴 기록이 없는 **선사 시대**를 도구로 나눈 네 시대(구석기·신석기·청동기·철기)와 그 특징을 짝지어 외웁니다.
-①·②·③번 곡과 같은 **90년대 펑키 팝 랩**("U Can't Touch This" 스타일)이고, 구호와 속도만 다릅니다.
+이번 곡은 **80년대 정글 신스팝**(Baltimora "Tarzan Boy" 스타일: 정글 효과음과 정글 외침, 가사 없는 "오-오" 후렴, 반짝이는 신스 리프)에 **원시인 "우가우가! 우가차차!"** 떼창을 더해 만듭니다.
 
 | 항목 | 내용 |
 |---|---|
 | 곡 제목 | 선사 시대 암기송! 구석기부터 철기까지 |
 | 대상 | 초등 고학년 (5학년 2학기 사회), 중학생 역사 |
 | 목표 | 네 시대의 시작 시점과 시대별 도구·생활·유적 짝짓기 |
-| 스타일 | 90년대 펑키 팝 랩 (125 BPM). 랩 + 외침 구호 "알고 있지 이거!" + 스톱 브레이크 |
+| 스타일 | 80년대 정글 신스팝 (130 BPM). 노래 + "오-오, 오-오오-오" 후렴 + 정글 외침 + 원시인 구호 "우가우가! 우가차차!" |
 | 가사 원칙 | **교과서에 나오는 단어 그대로.** 교과서에 없는 표현은 넣지 않음 |
 | 길이 | 약 3분 10초~3분 40초 |
 | 다음 곡 | ① 고조선과 삼국 (기원전 2333~553) |
@@ -55,9 +55,10 @@
 | 장치 | 어디에 | 왜 효과가 있나 |
 |---|---|---|
 | **시대 순서 후렴** | "칠십만 년 전! 구석기! / 만 년 전! 신석기! / 기원전 이십 세기! 청동기! / 기원전 오 세기! 철기!" | 네 시대의 순서와 시작 시점을 한 번에 |
-| **"알고 있지 이거!" 외침** | 랩 두 줄마다, 후렴 한 줄마다 | 짧고 반복되는 구호. 아이들이 따라 외치는 자리 |
+| **"오-오, 오-오오-오!" 후렴** | 후렴 줄마다 앞에 | 말 없이 따라 부르는 가락 뒤에 시대 이름이 붙어 저절로 외워집니다 |
+| **"우가우가! ○○! 우가차차! ○○!"** | 절 끝마다 | 원시인 떼창에 그 시대 대표 도구와 시대 이름을 넣어 한 번 더 박아 넣습니다 |
 | **절마다 같은 순서: 도구 → 생활 → 유적** | 1~4절 | 순서가 같아서 "신석기 도구는?" 하면 바로 떠오름 |
-| **스톱 브레이크** | 3절 앞 "스톱! 선사 타임!" | 돌의 시대(구석기·신석기)에서 금속의 시대(청동기·철기)로 넘어가는 순간 |
+| **정글 브레이크** | 3절 앞, 정글 북만 남기고 "돌에서 청동! 청동에서 철!" | 돌의 시대(구석기·신석기)에서 금속의 시대(청동기·철기)로 넘어가는 순간 |
 | **양방향 퀴즈** | 브리지 "뗀석기?" → "구석기!" / "고인돌은?" → "청동기!" | 특징 → 시대 연습 |
 
 ### 2-2. 헷갈리는 짝 구분법
@@ -79,18 +80,33 @@
 
 ---
 
-## 3. 스타일: 90년대 펑키 팝 랩 (125 BPM)
+## 3. 원하신 곡 분석: Baltimora "Tarzan Boy" (1985)
 
-①번 곡과 같은 "U Can't Touch This" 스타일입니다(원곡 분석은 ①번 문서 3장). 시리즈 안에서 곡마다 다르게 들리도록 **구호와 속도만** 바꿨습니다.
+Suno는 곡 이름·가수 이름을 Style 칸에 넣으면 거절합니다. 그래서 곡을 뜯어서 **소리의 특징**을 말로 바꿔 적었습니다. 가사와 멜로디는 베끼지 않고, **구조와 느낌만** 가져옵니다.
 
-| 곡 | BPM | 랩 사이 구호 | 스톱 브레이크 |
+| 특징 | 원곡에서 어떻게 쓰였나 | 이번 곡에 가져온 방식 |
+|---|---|---|
+| **장르와 템포** | 80년대 이탈로 디스코·신스팝. 약 130 BPM의 통통 튀는 춤곡 | `1985 italo disco, synth pop, 130 BPM` |
+| **정글 효과음 + 정글 외침으로 시작** | 새소리·짐승 소리와 함께 타잔 같은 외침으로 문을 엶 | 인트로에 정글 효과음과 **"아-아아아-아아~"** 정글 외침 |
+| **가사 없는 "오-오오-오" 후렴 멜로디** | 원곡에서 가장 유명한 부분. 말 없이 "오-오" 소리로 부르는 가락이라 누구나 따라 부름 | 후렴 줄마다 앞에 **"오-오, 오-오오-오!"** 를 붙이고 뒤에 시대 이름 |
+| **귀에 꽂히는 밝은 신스 리프** | 반짝이는 신스 선율이 곡 내내 반복 | `bright catchy analog synth lead riff` |
+| **옥타브로 튀는 신스 베이스** | 한 음을 낮게·높게 번갈아 치는 80년대 베이스 | `bouncy octave synth bass` |
+| **크게 울리는 80년대 드럼 + 정글 타악기** | 퍽 퍼지는 스네어(게이트 리버브)와 봉고·콩가 | `gated reverb drums, bongos and congas` |
+| **밝은 남자 보컬, 노래** | 랩이 아니라 시원하게 부르는 노래 | 절은 **노래**, 숫자 부분만 또박또박 |
+| **원시인 "우가우가 우가차차"** (원하신 추가 요소) | 원곡에는 없음 | 절 끝마다 **"우가우가! 우가차차!"** 원시인 떼창 + 시대 이름 |
+
+> "오-오, 오-오오-오!"와 정글 외침은 원곡의 **역할**(말 없이 따라 부르는 후렴, 정글 분위기)만 가져왔습니다. 원곡 가사나 멜로디를 베낀 것이 아닙니다.
+
+### ①~③번 곡과 다른 점
+
+⓪번은 시리즈의 **첫 곡**이라 일부러 다른 소리로 시작합니다. 원시 시대 → 정글·원시인 분위기가 잘 맞고, ①번(펑키 랩)부터 "역사 시대"가 시작되는 느낌이 납니다.
+
+| 곡 | 스타일 | BPM | 구호 |
 |---|---|---|---|
-| **⓪ 선사 시대** | **125** | **알고 있지 이거!** | **스톱! 선사 타임!** |
-| ① 고조선과 삼국 | 130 | 못 잊어 이거! | 스톱! 연도 타임! |
-| ② 삼국 통일 전쟁 | 140 | 멈출 수 없어! | 스톱! 통일 타임! |
-| ③ 남북국 시대 | 120 | 기억해 이거! | 스톱! 남북국 타임! |
-
-원시 시대 느낌이 나도록 **나무 북·뼈 타악기 소리(tribal percussion)**를 살짝 더했습니다.
+| **⓪ 선사 시대** | **80년대 정글 신스팝 (노래)** | **130** | **우가우가! 우가차차!** |
+| ① 고조선과 삼국 | 90년대 펑키 팝 랩 | 130 | 못 잊어 이거! |
+| ② 삼국 통일 전쟁 | 90년대 펑키 팝 랩 | 140 | 멈출 수 없어! |
+| ③ 남북국 시대 | 90년대 펑키 팝 랩 | 120 | 기억해 이거! |
 
 ---
 
@@ -98,17 +114,18 @@
 
 | 구간 | 내용 |
 |---|---|
-| Intro | 베이스 리프 + "자, 한국사 맨 처음! 선사 타임!" |
-| Chorus 1 | 네 시대 + "오-오, 오-오-오!" |
-| Verse 1 | 구석기 (뗀석기, 사냥·채집, 이동 생활, 전곡리) |
+| Intro | 정글 효과음 → 정글 외침 "아-아아아-아아~" → "우가우가! 우가차차!" → 신스 리프 |
+| Verse 1 | 구석기 (뗀석기, 사냥·채집, 이동 생활, 전곡리) + "우가우가! 구석기!" |
+| Pre-Chorus | "돌에서 청동, 청동에서 철" |
+| Chorus 1 | "오-오, 오-오오-오!" + 네 시대 + 정글 외침 |
 | Verse 2 | 신석기 (간석기, 빗살무늬 토기, 농사, 움집, 암사동) |
 | Chorus 2 | 네 시대 |
-| **Stop break** | 음악 멈춤 → "스톱! 선사 타임!" → 다시 시작 |
+| Jungle Break | 정글 북만 남기고 "우가우가 우가차차" 떼창 + 정글 외침 |
 | Verse 3 | 청동기 (비파형 동검, 민무늬 토기, 벼농사, 군장, 고인돌, 고조선) |
 | Verse 4 | 철기 (철제 농기구, 세형 동검, 여러 나라) |
-| Breakdown | 비트만 남기고 특징 → 시대 퀴즈 |
-| Final Chorus | 네 시대 + 마무리 |
-| Outro | ①번 곡 예고 |
+| Bridge | 특징 → 시대 퀴즈 (답 앞에 "우가!") |
+| Final Chorus | 네 시대 + 정글 외침 + 마무리 |
+| Outro | 정글 효과음 + ①번 곡 예고 |
 
 ---
 
@@ -125,141 +142,130 @@ Suno에서 **Custom 모드**를 켜고 네 칸을 채웁니다.
 ### 5-2. Style of Music (기본안)
 
 ```
-early 90s pop rap, funky dance hip hop, 125 BPM, iconic funky bass guitar riff loop repeated throughout, drum machine beat, big hand claps, tribal wooden percussion accents, funky guitar stabs, synth brass hits, confident charismatic male rapper, clear Korean diction, short shouted catchphrase between rap lines, crowd gang vocals oh oh oh, party crowd shouts, dramatic stop break, call and response, fun, energetic, educational
+1985 italo disco, synth pop, 130 BPM, jungle atmosphere, bright catchy analog synth lead riff, bouncy octave synth bass, gated reverb drums, bongos and congas, jungle bird and animal sound effects, jungle yell yodel, catchy wordless oh oh oh falsetto chorus hook, playful caveman chant ooga ooga, warm male lead vocal, clear Korean diction, sing-along, uplifting, fun, educational
 ```
+
+- **정글 효과음**, **가사 없는 "오-오" 후렴**, **반짝이는 신스 리프**, **옥타브 신스 베이스**가 원하신 곡의 핵심입니다.
+- 타잔 외침은 `jungle yell yodel`로 적었습니다. "Tarzan"이라는 이름을 넣으면 Suno가 거절할 수 있습니다.
 
 ### 5-3. Exclude Styles
 
 ```
-trap, mumble rap, heavy autotune, explicit lyrics, dark, sad, ballad, female vocals, slow tempo, heavy metal, EDM drop
+rap, trap, heavy autotune, explicit lyrics, dark, sad, ballad, female vocals, heavy metal, EDM drop, distortion
 ```
 
 ### 5-4. Lyrics
 
 ```
 [Intro]
-[Funky bass riff]
-[Spoken]
-자, 한국사 맨 처음!
-고조선보다 먼저, 선사 시대
-가 보자!
-
-[Chorus]
-[Gang vocals]
-칠십만 년 전! 구석기!
-알고 있지 이거!
-만 년 전! 신석기!
-알고 있지 이거!
-기원전 이십 세기! 청동기!
-알고 있지 이거!
-기원전 오 세기! 철기!
-오-오, 오-오-오! 알고 있지 이거!
+[Jungle sounds, birds and animals]
+[Jungle yell]
+아-아아아-아아~
+[Caveman chant]
+우가우가! 우가차차!
+우가우가! 우가차차!
+[Synth riff]
 
 [Verse 1]
-[Rap]
+[Sung]
 칠십만 년 전, 구석기 시대
-돌을 깨뜨려 만든 뗀석기, 주먹도끼!
-[Shout]
-알고 있지 이거!
-[Rap]
-사냥하고 채집하고, 동굴과 막집에 살며
-먹을 것을 찾아 이동 생활, 불을 사용했어
-[Shout]
-알고 있지 이거!
-[Rap]
-연천 전곡리 주먹도끼, 공주 석장리!
-[Shout]
-구석기! 뗀석기! 이동 생활!
+돌을 깨뜨려 만든 뗀석기, 주먹도끼
+사냥하고 채집하며, 동굴과 막집에 살고
+먹을 것을 찾아 이동 생활, 불을 피웠지
+연천 전곡리, 공주 석장리
+[Caveman chant]
+우가우가! 뗀석기! 우가차차! 구석기!
 
-[Verse 2]
-[Rap]
-만 년 전, 신석기 시대
-돌을 갈아 만든 간석기, 빗살무늬 토기!
-[Shout]
-알고 있지 이거!
-[Rap]
-농사를 짓기 시작했어, 조와 피
-가락바퀴와 뼈바늘로 옷을 만들어
-[Shout]
-알고 있지 이거!
-[Rap]
-강가와 바닷가에 움집을 짓고 정착 생활
-서울 암사동, 부산 동삼동!
-[Shout]
-신석기! 간석기! 빗살무늬! 정착 생활!
+[Pre-Chorus]
+[Sung]
+돌에서 청동, 청동에서 철
+한국사의 맨 처음으로 떠나 보자!
 
 [Chorus]
-[Gang vocals]
-칠십만 년 전! 구석기!
-알고 있지 이거!
-만 년 전! 신석기!
-알고 있지 이거!
-기원전 이십 세기! 청동기!
-알고 있지 이거!
-기원전 오 세기! 철기!
-오-오, 오-오-오! 알고 있지 이거!
+[Sung, catchy]
+오-오, 오-오오-오! 칠십만 년 전 구석기!
+오-오, 오-오오-오! 만 년 전 신석기!
+오-오, 오-오오-오! 기원전 이십 세기 청동기!
+오-오, 오-오오-오! 기원전 오 세기 철기!
+[Jungle yell]
+아-아아아-아아~
 
-[Stop]
-[Music stops]
-[Shout]
-스톱! 선사 타임!
-[Beat drops back in]
+[Verse 2]
+[Sung]
+만 년 전, 신석기 시대
+돌을 갈아 만든 간석기, 빗살무늬 토기
+농사를 짓기 시작했어, 조와 피
+가락바퀴와 뼈바늘로 옷을 만들고
+강가와 바닷가 움집에서 정착 생활
+서울 암사동, 부산 동삼동
+[Caveman chant]
+우가우가! 간석기! 우가차차! 신석기!
+
+[Chorus]
+[Sung, catchy]
+오-오, 오-오오-오! 칠십만 년 전 구석기!
+오-오, 오-오오-오! 만 년 전 신석기!
+오-오, 오-오오-오! 기원전 이십 세기 청동기!
+오-오, 오-오오-오! 기원전 오 세기 철기!
+[Jungle yell]
+아-아아아-아아~
+
+[Jungle Break]
+[Jungle drums only]
+[Caveman chant]
+우가우가! 우가차차!
+돌에서 청동! 우가차차!
+청동에서 철! 우가차차!
+[Jungle yell]
+아-아아아-아아~
 
 [Verse 3]
-[Rap]
+[Sung]
 기원전 이십 세기, 청동기 시대
-비파형 동검, 민무늬 토기, 반달 돌칼!
-[Shout]
-알고 있지 이거!
-[Rap]
+비파형 동검, 민무늬 토기, 반달 돌칼
 벼농사를 짓기 시작했어
-사유 재산과 계급이 생기고, 지배자 군장이 나타났어
-[Shout]
-알고 있지 이거!
-[Rap]
+사유 재산과 계급이 생기고, 지배자 군장이 나타나
 군장의 무덤 고인돌, 그리고 고조선!
-[Shout]
-청동기! 비파형 동검! 고인돌! 고조선!
+[Caveman chant]
+우가우가! 고인돌! 우가차차! 청동기!
 
 [Verse 4]
-[Rap]
+[Sung]
 기원전 오 세기, 철기 시대
 철로 만든 농기구와 무기, 농업이 발달했어
-[Shout]
-알고 있지 이거!
-[Rap]
 세형 동검을 만들고
-부여, 고구려, 옥저, 동예, 삼한, 여러 나라가 생겨났어
-[Shout]
-철기! 철제 농기구! 여러 나라!
+부여, 고구려, 옥저, 동예, 삼한
+여러 나라가 생겨났어!
+[Caveman chant]
+우가우가! 철 괭이! 우가차차! 철기!
 
-[Breakdown]
-[Drums and bass only]
+[Bridge]
 [Call and response]
-뗀석기 주먹도끼? 구석기!
-동굴과 막집, 이동 생활? 구석기!
-간석기? 신석기!
-빗살무늬 토기? 신석기!
-농사 시작, 움집? 신석기!
-비파형 동검? 청동기!
-민무늬 토기, 반달 돌칼? 청동기!
-고인돌, 군장? 청동기!
-철제 농기구? 철기!
-세형 동검? 철기!
-부여, 옥저, 동예, 삼한? 철기!
+뗀석기 주먹도끼? 우가! 구석기!
+동굴과 막집, 이동 생활? 우가! 구석기!
+간석기? 우가! 신석기!
+빗살무늬 토기? 우가! 신석기!
+농사 시작, 움집? 우가! 신석기!
+비파형 동검? 우가! 청동기!
+민무늬 토기, 반달 돌칼? 우가! 청동기!
+고인돌, 군장? 우가! 청동기!
+철제 농기구? 우가! 철기!
+세형 동검? 우가! 철기!
+부여, 옥저, 동예, 삼한? 우가! 철기!
 
 [Final Chorus]
-[Gang vocals]
-칠십만 년 전! 구석기!
-알고 있지 이거!
-만 년 전! 신석기!
-알고 있지 이거!
-기원전 이십 세기! 청동기!
-알고 있지 이거!
-기원전 오 세기! 철기!
-오-오, 오-오-오! 선사 시대, 완성!
+[Sung, catchy]
+오-오, 오-오오-오! 칠십만 년 전 구석기!
+오-오, 오-오오-오! 만 년 전 신석기!
+오-오, 오-오오-오! 기원전 이십 세기 청동기!
+오-오, 오-오오-오! 기원전 오 세기 철기!
+[Jungle yell]
+아-아아아-아아~
+[Caveman chant]
+우가우가! 우가차차! 선사 시대, 완성!
 
 [Outro]
+[Jungle sounds]
 [Spoken]
 다음은 고조선과 삼국! 기원전 이삼삼삼!
 ```
@@ -268,41 +274,41 @@ trap, mumble rap, heavy autotune, explicit lyrics, dark, sad, ballad, female voc
 
 | 태그 | Suno에 주는 신호 |
 |---|---|
-| `[Funky bass riff]` | 곡을 베이스 리프로 시작 |
-| `[Rap]` | 랩으로 |
-| `[Shout]` | 짧게 외치기. "알고 있지 이거!"와 절 끝 요약 외치기 |
-| `[Gang vocals]` | 여럿이 함께 외치기. 후렴 |
-| `[Stop]` `[Music stops]` | 음악을 딱 멈추는 신호 |
-| `[Beat drops back in]` | 멈췄던 음악이 다시 터짐 |
-| `[Breakdown]` `[Drums and bass only]` | 다른 악기를 빼고 드럼·베이스만 |
+| `[Jungle sounds, birds and animals]` | 새소리·짐승 소리 효과음 |
+| `[Jungle yell]` | 정글 외침 (타잔 같은 "아-아아아-아아~") |
+| `[Caveman chant]` | 원시인처럼 낮고 굵게 외치는 떼창. "우가우가! 우가차차!" |
+| `[Synth riff]` | 신스 선율만 나오는 구간 |
+| `[Sung]` | 노래로 |
+| `[Sung, catchy]` | 따라 부르기 쉬운 후렴 가락 |
+| `[Jungle Break]` `[Jungle drums only]` | 다른 악기를 빼고 정글 북만 |
 | `[Call and response]` | 한 명이 묻고 여럿이 답하기 |
 
 ---
 
 ## 6. 스타일 변형안
 
-가사는 그대로 두고 Style 칸만 바꿉니다. ①번을 B·C·D로 만드셨다면 같은 것을 쓰고 BPM만 125로 바꾸세요.
+가사는 그대로 두고 Style 칸만 바꿉니다.
 
-### A. 90년대 펑키 팝 랩 (기본안)
+### A. 80년대 정글 신스팝 (기본안)
 
 위 5-2와 같습니다.
 
-### B. 국악 섞은 펑키 랩 (한국사 분위기)
+### B. 원시인 느낌 더 많이 (교실에서 웃기게)
 
 ```
-early 90s pop rap, funky dance hip hop, 125 BPM, funky bass guitar riff loop, drum machine, big hand claps, janggu and buk drum accents, gayageum stabs, confident male rapper, clear Korean diction, short shouted catchphrase between lines, crowd gang vocals, stop break, call and response, fun, educational
+1985 italo disco, synth pop, 128 BPM, jungle atmosphere, bright synth lead riff, bouncy octave synth bass, gated reverb drums, heavy tribal drums, bongos, jungle animal sound effects, loud jungle yell yodel, big funny caveman group chants ooga ooga, grunts, catchy wordless oh oh chorus, male lead vocal, clear Korean diction, sing-along, comedic, fun, educational, kids
 ```
 
 ### C. 아이들 목소리 떼창을 더 크게 (교실용)
 
 ```
-early 90s pop rap, funky dance hip hop, 125 BPM, funky bass guitar riff loop, drum machine, big hand claps, confident male rapper with big kids choir shouting the catchphrase, clear Korean diction, crowd gang vocals oh oh oh, stop break, call and response, fun, educational, kids
+1985 italo disco, synth pop, 128 BPM, jungle atmosphere, bright synth lead riff, octave synth bass, gated reverb drums, bongos and congas, jungle yell yodel, catchy wordless oh oh oh chorus sung by big kids choir, caveman chant ooga ooga, warm male lead vocal, clear Korean diction, sing-along, uplifting, educational, kids
 ```
 
 ### D. 천천히 따라 하기 (처음 외울 때)
 
 ```
-funky pop rap, 108 BPM, funky bass guitar riff loop, simple drum machine, hand claps, friendly male rapper, very clear Korean diction, slow steady flow, short shouted catchphrase, crowd gang vocals, call and response, educational
+80s synth pop, 110 BPM, jungle atmosphere, soft synth lead, octave synth bass, light drums, bongos, jungle bird sounds, gentle jungle yell, wordless oh oh chorus, playful caveman chant, warm male vocal, very clear Korean diction, slow sing-along, educational
 ```
 
 ---
@@ -322,20 +328,20 @@ funky pop rap, 108 BPM, funky bass guitar riff loop, simple drum machine, hand c
 | 1 | **후렴의 네 시대가 순서대로 다 들리는가** | 하나라도 빠지거나 바뀌면 탈락 |
 | 2 | **"칠십만 년 전", "기원전 이십 세기"가 또렷한가** | 숫자가 뭉개지면 탈락 |
 | 3 | **"뗀석기"와 "간석기"가 구분되는가** | 시험에서 가장 많이 헷갈리는 짝. 섞이면 탈락 |
-| 4 | 펑키 베이스 리프가 곡 내내 돌아가는가 | 리프가 없으면 탈락 |
-| 5 | "스톱! 선사 타임!"에서 음악이 멈추는가 | 안 멈춰도 쓸 수는 있지만 아쉬움 |
+| 4 | **"오-오, 오-오오-오" 후렴이 귀에 남는가** | 원하신 곡의 핵심 느낌 |
+| 5 | **정글 외침과 "우가우가 우가차차"가 나오는가** | 하나도 안 나오면 아쉬움 (7-3 참고) |
 | 6 | 어려운 단어가 또렷한가 | "빗살무늬", "가락바퀴", "비파형 동검", "반달 돌칼", "세형 동검"이 뭉개지면 탈락 |
 
 ### 7-3. 문제가 생겼을 때
 
 | 증상 | 고치는 법 |
 |---|---|
+| 정글 외침이 안 나옴 | `[Jungle yell]` 아래 줄을 `아아아아아아아~!`처럼 길게 늘이기, 또는 Style 맨 앞에 `loud jungle yell yodel intro, ` 추가 |
+| "우가우가"를 노래처럼 부름 | `[Caveman chant]`를 `[Shouted caveman chant]`로 바꾸기 |
+| 80년대 느낌이 안 나고 요즘 EDM처럼 나옴 | Style 맨 앞에 `1985, retro, analog, ` 추가 |
+| 랩으로 부름 | Exclude에 `rap`이 있는지 확인, 절 태그를 `[Sung]`으로 |
 | "뗀석기"가 "덴석기"처럼 들림 | `뗀-석기`로 띄어 쓰기 |
 | "칠십만"이 뭉개짐 | `칠-십-만 년 전`으로 띄어 쓰기, 또는 D 스타일 |
-| 원시 타악기 소리가 너무 큼 | Style에서 `tribal wooden percussion accents,` 지우기 |
-| 베이스 리프가 약함 | Style 맨 앞을 `funky slap bass riff loop, ` 로 시작 |
-| 스톱 브레이크에서 안 멈춤 | `[Stop]` 아래에 `[Silence]` 한 줄 더 넣기 |
-| "알고 있지 이거!"를 노래로 부름 | `[Shout]`를 `[Shouted]`로 바꾸거나 괄호로 감싸기 |
 
 ---
 
@@ -386,4 +392,5 @@ funky pop rap, 108 BPM, funky bass guitar riff loop, simple drum machine, hand c
 
 | 날짜 | 변경 |
 |---|---|
+| 2026-10-08 | 스타일 변경: 펑키 팝 랩 → 80년대 정글 신스팝(Baltimora "Tarzan Boy" 분석), 정글 외침, "오-오" 후렴, 원시인 구호 "우가우가! 우가차차!", 정글 브레이크 |
 | 2026-10-08 | 첫 작성. 선사 시대 네 시대(구석기·신석기·청동기·철기)를 한 곡으로, 90년대 펑키 팝 랩 125 BPM, 구호 "알고 있지 이거!", 스톱 브레이크 "스톱! 선사 타임!" |
