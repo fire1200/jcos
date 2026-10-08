@@ -7,7 +7,7 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get("OUT", os.path.join(HERE, "out"))
-SONGS = ["goryeo_early_rap", "goryeo_late_rap", "joseon_early_rap", "joseon_late_rap", "modern_history_rap"]
+SONGS = ["prehistory_song", "samguk_rise_song", "samguk_war_song", "nambukguk_song", "goryeo_early_rap", "goryeo_late_rap", "joseon_early_rap", "joseon_late_rap", "modern_history_rap"]
 
 
 def ts(t):
@@ -17,6 +17,8 @@ def ts(t):
 
 os.makedirs(OUT, exist_ok=True)
 for song in SONGS:
+    if not os.path.exists(os.path.join(HERE, song, "timing.csv")):
+        continue
     rows = list(csv.DictReader(open(os.path.join(HERE, song, "timing.csv"), encoding="utf-8-sig")))
     path = os.path.join(OUT, song + ".srt")
     with open(path, "w", encoding="utf-8") as f:

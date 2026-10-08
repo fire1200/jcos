@@ -6,11 +6,12 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SONGS = [("goryeo_early_rap", "Ⓐ 고려 전기 (918~1145)", "고려전기"),
-         ("goryeo_late_rap", "Ⓑ 고려 후기 (1170~1392)", "고려후기"),
-         ("joseon_early_rap", "① 조선 전기 (1388~1592)", "조선전기"),
-         ("joseon_late_rap", "② 조선 후기 (1608~1863)", "조선후기"),
-         ("modern_history_rap", "③ 근현대사 (1866~1953)", "근현대사")]
+SONGS = [("samguk_rise_song", "① 고조선과 삼국 (기원전 2333~553)", "고조선삼국"),
+         ("goryeo_early_rap", "④ 고려 전기 (918~1145)", "고려전기"),
+         ("goryeo_late_rap", "⑤ 고려 후기 (1170~1392)", "고려후기"),
+         ("joseon_early_rap", "⑥ 조선 전기 (1388~1592)", "조선전기"),
+         ("joseon_late_rap", "⑦ 조선 후기 (1608~1863)", "조선후기"),
+         ("modern_history_rap", "⑧ 근현대사 (1866~1953)", "근현대사")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",

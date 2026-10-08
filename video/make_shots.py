@@ -16,7 +16,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SONGS = ["modern_history_rap", "joseon_early_rap", "joseon_late_rap", "goryeo_early_rap", "goryeo_late_rap"]
+SONGS = ["modern_history_rap", "joseon_early_rap", "joseon_late_rap", "goryeo_early_rap", "goryeo_late_rap", "prehistory_song", "samguk_rise_song", "samguk_war_song", "nambukguk_song"]
 REVEAL = .45
 MOTIONS = ["in", "left", "right"]
 
