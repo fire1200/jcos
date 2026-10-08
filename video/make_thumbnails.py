@@ -15,6 +15,8 @@ W, H = 1280, 720
 CHANNEL = "호크마 차일드 스터디"
 
 THUMBS = [
+    ("thumb_a1_samguk_rise", "samguk_rise_song/images/09b.png", "고조선과 삼국", "연도 암기송", "BC 2333~553",
+     "노래로 외우는 한국사", (255, 214, 64)),
     ("thumb_0a_goryeo_early", "goryeo_early_rap/images/07b.png", "고려 전기", "연도 암기송", "918~1145",
      "노래로 3분 만에 외우는 한국사", (140, 230, 160)),
     ("thumb_0b_goryeo_late", "goryeo_late_rap/images/11c.png", "고려 후기", "연도 암기송", "1170~1392",
