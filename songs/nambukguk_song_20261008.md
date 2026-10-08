@@ -1,14 +1,14 @@
 # 남북국 시대 연도 암기송! 685~935 — Suno 제작 문서 (2026-10-08)
 
 고대사 3부작의 **세 번째 곡**입니다. 통일 신라와 발해가 함께 있던 남북국 시대, 그리고 후삼국까지의 **연도와 사건을 짝지어** 외웁니다.
-①·②번 곡과 같은 **밝고 엉뚱하고 중독성 있는 걸그룹 일렉트로팝**입니다. 마지막에 "구일팔 고려 건국"으로 고려 전기 곡과 이어집니다.
+①·②번 곡과 같은 **90년대 펑키 팝 랩**이고, 시리즈에서 가장 여유 있는 **120 BPM**입니다. 랩 사이 구호는 **"기억해 이거!"** 입니다. 마지막에 "구일팔 고려 건국"으로 고려 전기 곡과 이어집니다.
 
 | 항목 | 내용 |
 |---|---|
 | 곡 제목 | 남북국 시대 연도 암기송! 685~935 |
 | 대상 | 초등 고학년 (5학년 2학기 사회), 중학생 역사 |
 | 목표 | 연도 11개와 사건 11개를 짝지어 암기 (+ 연도 없이 외우는 해동성국) |
-| 스타일 | 밝고 재미있는 걸그룹 일렉트로팝. 노래 + 숫자 외치기(챈트) |
+| 스타일 | 90년대 펑키 팝 랩 (120 BPM). 랩 + 외침 구호 "기억해 이거!" + 스톱 브레이크 |
 | 가사 원칙 | **교과서에 나오는 단어 그대로.** 교과서에 없는 표현은 넣지 않음 |
 | 길이 | 약 3분 20초~3분 50초 |
 | 앞뒤 곡 | ② 삼국 통일 전쟁 (562~676) → **③ 이 곡** → 고려 전기 (918~1145) |
@@ -92,7 +92,8 @@
 | 장치 | 어디에 | 왜 효과가 있나 |
 |---|---|---|
 | **600·700·800·900년대 네 줄 후렴** | "육팔오! 육팔칠! 육구팔!" / "칠오일! 칠팔팔!" / "팔이팔! 팔팔구!" / "구공공! 구공일! 구이육! 구삼오!" | 세기마다 한 줄. 첫 숫자만 육→칠→팔→구로 올라갑니다 |
-| **랄랄라 꼬리말** | 후렴 끝 "한국사 연도송~ 랄랄라" | ①·②번 곡과 같은 구절이라 3부작이 한 시리즈로 들립니다 |
+| **"기억해 이거!" 외침** | 랩 두 줄마다, 후렴 한 줄마다 | 짧고 반복되는 구호. 아이들이 따라 외치는 자리 |
+| **스톱 브레이크** | 3절 앞 "스톱! 남북국 타임!" | 음악이 멈춘 뒤 신라 말과 후삼국으로 분위기가 바뀝니다 |
 | **남쪽(신라) / 북쪽(발해) 번갈아** | 1절 신라 → 2절 발해와 신라 문화 → 3절 신라 → 4절 후삼국과 끝 | "남북국"이라는 이름처럼 두 나라를 함께 봅니다 |
 | **양방향 퀴즈** | 브리지 "육구팔?" → "발해 건국!" / "청해진은?" → "팔이팔!" | 연도 → 사건, 사건 → 연도 둘 다 연습 |
 
@@ -116,116 +117,161 @@
 
 ---
 
-## 3. 곡 구조
+## 3. 스타일: 90년대 펑키 팝 랩 (120 BPM)
 
-| 구간 | 내용 | 대략 시간 |
-|---|---|---|
-| Intro | 말로 시작 | 0:00~0:10 |
-| Chorus 1 | 연도 11개 이어 부르기 + 랄랄라 | 0:10~0:35 |
-| Verse 1 | 685·687 (신문왕의 개혁) | 0:35~0:55 |
-| Verse 2 | 698·해동성국·751 (발해 건국, 불국사·석굴암) | 0:55~1:25 |
-| Chorus 2 | 연도 11개 | 1:25~1:50 |
-| Verse 3 | 788·828·889 (독서삼품과, 장보고, 원종·애노의 난) | 1:50~2:20 |
-| Verse 4 | 900·901·926·935 (후삼국과 남북국의 끝) | 2:20~2:45 |
-| Bridge | 양방향 퀴즈 | 2:45~3:20 |
-| Final Chorus | 연도 11개 + 마무리 | 3:20~3:45 |
-| Outro | 고려 전기로 이어짐 | 3:45~3:50 |
+①번 곡과 같은 "U Can't Touch This" 스타일입니다(원곡 분석은 ①번 문서 3장). 시리즈 안에서 곡마다 다르게 들리도록 **구호와 속도만** 바꿨습니다.
+
+| 곡 | BPM | 랩 사이 구호 | 스톱 브레이크 | 느낌 |
+|---|---|---|---|---|
+| ① 고조선과 삼국 | 130 | 못 잊어 이거! | 스톱! 연도 타임! | 기본 |
+| ② 삼국 통일 전쟁 | 140 | 멈출 수 없어! | 스톱! 통일 타임! | 가장 빠르고 힘참. 전쟁의 기세 |
+| ③ 남북국 시대 | 120 | 기억해 이거! | 스톱! 남북국 타임! | 가장 여유 있고 그루비함 |
+
+120 BPM은 시리즈에서 가장 여유 있는 속도입니다. 베이스 리프가 더 그루비하게 들리고 가사도 가장 또렷합니다.
 
 ---
 
-## 4. Suno 입력값 (복사해서 붙여 넣기)
+## 4. 곡 구조
+
+| 구간 | 내용 |
+|---|---|
+| Intro | 베이스 리프 + "자, 한국사 연도 타임 세 번째!" |
+| Verse 1 | 685·687 (신문왕의 개혁) + 사이사이 "기억해 이거!" |
+| Chorus 1 | 연도 11개 + "오-오, 오-오-오!" |
+| Verse 2 | 698·해동성국·751 (발해 건국, 불국사·석굴암) |
+| Chorus 2 | 연도 11개 |
+| **Stop break** | 음악 멈춤 → "스톱! 남북국 타임!" → 다시 시작 |
+| Verse 3 | 788·828·889 (독서삼품과, 장보고, 원종·애노의 난) |
+| Verse 4 | 900·901·926·935 (후삼국과 남북국의 끝) |
+| Breakdown | 비트만 남기고 양방향 퀴즈 |
+| Final Chorus | 연도 11개 + 마무리 |
+| Outro | 다음 곡 예고 |
+
+---
+
+## 5. Suno 입력값 (복사해서 붙여 넣기)
 
 Suno에서 **Custom 모드**를 켜고 네 칸을 채웁니다.
 
-### 4-1. Title
+### 5-1. Title
 
 ```
 남북국 시대 연도 암기송! 685~935
 ```
 
-### 4-2. Style of Music (기본안)
-
-①·②번 곡과 같은 Style이라 3부작이 한 시리즈처럼 들립니다. 불국사·석굴암의 느낌으로 반짝이는 종소리(shimmering bells)만 살짝 더했습니다.
+### 5-2. Style of Music (기본안)
 
 ```
-bright quirky K-pop girl group, playful retro electropop, 128 BPM, exotic snake charmer flute synth riff, harmonic minor melody, bouncy four on the floor beat, shimmering temple bell accents, darbuka and hand claps, cute high female duo vocals, playful spoken chants, catchy repetitive sing-along chorus with la la la, clear Korean diction, numbers chanted clearly, call and response, fun, novelty, educational, kids
+early 90s pop rap, funky dance hip hop, 120 BPM, iconic funky bass guitar riff loop repeated throughout, drum machine beat, big hand claps, funky guitar stabs, synth brass hits, confident charismatic male rapper, clear Korean diction, short shouted catchphrase between rap lines, crowd gang vocals oh oh oh, party crowd shouts, dramatic stop break, call and response, fun, energetic, educational
 ```
 
-### 4-3. Exclude Styles
+①번 Style에서 **BPM만 120으로** 바꿨습니다. 같은 소리라 세 곡이 한 시리즈로 들립니다.
+
+### 5-3. Exclude Styles
 
 ```
-dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, explicit lyrics, distortion, slow tempo
+trap, mumble rap, heavy autotune, explicit lyrics, dark, sad, ballad, female vocals, slow tempo, heavy metal, EDM drop
 ```
 
-### 4-4. Lyrics
+### 5-4. Lyrics
 
 ```
 [Intro]
-[Spoken, cute]
-안녕! 한국사 연도송 세 번째!
+[Funky bass riff]
+[Spoken]
+자, 한국사 연도 타임 세 번째!
 남쪽엔 신라, 북쪽엔 발해
-남북국 시대, 출발!
-
-[Chorus]
-[Chant]
-육팔오! 육팔칠! 육구팔 발해!
-칠오일! 칠팔팔! 팔이팔 장보고!
-팔팔구! 구공공! 구공일!
-구이육! 구삼오! 남북국 끝!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+남북국 시대, 가 보자!
 
 [Verse 1]
-[Sung]
+[Rap]
 육팔오, 신라 신문왕
 전국을 구주로 나누고 오소경을 두었어
+[Shout]
+기억해 이거!
+[Rap]
 육팔칠, 관리들에게 관료전을 주고
 녹읍을 없애 왕권을 강화했어!
-[Chant]
+[Shout]
 육팔오 구주 오소경! 육팔칠 관료전!
 
+[Chorus]
+[Gang vocals]
+육팔오! 육팔칠! 육구팔 발해!
+기억해 이거!
+칠오일! 칠팔팔! 팔이팔 장보고!
+기억해 이거!
+팔팔구! 구공공! 구공일!
+기억해 이거!
+구이육! 구삼오! 남북국 끝!
+오-오, 오-오-오! 기억해 이거!
+
 [Verse 2]
-[Sung]
+[Rap]
 육구팔, 고구려 장수 출신 대조영
-고구려 유민과 말갈을 이끌고 동모산에서
-발해를 세웠어, 고구려를 계승한 나라!
-선왕 때는 바다 동쪽의 번성한 나라, 해동성국!
+고구려 유민과 말갈을 이끌고 동모산에서 발해를 세웠어
+[Shout]
+기억해 이거!
+[Rap]
+고구려를 계승한 나라, 선왕 때는
+바다 동쪽의 번성한 나라, 해동성국!
+[Shout]
+기억해 이거!
+[Rap]
 칠오일, 김대성이 짓기 시작한
 불국사와 석굴암, 신라의 불교 문화!
-[Chant]
+[Shout]
 육구팔 발해! 해동성국! 칠오일 불국사 석굴암!
 
 [Chorus]
-[Chant]
+[Gang vocals]
 육팔오! 육팔칠! 육구팔 발해!
+기억해 이거!
 칠오일! 칠팔팔! 팔이팔 장보고!
+기억해 이거!
 팔팔구! 구공공! 구공일!
+기억해 이거!
 구이육! 구삼오! 남북국 끝!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+오-오, 오-오-오! 기억해 이거!
+
+[Stop]
+[Music stops]
+[Shout]
+스톱! 남북국 타임!
+[Beat drops back in]
 
 [Verse 3]
-[Sung]
+[Rap]
 칠팔팔, 원성왕의 독서삼품과
 유교 경전을 얼마나 아는지로 관리를 뽑았어
+[Shout]
+기억해 이거!
+[Rap]
 팔이팔, 장보고가 완도에 청해진
-해적을 소탕하고 바다 무역의 주인공!
+해적을 소탕하고 바다 무역을 이끌었어!
+[Shout]
+기억해 이거!
+[Rap]
 팔팔구, 진성 여왕 때 나라가 어지러워
 원종과 애노가 농민 봉기를 일으켰어
-[Chant]
+[Shout]
 칠팔팔 독서삼품과! 팔이팔 청해진! 팔팔구 원종 애노!
 
 [Verse 4]
-[Sung]
+[Rap]
 구공공, 견훤이 완산주에서 후백제
 구공일, 궁예가 송악에서 후고구려
 다시 셋으로 나뉜 후삼국 시대!
+[Shout]
+기억해 이거!
+[Rap]
 구이육, 거란의 침입으로 발해가 멸망
 구삼오, 경순왕이 고려에 항복, 신라가 멸망했어
-[Chant]
+[Shout]
 구공공 후백제! 구공일 후고구려! 구이육 발해 멸망! 구삼오 신라 멸망!
 
-[Bridge]
+[Breakdown]
+[Drums and bass only]
 [Call and response]
 육팔오? 구주 오소경!
 육팔칠? 관료전!
@@ -240,93 +286,99 @@ dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, expl
 신라 멸망은? 구삼오!
 
 [Final Chorus]
-[Chant]
+[Gang vocals]
 육팔오! 육팔칠! 육구팔 발해!
+기억해 이거!
 칠오일! 칠팔팔! 팔이팔 장보고!
+기억해 이거!
 팔팔구! 구공공! 구공일!
+기억해 이거!
 구이육! 구삼오! 남북국 끝!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
-남북국 시대, 완성!
+오-오, 오-오-오! 남북국 시대, 완성!
 
 [Outro]
-[Spoken, cute]
+[Spoken]
 그다음은? 구일팔, 왕건의 고려!
-고려 전기 연도송으로 이어서 가자~
+고려 전기 연도송으로 이어서 가자!
 ```
 
-### 4-5. 가사 메타태그 설명
+### 5-5. 가사 메타태그 설명
 
 | 태그 | Suno에 주는 신호 |
 |---|---|
-| `[Chorus]` | 반복되는 핵심 구간. 연도 11개 |
-| `[Chant]` | 노래보다 또박또박 외치기. 숫자가 또렷하게 들림 |
-| `[Sung]` | 멜로디로 부르기 |
-| `[Spoken, cute]` | 귀엽게 말하듯이 |
-| `[Call and response]` | 한 명이 묻고 여럿이 답하기. 퀴즈 브리지용 |
+| `[Funky bass riff]` | 곡을 베이스 리프로 시작 |
+| `[Rap]` | 랩으로 |
+| `[Shout]` | 짧게 외치기. "기억해 이거!"와 절 끝 숫자 외치기 |
+| `[Gang vocals]` | 여럿이 함께 외치기. 후렴 |
+| `[Stop]` `[Music stops]` | 음악을 딱 멈추는 신호 |
+| `[Beat drops back in]` | 멈췄던 음악이 다시 터짐 |
+| `[Breakdown]` `[Drums and bass only]` | 다른 악기를 빼고 드럼·베이스만 |
+| `[Call and response]` | 한 명이 묻고 여럿이 답하기 |
 
 ---
 
-## 5. 스타일 변형안
+## 6. 스타일 변형안
 
-가사는 그대로 두고 Style 칸만 바꿉니다. ①·②번 곡을 B·C·D로 만드셨다면 같은 것을 쓰세요.
+가사는 그대로 두고 Style 칸만 바꿉니다. ①번을 B·C·D로 만드셨다면 같은 것을 쓰고 BPM만 120으로 바꾸세요.
 
-### A. 이국적인 걸그룹 일렉트로팝 (기본안)
+### A. 90년대 펑키 팝 랩 (기본안)
 
-위 4-2와 같습니다.
+위 5-2와 같습니다.
 
-### B. 더 엉뚱하게 (뽕짝 느낌을 섞은 레트로 댄스)
-
-```
-quirky retro K-pop dance, playful trot-pop fusion, 130 BPM, exotic flute synth hook, bouncy beat, shimmering bells, accordion stabs, cheerful female duo vocals, funny spoken ad-libs, clear Korean diction, chanted numbers, sing-along la la la chorus, call and response, novelty, educational
-```
-
-### C. 국악 섞은 버전 (한국사 분위기)
+### B. 국악 섞은 펑키 랩 (한국사 분위기)
 
 ```
-bright quirky K-pop girl group, playful electropop, 126 BPM, exotic flute synth riff mixed with gayageum, janggu and temple bells, bouncy beat, cute high female duo vocals, chanted numbers, catchy repetitive la la la chorus, clear Korean diction, call and response, fun, educational, kids
+early 90s pop rap, funky dance hip hop, 120 BPM, funky bass guitar riff loop, drum machine, big hand claps, janggu and buk drum accents, gayageum stabs, confident male rapper, clear Korean diction, short shouted catchphrase between lines, crowd gang vocals, stop break, call and response, fun, educational
+```
+
+### C. 아이들 목소리 떼창을 더 크게 (교실용)
+
+```
+early 90s pop rap, funky dance hip hop, 120 BPM, funky bass guitar riff loop, drum machine, big hand claps, confident male rapper with big kids choir shouting the catchphrase, clear Korean diction, crowd gang vocals oh oh oh, stop break, call and response, fun, educational, kids
 ```
 
 ### D. 천천히 따라 하기 (처음 외울 때)
 
 ```
-cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy beat, sweet female duo vocals, very clear Korean diction, slow chanted numbers, sing-along la la la chorus, call and response, educational, kids
+funky pop rap, 105 BPM, funky bass guitar riff loop, simple drum machine, hand claps, friendly male rapper, very clear Korean diction, slow steady flow, short shouted catchphrase, crowd gang vocals, call and response, educational
 ```
 
 ---
 
-## 6. 생성 체크리스트
+## 7. 생성 체크리스트
 
-### 6-1. 생성 전
+### 7-1. 생성 전
 
 - [ ] Custom 모드 켜기
 - [ ] Title, Style, Exclude, Lyrics 네 칸 다 채우기
-- [ ] 가사의 연도·숫자는 모두 한글 ("935" ✕ → "구삼오" ○, "9주 5소경" → "구주 오소경")
+- [ ] 가사의 연도는 모두 한글
 
-### 6-2. 생성 후 고르는 기준
+### 7-2. 생성 후 고르는 기준
 
 | 순위 | 확인할 것 | 탈락 기준 |
 |---|---|---|
 | 1 | **후렴의 연도 11개가 순서대로 다 들리는가** | 하나라도 빠지거나 바뀌면 탈락 |
-| 2 | **"칠팔팔, 팔이팔, 팔팔구"가 구분되는가** | 8이 많아서 섞이기 쉽습니다. 섞이면 탈락 |
-| 3 | 절마다 연도와 사건이 짝이 맞는가 | 단어를 바꿔 부르면 탈락 |
-| 4 | 어려운 단어가 또렷한가 | "구주 오소경", "관료전", "녹읍", "독서삼품과", "청해진", "원종 애노"가 뭉개지면 탈락 |
-| 5 | 랄랄라 후렴이 ①·②번 곡과 비슷하게 들리는가 | 시리즈 느낌 |
-| 6 | 길이 3분 20초~4분 | 길면 Outro 잘라내기 |
+| 2 | **"칠팔팔, 팔이팔, 팔팔구"가 구분되는가** (8이 많아서 섞이기 쉬움) | 섞이면 탈락 |
+| 3 | **펑키 베이스 리프가 곡 내내 돌아가는가** | 리프가 없으면 탈락 |
+| 4 | **"스톱! 남북국 타임!"에서 음악이 멈추는가** | 안 멈춰도 쓸 수는 있지만 아쉬움 |
+| 5 | 어려운 단어가 또렷한가 | "구주 오소경", "관료전", "녹읍", "독서삼품과", "청해진", "원종 애노"가 뭉개지면 탈락 |
+| 6 | 길이 3분~3분 50초 | 길면 Outro 잘라내기 |
 
-### 6-3. 문제가 생겼을 때
+### 7-3. 문제가 생겼을 때
 
 | 증상 | 고치는 법 |
 |---|---|
 | 숫자가 뭉개짐 | 숫자 사이에 쉼표: `칠팔팔, 팔이팔, 팔팔구` 또는 D 스타일 |
-| "구주 오소경"을 "9주 5소경"처럼 영어 숫자로 읽음 | `구-주 오-소경`으로 띄어 쓰기 |
-| "독서삼품과"가 뭉개짐 | `독서-삼품과`로 띄어 쓰기 |
-| 2절 가사가 잘림 | 2절을 둘로 나누기: `[Verse 2]`(발해) / `[Verse 2b]`(불국사·석굴암) |
-| 남자 목소리가 나옴 | Exclude에 `male vocals`가 있는지 확인 |
+| "구주 오소경"을 영어 숫자로 읽음 | `구-주 오-소경`으로 띄어 쓰기 |
+| 베이스 리프가 약함 | Style 맨 앞을 `funky slap bass riff loop, ` 로 시작 |
+| 스톱 브레이크에서 안 멈춤 | `[Stop]` 아래에 `[Silence]` 한 줄 더 넣기 |
+| "기억해 이거!"를 노래로 부름 | `[Shout]`를 `[Shouted]`로 바꾸거나 `(기억해 이거!)`처럼 괄호로 감싸기 |
+| 트랩·요즘 힙합처럼 나옴 | Style 맨 앞에 `1990, old school, ` 추가 |
+| 여자 목소리가 나옴 | Exclude에 `female vocals`가 있는지 확인 |
 
 ---
 
-## 7. 내용 정확성 메모
+## 8. 내용 정확성 메모
 
 | 항목 | 메모 |
 |---|---|
@@ -344,13 +396,13 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 8. 영상 만들 때 (다음 단계)
+## 9. 영상 만들 때 (다음 단계)
 
 곡을 만들어 mp3를 주시면 이전 영상처럼 만듭니다. 장면 그림 스크립트는 `video/nambukguk_song/shots_chatgpt.md`에 있습니다(사건 12개 × 3장 = 36장).
 
 ---
 
-## 9. 시리즈로 이어 듣기
+## 10. 시리즈로 이어 듣기
 
 | 순서 | 곡 | 시기 |
 |---|---|---|
@@ -367,8 +419,9 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 10. 변경 이력
+## 11. 변경 이력
 
 | 날짜 | 변경 |
 |---|---|
+| 2026-10-08 | 스타일 변경: 걸그룹 일렉트로팝 → 90년대 펑키 팝 랩 120 BPM, 구호 "기억해 이거!", 스톱 브레이크 "스톱! 남북국 타임!" |
 | 2026-10-08 | 첫 작성. 교과서 공통 서술로 연표 11개 + 해동성국 구성, ①·②번 곡과 같은 밝은 걸그룹 일렉트로팝 가사, 변형 4종, 체크리스트, 정확성 메모 |

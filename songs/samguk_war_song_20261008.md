@@ -1,14 +1,14 @@
 # 삼국 통일 전쟁 연도 암기송! 562~676 — Suno 제작 문서 (2026-10-08)
 
 고대사 3부작의 **두 번째 곡**입니다. 대가야 멸망부터 신라의 삼국 통일까지, 100여 년 동안 이어진 전쟁의 **연도와 사건을 짝지어** 외웁니다.
-①번 곡(고조선과 삼국)과 같은 **밝고 엉뚱하고 중독성 있는 걸그룹 일렉트로팝**입니다. 전쟁 이야기지만 무섭지 않고 신나게 만듭니다.
+①번 곡과 같은 **90년대 펑키 팝 랩**이고, 시리즈에서 가장 빠른 **140 BPM**으로 전쟁의 기세를 살립니다. 랩 사이 구호는 **"멈출 수 없어!"** 입니다.
 
 | 항목 | 내용 |
 |---|---|
 | 곡 제목 | 삼국 통일 전쟁 연도 암기송! 562~676 |
 | 대상 | 초등 고학년 (5학년 2학기 사회), 중학생 역사 |
 | 목표 | 연도 9개와 사건 9개를 짝지어 암기 (+ 연도 없이 외우는 백제·고구려 부흥 운동) |
-| 스타일 | 밝고 재미있는 걸그룹 일렉트로팝. 노래 + 숫자 외치기(챈트) |
+| 스타일 | 90년대 펑키 팝 랩 (140 BPM). 랩 + 외침 구호 "멈출 수 없어!" + 스톱 브레이크 |
 | 가사 원칙 | **교과서에 나오는 단어 그대로.** 교과서에 없는 표현은 넣지 않음 |
 | 길이 | 약 3분 20초~3분 50초 |
 | 앞뒤 곡 | ① 고조선과 삼국 (기원전 2333~553) → **② 이 곡** → ③ 남북국 시대 (676~935) |
@@ -82,7 +82,8 @@
 | 장치 | 어디에 | 왜 효과가 있나 |
 |---|---|---|
 | **"육" 돌림 후렴** | "육일이! 육사이! 육사오! 육사팔! …" | 562만 빼면 전부 600년대. "육"이 계속 나와 리듬이 생깁니다 |
-| **랄랄라 꼬리말** | 후렴 끝 "한국사 연도송~ 랄랄라" | ①번 곡과 같은 구절이라 시리즈로 이어집니다 |
+| **"멈출 수 없어!" 외침** | 랩 두 줄마다, 후렴 한 줄마다 | 멈추지 않고 이어진 100년 전쟁을 구호 하나로. 아이들이 따라 외치는 자리 |
+| **스톱 브레이크** | 3절 앞 "스톱! 통일 타임!" | 음악이 멈춘 뒤 백제·고구려 멸망과 통일이 터져 나옵니다 |
 | **이야기 순서 = 연도 순서** | 1절 가야·수 → 2절 당·동맹 → 3절 백제·고구려 멸망 → 4절 당과 싸움 | 전쟁의 원인과 결과가 한 줄로 이어져 외우기 쉽습니다 |
 | **양방향 퀴즈** | 브리지 "육일이?" → "살수 대첩!" / "기벌포는?" → "육칠육!" | 연도 → 사건, 사건 → 연도 둘 다 연습 |
 
@@ -106,119 +107,168 @@
 
 ---
 
-## 3. 곡 구조
+## 3. 스타일: 90년대 펑키 팝 랩 (140 BPM)
 
-| 구간 | 내용 | 대략 시간 |
-|---|---|---|
-| Intro | 말로 시작 | 0:00~0:10 |
-| Chorus 1 | 연도 9개 이어 부르기 + 랄랄라 | 0:10~0:30 |
-| Verse 1 | 562·612 (가야와 수나라) | 0:30~0:55 |
-| Verse 2 | 642·645·648 (대야성, 안시성, 나당 동맹) | 0:55~1:20 |
-| Chorus 2 | 연도 9개 | 1:20~1:40 |
-| Verse 3 | 660·부흥 운동·668 (백제와 고구려의 멸망) | 1:40~2:10 |
-| Verse 4 | 675·676 (나당 전쟁과 삼국 통일) | 2:10~2:35 |
-| Bridge | 양방향 퀴즈 | 2:35~3:10 |
-| Final Chorus | 연도 9개 + 마무리 | 3:10~3:35 |
-| Outro | 다음 곡 예고 | 3:35~3:40 |
+①번 곡과 같은 "U Can't Touch This" 스타일입니다(원곡 분석은 ①번 문서 3장). 시리즈 안에서 곡마다 다르게 들리도록 **구호와 속도만** 바꿨습니다.
+
+| 곡 | BPM | 랩 사이 구호 | 스톱 브레이크 | 느낌 |
+|---|---|---|---|---|
+| ① 고조선과 삼국 | 130 | 못 잊어 이거! | 스톱! 연도 타임! | 기본 |
+| ② 삼국 통일 전쟁 | 140 | 멈출 수 없어! | 스톱! 통일 타임! | 가장 빠르고 힘참. 전쟁의 기세 |
+| ③ 남북국 시대 | 120 | 기억해 이거! | 스톱! 남북국 타임! | 가장 여유 있고 그루비함 |
+
+140 BPM은 시리즈에서 가장 빠릅니다. 전쟁이 몰아치는 느낌에 맞지만 숫자가 뭉개지기 쉬우니, 생성 후 **7-2의 1·2번**을 꼭 확인하세요.
 
 ---
 
-## 4. Suno 입력값 (복사해서 붙여 넣기)
+## 4. 곡 구조
+
+| 구간 | 내용 |
+|---|---|
+| Intro | 베이스 리프 + "자, 한국사 연도 타임 두 번째!" |
+| Verse 1 | 562·612 (가야와 수나라) + 사이사이 "멈출 수 없어!" |
+| Chorus 1 | 연도 9개 + "오-오, 오-오-오!" |
+| Verse 2 | 642·645·648 (대야성, 안시성, 나당 동맹) |
+| Chorus 2 | 연도 9개 |
+| **Stop break** | 음악 멈춤 → "스톱! 통일 타임!" → 다시 시작 |
+| Verse 3 | 660·부흥 운동·668 (백제와 고구려의 멸망) |
+| Verse 4 | 675·676 (나당 전쟁과 삼국 통일) |
+| Breakdown | 비트만 남기고 양방향 퀴즈 |
+| Final Chorus | 연도 9개 + 마무리 |
+| Outro | 다음 곡 예고 |
+
+---
+
+## 5. Suno 입력값 (복사해서 붙여 넣기)
 
 Suno에서 **Custom 모드**를 켜고 네 칸을 채웁니다.
 
-### 4-1. Title
+### 5-1. Title
 
 ```
 삼국 통일 전쟁 연도 암기송! 562~676
 ```
 
-### 4-2. Style of Music (기본안)
-
-①번 곡과 같은 Style이라 두 곡이 한 시리즈처럼 들립니다. 전쟁 이야기라 북소리(war drums)만 살짝 더했습니다.
+### 5-2. Style of Music (기본안)
 
 ```
-bright quirky K-pop girl group, playful retro electropop, 128 BPM, exotic snake charmer flute synth riff, harmonic minor melody, bouncy four on the floor beat, playful war drums, darbuka and hand claps, cute high female duo vocals, playful spoken chants, catchy repetitive sing-along chorus with la la la, clear Korean diction, numbers chanted clearly, call and response, fun, novelty, educational, kids
+early 90s pop rap, funky dance hip hop, 140 BPM, iconic funky bass guitar riff loop repeated throughout, drum machine beat, big hand claps, funky guitar stabs, synth brass hits, confident charismatic male rapper, clear Korean diction, short shouted catchphrase between rap lines, crowd gang vocals oh oh oh, party crowd shouts, dramatic stop break, call and response, fun, energetic, educational
 ```
 
-### 4-3. Exclude Styles
+①번 Style에서 **BPM만 140으로** 바꿨습니다. 같은 소리라 세 곡이 한 시리즈로 들립니다.
+
+### 5-3. Exclude Styles
 
 ```
-dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, explicit lyrics, distortion, slow tempo, horror
+trap, mumble rap, heavy autotune, explicit lyrics, dark, sad, ballad, female vocals, slow tempo, heavy metal, EDM drop
 ```
 
-### 4-4. Lyrics
+### 5-4. Lyrics
 
 ```
 [Intro]
-[Spoken, cute]
-안녕! 한국사 연도송 두 번째!
+[Funky bass riff]
+[Spoken]
+자, 한국사 연도 타임 두 번째!
 오육이부터 육칠육까지
-삼국 통일 전쟁, 출발!
-
-[Chorus]
-[Chant]
-오육이! 육일이!
-육사이! 육사오! 육사팔!
-육육공! 육육팔!
-육칠오! 육칠육! 삼국 통일!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+삼국 통일 전쟁, 가 보자!
 
 [Verse 1]
-[Sung]
-오육이, 신라 진흥왕
-대가야를 정복해, 가야 연맹이 무너졌어
+[Rap]
+오육이, 신라 진흥왕이 대가야를 정복
+가야 연맹이 무너졌어
+[Shout]
+멈출 수 없어!
+[Rap]
 육일이, 수나라 대군이 쳐들어오자
 고구려 을지문덕!
+[Shout]
+멈출 수 없어!
+[Rap]
 살수에서 수나라 군대를 크게 물리쳤어, 살수 대첩!
-[Chant]
+[Shout]
 오육이 대가야! 육일이 살수 대첩!
 
+[Chorus]
+[Gang vocals]
+오육이! 육일이!
+멈출 수 없어!
+육사이! 육사오! 육사팔!
+멈출 수 없어!
+육육공! 육육팔!
+멈출 수 없어!
+육칠오! 육칠육! 삼국 통일!
+오-오, 오-오-오! 멈출 수 없어!
+
 [Verse 2]
-[Sung]
-육사이, 백제 의자왕이
-신라 대야성을 빼앗았어
+[Rap]
+육사이, 백제 의자왕이 신라 대야성을 빼앗아
 위기의 신라, 김춘추는 도움을 구하러
+[Shout]
+멈출 수 없어!
+[Rap]
 육사오, 당 태종의 대군을
 고구려가 안시성에서 물리쳤어!
-육사팔, 김춘추가 당으로 건너가
-나당 동맹을 맺었어
-[Chant]
+[Shout]
+멈출 수 없어!
+[Rap]
+육사팔, 김춘추가 당으로 건너가 나당 동맹!
+[Shout]
 육사이 대야성! 육사오 안시성! 육사팔 나당 동맹!
 
 [Chorus]
-[Chant]
+[Gang vocals]
 오육이! 육일이!
+멈출 수 없어!
 육사이! 육사오! 육사팔!
+멈출 수 없어!
 육육공! 육육팔!
+멈출 수 없어!
 육칠오! 육칠육! 삼국 통일!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
+오-오, 오-오-오! 멈출 수 없어!
+
+[Stop]
+[Music stops]
+[Shout]
+스톱! 통일 타임!
+[Beat drops back in]
 
 [Verse 3]
-[Sung]
+[Rap]
 육육공, 황산벌 계백의 결사대
 김유신의 신라군에 맞섰지만
-사비성이 함락되고 백제가 멸망했어
+사비성이 함락, 백제가 멸망했어
+[Shout]
+멈출 수 없어!
+[Rap]
 복신, 도침, 흑치상지, 백제 부흥 운동!
 육육팔, 연개소문이 죽은 뒤
 나당 연합군이 평양성을 함락, 고구려가 멸망했어
+[Shout]
+멈출 수 없어!
+[Rap]
 검모잠, 안승, 고구려 부흥 운동!
-[Chant]
+[Shout]
 육육공 백제 멸망! 육육팔 고구려 멸망!
 
 [Verse 4]
-[Sung]
+[Rap]
 당이 한반도 전체를 차지하려 하자
 신라는 당과 싸웠어, 나당 전쟁!
+[Shout]
+멈출 수 없어!
+[Rap]
 육칠오, 매소성에서 당의 대군을 물리치고
 육칠육, 기벌포에서 당의 수군을 물리쳐
+[Shout]
+멈출 수 없어!
+[Rap]
 당을 몰아내고 삼국 통일!
-[Chant]
+[Shout]
 육칠오 매소성! 육칠육 기벌포! 삼국 통일!
 
-[Bridge]
+[Breakdown]
+[Drums and bass only]
 [Call and response]
 오육이? 대가야 멸망!
 육일이? 살수 대첩!
@@ -233,92 +283,97 @@ dark, sad ballad, heavy metal, aggressive rap, male vocals, heavy autotune, expl
 삼국 통일은? 육칠육!
 
 [Final Chorus]
-[Chant]
+[Gang vocals]
 오육이! 육일이!
+멈출 수 없어!
 육사이! 육사오! 육사팔!
+멈출 수 없어!
 육육공! 육육팔!
+멈출 수 없어!
 육칠오! 육칠육! 삼국 통일!
-[Sung]
-한국사 연도송~ 랄랄라 랄랄라~
-삼국 통일 전쟁, 완성!
+오-오, 오-오-오! 삼국 통일 전쟁, 완성!
 
 [Outro]
-[Spoken, cute]
-다음은 남북국 시대! 발해와 통일 신라, 기대해~
+[Spoken]
+다음은 남북국 시대! 발해와 통일 신라!
 ```
 
-### 4-5. 가사 메타태그 설명
+### 5-5. 가사 메타태그 설명
 
 | 태그 | Suno에 주는 신호 |
 |---|---|
-| `[Chorus]` | 반복되는 핵심 구간. 연도 9개 |
-| `[Chant]` | 노래보다 또박또박 외치기. 숫자가 또렷하게 들림 |
-| `[Sung]` | 멜로디로 부르기 |
-| `[Spoken, cute]` | 귀엽게 말하듯이 |
-| `[Call and response]` | 한 명이 묻고 여럿이 답하기. 퀴즈 브리지용 |
+| `[Funky bass riff]` | 곡을 베이스 리프로 시작 |
+| `[Rap]` | 랩으로 |
+| `[Shout]` | 짧게 외치기. "멈출 수 없어!"와 절 끝 숫자 외치기 |
+| `[Gang vocals]` | 여럿이 함께 외치기. 후렴 |
+| `[Stop]` `[Music stops]` | 음악을 딱 멈추는 신호 |
+| `[Beat drops back in]` | 멈췄던 음악이 다시 터짐 |
+| `[Breakdown]` `[Drums and bass only]` | 다른 악기를 빼고 드럼·베이스만 |
+| `[Call and response]` | 한 명이 묻고 여럿이 답하기 |
 
 ---
 
-## 5. 스타일 변형안
+## 6. 스타일 변형안
 
-가사는 그대로 두고 Style 칸만 바꿉니다. ①번 곡을 B·C·D로 만드셨다면 같은 것을 쓰세요.
+가사는 그대로 두고 Style 칸만 바꿉니다. ①번을 B·C·D로 만드셨다면 같은 것을 쓰고 BPM만 140으로 바꾸세요.
 
-### A. 이국적인 걸그룹 일렉트로팝 (기본안)
+### A. 90년대 펑키 팝 랩 (기본안)
 
-위 4-2와 같습니다.
+위 5-2와 같습니다.
 
-### B. 더 엉뚱하게 (뽕짝 느낌을 섞은 레트로 댄스)
-
-```
-quirky retro K-pop dance, playful trot-pop fusion, 130 BPM, exotic flute synth hook, bouncy beat, playful war drums, accordion stabs, cheerful female duo vocals, funny spoken ad-libs, clear Korean diction, chanted numbers, sing-along la la la chorus, call and response, novelty, educational
-```
-
-### C. 국악 섞은 버전 (한국사 분위기)
+### B. 국악 섞은 펑키 랩 (한국사 분위기)
 
 ```
-bright quirky K-pop girl group, playful electropop, 126 BPM, exotic flute synth riff mixed with gayageum, janggu and buk drums, bouncy beat, cute high female duo vocals, chanted numbers, catchy repetitive la la la chorus, clear Korean diction, call and response, fun, educational, kids
+early 90s pop rap, funky dance hip hop, 140 BPM, funky bass guitar riff loop, drum machine, big hand claps, janggu and buk drum accents, gayageum stabs, confident male rapper, clear Korean diction, short shouted catchphrase between lines, crowd gang vocals, stop break, call and response, fun, educational
+```
+
+### C. 아이들 목소리 떼창을 더 크게 (교실용)
+
+```
+early 90s pop rap, funky dance hip hop, 140 BPM, funky bass guitar riff loop, drum machine, big hand claps, confident male rapper with big kids choir shouting the catchphrase, clear Korean diction, crowd gang vocals oh oh oh, stop break, call and response, fun, educational, kids
 ```
 
 ### D. 천천히 따라 하기 (처음 외울 때)
 
 ```
-cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy beat, sweet female duo vocals, very clear Korean diction, slow chanted numbers, sing-along la la la chorus, call and response, educational, kids
+funky pop rap, 115 BPM, funky bass guitar riff loop, simple drum machine, hand claps, friendly male rapper, very clear Korean diction, slow steady flow, short shouted catchphrase, crowd gang vocals, call and response, educational
 ```
 
 ---
 
-## 6. 생성 체크리스트
+## 7. 생성 체크리스트
 
-### 6-1. 생성 전
+### 7-1. 생성 전
 
 - [ ] Custom 모드 켜기
 - [ ] Title, Style, Exclude, Lyrics 네 칸 다 채우기
-- [ ] 가사의 연도는 모두 한글 ("676" ✕ → "육칠육" ○)
+- [ ] 가사의 연도는 모두 한글
 
-### 6-2. 생성 후 고르는 기준
+### 7-2. 생성 후 고르는 기준
 
 | 순위 | 확인할 것 | 탈락 기준 |
 |---|---|---|
-| 1 | **후렴의 연도 9개가 순서대로 다 들리는가** | "육"이 많아서 하나 빠지기 쉽습니다. 하나라도 빠지면 탈락 |
-| 2 | **"사이·사오·사팔"이 구분되는가** | 642/645/648이 섞이면 탈락 |
-| 3 | 절마다 연도와 사건이 짝이 맞는가 | 단어를 바꿔 부르면 탈락 |
-| 4 | 어려운 단어가 또렷한가 | "을지문덕", "대야성", "흑치상지", "검모잠", "매소성", "기벌포"가 뭉개지면 탈락 |
-| 5 | 랄랄라 후렴이 ①번 곡과 비슷하게 들리는가 | 시리즈 느낌 |
-| 6 | 길이 3분 20초~4분 | 길면 Outro 잘라내기 |
+| 1 | **후렴의 연도 9개가 순서대로 다 들리는가** | 하나라도 빠지거나 바뀌면 탈락 |
+| 2 | **"사이·사오·사팔"이 구분되는가** (140 BPM이라 642/645/648이 섞이기 쉬움) | 섞이면 탈락 |
+| 3 | **펑키 베이스 리프가 곡 내내 돌아가는가** | 리프가 없으면 탈락 |
+| 4 | **"스톱! 통일 타임!"에서 음악이 멈추는가** | 안 멈춰도 쓸 수는 있지만 아쉬움 |
+| 5 | 어려운 단어가 또렷한가 | "을지문덕", "대야성", "흑치상지", "검모잠", "매소성", "기벌포"가 뭉개지면 탈락 |
+| 6 | 길이 3분~3분 50초 | 길면 Outro 잘라내기 |
 
-### 6-3. 문제가 생겼을 때
+### 7-3. 문제가 생겼을 때
 
 | 증상 | 고치는 법 |
 |---|---|
 | "육"이 이어져 숫자가 뭉개짐 | 숫자 사이에 쉼표: `육사이, 육사오, 육사팔` 또는 D 스타일 |
-| 전쟁 분위기가 너무 어둡게 나옴 | Style에서 `playful war drums,` 지우기, Exclude에 `epic, cinematic` 추가 |
-| 3절 가사가 잘림 | 3절을 둘로 나누기: `[Verse 3]`(백제) / `[Verse 3b]`(고구려) |
-| 남자 목소리가 나옴 | Exclude에 `male vocals`가 있는지 확인 |
-| "흑치상지"를 다르게 읽음 | `흑치-상지`로 띄어 쓰기 |
+| 베이스 리프가 약함 | Style 맨 앞을 `funky slap bass riff loop, ` 로 시작 |
+| 스톱 브레이크에서 안 멈춤 | `[Stop]` 아래에 `[Silence]` 한 줄 더 넣기 |
+| "멈출 수 없어!"를 노래로 부름 | `[Shout]`를 `[Shouted]`로 바꾸거나 `(멈출 수 없어!)`처럼 괄호로 감싸기 |
+| 트랩·요즘 힙합처럼 나옴 | Style 맨 앞에 `1990, old school, ` 추가 |
+| 여자 목소리가 나옴 | Exclude에 `female vocals`가 있는지 확인 |
 
 ---
 
-## 7. 내용 정확성 메모
+## 8. 내용 정확성 메모
 
 | 항목 | 메모 |
 |---|---|
@@ -336,13 +391,13 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 8. 영상 만들 때 (다음 단계)
+## 9. 영상 만들 때 (다음 단계)
 
 곡을 만들어 mp3를 주시면 이전 영상처럼 만듭니다. 장면 그림 스크립트는 `video/samguk_war_song/shots_chatgpt.md`에 있습니다(사건 10개 × 3장 = 30장).
 
 ---
 
-## 9. 시리즈로 이어 듣기
+## 10. 시리즈로 이어 듣기
 
 | 순서 | 곡 | 시기 |
 |---|---|---|
@@ -357,8 +412,9 @@ cute K-pop electropop, 108 BPM, light exotic flute synth melody, soft bouncy bea
 
 ---
 
-## 10. 변경 이력
+## 11. 변경 이력
 
 | 날짜 | 변경 |
 |---|---|
+| 2026-10-08 | 스타일 변경: 걸그룹 일렉트로팝 → 90년대 펑키 팝 랩 140 BPM, 구호 "멈출 수 없어!", 스톱 브레이크 "스톱! 통일 타임!" |
 | 2026-10-08 | 첫 작성. 교과서 공통 서술로 연표 9개 + 부흥 운동 구성, ①번 곡과 같은 밝은 걸그룹 일렉트로팝 가사, 변형 4종, 체크리스트, 정확성 메모 |
