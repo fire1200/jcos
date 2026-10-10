@@ -14,8 +14,10 @@ NAMES = {"prehistory_song": ("⓪", "선사 시대", "선사시대"),
          "samguk_rise_song": ("①", "고조선과 삼국", "고조선삼국"),
          "samguk_war_song": ("②", "삼국 통일 전쟁", "삼국통일"),
          "nambukguk_song": ("③", "남북국 시대", "남북국"),
-         "science_3_1_song": ("과학", "3학년 1학기", "과학3-1"),
-         "science_3_2_song": ("과학", "3학년 2학기", "과학3-2")}
+         "science_3_1a_song": ("과학", "3학년 1학기 상", "과학3-1상"),
+         "science_3_1b_song": ("과학", "3학년 1학기 하", "과학3-1하"),
+         "science_3_2a_song": ("과학", "3학년 2학기 상", "과학3-2상"),
+         "science_3_2b_song": ("과학", "3학년 2학기 하", "과학3-2하")}
 
 
 def parse(song):
@@ -26,7 +28,8 @@ def parse(song):
         num, title, body = m.groups()
         note = re.search(r"> \*\*(?:고증|과학) 핵심\*\*: (.+)", body)
         shots = re.findall(r"\*\*(\d\d[abc]) — (.+?)\*\*\n```\n(.*?)```", body, re.S)
-        events.append((num, title, note.group(1) if note else "", shots))
+        if shots:   # 이미 받은 그림을 그대로 쓰는 장면은 의뢰하지 않음
+            events.append((num, title, note.group(1) if note else "", shots))
     return rules, events
 
 

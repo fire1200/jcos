@@ -7,7 +7,7 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get("OUT", os.path.join(HERE, "out"))
-SONGS = ["prehistory_song", "samguk_rise_song", "samguk_war_song", "nambukguk_song", "goryeo_early_rap", "goryeo_late_rap", "joseon_early_rap", "joseon_late_rap", "modern_history_rap", "science_3_1_song", "science_3_2_song"]
+SONGS = ["prehistory_song", "samguk_rise_song", "samguk_war_song", "nambukguk_song", "goryeo_early_rap", "goryeo_late_rap", "joseon_early_rap", "joseon_late_rap", "modern_history_rap", "science_3_1a_song", "science_3_1b_song", "science_3_2a_song", "science_3_2b_song"]
 
 
 def ts(t):

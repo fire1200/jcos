@@ -15,8 +15,10 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("joseon_early_rap", "⑥ 조선 전기 (1388~1592)", "조선전기"),
          ("joseon_late_rap", "⑦ 조선 후기 (1608~1863)", "조선후기"),
          ("modern_history_rap", "⑧ 근현대사 (1866~1953)", "근현대사"),
-         ("science_3_1_song", "과학 3학년 1학기", "과학3-1"),
-         ("science_3_2_song", "과학 3학년 2학기", "과학3-2")]
+         ("science_3_1a_song", "과학 3학년 1학기 상", "과학3-1상"),
+         ("science_3_1b_song", "과학 3학년 1학기 하", "과학3-1하"),
+         ("science_3_2a_song", "과학 3학년 2학기 상", "과학3-2상"),
+         ("science_3_2b_song", "과학 3학년 2학기 하", "과학3-2하")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",
@@ -28,7 +30,7 @@ def build(web):
                 # 내려받아 쓰는 버전: 같은 폴더의 싱크용 영상을 자동으로 엶
                 "video": WEB_VIDEO.get(k, "") if web else [f"싱크용_{f}.webm", f"싱크용_{f}_720p.mp4"],
                 "csv": open(os.path.join(HERE, k, "timing.csv"), encoding="utf-8-sig").read()}
-            for k, n, f in SONGS}
+            for k, n, f in SONGS if os.path.exists(os.path.join(HERE, k, "timing.csv"))}   # 자막 초안이 아직 없는 곡은 빼기
     tpl = open(os.path.join(HERE, "sync_tool_template.html"), encoding="utf-8").read()
     html = tpl.replace("/*DATA*/", json.dumps(data, ensure_ascii=False))
     if web:  # Artifact는 문서 골격을 직접 씌우므로 <title>·<style>과 본문만
