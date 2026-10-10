@@ -21,7 +21,7 @@ if __name__ == "__main__":
     ctx = dict(ctx, sched=[])
     f = mod.draw(t, ctx)
     a, b = TITLES[n]
-    top = n in ("03", "06", "07", "09", "10")  # 캐릭터가 아래쪽에 있는 곡은 제목을 위로
+    top = n in ("03", "06", "07", "09", "10", "11", "13", "14")  # 캐릭터가 아래쪽에 있는 곡은 제목을 위로
     y1, y2 = (150, 330) if top else (H - 330, H - 150)
     paste(f, big_text(a, 170, (255, 255, 255), STROKE[n]), W / 2, y1)
     paste(f, big_text(b, 190, (255, 240, 120), STROKE[n]), W / 2, y2)
