@@ -186,8 +186,11 @@ def next_img(text, col=(255, 255, 255), stroke=(90, 110, 160)):
     ImageDraw.Draw(L).text((6 - l, 6 - t), text, font=f, fill=col + (255,), stroke_width=5, stroke_fill=stroke + (255,))
     return L
 
+CAPTIONS = True   # 쇼츠는 자막을 따로 그리므로 장면 안 자막을 끔
+
 def draw_caption(frame, sched, t, fg=(70, 90, 160), box=(255, 255, 255)):
     """지금 부르는 줄은 큰 상자, 바로 다음 줄은 그 아래 작게 (따라 부르기 쉽게)."""
+    if not CAPTIONS: return
     for i, (s, e, text, _) in enumerate(sched):
         if s <= t < e:
             a = min(1.0, (t - s) / 0.2, (e - t) / 0.2)

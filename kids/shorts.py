@@ -48,7 +48,7 @@ if __name__ == "__main__":
     mod = importlib.import_module(f"kids.songs.s{n}")
     total = duration(audio); L = json.load(open(lines)); ctx = mod.setup(L, total)
     t0, dur = pick_window(ctx, total)
-    sched = ctx["sched"]; ctx_scene = dict(ctx, sched=[])
+    sched = ctx["sched"]; ctx_scene = ctx; engine.CAPTIONS = False   # 장면은 가사에 맞춰 움직이되, 자막은 아래 띠에만
     if len(sys.argv) > 6 and sys.argv[5] == "--preview":
         for k in sys.argv[6].split(","):
             frame(mod, ctx_scene, sched, t0 + float(k), n, t0, dur).convert("RGB").save(f"{out}_{float(k):05.1f}.png")

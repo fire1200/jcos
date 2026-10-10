@@ -37,7 +37,7 @@ def draw(t, ctx):
     elif sec == "Verse 2":
         i = sub_index(ctx, sec, s0, t); kind = "laugh"
         sx = 1700 - 700 * ease(min(1, ts / 3)); sr = 0
-        if i == 1: sr = (t - ctx["sched"][idx][0]) * 360 % 360     # 데굴데굴
+        if i == 1: sr = (t - (t - dt)) * 360 % 360     # 데굴데굴
         paste(f, squirrel(95, "laugh", 0.3), sx, 720, rot=sr)
         if i >= 2: mx, my = 1150, 760
     elif sec == "Bridge":

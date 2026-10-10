@@ -60,9 +60,9 @@ def draw(t, ctx):
     if sec == "Verse 2":                                        # 친구 차들이 반대쪽에서 지나가며 인사
         i = sub_index(ctx, sec, s0, t)
         if i == 0: paste(f, bus(85, "laugh", ang), W + 300 - (ts * 420) % (W + 700), ROAD_Y - 80)
-        if i == 1: paste(f, truck(85, "laugh", ang), W + 300 - ((t - ctx["sched"][idx][0]) * 420) % (W + 700), ROAD_Y - 80)
+        if i == 1: paste(f, truck(85, "laugh", ang), W + 300 - ((t - (t - dt)) * 420) % (W + 700), ROAD_Y - 80)
         if i >= 2:                                              # 언덕길
-            k = ease(min(1, (t - ctx["sched"][idx][0]) / 1.5))
+            k = ease(min(1, (t - (t - dt)) / 1.5))
             g.polygon([(1200, ROAD_Y + 20), (1600, ROAD_Y - 200 * k), (2000, ROAD_Y + 20)], fill=(170, 220, 150, 255))
             rot = 10 * math.sin(t * 3)
     if light or sec in ("Chorus", "Bridge"):
