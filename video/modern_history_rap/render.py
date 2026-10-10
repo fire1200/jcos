@@ -40,6 +40,7 @@ CFG = {
     "outro_start": 173.0,   # 끝 제목이 나타나는 시각, 연도 바가 사라지는 시각
     "scenes": None,         # [[시각, 장면, 시드], ...] 없으면 아래 TIMELINE 사용
     "channel": "호크마 차일드 스터디",  # 화면 위쪽에 살짝 보이는 채널 이름 ("" 이면 안 보임)
+    "layout": "history",    # "science": 그림이 잘 보이게 카드는 맨 위로 작게, 설명은 크게, 자막 20% 작게
 }
 if os.path.exists(os.path.join(SONG_DIR, "song.json")):
     import json
@@ -48,6 +49,7 @@ DURATION = CFG["duration"]
 TITLE = CFG["title"]
 SUBTITLE = CFG["subtitle"]
 TIMELINE_YEARS = CFG["timeline_years"]
+SCIENCE = CFG["layout"] == "science"
 
 
 def hexc(s):
@@ -755,7 +757,7 @@ def timeline_keys(s):
     return keys
 
 
-SUB_SIZE, SUB_SIZE_HOOK = 116, 128
+SUB_SIZE, SUB_SIZE_HOOK = (93, 102) if SCIENCE else (116, 128)
 SUB_MAXW = 1800
 SUB_BOTTOM = 968
 
@@ -808,9 +810,10 @@ def draw_card(img, r, t):
     a_in = ease((t - r["start"]) / .35) * ease((r["end"] - t) / .25)
     rise = (1 - ease((t - r["start"]) / .45)) * 30
     if kind in ("hook", "gang") and r["year"]:
-        lab = T.label(r["year"], FONT_DISPLAY, 150, None, (255, 255, 255), shadow=14,
+        lab = T.label(r["year"], FONT_DISPLAY, 100 if SCIENCE else 150, None, (255, 255, 255), shadow=14,
                       glow=((255, 200, 140), 22, .55), maxw=1800)
-        over(img, lab, (W - lab.shape[1]) // 2, int(300 - lab.shape[0] / 2 + rise), a_in)
+        cy = 20 + lab.shape[0] / 2 if SCIENCE else 300
+        over(img, lab, (W - lab.shape[1]) // 2, int(cy - lab.shape[0] / 2 + rise), a_in)
         return
     if not r["year"]:
         return
@@ -820,6 +823,21 @@ def draw_card(img, r, t):
         ev_txt = "?"
     if kind == "quizr" and p < .45:
         year_txt = "?"
+    if SCIENCE:   # 단원 이름은 맨 위에 작게(2/3), 설명은 크게(2배), 길면 " · "에서 두 줄
+        ylab = T.label(year_txt, FONT_DISPLAY, 140, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6), maxw=1800)
+        yy = int(4 + rise)
+        over(img, ylab, (W - ylab.shape[1]) // 2, yy, a_in)
+        f = T.font(FONT_BODY, 132, "Bold")
+        lines = [ev_txt]
+        if f.getbbox(ev_txt)[2] > 1760 and " · " in ev_txt:
+            i = ev_txt.index(" · ", len(ev_txt) // 3) if " · " in ev_txt[len(ev_txt) // 3:] else ev_txt.index(" · ")
+            lines = [ev_txt[:i], ev_txt[i + 3:]]
+        y = yy + ylab.shape[0] - 52
+        for ln in lines:
+            elab = T.label(ln, FONT_BODY, 132 if len(lines) == 1 else 112, "Bold", (255, 244, 225), shadow=12, maxw=1760)
+            over(img, elab, (W - elab.shape[1]) // 2, y, a_in)
+            y += elab.shape[0] - 40
+        return
     ylab = T.label(year_txt, FONT_DISPLAY, 210, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6), maxw=1800)
     elab = T.label(ev_txt, FONT_BODY, 66, "Bold", (255, 244, 225), shadow=10, maxw=1600)
     yy = int(150 + rise)
@@ -864,7 +882,7 @@ def draw_channel(img):
     if not CFG["channel"]:
         return
     lab = tx().label(CFG["channel"], FONT_BODY, 34, "Bold", (255, 255, 255), shadow=8)
-    over(img, lab, (W - lab.shape[1]) // 2, 6, .7)
+    over(img, lab, W - lab.shape[1] - 14 if SCIENCE else (W - lab.shape[1]) // 2, 6, .7)
 
 
 # ---------------------------------------------------------------- frame
