@@ -13,7 +13,9 @@ OUT = os.environ.get("OUT", os.path.join(HERE, "out"))
 NAMES = {"prehistory_song": ("⓪", "선사 시대", "선사시대"),
          "samguk_rise_song": ("①", "고조선과 삼국", "고조선삼국"),
          "samguk_war_song": ("②", "삼국 통일 전쟁", "삼국통일"),
-         "nambukguk_song": ("③", "남북국 시대", "남북국")}
+         "nambukguk_song": ("③", "남북국 시대", "남북국"),
+         "science_3_1_song": ("과학", "3학년 1학기", "과학3-1"),
+         "science_3_2_song": ("과학", "3학년 2학기", "과학3-2")}
 
 
 def parse(song):
@@ -22,7 +24,7 @@ def parse(song):
     events = []
     for m in re.finditer(r"### (\d\d) (.+?)\n(.*?)(?=\n### \d\d |\n---)", s, re.S):
         num, title, body = m.groups()
-        note = re.search(r"> \*\*고증 핵심\*\*: (.+)", body)
+        note = re.search(r"> \*\*(?:고증|과학) 핵심\*\*: (.+)", body)
         shots = re.findall(r"\*\*(\d\d[abc]) — (.+?)\*\*\n```\n(.*?)```", body, re.S)
         events.append((num, title, note.group(1) if note else "", shots))
     return rules, events
@@ -44,9 +46,9 @@ def build(song):
     for num, title, note, shots in events:
         out += ["---\n", f"## 메시지 {num} — {title}\n", "```",
                 f"[{tag} {num}] {title}",
-                f"고증 핵심: {note}" if note else "",
+                f"핵심: {note}" if note else "",
                 "",
-                "아래 장면을 한 장씩 차례로 그려 줘. 공통 규칙(화풍, 고증, 가로 1536×1024, 글자 없음, 얼굴 정면 금지)을 꼭 지키고,",
+                "아래 장면을 한 장씩 차례로 그려 줘. 공통 규칙(화풍, 정확성, 가로 1536×1024, 글자 없음)을 꼭 지키고,",
                 "그림을 줄 때마다 답장 글 첫 줄에 파일 이름을 적어 줘. 그림 안에는 글자를 넣지 마.",
                 ""]
         for fid, kind, prompt in shots:
