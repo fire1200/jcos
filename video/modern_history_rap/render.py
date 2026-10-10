@@ -820,7 +820,7 @@ def draw_card(img, r, t):
         ev_txt = "?"
     if kind == "quizr" and p < .45:
         year_txt = "?"
-    ylab = T.label(year_txt, FONT_DISPLAY, 210, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6))
+    ylab = T.label(year_txt, FONT_DISPLAY, 210, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6), maxw=1800)
     elab = T.label(ev_txt, FONT_BODY, 66, "Bold", (255, 244, 225), shadow=10, maxw=1600)
     yy = int(150 + rise)
     over(img, ylab, (W - ylab.shape[1]) // 2, yy, a_in)

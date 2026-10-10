@@ -14,7 +14,9 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("goryeo_late_rap", "⑤ 고려 후기 (1170~1392)", "고려후기"),
          ("joseon_early_rap", "⑥ 조선 전기 (1388~1592)", "조선전기"),
          ("joseon_late_rap", "⑦ 조선 후기 (1608~1863)", "조선후기"),
-         ("modern_history_rap", "⑧ 근현대사 (1866~1953)", "근현대사")]
+         ("modern_history_rap", "⑧ 근현대사 (1866~1953)", "근현대사"),
+         ("science_3_1_song", "과학 3학년 1학기", "과학3-1"),
+         ("science_3_2_song", "과학 3학년 2학기", "과학3-2")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",

@@ -1,0 +1,37 @@
+{
+  "duration": 216.0,
+  "title": "3학년 1학기 과학송!",
+  "subtitle": "물질 · 동물 · 자석 · 지구",
+  "timeline_years": [
+    "물질의 성질",
+    "동물의 한살이",
+    "자석의 이용",
+    "지구의 모습"
+  ],
+  "intro_end": 12.0,
+  "outro_start": 210.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "01a",
+    "02c",
+    "03a",
+    "04a",
+    "05b",
+    "06c",
+    "07a",
+    "08b"
+  ],
+  "outro_shots": [
+    "04a",
+    "07a",
+    "08b"
+  ]
+}
