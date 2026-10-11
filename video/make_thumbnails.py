@@ -5,6 +5,7 @@
     python3 make_thumbnails.py            # out/thumb_*.jpg
 """
 import os
+import sys
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -28,6 +29,8 @@ THUMBS = [
      "노래로 3분 만에 외우는 한국사", (120, 220, 255)),
     ("thumb_3_modern", "modern_history_rap/images/11b.png", "근현대사", "연도 암기송", "1866~1953",
      "노래로 3분 만에 외우는 한국사", (255, 140, 120)),
+    ("thumb_a9_contemporary", "contemporary_history_rap/images/07b.png", "현대사", "연도 암기송", "1960~2002",
+     "노래로 외우는 한국사", (120, 200, 255)),
 ]
 
 
@@ -95,4 +98,5 @@ def make(name, bg, top, title, years, bottom, accent):
 
 if __name__ == "__main__":
     for t in THUMBS:
-        make(*t)
+        if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
+            make(*t)
