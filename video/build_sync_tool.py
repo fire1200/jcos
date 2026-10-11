@@ -15,6 +15,7 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("joseon_early_rap", "⑥ 조선 전기 (1388~1592)", "조선전기"),
          ("joseon_late_rap", "⑦ 조선 후기 (1608~1863)", "조선후기"),
          ("modern_history_rap", "⑧ 근현대사 (1866~1953)", "근현대사"),
+         ("contemporary_history_rap", "⑨ 현대사 (1960~2002)", "현대사"),
          ("science_3_1a_song", "과학 3학년 1학기 상", "과학3-1상"),
          ("science_3_1b_song", "과학 3학년 1학기 하", "과학3-1하"),
          ("science_3_2a_song", "과학 3학년 2학기 상", "과학3-2상"),
