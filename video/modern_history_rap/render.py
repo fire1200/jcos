@@ -757,7 +757,7 @@ def timeline_keys(s):
     return keys
 
 
-SUB_SIZE, SUB_SIZE_HOOK = (93, 102) if SCIENCE else (116, 128)
+SUB_SIZE, SUB_SIZE_HOOK = (84, 92) if SCIENCE else (116, 128)
 SUB_MAXW = 1800
 SUB_BOTTOM = 968
 
