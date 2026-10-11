@@ -1,0 +1,36 @@
+{
+  "duration": 232.0,
+  "title": "3학년 2학기 과학송 (하)",
+  "subtitle": "물질의 상태 · 소리의 성질",
+  "timeline_years": [
+    "물질의 상태",
+    "소리의 성질"
+  ],
+  "intro_end": 12.0,
+  "outro_start": 226.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03b",
+    "04c",
+    "05a",
+    "06b",
+    "07c",
+    "08a"
+  ],
+  "outro_shots": [
+    "04c",
+    "06c",
+    "08b"
+  ]
+}

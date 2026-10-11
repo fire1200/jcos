@@ -1,0 +1,36 @@
+{
+  "duration": 253.2,
+  "title": "3학년 2학기 과학송 (상)",
+  "subtitle": "동물의 생활 · 지표의 변화",
+  "timeline_years": [
+    "동물의 생활",
+    "지표의 변화"
+  ],
+  "intro_end": 12.0,
+  "outro_start": 247.2,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03b",
+    "04c",
+    "05a",
+    "06b",
+    "07c",
+    "08a"
+  ],
+  "outro_shots": [
+    "01a",
+    "07b",
+    "08c"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "duration": 215.4,
+  "title": "3학년 1학기 과학송 (하)",
+  "subtitle": "자석의 이용 · 지구의 모습",
+  "timeline_years": [
+    "자석의 이용",
+    "지구의 모습"
+  ],
+  "intro_end": 12.0,
+  "outro_start": 209.4,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03b",
+    "04c",
+    "05a",
+    "06b",
+    "07c",
+    "08a"
+  ],
+  "outro_shots": [
+    "04a",
+    "05a",
+    "08b"
+  ]
+}
