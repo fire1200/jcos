@@ -31,6 +31,8 @@ THUMBS = [
      "노래로 3분 만에 외우는 한국사", (255, 140, 120)),
     ("thumb_a9_contemporary", "contemporary_history_rap/images/07b.png", "현대사", "연도 암기송", "1960~2002",
      "노래로 외우는 한국사", (120, 200, 255)),
+    ("thumb_s31a", "science_3_1a_song/images/05a.png", "3학년 1학기 (상)", "과학송", "물질의 성질, 동물의 한살이",
+     "노래로 외우는 교과서 과학", (140, 230, 160), "초등 과학"),
 ]
 
 
@@ -57,7 +59,7 @@ def shadowed_text(base, xy, text, f, fill, stroke, stroke_w, shadow=10):
     ImageDraw.Draw(base).text(xy, text, font=f, fill=fill, stroke_width=stroke_w, stroke_fill=stroke)
 
 
-def make(name, bg, top, title, years, bottom, accent):
+def make(name, bg, top, title, years, bottom, accent, badge="초등 한국사"):
     img = cover(bg).convert("RGBA")
     # 왼쪽을 어둡게 해서 글자가 잘 보이게
     grad = Image.new("L", (W, 1))
@@ -69,7 +71,6 @@ def make(name, bg, top, title, years, bottom, accent):
     d = ImageDraw.Draw(img)
     # 시리즈 배지
     bf = font("NotoSansKR.ttf", 34, "Black")
-    badge = "초등 한국사"
     bw = d.textlength(badge, font=bf)
     d.rounded_rectangle([48, 40, 48 + bw + 44, 40 + 62], radius=31, fill=accent)
     d.text((70, 44), badge, font=bf, fill=(20, 20, 30))
@@ -78,11 +79,15 @@ def make(name, bg, top, title, years, bottom, accent):
     shadowed_text(img, (48, 250), title, font("BlackHanSans-Regular.ttf", 190), (255, 255, 255), (20, 20, 30), 10)
 
     # 연도 범위 리본
-    yf = font("BlackHanSans-Regular.ttf", 92)
+    ys = 92
+    yf = font("BlackHanSans-Regular.ttf", ys)
+    while d.textlength(years, font=yf) > 820 and ys > 52:   # 단원 이름처럼 긴 글자는 줄여서 맞춤
+        ys -= 4
+        yf = font("BlackHanSans-Regular.ttf", ys)
     yw = d.textlength(years, font=yf)
     d = ImageDraw.Draw(img)
     d.rounded_rectangle([48, 478, 48 + yw + 60, 478 + 112], radius=18, fill=(215, 40, 50))
-    d.text((78, 482), years, font=yf, fill=(255, 255, 255))
+    d.text((78, 482 + (92 - ys) // 2), years, font=yf, fill=(255, 255, 255))
 
     shadowed_text(img, (52, 620), bottom, font("NotoSansKR.ttf", 44, "Black"), (255, 255, 255), (20, 20, 30), 4)
 
