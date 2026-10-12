@@ -174,14 +174,17 @@ const srtTime = (t) => { const ms = Math.round(t * 1000); const p = (n, w = 2) =
   return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`; };
 const storeKey = () => "yeondo-sync-" + songKey;
 let db = null, remoteTimer = null;
+// 가사 지문: 가사가 바뀐 곡(예: 현대사 v1 → v2)에서 옛 작업을 불러오지 않도록 저장본에 함께 기록
+const lyricFp = (rs) => { let h = 5381; for (const ch of rs.map((r) => r.text).join("\n")) h = (h * 33 + ch.codePointAt(0)) >>> 0; return h.toString(36); };
+const sameLyrics = (saved) => saved.v ? saved.v === lyricFp(original) : lyricFp(saved.rows) === lyricFp(original);
 function save() {
-  const at = Date.now();
-  try { localStorage.setItem(storeKey(), JSON.stringify({ rows, at })); } catch (e) {}
+  const at = Date.now(), v = lyricFp(original);
+  try { localStorage.setItem(storeKey(), JSON.stringify({ rows, at, v })); } catch (e) {}
   if (!db) return;
   clearTimeout(remoteTimer); setCloud("저장 중…");
   const key = songKey, csv = toCSV(rows);
   remoteTimer = setTimeout(async () => {
-    try { await db.doc("timings/" + key).set({ csv, updatedAt: at }); setCloud("☁ 저장됨 " + new Date().toLocaleTimeString("ko-KR"), true); }
+    try { await db.doc("timings/" + key).set({ csv, updatedAt: at, v }); setCloud("☁ 저장됨 " + new Date().toLocaleTimeString("ko-KR"), true); }
     catch (e) { setCloud("☁ 저장 실패: 파일로 저장해 보내 주세요"); }
   }, 1500);
 }
@@ -221,15 +224,19 @@ async function load(key) {
   songKey = key;
   $("player").classList.toggle("sci", SONGS[key].layout === "science");
   if (SONGS[key].video) setVideo(SONGS[key].video); else { $("empty").innerHTML = "위의 <b>🎬 영상·음원 열기</b>로 싱크용 mp4(또는 mp3)를 여세요."; } original = parseCSV(SONGS[key].csv); history = [];
-  let best = readLocal(), from = best ? "이 브라우저" : "";
+  let best = readLocal(), from = "", old = false;
+  if (best && !sameLyrics(best)) { best = null; old = true; }
+  if (best) from = "이 브라우저";
   if (db) {
     try { const d = await db.doc("timings/" + key).get();
-      if (d.exists && d.data().csv && (!best || (d.data().updatedAt || 0) > best.at)) { best = { rows: parseCSV(d.data().csv), at: d.data().updatedAt }; from = "저장된 작업"; } }
+      const r = d.exists && d.data().csv ? { rows: parseCSV(d.data().csv), at: d.data().updatedAt || 0, v: d.data().v } : null;
+      if (r && !sameLyrics(r)) old = true;
+      else if (r && (!best || r.at > best.at)) { best = r; from = "저장된 작업"; } }
     catch (e) {}
   }
   if (key !== songKey) return;
   rows = best && best.rows.length ? best.rows : JSON.parse(JSON.stringify(original));
-  sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : "");
+  sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : old ? "가사가 바뀌어 예전 작업 대신 새 가사로 시작합니다." : "");
 }
 function render() {
   const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1; edShown = -1;
