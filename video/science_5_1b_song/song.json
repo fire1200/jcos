@@ -1,0 +1,36 @@
+{
+  "duration": 269.6,
+  "title": "5학년 1학기 과학송 (하)",
+  "subtitle": "용해와 용액 · 다양한 생물과 우리 생활",
+  "timeline_years": [
+    "용해와 용액",
+    "다양한 생물과 우리 생활"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 262.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02c",
+    "03c",
+    "04b",
+    "05a",
+    "06b",
+    "07b",
+    "08b"
+  ],
+  "outro_shots": [
+    "07b",
+    "04b",
+    "01c"
+  ]
+}

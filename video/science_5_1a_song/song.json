@@ -1,0 +1,36 @@
+{
+  "duration": 269.6,
+  "title": "5학년 1학기 과학송 (상)",
+  "subtitle": "온도와 열 · 태양계와 별",
+  "timeline_years": [
+    "온도와 열",
+    "태양계와 별"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 262.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04c",
+    "05b",
+    "06a",
+    "07a",
+    "08c"
+  ],
+  "outro_shots": [
+    "06a",
+    "08c",
+    "04c"
+  ]
+}

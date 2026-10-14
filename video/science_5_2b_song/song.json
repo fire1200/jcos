@@ -1,0 +1,36 @@
+{
+  "duration": 269.6,
+  "title": "5학년 2학기 과학송 (하)",
+  "subtitle": "물체의 운동 · 산과 염기",
+  "timeline_years": [
+    "물체의 운동",
+    "산과 염기"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 262.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03a",
+    "04b",
+    "05a",
+    "06c",
+    "07a",
+    "08b"
+  ],
+  "outro_shots": [
+    "06c",
+    "02c",
+    "04c"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "duration": 269.6,
+  "title": "5학년 2학기 과학송 (상)",
+  "subtitle": "생물과 환경 · 날씨와 우리 생활",
+  "timeline_years": [
+    "생물과 환경",
+    "날씨와 우리 생활"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 262.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02b",
+    "03b",
+    "04b",
+    "05c",
+    "06c",
+    "07c",
+    "08b"
+  ],
+  "outro_shots": [
+    "04c",
+    "01a",
+    "06c"
+  ]
+}
