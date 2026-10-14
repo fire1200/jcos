@@ -208,7 +208,8 @@
 | 문서 | 내용 |
 |---|---|
 | **이 문서** | 전체 정리 |
-| **`plans/strategy_running_music_20261014.md`** | **러닝 음악 전략 (최신).** 유튜브가 아니라 스트리밍·Virtual Run이 시장 |
+| **`plans/distribution_running_20261014.md`** | **러닝 음원 유통 실행안 (최신).** EP 5장, 국내·해외 분기, **KOMCA AI 규정** |
+| `plans/strategy_running_music_20261014.md` | 러닝 음악 전략. 유튜브가 아니라 스트리밍이 시장 |
 | `plans/decision_ppaieo_20261012.md` | 빠이요 결정. 2시간 믹스 중단은 유효, 위 문서가 일부 조정 |
 | **`plans/analysis_todam_20261012.md`** | **토담토담 창작동요 전환 분석.** 노출 2,172배. **아동용 설정 확인 필요** |
 | **`plans/strategy_update_20261012.md`** | 빠이요 전략 갱신. 쇼츠-롱폼 연결이 1순위 |
