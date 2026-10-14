@@ -60,8 +60,8 @@
 | 4-1 하 | `songs/science_4_1b_song_20261011.md` | 24장 새로 | — |
 | 4-2 상 | `songs/science_4_2a_song_20261011.md` | 24장 새로 | — |
 | 4-2 하 | `songs/science_4_2b_song_20261011.md` | 24장 새로 | — |
-| 5-1 상 | `songs/science_5_1a_song_20261014.md` | — | — |
-| 5-1 하 | `songs/science_5_1b_song_20261014.md` | — | — |
-| 5-2 상 | `songs/science_5_2a_song_20261014.md` | — | — |
-| 5-2 하 | `songs/science_5_2b_song_20261014.md` | — | — |
+| 5-1 상 | `songs/science_5_1a_song_20261014.md` | 24장 새로 | — |
+| 5-1 하 | `songs/science_5_1b_song_20261014.md` | 24장 새로 | — |
+| 5-2 상 | `songs/science_5_2a_song_20261014.md` | 24장 새로 | — |
+| 5-2 하 | `songs/science_5_2b_song_20261014.md` | 24장 새로 | — |
 | 6학년 | 교과서 판 확인 후 | — | — |
