@@ -5,6 +5,7 @@
 """
 import math
 from kids.engine import *
+from kids import engine
 
 def _kws(line, words):
     found = []
@@ -78,7 +79,7 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
                 words[cur](f, cx, cy + 10 * math.sin(t * 2.5), sc, "laugh" if kws else "smile", t)
                 lab = labels.get(cur, cur)
                 paste(f, big_text(lab, 170 if len(lab) <= 3 else 130, (255, 255, 255), ink),
-                      cx + 600, cy - 160,
+                      *((cx + 600, cy - 160) if engine.CAPTIONS else (cx + 180, cy - 330)),   # 쇼츠(세로)는 잘리지 않게 위쪽
                       scale=(0.7 + 0.3 * pop) * (1 + 0.05 * math.sin(t * 6)), alpha=min(1, 0.3 + pop))
                 if kws and t_in < 0.6:
                     for a in range(8):
