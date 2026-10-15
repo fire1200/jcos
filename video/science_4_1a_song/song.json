@@ -1,0 +1,45 @@
+{
+  "duration": 243.2,
+  "title": "4학년 1학기 과학송 (상)",
+  "subtitle": "지층과 화석 · 식물의 한살이",
+  "timeline_years": [
+    "지층과 화석",
+    "식물의 한살이"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 235.2,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04a",
+    "05b",
+    "06b",
+    "07b",
+    "08c"
+  ],
+  "outro_shots": [
+    "01a",
+    "01b",
+    "02b",
+    "03a",
+    "04a",
+    "04c",
+    "05c",
+    "06b",
+    "07c",
+    "08a"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}

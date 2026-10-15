@@ -1,0 +1,45 @@
+{
+  "duration": 266.4,
+  "title": "4학년 2학기 과학송 (하)",
+  "subtitle": "그림자와 거울 · 화산과 지진",
+  "timeline_years": [
+    "그림자와 거울",
+    "화산과 지진"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 258.4,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03a",
+    "04c",
+    "05a",
+    "06c",
+    "07a",
+    "08b"
+  ],
+  "outro_shots": [
+    "01a",
+    "01b",
+    "02c",
+    "03a",
+    "04c",
+    "05b",
+    "06c",
+    "07a",
+    "08b",
+    "08c"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}

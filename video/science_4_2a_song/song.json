@@ -1,0 +1,45 @@
+{
+  "duration": 270.0,
+  "title": "4학년 2학기 과학송 (상)",
+  "subtitle": "식물의 생활 · 물의 상태 변화",
+  "timeline_years": [
+    "식물의 생활",
+    "물의 상태 변화"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 262.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01c",
+    "02a",
+    "03a",
+    "04b",
+    "05a",
+    "06c",
+    "07a",
+    "08c"
+  ],
+  "outro_shots": [
+    "01a",
+    "02a",
+    "02b",
+    "03a",
+    "04a",
+    "04b",
+    "05b",
+    "06c",
+    "07c",
+    "08c"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}

@@ -1,0 +1,45 @@
+{
+  "duration": 200.0,
+  "title": "4학년 1학기 과학송 (하)",
+  "subtitle": "물체의 무게 · 혼합물의 분리",
+  "timeline_years": [
+    "물체의 무게",
+    "혼합물의 분리"
+  ],
+  "intro_end": 15.0,
+  "outro_start": 192.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02a",
+    "03c",
+    "04b",
+    "05a",
+    "06b",
+    "07b",
+    "08c"
+  ],
+  "outro_shots": [
+    "01a",
+    "02a",
+    "03b",
+    "03c",
+    "04b",
+    "05a",
+    "06b",
+    "07b",
+    "08b",
+    "08c"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}
