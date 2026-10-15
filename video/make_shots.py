@@ -41,15 +41,26 @@ def montage(t0, t1, imgs, beats, each=2.6):
 
 def fill_gaps(rows, cfg, beats):
     """그림이 없는 틈(인트로, "못 잊어 이거!" 같은 짧은 줄, 아웃트로)을 그림으로 채움.
-    song.json: "fill_gaps": true, "intro_shots": [...], "outro_shots": [...]"""
+    song.json: "fill_gaps": true, "intro_shots": [...], "outro_shots": [...],
+    "gap_montage": 2.5 (이 초보다 긴 간주는 바로 앞 그림들로 몽타주)
+    "split_long": 5.5 (그림 한 장짜리 줄이 이보다 길면 같은 장면의 다음 그림을 이어 붙임)"""
     if not rows:
         return rows
     out = []
     first = rows[0][0]
     if first > .5:
         out += montage(0, first, cfg.get("intro_shots") or [rows[0][2]], beats)
+    gap = cfg.get("gap_montage")   # 간주처럼 긴 틈(초)은 방금 나온 그림들로 다시 보기 몽타주
     for i, (a, b, im, fx) in enumerate(rows):
         nxt = rows[i + 1][0] if i + 1 < len(rows) else None
+        if gap and nxt is not None and nxt - b >= gap:
+            out.append((a, b, im, fx))
+            recap = []
+            for r in reversed(rows[max(0, i - 10):i]):
+                if r[2] != im and r[2] not in recap:
+                    recap.insert(0, r[2])
+            out += montage(b, nxt, recap[-6:] or [im], beats)
+            continue
         if nxt is not None and nxt > b:
             b = nxt          # 다음 그림까지 이어서 보여 줌
         out.append((a, b, im, fx))
@@ -76,6 +87,13 @@ def build(song):
             mid = t0 + (t1 - t0) * REVEAL
             parts = [(t0, mid), (mid, t1)]
         else:
+            parts = split(t0, t1, len(imgs), beats)
+        long_ = cfg.get("split_long")   # 한 장이 너무 오래 나오면 같은 장면의 다음 그림을 이어 붙임 (06a → 06b)
+        if long_ and len(imgs) == 1 and t1 - t0 > long_ and r["kind"] not in ("quiz", "quizr"):
+            sc, x = imgs[0][:2], imgs[0][2:]
+            nxt = sc + "abc"[("abc".index(x) + 1) % 3] if x in ("a", "b", "c") else None
+            if nxt and os.path.exists(os.path.join(d, "images", nxt + ".png")):
+                imgs = imgs + [nxt]
             parts = split(t0, t1, len(imgs), beats)
         fx_ok = r["kind"] == "line"
         for (a, b), im in zip(parts, imgs):
