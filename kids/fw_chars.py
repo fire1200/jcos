@@ -116,61 +116,97 @@ def _limb(g, x0, y0, ang, length, w, col):
         g.ellipse([x - w / 2, y - w / 2, x + w / 2, y + w / 2], fill=col + (255,))
     return x1, y1
 
+def _baby_eyes(g, cx, cy, s, kind):
+    """반짝이는 큰 눈 (웃을 때는 초승달 눈)."""
+    for sgn in (-1, 1):
+        x = cx + sgn * s * 0.42
+        if kind in ("laugh", "squint"):
+            g.arc([x - s * 0.17, cy - s * 0.12, x + s * 0.17, cy + s * 0.16], 200, 340, fill=(70, 50, 60, 255), width=max(4, int(s * 0.07)))
+            continue
+        g.ellipse([x - s * 0.15, cy - s * 0.2, x + s * 0.15, cy + s * 0.2], fill=(55, 40, 55, 255))
+        g.ellipse([x - s * 0.11, cy - s * 0.04, x + s * 0.11, cy + s * 0.17], fill=(95, 70, 95, 255))     # 눈동자 아래쪽 밝게
+        g.ellipse([x - s * 0.1, cy - s * 0.15, x + s * 0.02, cy - s * 0.03], fill=(255, 255, 255, 255))  # 큰 반짝
+        g.ellipse([x + s * 0.04, cy + s * 0.05, x + s * 0.1, cy + s * 0.11], fill=(255, 255, 255, 255))  # 작은 반짝
+        g.line([x + sgn * s * 0.12, cy - s * 0.13, x + sgn * s * 0.22, cy - s * 0.2], fill=(55, 40, 55, 255), width=max(3, int(s * 0.045)))  # 속눈썹
+
 @lru_cache(maxsize=None)
-def baby(s, pose="stand", hl=None, kind="smile", suit=(255, 226, 120)):
-    """pose: stand, wave, clap, stomp, eye, nose, mouth(손가락으로 가리킴), hands_up
+def baby(s, pose="stand", hl=None, kind="smile", suit=(255, 214, 226)):
+    """머리가 크고 눈이 반짝이는 아기 몽이 (봉제 인형 느낌의 2등신).
+    pose: stand, wave, clap, stomp, eye, nose, mouth(손가락으로 가리킴), hands_up
     hl: 빛나는 테두리로 강조할 부위 손/발/눈/코/입"""
     L = new_layer(int(s * 4), int(s * 5.2), SKIN); g = ImageDraw.Draw(L)
-    cx = s * 2; hy = s * 1.45; hr = s * 1.05                     # 머리 중심·반지름
-    by = s * 3.2                                               # 몸 중심
+    cx = s * 2; hy = s * 1.6; hr = s * 1.25                     # 머리 중심·반지름 (몸보다 훨씬 크게)
+    by = s * 3.55                                              # 몸 중심
+    hair = (185, 130, 90)
     glow = []
-    # 다리·발
-    lfoot = rfoot = None
+    # 다리·발 (짧고 통통)
     for sgn in (-1, 1):
         up = pose == "stomp" and sgn == 1
-        hip = (cx + sgn * s * 0.35, by + s * 0.5)
-        ang = 90 - sgn * (35 if up else 5)
-        fx, fy = _limb(g, hip[0], hip[1], ang, s * (0.65 if up else 0.85), s * 0.42, suit)
-        fx += sgn * s * 0.1
-        g.ellipse([fx - s * 0.32, fy - s * 0.12, fx + s * 0.32, fy + s * 0.22], fill=SKIN + (255,))
-        glow.append(("발", fx, fy + s * 0.05, s * 0.45))
-    # 몸 (우주복)
-    g.ellipse([cx - s * 0.85, by - s * 0.85, cx + s * 0.85, by + s * 0.85], fill=suit + (255,))
-    g.ellipse([cx - s * 0.12, by - s * 0.35, cx + s * 0.12, by - s * 0.11], fill=(255, 255, 255, 255))
-    g.ellipse([cx - s * 0.12, by + s * 0.05, cx + s * 0.12, by + s * 0.29], fill=(255, 255, 255, 255))
+        hip = (cx + sgn * s * 0.32, by + s * 0.45)
+        ang = 90 - sgn * (35 if up else 8)
+        fx, fy = _limb(g, hip[0], hip[1], ang, s * (0.45 if up else 0.55), s * 0.5, suit)
+        fx += sgn * s * 0.08
+        g.ellipse([fx - s * 0.3, fy - s * 0.12, fx + s * 0.3, fy + s * 0.24], fill=SKIN + (255,))
+        for k in (-1, 0, 1):                                     # 발가락
+            g.ellipse([fx + k * s * 0.12 - s * 0.05, fy - s * 0.1, fx + k * s * 0.12 + s * 0.05, fy - s * 0.0], fill=(250, 205, 180, 255))
+        glow.append(("발", fx, fy + s * 0.05, s * 0.42))
+    # 몸 (포동포동 우주복 + 하트)
+    g.ellipse([cx - s * 0.8, by - s * 0.75, cx + s * 0.8, by + s * 0.8], fill=suit + (255,))
+    g.ellipse([cx - s * 0.45, by - s * 0.3, cx + s * 0.45, by + s * 0.55], fill=tuple(min(255, v + 18) for v in suit) + (255,))
+    hx0, hy0, hs = cx, by + s * 0.1, s * 0.16
+    g.ellipse([hx0 - hs * 1.05, hy0 - hs * 0.8, hx0 + hs * 0.05, hy0 + hs * 0.3], fill=(255, 120, 150, 255))
+    g.ellipse([hx0 - hs * 0.05, hy0 - hs * 0.8, hx0 + hs * 1.05, hy0 + hs * 0.3], fill=(255, 120, 150, 255))
+    g.polygon([(hx0 - hs * 1.0, hy0 - hs * 0.05), (hx0 + hs * 1.0, hy0 - hs * 0.05), (hx0, hy0 + hs * 1.1)], fill=(255, 120, 150, 255))
+    g.ellipse([cx - s * 0.55, by - s * 0.82, cx + s * 0.55, by - s * 0.5], fill=(255, 255, 255, 255))  # 동그란 깃
     # 팔·손
-    targets = {"eye": (cx + s * 0.62, hy + s * 0.02), "nose": (cx + s * 0.12, hy + s * 0.24), "mouth": (cx + s * 0.18, hy + s * 0.52)}
-    arm = tuple(max(0, v - 25) for v in suit)
+    targets = {"eye": (cx + s * 0.78, hy + s * 0.12), "nose": (cx + s * 0.1, hy + s * 0.36), "mouth": (cx + s * 0.14, hy + s * 0.62)}
+    arm = suit
     for sgn in (-1, 1):
-        sh = (cx + sgn * s * 0.7, by - s * 0.45)
+        sh = (cx + sgn * s * 0.62, by - s * 0.4)
         if pose == "wave" and sgn == 1: ang = -60
         elif pose == "hands_up": ang = -90 - sgn * 35
-        elif pose == "clap": ang = 90 + sgn * 115
+        elif pose == "clap": ang = 90 + sgn * 64              # 가슴 앞에서 짝짝
         elif pose in targets and sgn == 1:
             tx, ty = targets[pose]; ang = math.degrees(math.atan2(ty - sh[1], tx - sh[0]))
-        else: ang = 90 - sgn * 30
-        length = s * (0.75 if pose == "clap" else 0.9)
+        else: ang = 90 - sgn * 35
+        length = s * (0.5 if pose == "clap" else 0.7)
         if pose in targets and sgn == 1:
             tx, ty = targets[pose]; length = max(s * 0.4, math.hypot(tx - sh[0], ty - sh[1]) - s * 0.2)
-        hx, hy2 = _limb(g, sh[0], sh[1], ang, length, s * 0.34, arm)
+        hx, hy2 = _limb(g, sh[0], sh[1], ang, length, s * 0.38, arm)
         g.ellipse([hx - s * 0.22, hy2 - s * 0.22, hx + s * 0.22, hy2 + s * 0.22], fill=SKIN + (255,))
         glow.append(("손", hx, hy2, s * 0.32))
     # 머리
-    g.ellipse([cx - hr, hy - hr, cx + hr, hy + hr], fill=SKIN + (255,))
     for sgn in (-1, 1):                                         # 귀
-        g.ellipse([cx + sgn * hr - s * 0.16, hy - s * 0.1, cx + sgn * hr + s * 0.16, hy + s * 0.25], fill=SKIN + (255,))
-    g.pieslice([cx - hr * 0.8, hy - hr * 1.0, cx + hr * 0.8, hy - hr * 0.35], 180, 360, fill=(150, 100, 70, 255))  # 머리카락
-    g.polygon([(cx - s * 0.05, hy - hr * 0.95), (cx + s * 0.3, hy - hr * 1.25), (cx + s * 0.2, hy - hr * 0.9)], fill=(150, 100, 70, 255))  # 앞머리 한 가닥
-    face(L, cx, hy + s * 0.12, s * 0.85, kind)
-    g.ellipse([cx - s * 0.07, hy + s * 0.12, cx + s * 0.07, hy + s * 0.22], fill=(240, 175, 150, 255))   # 코
-    glow += [("눈", cx, hy - s * 0.0, s * 0.6), ("코", cx, hy + s * 0.17, s * 0.18), ("입", cx, hy + s * 0.38, s * 0.22)]
+        g.ellipse([cx + sgn * hr - s * 0.17, hy - s * 0.02, cx + sgn * hr + s * 0.17, hy + s * 0.34], fill=SKIN + (255,))
+        g.ellipse([cx + sgn * hr - s * 0.08, hy + s * 0.07, cx + sgn * hr + s * 0.08, hy + s * 0.25], fill=(250, 195, 175, 255))
+    g.ellipse([cx - hr, hy - hr * 0.95, cx + hr, hy + hr * 0.95], fill=SKIN + (255,))   # 볼이 통통한 둥근 얼굴
+    g.chord([cx - hr, hy - hr * 0.95, cx + hr, hy + hr * 0.95], 208, 332, fill=hair + (255,))   # 보송한 머리카락 (머리 윤곽 따라)
+    for k in range(3):                                          # 앞머리 세 가닥
+        x = cx - hr * 0.3 + k * hr * 0.3
+        g.ellipse([x - hr * 0.19, hy - hr * 0.6, x + hr * 0.19, hy - hr * 0.33], fill=hair + (255,))
+    # 정수리 동그란 컬 한 가닥
+    g.arc([cx - s * 0.05, hy - hr - s * 0.42, cx + s * 0.42, hy - hr + s * 0.05], 120, 400, fill=hair + (255,), width=max(5, int(s * 0.1)))
+    ey = hy + s * 0.1
+    _baby_eyes(g, cx, ey, s, kind)
+    for sgn in (-1, 1):                                         # 큰 볼터치
+        g.ellipse([cx + sgn * s * 0.75 - s * 0.24, ey + s * 0.24, cx + sgn * s * 0.75 + s * 0.24, ey + s * 0.44], fill=(255, 160, 175, 255))
+    g.ellipse([cx - s * 0.06, hy + s * 0.32, cx + s * 0.06, hy + s * 0.4], fill=(240, 170, 150, 255))   # 코
+    my = hy + s * 0.48
+    if kind == "laugh":
+        g.chord([cx - s * 0.2, my - s * 0.08, cx + s * 0.2, my + s * 0.26], 0, 180, fill=(120, 55, 70, 255))
+        g.chord([cx - s * 0.12, my + s * 0.06, cx + s * 0.12, my + s * 0.26], 0, 180, fill=(250, 125, 140, 255))
+    elif kind == "o":
+        g.ellipse([cx - s * 0.09, my - s * 0.02, cx + s * 0.09, my + s * 0.18], fill=(120, 55, 70, 255))
+    else:
+        g.arc([cx - s * 0.15, my - s * 0.1, cx + s * 0.15, my + s * 0.12], 20, 160, fill=(120, 55, 70, 255), width=max(3, int(s * 0.05)))
+    glow += [("눈", cx, ey, s * 0.72), ("코", cx, hy + s * 0.36, s * 0.18), ("입", cx, my + s * 0.06, s * 0.26)]
     # 오른손을 맨 위에 다시 (얼굴을 가리킬 때 보이게)
     if pose in targets:
-        sh = (cx + s * 0.7, by - s * 0.45); tx, ty = targets[pose]
+        sh = (cx + s * 0.62, by - s * 0.4); tx, ty = targets[pose]
         ang = math.degrees(math.atan2(ty - sh[1], tx - sh[0])); length = max(s * 0.4, math.hypot(tx - sh[0], ty - sh[1]) - s * 0.2)
-        hx, hy2 = _limb(g, sh[0], sh[1], ang, length, s * 0.34, arm)
+        hx, hy2 = _limb(g, sh[0], sh[1], ang, length, s * 0.38, arm)
         g.ellipse([hx - s * 0.2, hy2 - s * 0.2, hx + s * 0.2, hy2 + s * 0.2], fill=SKIN + (255,))
-        fa = math.radians(ang); g.line([hx, hy2, hx + s * 0.25 * math.cos(fa), hy2 + s * 0.25 * math.sin(fa)], fill=SKIN + (255,), width=int(s * 0.12))
+        fa = math.radians(ang); g.line([hx, hy2, hx + s * 0.22 * math.cos(fa), hy2 + s * 0.22 * math.sin(fa)], fill=SKIN + (255,), width=int(s * 0.12))
     if hl:
         G = new_layer(L.width, L.height, (255, 230, 90)); gg = ImageDraw.Draw(G)
         for name, x, y, r in glow:

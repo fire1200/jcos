@@ -51,10 +51,12 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
         if i < 0 or q or (not kws and not sticky):
             # 숨바꼭질: 무언가 숨어서 살짝 흔들림
             w = 6 * math.sin(t * 7)
-            if hide == "cloud":
-                paste(f, plain_cloud(210), cx, cy + 40, rot=w * 0.4)
+            look = "o" if int(t * 1.2) % 3 else "smile"             # 두리번두리번: 놀란 입 ↔ 미소
+            if hide == "cloud":                                  # 몽글이(얼굴 있는 큰 구름)가 갸웃거리며 찾음
+                paste(f, cloud_char(200, look), cx + 12 * math.sin(t * 2.2), cy + 40, rot=w * 0.8)
             elif hide == "blanket":
                 from kids.fw_chars import blanket
+                paste(f, cloud_char(95, look), cx - 150, cy - 150 + 14 * math.sin(t * 3), rot=w)   # 이불 위로 몽글이가 빼꼼
                 paste(f, blanket(190), cx, cy + 60, rot=w * 0.3)
             elif hide == "fence":
                 g = ImageDraw.Draw(f)
@@ -63,6 +65,7 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
                     g.rounded_rectangle([x - 26, cy - 140, x + 26, cy + 200], 18, fill=(220, 170, 120, 255))
                 g.rounded_rectangle([cx - 380, cy - 60, cx + 380, cy - 20], 12, fill=(200, 150, 100, 255))
                 g.rounded_rectangle([cx - 380, cy + 90, cx + 380, cy + 130], 12, fill=(200, 150, 100, 255))
+                paste(f, cloud_char(90, look), cx - 230, cy - 200 + 14 * math.sin(t * 3), rot=w)   # 울타리 위로 몽글이가 빼꼼
             if q or i < 0:
                 paste(f, big_text("?", 200, (255, 255, 255), ink), cx + 400, cy - 220 + 10 * math.sin(t * 4), rot=10 * math.sin(t * 3))
             baby_kind = "o"
@@ -88,7 +91,8 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
             baby_kind = "laugh" if kws else "smile"
         # 아기 몽이(구름)가 왼쪽 아래에서 같이 봄
         from kids.fw_chars import baby_cloud
-        paste(f, baby_cloud(52, "squint" if night and sec in ("Chorus", "Outro") else baby_kind), 210, 860 + 8 * math.sin(t * 2))
+        bx, byy = (230, 790) if engine.CAPTIONS else (1320, 830)    # 쇼츠(가운데만 잘림)에서도 보이게
+        paste(f, baby_cloud(80, "squint" if night and sec in ("Chorus", "Outro") else baby_kind), bx, byy + 10 * math.sin(t * 2), rot=4 * math.sin(t * 1.7))
         title_card(f, t, title, (255, 255, 255), ink, y=150)
         if t > 4.0 or sec != "Intro":
             draw_caption(f, ctx["sched"], t, fg=cap_fg or ink)

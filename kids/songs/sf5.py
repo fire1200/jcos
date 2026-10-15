@@ -7,7 +7,7 @@ def _peek(f, x, y, sc, kind, t):
     paste(f, blanket(120), x, y + 160, scale=sc)
     paste(f, baby_cloud(105, "laugh"), x, y - 20, scale=sc)
 def _hi(f, x, y, sc, kind, t):
-    paste(f, baby(95, "wave", "손", "laugh"), x, y, scale=sc, rot=6 * math.sin(t * 6))
+    paste(f, baby(95, "wave", "손", "laugh"), x, y - 70, scale=sc * 0.85, rot=6 * math.sin(t * 6))
 def _kiss(f, x, y, sc, kind, t):
     paste(f, mom(95, "laugh"), x - 120 * sc, y, scale=sc); paste(f, baby_cloud(70, "laugh"), x + 140 * sc, y + 40, scale=sc)
     paste(f, big_text("♥", 110, (255, 120, 150), (255, 255, 255)), x + 20, y - 150 - 20 * math.sin(t * 4))
