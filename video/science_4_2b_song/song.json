@@ -41,5 +41,6 @@
     "08c"
   ],
   "gap_montage": 2.5,
-  "split_long": 5.5
+  "split_long": 5.5,
+  "audio_ver": 2
 }

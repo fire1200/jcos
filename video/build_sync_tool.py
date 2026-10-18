@@ -39,7 +39,9 @@ def build(web):
                 # 내려받아 쓰는 버전: 같은 폴더의 싱크용 영상을 자동으로 엶
                 "video": WEB_VIDEO.get(k, "") if web else [f"싱크용_{f}.webm", f"싱크용_{f}_720p.mp4"],
                 "csv": open(os.path.join(HERE, k, "timing.csv"), encoding="utf-8-sig").read(),
-                "layout": json.load(open(os.path.join(HERE, k, "song.json"), encoding="utf-8")).get("layout", "history")}
+                "layout": json.load(open(os.path.join(HERE, k, "song.json"), encoding="utf-8")).get("layout", "history"),
+                # 음원을 다시 만든 곡: 옛 음원으로 저장한 싱크 작업을 불러오지 않도록
+                "ver": json.load(open(os.path.join(HERE, k, "song.json"), encoding="utf-8")).get("audio_ver", 0)}
             for k, n, f in SONGS if os.path.exists(os.path.join(HERE, k, "timing.csv"))}   # 자막 초안이 아직 없는 곡은 빼기
     tpl = open(os.path.join(HERE, "sync_tool_template.html"), encoding="utf-8").read()
     html = tpl.replace("/*DATA*/", json.dumps(data, ensure_ascii=False))

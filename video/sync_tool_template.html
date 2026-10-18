@@ -176,9 +176,11 @@ const storeKey = () => "yeondo-sync-" + songKey;
 let db = null, remoteTimer = null;
 // 가사 지문: 가사가 바뀐 곡(예: 현대사 v1 → v2)에서 옛 작업을 불러오지 않도록 저장본에 함께 기록
 const lyricFp = (rs) => { let h = 5381; for (const ch of rs.map((r) => r.text).join("\n")) h = (h * 33 + ch.codePointAt(0)) >>> 0; return h.toString(36); };
-const sameLyrics = (saved) => saved.v ? saved.v === lyricFp(original) : lyricFp(saved.rows) === lyricFp(original);
+// 음원을 새로 만든 곡은 song.json의 audio_ver로 지문을 바꿔, 옛 음원으로 하던 작업을 불러오지 않음
+const curFp = () => lyricFp(original) + (SONGS[songKey].ver ? "#" + SONGS[songKey].ver : "");
+const sameLyrics = (saved) => saved.v ? saved.v === curFp() : !SONGS[songKey].ver && lyricFp(saved.rows) === lyricFp(original);
 function save() {
-  const at = Date.now(), v = lyricFp(original);
+  const at = Date.now(), v = curFp();
   try { localStorage.setItem(storeKey(), JSON.stringify({ rows, at, v })); } catch (e) {}
   if (!db) return;
   clearTimeout(remoteTimer); setCloud("저장 중…");
@@ -236,7 +238,7 @@ async function load(key) {
   }
   if (key !== songKey) return;
   rows = best && best.rows.length ? best.rows : JSON.parse(JSON.stringify(original));
-  sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : old ? "가사가 바뀌어 예전 작업 대신 새 가사로 시작합니다." : "");
+  sel = 0; render(); msg(from ? from + "에서 이전 작업을 불러왔습니다." : old ? "가사나 음원이 바뀌어 예전 작업 대신 새로 시작합니다." : "");
 }
 function render() {
   const tb = $("rows"); tb.innerHTML = ""; lastScrolled = -1; edShown = -1;
