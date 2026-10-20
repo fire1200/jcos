@@ -123,7 +123,65 @@ def make(name, bg, top, title, years, bottom, accent, badge="초등 한국사"):
     print(path, os.path.getsize(path) // 1024, "KB")
 
 
+# 2판 (2026-10-20): 시대 이름을 가장 크게, 핵심 사건을 강조색으로, "한국사 노래" 배지.
+# 클릭률이 낮던 영상(조선 후기 1.6% 등)용. (파일 이름, 배경 그림, 시대, 핵심 사건, 연도, 강조색)
+THUMBS2 = [
+    ("thumb_v2_joseon_late", "joseon_late_rap/images/10b.png", "조선 후기", "병자호란 · 영조 · 정조 · 실학", "1608~1863", (120, 220, 255)),
+    ("thumb_v2_samguk_war", "samguk_war_song/images/02b.png", "삼국 통일 전쟁", "살수 대첩 · 황산벌 · 나당 전쟁", "562~676", (255, 214, 64)),
+    ("thumb_v2_goryeo_late", "goryeo_late_rap/images/11c.png", "고려 후기", "무신 정변 · 몽골 침입 · 최무선", "1170~1392", (255, 190, 90)),
+    ("thumb_v2_nambukguk", "nambukguk_song/images/05c.png", "남북국 시대", "통일 신라 · 발해 · 석굴암", "685~935", (140, 230, 160)),
+]
+
+
+def fit(d, text, name, size, maxw, weight=None, step=6):
+    f = font(name, size, weight)
+    while d.textlength(text, font=f) > maxw and size > 40:
+        size -= step
+        f = font(name, size, weight)
+    return f, size
+
+
+def make2(name, bg, era, events, years, accent, badge="한국사 노래"):
+    img = cover(bg).convert("RGBA")
+    grad = Image.new("L", (W, 1))
+    grad.putdata([int(225 * max(0, 1 - x / (W * .78)) ** 1.1) for x in range(W)])
+    shade = Image.new("RGBA", (W, H), (8, 10, 26, 255))
+    shade.putalpha(grad.resize((W, H)))
+    img.alpha_composite(shade)
+    d = ImageDraw.Draw(img)
+
+    bf = font("NotoSansKR.ttf", 40, "Black")
+    bw = d.textlength(badge, font=bf)
+    d.rounded_rectangle([48, 40, 48 + bw + 52, 40 + 70], radius=35, fill=accent)
+    d.text((74, 44), badge, font=bf, fill=(20, 20, 30))
+
+    ef, es = fit(d, era, "BlackHanSans-Regular.ttf", 200, 1100)
+    shadowed_text(img, (44, 128 + (200 - es) // 2), era, ef, (255, 255, 255), (20, 20, 30), 12)
+
+    vf, _ = fit(d, events, "NotoSansKR.ttf", 66, 1040, "Black", 4)
+    shadowed_text(img, (52, 365), events, vf, accent, (15, 15, 25), 6)
+
+    yf = font("BlackHanSans-Regular.ttf", 110)
+    yw = d.textlength(years, font=yf)
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([48, 478, 48 + yw + 64, 478 + 128], radius=20, fill=(215, 40, 50))
+    d.text((80, 482), years, font=yf, fill=(255, 255, 255))
+
+    shadowed_text(img, (52, 630), "노래로 3분 만에 연도 끝!", font("NotoSansKR.ttf", 44, "Black"), (255, 255, 255), (20, 20, 30), 4)
+    cf = font("NotoSansKR.ttf", 30, "Bold")
+    cw = d.textlength(CHANNEL, font=cf)
+    shadowed_text(img, (W - cw - 40, H - 62), CHANNEL, cf, (255, 255, 255), (20, 20, 30), 3, shadow=6)
+
+    os.makedirs(OUT, exist_ok=True)
+    path = os.path.join(OUT, name + ".jpg")
+    img.convert("RGB").save(path, quality=92)
+    print(path, os.path.getsize(path) // 1024, "KB")
+
+
 if __name__ == "__main__":
     for t in THUMBS:
         if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
             make(*t)
+    for t in THUMBS2:
+        if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
+            make2(*t)
