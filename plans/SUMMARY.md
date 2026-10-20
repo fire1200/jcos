@@ -208,7 +208,8 @@
 | 문서 | 내용 |
 |---|---|
 | **이 문서** | 전체 정리 |
-| **`plans/verdict_ppaieo_20261020.md`** | **빠이요 최종 판정 (최신).** 유튜브 채널 종료, 유통만. Virtual Run 실패 |
+| **`plans/distribution_final_20261020.md`** | **유통 최종 실행안 (최신).** 해외만, EP 5장 순차. 국내·KOMCA는 1년 보류 |
+| **`plans/verdict_ppaieo_20261020.md`** | **빠이요 최종 판정.** 유튜브 채널 종료. Virtual Run 실패 |
 | **`plans/distribution_running_20261014.md`** | **러닝 음원 유통 실행안.** EP 5장, 국내·해외 분기, **KOMCA AI 규정** |
 | `plans/strategy_running_music_20261014.md` | 러닝 음악 전략. 유튜브가 아니라 스트리밍이 시장 |
 | `plans/decision_ppaieo_20261012.md` | 빠이요 결정. 2시간 믹스 중단은 유효, 위 문서가 일부 조정 |
