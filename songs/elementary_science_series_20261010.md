@@ -64,9 +64,9 @@
 | 5-1 하 | `songs/science_5_1b_song_20261014.md` | 24장 새로 | — |
 | 5-2 상 | `songs/science_5_2a_song_20261014.md` | 24장 새로 | — |
 | 5-2 하 | `songs/science_5_2b_song_20261014.md` | 24장 새로 | — |
-| 6-1 상 | `songs/science_6_1a_song_20261021.md` | 24장 새로 | — |
-| 6-1 하 | `songs/science_6_1b_song_20261021.md` | 24장 새로 | — |
-| 6-2 상 | `songs/science_6_2a_song_20261021.md` | 24장 새로 | — |
-| 6-2 하 | `songs/science_6_2b_song_20261021.md` | 24장 새로 | — |
+| 6-1 상 | `songs/science_6_1a_song_20261021.md` | 24장 새로 | 완성 (10/22) |
+| 6-1 하 | `songs/science_6_1b_song_20261021.md` | 24장 새로 | 완성 (10/22) |
+| 6-2 상 | `songs/science_6_2a_song_20261021.md` | 24장 새로 | 완성 (10/22) |
+| 6-2 하 | `songs/science_6_2b_song_20261021.md` | 24장 새로 | 완성 (10/22) |
 
 > 6학년은 2015 개정 단원 기준입니다. 6-2 **에너지와 생활**은 네 곡에 넣지 않았습니다(따로 한 곡으로 만들지 정해 주세요).
