@@ -1,0 +1,41 @@
+{
+  "duration": 77.6,
+  "title": "짝짝 고려 전기 1분 컷!",
+  "subtitle": "라데츠키 행진곡으로 외우는 고려 전기",
+  "timeline_years": [
+    "918",
+    "936",
+    "956",
+    "958",
+    "993",
+    "1019",
+    "1107",
+    "1126",
+    "1135",
+    "1145"
+  ],
+  "intro_end": 4.0,
+  "outro_start": 62.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "00",
+    "01",
+    "07",
+    "08",
+    "11"
+  ],
+  "outro_shots": [
+    "11",
+    "00"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
