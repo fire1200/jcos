@@ -8,7 +8,7 @@
 | ⓪ | 선사 시대 | 트리치 트라치 폴카 (요한 슈트라우스 2세) | 끝남 ✅ |
 | ① | 고조선과 삼국 | 왕벌의 비행 (림스키코르사코프) | 끝남 ✅ |
 | ② | 삼국 통일 전쟁 | 런던 브리지 (London Bridge Is Falling Down) | 전래 동요 ✅ |
-| ③ | 남북국 시대 | 칼의 춤 (하차투리안) | ⚠️ **아직 보호 중** (아래 설명) |
+| ③ | 남북국 시대 | 트레팍 — 「호두까기 인형」 러시아 춤 (차이콥스키) | 끝남 ✅ |
 | ④ | 고려 전기 | 라데츠키 행진곡 (요한 슈트라우스 1세) | 끝남 ✅ |
 | ⑤ | 고려 후기 | 양키 두들 (Yankee Doodle) | 전래 민요 ✅ |
 | ⑥ | 조선 전기 | 작은 별 (Twinkle, Twinkle, Little Star) | 전래 동요 ✅ |
@@ -16,8 +16,6 @@
 | ⑧ | 근대사 | 캉캉 (오펜바흐) — 따로 문서 | 끝남 ✅ |
 | ⑨ | 현대사 | 윌리엄 텔 서곡 피날레 (로시니) — 따로 문서 | 끝남 ✅ |
 
-> ⚠️ **③ 칼의 춤**: 하차투리안은 1978년에 세상을 떠나서, 우리나라 기준으로 **2048년까지 저작권이 남아 있습니다.** 선율을 그대로 쓴 노래는 유튜브에서 저작권 신고(수익 박탈, 차단)를 받을 수 있습니다. 같은 느낌의 **차이콥스키 「호두까기 인형」 트레팍(러시아 춤)**은 저작권이 끝났습니다. ③ 가사는 두 곡 모두에 맞게 썼으니, **트레팍으로 만드는 것을 권합니다.**
->
 > ⑦ **주먹 쥐고**: "주먹 쥐고 손을 펴서"는 루소의 선율이고, Frère Jacques("Are You Sleeping")와는 다른 곡입니다. 여기서는 아이들이 가장 잘 아는 **"주먹 쥐고"** 선율로 썼습니다. Frère Jacques로 원하시면 말씀해 주세요. 다시 맞춰 쓰겠습니다.
 
 ---
@@ -366,10 +364,11 @@ melody of the traditional nursery rhyme London Bridge Is Falling Down, upbeat bo
 
 ---
 
-## ③ 남북국 시대 — 칼의 춤 (권장: 트레팍)
+## ③ 남북국 시대 — 트레팍 (「호두까기 인형」 러시아 춤)
 
-**원곡 특징**: 실로폰과 금관이 쿵쿵 몰아치는 아주 빠른 2/4. 4글자 덩어리로 끊어 외치면 잘 맞습니다. (트레팍도 같은 빠르기와 박자입니다.)
+**원곡 특징**: 「호두까기 인형」 2막의 러시아 춤. 쿵쿵 발을 구르는 듯한 아주 빠른 2/4이고, 끝으로 갈수록 점점 빨라지며(프레스티시모) 끝납니다. 원곡 길이도 약 1분이라 간략본에 딱 맞습니다.
 **맞춘 방법**: "육팔오! 신문왕!"처럼 **4글자 덩어리**로 끊어, 몰아치는 리듬에 그대로 얹히게 했습니다.
+**Cover용 녹음 찾기**: 위키미디어 공용에서 "Nutcracker Trepak" 또는 "Russian Dance Nutcracker"를 검색해 **Public domain** 녹음을 받으세요.
 
 **Title**
 
@@ -377,13 +376,11 @@ melody of the traditional nursery rhyme London Bridge Is Falling Down, upbeat bo
 쿵쾅 남북국 시대 1분 컷!
 ```
 
-**Style of Music** (⚠️ 칼의 춤은 저작권 보호 중이라, 아래 트레팍 스타일을 권합니다)
+**Style of Music**
 
 ```
-Russian Trepak dance from The Nutcracker by Tchaikovsky, very fast 2/4, 160 BPM, full orchestra, driving strings, xylophone, tambourine, brass hits, accelerating ending, energetic, comedic, Korean kids group chant and powerful male lead, shouted hey, clear Korean diction, under 80 seconds, fun, educational
+Trepak Russian Dance melody from The Nutcracker by Tchaikovsky, very fast 2/4, 160 BPM, full orchestra, stomping accents, driving strings, tambourine, brass hits, accelerating prestissimo ending, energetic, comedic, Korean kids group chant and powerful male lead, shouted hey, clear Korean diction, under 80 seconds, fun, educational
 ```
-
-칼의 춤으로 만들고 싶으시면 위 첫 부분을 `Sabre Dance style, frantic xylophone and brass ostinato, 160 BPM` 으로 바꾸면 됩니다. 다만 선율이 비슷하게 나오면 저작권 신고를 받을 수 있습니다.
 
 **Lyrics**
 
@@ -435,7 +432,7 @@ Russian Trepak dance from The Nutcracker by Tchaikovsky, very fast 2/4, 160 BPM,
 ```
 [쿵쾅남북국] 아래 12장을 한 장씩 차례로 그려 줘. 공통 규칙(가로, 사람 대신 아기 고양이, 글자 없음)을 꼭 지켜.
 
-■ 00.png 통일 신라 옷의 냥돌이와 발해 옷의 냥순이가 무대 위에서 빠르게 발 구르며 춤, 아래쪽(신라)과 위쪽(발해) 지도 배경(글자 없음).
+■ 00.png 통일 신라 옷의 냥돌이와 발해 옷의 냥순이가 무대 위에서 쪼그려 앉아 다리를 번갈아 차는 러시아 춤(트레팍)을 신나게 추는 장면, 아래쪽(신라)과 위쪽(발해) 지도 배경(글자 없음).
 ■ 01.png 신문왕 고양이가 큰 지도(글자 없음)에 9개의 큰 점과 5개의 작은 점을 콕콕 찍으며 으쓱.
 ■ 02.png 신문왕 고양이가 귀족 고양이들의 땅 문서를 거두고, 관리 고양이들에게 작은 밭(관료전)을 나눠 줌. 귀족 고양이들 입이 삐죽.
 ■ 03.png 대조영 고양이가 동모산 꼭대기에서 고구려 옷 고양이들과 함께 새 나라를 세우며 만세.
