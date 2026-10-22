@@ -31,7 +31,17 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("science_6_1a_song", "과학 6학년 1학기 상", "과학6-1상"),
          ("science_6_1b_song", "과학 6학년 1학기 하", "과학6-1하"),
          ("science_6_2a_song", "과학 6학년 2학기 상", "과학6-2상"),
-         ("science_6_2b_song", "과학 6학년 2학기 하", "과학6-2하")]
+         ("science_6_2b_song", "과학 6학년 2학기 하", "과학6-2하"),
+         ("short_0_prehistory", "간략 ⓪ 폴카 선사 시대", "폴카선사"),
+         ("short_1_samguk_rise", "간략 ① 윙윙 고조선과 삼국", "윙윙삼국"),
+         ("short_2_samguk_war", "간략 ② 런던 브리지 삼국 통일", "런던통일"),
+         ("short_3_nambukguk", "간략 ③ 쿵쾅 남북국 시대", "쿵쾅남북국"),
+         ("short_4_goryeo_early", "간략 ④ 짝짝 고려 전기", "짝짝고려전기"),
+         ("short_5_goryeo_late", "간략 ⑤ 양키 두들 고려 후기", "양키고려후기"),
+         ("short_6_joseon_early", "간략 ⑥ 반짝반짝 조선 전기", "반짝조선전기"),
+         ("short_7_joseon_late", "간략 ⑦ 주먹 쥐고 조선 후기", "주먹조선후기"),
+         ("short_8_modern", "간략 ⑧ 캉캉 근대사", "캉캉근대사"),
+         ("short_9_contemporary", "간략 ⑨ 다그닥 현대사", "다그닥현대사")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",
