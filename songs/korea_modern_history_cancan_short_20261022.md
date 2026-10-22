@@ -132,7 +132,7 @@
 **Style of Music** (방법 A, B 공통)
 
 ```
-French cancan galop, Offenbach style operetta, very fast 2/4, 168 BPM, full theater orchestra, bright brass fanfare, piccolo, snare rolls, cymbal crashes, comedic vaudeville, energetic Korean male lead and kids group chant, playful shouts hey, clear Korean diction, short song under 80 seconds, educational, fun
+Can-can melody Galop infernal by Offenbach from Orpheus in the Underworld, very fast 2/4, 168 BPM, full theater orchestra, bright brass fanfare, piccolo, snare rolls, cymbal crashes, comedic vaudeville, energetic Korean male lead and kids group chant, playful shouts hey, clear Korean diction, short song under 80 seconds, educational, fun
 ```
 
 **Exclude Styles**

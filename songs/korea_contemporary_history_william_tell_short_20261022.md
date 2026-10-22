@@ -123,7 +123,7 @@
 **Style of Music** (방법 A, B 공통)
 
 ```
-William Tell overture finale style galop, Rossini style, very fast 2/4 gallop rhythm, 152 BPM, full orchestra, bright trumpet fanfare, galloping strings, horse hoof percussion, cymbal crashes, comedic, energetic Korean male lead and kids group chant, playful shouts, clear Korean diction, short song under 80 seconds, educational, fun
+William Tell Overture finale melody by Rossini, very fast 2/4 gallop rhythm, 152 BPM, full orchestra, bright trumpet fanfare, galloping strings, horse hoof percussion, cymbal crashes, comedic, energetic Korean male lead and kids group chant, playful shouts, clear Korean diction, short song under 80 seconds, educational, fun
 ```
 
 **Exclude Styles**
