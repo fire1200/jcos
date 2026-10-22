@@ -1,0 +1,45 @@
+{
+  "duration": 229.56,
+  "title": "6학년 2학기 과학송 (상)",
+  "subtitle": "전기의 이용 · 계절의 변화",
+  "timeline_years": [
+    "전기의 이용",
+    "계절의 변화"
+  ],
+  "intro_end": 13.0,
+  "outro_start": 218.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04c",
+    "05b",
+    "06a",
+    "07a",
+    "08c"
+  ],
+  "outro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04a",
+    "05b",
+    "06a",
+    "06b",
+    "07a",
+    "08a",
+    "08c"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}

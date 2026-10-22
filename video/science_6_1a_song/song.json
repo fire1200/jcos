@@ -1,0 +1,45 @@
+{
+  "duration": 249.2,
+  "title": "6학년 1학기 과학송 (상)",
+  "subtitle": "지구와 달의 운동 · 여러 가지 기체",
+  "timeline_years": [
+    "지구와 달의 운동",
+    "여러 가지 기체"
+  ],
+  "intro_end": 16.0,
+  "outro_start": 238.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04c",
+    "05b",
+    "06a",
+    "07a",
+    "08c"
+  ],
+  "outro_shots": [
+    "01a",
+    "02b",
+    "03a",
+    "04a",
+    "05b",
+    "06a",
+    "06b",
+    "07a",
+    "08a",
+    "08c"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 5.5
+}

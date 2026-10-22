@@ -27,7 +27,11 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("science_5_1a_song", "과학 5학년 1학기 상", "과학5-1상"),
          ("science_5_1b_song", "과학 5학년 1학기 하", "과학5-1하"),
          ("science_5_2a_song", "과학 5학년 2학기 상", "과학5-2상"),
-         ("science_5_2b_song", "과학 5학년 2학기 하", "과학5-2하")]
+         ("science_5_2b_song", "과학 5학년 2학기 하", "과학5-2하"),
+         ("science_6_1a_song", "과학 6학년 1학기 상", "과학6-1상"),
+         ("science_6_1b_song", "과학 6학년 1학기 하", "과학6-1하"),
+         ("science_6_2a_song", "과학 6학년 2학기 상", "과학6-2상"),
+         ("science_6_2b_song", "과학 6학년 2학기 하", "과학6-2하")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",
