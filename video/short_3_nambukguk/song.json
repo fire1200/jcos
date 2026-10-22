@@ -1,0 +1,42 @@
+{
+  "duration": 78.68,
+  "title": "쿵쾅 남북국 시대 1분 컷!",
+  "subtitle": "트레팍으로 외우는 남북국 시대",
+  "timeline_years": [
+    "685",
+    "687",
+    "698",
+    "751",
+    "788",
+    "828",
+    "889",
+    "900",
+    "901",
+    "926",
+    "935"
+  ],
+  "intro_end": 2.2,
+  "outro_start": 46.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "00",
+    "03",
+    "05",
+    "07",
+    "11"
+  ],
+  "outro_shots": [
+    "11",
+    "00"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}

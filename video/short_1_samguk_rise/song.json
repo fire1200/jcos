@@ -1,0 +1,43 @@
+{
+  "duration": 78.28,
+  "title": "윙윙 고조선과 삼국 1분 컷!",
+  "subtitle": "왕벌의 비행으로 외우는 고조선과 삼국",
+  "timeline_years": [
+    "BC 2333",
+    "BC 108",
+    "BC 57",
+    "BC 37",
+    "BC 18",
+    "42",
+    "371",
+    "372",
+    "391",
+    "427",
+    "527",
+    "553"
+  ],
+  "intro_end": 4.2,
+  "outro_start": 60.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "00",
+    "01",
+    "04",
+    "09",
+    "11"
+  ],
+  "outro_shots": [
+    "11",
+    "00"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}

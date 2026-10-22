@@ -1,0 +1,35 @@
+{
+  "duration": 78.68,
+  "title": "폴카 선사 시대 1분 컷!",
+  "subtitle": "트리치 트라치 폴카로 외우는 선사 시대",
+  "timeline_years": [
+    "70만 년 전",
+    "1만 년 전",
+    "BC 20세기",
+    "BC 5세기"
+  ],
+  "intro_end": 2.2,
+  "outro_start": 62.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "00",
+    "01",
+    "04",
+    "07",
+    "10"
+  ],
+  "outro_shots": [
+    "11",
+    "00"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}

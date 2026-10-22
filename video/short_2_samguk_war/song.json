@@ -1,0 +1,40 @@
+{
+  "duration": 79.2,
+  "title": "런던 브리지 삼국 통일 1분 컷!",
+  "subtitle": "런던 브리지로 외우는 삼국 통일 전쟁",
+  "timeline_years": [
+    "562",
+    "612",
+    "642",
+    "645",
+    "648",
+    "660",
+    "668",
+    "675",
+    "676"
+  ],
+  "intro_end": 2.2,
+  "outro_start": 60.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "intro_shots": [
+    "00",
+    "02",
+    "06",
+    "10",
+    "11"
+  ],
+  "outro_shots": [
+    "11",
+    "00"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
