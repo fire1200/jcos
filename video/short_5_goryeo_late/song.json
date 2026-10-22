@@ -16,7 +16,7 @@
     "1392"
   ],
   "intro_end": 6.2,
-  "outro_start": 46.9,
+  "outro_start": 46.96,
   "scenes": [
     [
       0,
@@ -38,5 +38,6 @@
     "00"
   ],
   "gap_montage": 2.5,
-  "split_long": 99
+  "split_long": 99,
+  "layout": "short"
 }

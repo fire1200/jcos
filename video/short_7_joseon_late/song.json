@@ -17,7 +17,7 @@
     "1863"
   ],
   "intro_end": 1.5,
-  "outro_start": 62.5,
+  "outro_start": 79.8,
   "scenes": [
     [
       0,
@@ -39,5 +39,6 @@
     "00"
   ],
   "gap_montage": 2.5,
-  "split_long": 99
+  "split_long": 99,
+  "layout": "short"
 }

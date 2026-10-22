@@ -50,6 +50,7 @@ TITLE = CFG["title"]
 SUBTITLE = CFG["subtitle"]
 TIMELINE_YEARS = CFG["timeline_years"]
 SCIENCE = CFG["layout"] == "science"
+SHORT = CFG["layout"] == "short"   # 간략본: 연도는 맨 위에 작게, 채널 이름은 오른쪽 위
 
 
 def hexc(s):
@@ -810,9 +811,9 @@ def draw_card(img, r, t):
     a_in = ease((t - r["start"]) / .35) * ease((r["end"] - t) / .25)
     rise = (1 - ease((t - r["start"]) / .45)) * 30
     if kind in ("hook", "gang") and r["year"]:
-        lab = T.label(r["year"], FONT_DISPLAY, 100 if SCIENCE else 150, None, (255, 255, 255), shadow=14,
-                      glow=((255, 200, 140), 22, .55), maxw=1800)
-        cy = 20 + lab.shape[0] / 2 if SCIENCE else 300
+        lab = T.label(r["year"], FONT_DISPLAY, 100 if SCIENCE or SHORT else 150, None, (255, 255, 255), shadow=14,
+                      glow=((255, 200, 140), 22, .55), maxw=1500 if SHORT else 1800)
+        cy = 20 + lab.shape[0] / 2 if SCIENCE or SHORT else 300
         over(img, lab, (W - lab.shape[1]) // 2, int(cy - lab.shape[0] / 2 + rise), a_in)
         return
     if not r["year"]:
@@ -837,6 +838,14 @@ def draw_card(img, r, t):
             elab = T.label(ln, FONT_BODY, 132 if len(lines) == 1 else 112, "Bold", (255, 244, 225), shadow=12, maxw=1760)
             over(img, elab, (W - elab.shape[1]) // 2, y, a_in)
             y += elab.shape[0] - 40
+        return
+    if SHORT:   # 그림을 가리지 않게 맨 위에 작게
+        ylab = T.label(year_txt, FONT_DISPLAY, 112, None, (255, 255, 255), shadow=14, glow=((255, 196, 130), 22, .6), maxw=1400)
+        yy = int(-6 + rise)
+        over(img, ylab, (W - ylab.shape[1]) // 2, yy, a_in)
+        if ev_txt:
+            elab = T.label(ev_txt, FONT_BODY, 50, "Bold", (255, 244, 225), shadow=10, maxw=1400)
+            over(img, elab, (W - elab.shape[1]) // 2, yy + ylab.shape[0] - 46, a_in)
         return
     ylab = T.label(year_txt, FONT_DISPLAY, 210, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6), maxw=1800)
     elab = T.label(ev_txt, FONT_BODY, 66, "Bold", (255, 244, 225), shadow=10, maxw=1600)
@@ -882,7 +891,7 @@ def draw_channel(img):
     if not CFG["channel"]:
         return
     lab = tx().label(CFG["channel"], FONT_BODY, 34, "Bold", (255, 255, 255), shadow=8)
-    over(img, lab, W - lab.shape[1] - 14 if SCIENCE else (W - lab.shape[1]) // 2, 6, .7)
+    over(img, lab, W - lab.shape[1] - 14 if SCIENCE or SHORT else (W - lab.shape[1]) // 2, 6, .7)
 
 
 # ---------------------------------------------------------------- frame

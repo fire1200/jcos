@@ -17,7 +17,7 @@
     "2002"
   ],
   "intro_end": 2.2,
-  "outro_start": 64.5,
+  "outro_start": 80.2,
   "scenes": [
     [
       0,
@@ -38,5 +38,6 @@
     "00"
   ],
   "gap_montage": 2.5,
-  "split_long": 99
+  "split_long": 99,
+  "layout": "short"
 }
