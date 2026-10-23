@@ -158,7 +158,7 @@ def fit(d, text, name, size, maxw, weight=None, step=6):
     return f, size
 
 
-def make2(name, bg, era, events, years, accent, badge="한국사 노래", bottom="노래로 3분 만에 연도 끝!"):
+def make2(name, bg, era, events, years, accent, badge="한국사 노래", bottom="노래로 3분 만에 연도 끝!", big_badge=False):
     img = cover(bg).convert("RGBA")
     grad = Image.new("L", (W, 1))
     grad.putdata([int(225 * max(0, 1 - x / (W * .78)) ** 1.1) for x in range(W)])
@@ -167,16 +167,24 @@ def make2(name, bg, era, events, years, accent, badge="한국사 노래", bottom
     img.alpha_composite(shade)
     d = ImageDraw.Draw(img)
 
-    bf = font("NotoSansKR.ttf", 40, "Black")
-    bw = d.textlength(badge, font=bf)
-    d.rounded_rectangle([48, 40, 48 + bw + 52, 40 + 70], radius=35, fill=accent)
-    d.text((74, 44), badge, font=bf, fill=(20, 20, 30))
+    if big_badge:   # 크고 눈에 띄는 배지: 진한 테두리 + 그림자
+        bf = font("NotoSansKR.ttf", 66, "Black")
+        bw = d.textlength(badge, font=bf)
+        d.rounded_rectangle([42, 40, 42 + bw + 76, 40 + 112], radius=56, fill=(20, 20, 30))
+        d.rounded_rectangle([34, 30, 34 + bw + 76, 30 + 112], radius=56, fill=accent, outline=(255, 255, 255), width=6)
+        d.text((72, 37), badge, font=bf, fill=(20, 20, 30))
+    else:
+        bf = font("NotoSansKR.ttf", 40, "Black")
+        bw = d.textlength(badge, font=bf)
+        d.rounded_rectangle([48, 40, 48 + bw + 52, 40 + 70], radius=35, fill=accent)
+        d.text((74, 44), badge, font=bf, fill=(20, 20, 30))
 
     ef, es = fit(d, era, "BlackHanSans-Regular.ttf", 200, 1100)
-    shadowed_text(img, (44, 128 + (200 - es) // 2), era, ef, (255, 255, 255), (20, 20, 30), 12)
+    shadowed_text(img, (44, (178 if big_badge else 128) + (200 - es) // 2), era, ef, (255, 255, 255), (20, 20, 30), 12)
 
-    vf, _ = fit(d, events, "NotoSansKR.ttf", 66, 1040, "Black", 4)
-    shadowed_text(img, (52, 365), events, vf, accent, (15, 15, 25), 6)
+    if events:
+        vf, _ = fit(d, events, "NotoSansKR.ttf", 66, 1040, "Black", 4)
+        shadowed_text(img, (52, 365), events, vf, accent, (15, 15, 25), 6)
 
     yf = font("BlackHanSans-Regular.ttf", 110)
     yw = d.textlength(years, font=yf)
@@ -204,4 +212,4 @@ if __name__ == "__main__":
             make2(*t)
     for t in THUMBS3:
         if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
-            make2(*t, badge="한국사 1분 컷 · 냥계 버전", bottom="1분은 맛보기, 전곡은 인간계에서다냥!")
+            make2(t[0], t[1], t[2], "", t[4], t[5], badge="한국사 1분 컷 · 냥계 버전", bottom="1분은 맛보기, 전곡은 인간계에서다냥!", big_badge=True)
