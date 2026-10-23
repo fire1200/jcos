@@ -27,6 +27,16 @@ def make(out, a, b, length, art="1"):
             paste(f, sp, x, 790)
         paste(f, fairy(50, "laugh"), 960, 240)
         paste(f, cloud_char(70, "laugh"), 760, 230); paste(f, cloud_char(60, "laugh", (255, 215, 230)), 1160, 250)
+    elif art == "5":  # 모음05 깔깔 효과음: 빵빵한 방귀 구름, 공룡, 자동차, 거품 괴물, 양말, 다람쥐
+        from kids.s2_chars import toy_car, foam_monster
+        paste(f, cloud_char(130, "puff", (255, 225, 235)), 330, 260, rot=-6)
+        paste(f, big_text("뿡!", 90, (255, 255, 255), (240, 120, 150)), 560, 150, rot=12)
+        paste(f, cloud_char(70, "laugh"), 960, 230)
+        paste(f, foam_monster(95, "laugh"), 1600, 280)
+        paste(f, dino(105, 1, "laugh"), 260, 760)
+        paste(f, sock(90, "laugh"), 520, 800, rot=-10)
+        paste(f, toy_car(110, ang=20), 1440, 800)
+        paste(f, squirrel(80, "laugh", 0.6), 1720, 760)
     elif art == "2":  # 모음02: 무지개 크게, 양말·고래·공룡
         paste(f, rainbow(640, 30), 960, 760)
         paste(f, sock(130, "laugh"), 380, 720, rot=-10)
