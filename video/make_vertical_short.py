@@ -98,6 +98,14 @@ def main(key, cut, ending, out):
                                            fill=(255, 214, 64), outline=(255, 255, 255), width=5)
     bimg.alpha_composite(badge, (25, 6))
     title = label(cfg["title"].replace(" 1분 컷!", ""), FONT_DISPLAY, 120, (255, 255, 255), stroke=10)
+    # 채널로 오게 하는 문구: 그림 아래쪽에 늘 떠 있는 띠 (두 문구를 번갈아)
+    ctas = []
+    for txt in ("▶ 1분 컷 풀버전은 채널에서!", "▶ 전곡은 「호크마 차일드 스터디」에서!"):
+        c = label(txt, FONT_BODY, 50, (255, 255, 255), "Black", stroke=6, maxw=960)
+        pill = Image.new("RGBA", (c.width + 40, c.height + 6), (0, 0, 0, 0))
+        ImageDraw.Draw(pill).rounded_rectangle((0, 0, pill.width - 1, pill.height - 1), radius=pill.height // 2, fill=(215, 40, 50, 230))
+        pill.alpha_composite(c, (20, 3))
+        ctas.append(pill)
     cache = {}
 
     def lab(key_, fn):
@@ -151,6 +159,8 @@ def main(key, cut, ending, out):
                 ll.putalpha(l.getchannel("A").point(lambda v: int(v * fa)))
                 frame.alpha_composite(ll, ((W - l.width) // 2, int(yy)))
                 yy += l.height - 16
+        cta = ctas[int(t // 6) % 2]
+        frame.alpha_composite(cta, ((W - cta.width) // 2, PIC_Y + PIC_H - cta.height - 20))
         f = min(1, t / .5)
         rgb = frame.convert("RGB")
         if f < 1:
@@ -160,11 +170,16 @@ def main(key, cut, ending, out):
     p.wait()
 
     # 엔딩: 가로 엔딩 영상을 가운데에 크게, 배경은 흐리게
-    top = label("🐾 다음은 인간계 전곡!".replace("🐾 ", ""), FONT_DISPLAY, 92, (255, 230, 120), stroke=9)
-    sub = label("채널에서 냥계 1분 컷 & 전곡 보기", FONT_BODY, 54, (255, 255, 255), "Black", stroke=7)
+    top = label("다음은 인간계 전곡!", FONT_DISPLAY, 96, (255, 230, 120), stroke=9)
+    sub = label("「호크마 차일드 스터디」 채널에서", FONT_BODY, 56, (255, 255, 255), "Black", stroke=7)
+    sub2 = label("1분 컷 풀버전 & 전곡 보러 가자냥!", FONT_BODY, 56, (255, 255, 255), "Black", stroke=7)
+    sub3 = label("구독하면 냥력 100%! 🔔".replace(" 🔔", ""), FONT_DISPLAY, 80, (255, 150, 170), stroke=8)
     ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ov.alpha_composite(top, ((W - top.width) // 2, 330))
-    ov.alpha_composite(sub, ((W - sub.width) // 2, 330 + top.height + 10))
+    y = 250
+    for im in (top, sub, sub2):
+        ov.alpha_composite(im, ((W - im.width) // 2, y))
+        y += im.height + 4
+    ov.alpha_composite(sub3, ((W - sub3.width) // 2, 1330))
     ovp = out + ".ov.png"
     ov.save(ovp)
     endp = out + ".end.mp4"
