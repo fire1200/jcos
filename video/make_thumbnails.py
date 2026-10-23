@@ -141,6 +141,15 @@ THUMBS2 = [
 ]
 
 
+# 고양이 1분 컷(냥계 버전)
+THUMBS3 = [
+    ("thumb_cat_joseon_early", "short_6_joseon_early/images/00.png", "조선 전기", "작은 별 노래로 1분 컷!", "1388~1498", (255, 214, 64)),
+    ("thumb_cat_joseon_late", "short_7_joseon_late/images/00.png", "조선 후기", "주먹 쥐고 노래로 1분 컷!", "1608~1863", (140, 230, 160)),
+    ("thumb_cat_modern", "short_8_modern/images/00.png", "근대사", "캉캉 노래로 1분 컷!", "1866~1945", (255, 150, 190)),
+    ("thumb_cat_contemporary", "short_9_contemporary/images/00.png", "현대사", "윌리엄 텔 노래로 1분 컷!", "1960~2002", (120, 220, 255)),
+]
+
+
 def fit(d, text, name, size, maxw, weight=None, step=6):
     f = font(name, size, weight)
     while d.textlength(text, font=f) > maxw and size > 40:
@@ -149,7 +158,7 @@ def fit(d, text, name, size, maxw, weight=None, step=6):
     return f, size
 
 
-def make2(name, bg, era, events, years, accent, badge="한국사 노래"):
+def make2(name, bg, era, events, years, accent, badge="한국사 노래", bottom="노래로 3분 만에 연도 끝!"):
     img = cover(bg).convert("RGBA")
     grad = Image.new("L", (W, 1))
     grad.putdata([int(225 * max(0, 1 - x / (W * .78)) ** 1.1) for x in range(W)])
@@ -175,7 +184,7 @@ def make2(name, bg, era, events, years, accent, badge="한국사 노래"):
     d.rounded_rectangle([48, 478, 48 + yw + 64, 478 + 128], radius=20, fill=(215, 40, 50))
     d.text((80, 482), years, font=yf, fill=(255, 255, 255))
 
-    shadowed_text(img, (52, 630), "노래로 3분 만에 연도 끝!", font("NotoSansKR.ttf", 44, "Black"), (255, 255, 255), (20, 20, 30), 4)
+    shadowed_text(img, (52, 630), bottom, font("NotoSansKR.ttf", 44, "Black"), (255, 255, 255), (20, 20, 30), 4)
     cf = font("NotoSansKR.ttf", 30, "Bold")
     cw = d.textlength(CHANNEL, font=cf)
     shadowed_text(img, (W - cw - 40, H - 62), CHANNEL, cf, (255, 255, 255), (20, 20, 30), 3, shadow=6)
@@ -193,3 +202,6 @@ if __name__ == "__main__":
     for t in THUMBS2:
         if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
             make2(*t)
+    for t in THUMBS3:
+        if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
+            make2(*t, badge="한국사 1분 컷 · 냥계 버전", bottom="1분은 맛보기, 전곡은 인간계에서다냥!")
