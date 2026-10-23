@@ -141,6 +141,55 @@ THUMBS2 = [
 ]
 
 
+# 고양이 1분 컷(냥계 버전) v2: 고양이 그림을 오른쪽에 크게, 글자는 왼쪽 판에
+THUMBS4 = [
+    ("thumb_cat_joseon_early", "short_6_joseon_early/images/E2.png", .25, "조선 전기", "1388~1498", (255, 214, 64), (24, 26, 70)),
+    ("thumb_cat_joseon_late", "short_7_joseon_late/images/E2.png", .30, "조선 후기", "1608~1863", (140, 230, 160), (20, 52, 44)),
+    ("thumb_cat_modern", "short_8_modern/images/E2.png", .28, "근대사", "1866~1945", (255, 150, 190), (70, 16, 30)),
+    ("thumb_cat_contemporary", "short_9_contemporary/images/E2.png", .33, "현대사", "1960~2002", (120, 220, 255), (14, 42, 80)),
+]
+
+
+def make3(name, bg, cx, era, years, accent, panel):
+    img = Image.new("RGBA", (W, H), panel + (255,))
+    src = Image.open(os.path.join(HERE, bg)).convert("RGB").transpose(Image.FLIP_LEFT_RIGHT)   # 고양이가 오른쪽으로 오게
+    cx = 1 - cx
+    pw, x0 = 820, W - 820
+    ch = int(src.height * .84)
+    cw = int(ch * pw / H)
+    left = int(min(max(0, src.width * cx - cw / 2), src.width - cw))
+    pic = src.crop((left, src.height - ch, left + cw, src.height)).resize((pw, H), Image.LANCZOS).convert("RGBA")
+    m = Image.new("L", (pw, 1))
+    m.putdata([int(255 * min(1, x / 150)) for x in range(pw)])
+    pic.putalpha(m.resize((pw, H)))
+    img.alpha_composite(pic, (x0, 0))
+    d = ImageDraw.Draw(img)
+    badge = "한국사 1분 컷"
+    bf = font("NotoSansKR.ttf", 62, "Black")
+    bw = d.textlength(badge, font=bf)
+    d.rounded_rectangle([38, 44, 38 + bw + 70, 44 + 104], radius=52, fill=(10, 10, 20))
+    d.rounded_rectangle([30, 34, 30 + bw + 70, 34 + 104], radius=52, fill=accent, outline=(255, 255, 255), width=6)
+    d.text((65, 40), badge, font=bf, fill=(20, 20, 30))
+    sf = font("NotoSansKR.ttf", 46, "Black")
+    shadowed_text(img, (40, 160), "🐾 냥계 버전".replace("🐾 ", ""), sf, accent, (10, 10, 20), 5)
+    ef, es = fit(d, era, "BlackHanSans-Regular.ttf", 190, 560)
+    shadowed_text(img, (34, 225 + (190 - es) // 2), era, ef, (255, 255, 255), (10, 10, 20), 12)
+    yf, ys = fit(d, years, "BlackHanSans-Regular.ttf", 100, 500)
+    yw = d.textlength(years, font=yf)
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([38, 450, 38 + yw + 56, 450 + ys + 22], radius=20, fill=(215, 40, 50))
+    d.text((66, 454), years, font=yf, fill=(255, 255, 255))
+    shadowed_text(img, (40, 610), "1분은 맛보기,", font("NotoSansKR.ttf", 40, "Black"), (255, 255, 255), (10, 10, 20), 4)
+    shadowed_text(img, (40, 658), "전곡은 인간계에서다냥!", font("NotoSansKR.ttf", 40, "Black"), (255, 230, 120), (10, 10, 20), 4)
+    cf = font("NotoSansKR.ttf", 28, "Bold")
+    cw2 = d.textlength(CHANNEL, font=cf)
+    shadowed_text(img, (W - cw2 - 30, H - 52), CHANNEL, cf, (255, 255, 255), (20, 20, 30), 3, shadow=6)
+    os.makedirs(OUT, exist_ok=True)
+    path = os.path.join(OUT, name + ".jpg")
+    img.convert("RGB").save(path, quality=92)
+    print(path, os.path.getsize(path) // 1024, "KB")
+
+
 # 고양이 1분 컷(냥계 버전)
 THUMBS3 = [
     ("thumb_cat_joseon_early", "short_6_joseon_early/images/00.png", "조선 전기", "작은 별 노래로 1분 컷!", "1388~1498", (255, 214, 64)),
@@ -210,6 +259,9 @@ if __name__ == "__main__":
     for t in THUMBS2:
         if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
             make2(*t)
-    for t in THUMBS3:
+    for t in THUMBS4:
         if len(sys.argv) < 2 or t[0] in sys.argv[1:]:
+            make3(*t)
+    for t in THUMBS3:
+        if len(sys.argv) < 2 or t[0] + "_v1" in sys.argv[1:]:
             make2(t[0], t[1], t[2], "", t[4], t[5], badge="한국사 1분 컷 · 냥계 버전", bottom="1분은 맛보기, 전곡은 인간계에서다냥!", big_badge=True)
