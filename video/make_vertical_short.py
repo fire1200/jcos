@@ -81,7 +81,8 @@ class Pics:
         return self.cache[name]
 
 
-def main(key, cut, ending, out):
+def main(key, cut, ending, out, start=0, hook=""):
+    start = float(start)
     d = os.path.join(HERE, key)
     cfg = json.load(open(os.path.join(d, "song.json"), encoding="utf-8"))
     cut = float(cut)
@@ -115,14 +116,15 @@ def main(key, cut, ending, out):
 
     seg = out + ".part.mp4"
     p = subprocess.Popen([FF, "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
-                          "-i", "-", "-ss", "0", "-t", f"{cut:.3f}", "-i", os.path.join(d, "assets", "song.mp3"),
-                          "-af", f"afade=t=out:st={cut - 1.2:.3f}:d=1.2", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
+                          "-i", "-", "-ss", f"{start:.3f}", "-t", f"{cut - start:.3f}", "-i", os.path.join(d, "assets", "song.mp3"),
+                          "-af", f"afade=t=out:st={cut - start - 1.2:.3f}:d=1.2", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
                           "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", seg], stdin=subprocess.PIPE)
-    for i in range(int(cut * FPS)):
-        t = i / FPS
+    hook_im = label(hook, FONT_DISPLAY, 104, (255, 230, 90), stroke=10, maxw=1020) if hook else None
+    for i in range(int((cut - start) * FPS)):
+        t = start + i / FPS
         cur = [s for s in shots if s["start"] <= t < s["end"]] or shots[-1:]
         s = cur[0]
-        pic, bg = pics.get(s["image"])
+        pic, bg = pics.get("00.png" if hook_im and t - start < 3.0 else s["image"])
         a = min(1, (t - s["start"]) / .3)
         prev = [x for x in shots if x["end"] <= s["start"] + .01]
         if a < 1 and prev:
@@ -136,7 +138,8 @@ def main(key, cut, ending, out):
         frame.alpha_composite(bimg, ((W - bimg.width) // 2, 150))
         r = next((x for x in rows if x["start"] <= t < x["end"]), None)
         if r is None or not r["year"]:
-            frame.alpha_composite(title, ((W - title.width) // 2, 270))
+            if not hook_im:
+                frame.alpha_composite(title, ((W - title.width) // 2, 270))
         if r is not None:
             fa = min(1, (t - r["start"]) / .2)
             if r["year"]:
@@ -159,9 +162,14 @@ def main(key, cut, ending, out):
                 ll.putalpha(l.getchannel("A").point(lambda v: int(v * fa)))
                 frame.alpha_composite(ll, ((W - l.width) // 2, int(yy)))
                 yy += l.height - 16
-        cta = ctas[int(t // 6) % 2]
+        cta = ctas[int((t - start) // 6) % 2]
         frame.alpha_composite(cta, ((W - cta.width) // 2, PIC_Y + PIC_H - cta.height - 20))
-        f = min(1, t / .5)
+        if hook_im and t - start < 3.0:   # 첫 3초: 큰 훅 문구 (넘기지 않게)
+            ha = min(1, (start + 3.0 - t) / .3)
+            hh = hook_im.copy()
+            hh.putalpha(hook_im.getchannel("A").point(lambda v: int(v * ha)))
+            frame.alpha_composite(hh, ((W - hook_im.width) // 2, 300))
+        f = 1 if start or hook_im else min(1, t / .5)
         rgb = frame.convert("RGB")
         if f < 1:
             rgb = Image.blend(Image.new("RGB", (W, H)), rgb, f)
@@ -189,7 +197,7 @@ def main(key, cut, ending, out):
                     "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-c:a", "aac", "-b:a", "192k",
                     endp], check=True)
     subprocess.run([FF, "-y", "-v", "error", "-i", seg, "-i", endp, "-filter_complex",
-                    f"[0:v]settb=AVTB[a0];[1:v]settb=AVTB[b0];[a0][b0]xfade=transition=fade:duration=0.3:offset={cut - .3:.3f}[v];"
+                    f"[0:v]settb=AVTB[a0];[1:v]settb=AVTB[b0];[a0][b0]xfade=transition=fade:duration=0.3:offset={cut - start - .3:.3f}[v];"
                     "[0:a][1:a]acrossfade=d=0.3[a]", "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "slow",
                     "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out], check=True)
     for x in (seg, endp, ovp):
@@ -198,4 +206,4 @@ def main(key, cut, ending, out):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:5])
+    main(*sys.argv[1:7])
