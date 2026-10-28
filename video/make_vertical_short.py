@@ -115,13 +115,20 @@ def main(key, cut, ending, out, start=0, hook=""):
         return cache[key_]
 
     seg = out + ".part.mp4"
-    p = subprocess.Popen([FF, "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
+    preview = [float(x) for x in os.environ.get("PREVIEW", "").split(",") if x]   # 미리보기: 이 초(쇼츠 기준)의 화면만 PNG로
+    want = {int(round(x * FPS)) for x in preview}
+    p = None if preview else subprocess.Popen([FF, "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
                           "-i", "-", "-ss", f"{start:.3f}", "-t", f"{cut - start:.3f}", "-i", os.path.join(d, "assets", "song.mp3"),
                           "-af", f"afade=t=out:st={cut - start - 1.2:.3f}:d=1.2", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
                           "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", seg], stdin=subprocess.PIPE)
     hook_im = label(hook, FONT_DISPLAY, 104, (255, 230, 90), stroke=10, maxw=1020) if hook else None
+    HOOK_T = 3.0
     for i in range(int((cut - start) * FPS)):
+        if preview and i not in want:
+            continue
         t = start + i / FPS
+        in_hook = bool(hook_im) and t - start < HOOK_T
+        after = min(1, (t - start - HOOK_T) / .3) if hook_im else 1   # 훅이 끝난 뒤 연도 카드가 서서히
         cur = [s for s in shots if s["start"] <= t < s["end"]] or shots[-1:]
         s = cur[0]
         pic, bg = pics.get("00.png" if hook_im and t - start < 3.0 else s["image"])
@@ -142,7 +149,7 @@ def main(key, cut, ending, out, start=0, hook=""):
                 frame.alpha_composite(title, ((W - title.width) // 2, 270))
         if r is not None:
             fa = min(1, (t - r["start"]) / .2)
-            if r["year"]:
+            if r["year"] and not in_hook:   # 훅 문구와 겹치지 않게 훅 동안은 연도 카드를 쉬기
                 yt, et = r["year"], r["event"]
                 pr = (t - r["start"]) / (r["end"] - r["start"])
                 if r["kind"] == "quiz" and pr < .42:
@@ -150,13 +157,20 @@ def main(key, cut, ending, out, start=0, hook=""):
                 if r["kind"] == "quizr" and pr < .45:
                     yt = "?"
                 yl = lab(("y", yt), lambda: label(yt, FONT_DISPLAY, 150 if "·" not in yt else 96, (255, 255, 255), stroke=10, maxw=1000))
-                frame.alpha_composite(yl, ((W - yl.width) // 2, 240))
-                if et:
-                    el = lab(("e", et), lambda: label(et, FONT_BODY, 58, (255, 236, 160), "Black", stroke=7, maxw=1000))
-                    frame.alpha_composite(el, ((W - el.width) // 2, 240 + yl.height - 22))
-            lines = lab(("s", r["text"]), lambda: [label(x, FONT_BODY, 72, (255, 255, 255), "Black", stroke=9, maxw=1030)
-                                                    for x in wrap(r["text"], FONT_BODY, 72, "Black", 1000)])
-            yy = PIC_Y - 12 - sum(l.height - 16 for l in lines) if len(lines) > 1 else PIC_Y - lines[0].height + 6
+                el = lab(("e", et), lambda: label(et, FONT_BODY, 58, (255, 236, 160), "Black", stroke=7, maxw=1000)) if et else None
+                for im_, y_ in ((yl, 240), (el, 240 + yl.height - 22)):
+                    if im_ is None:
+                        continue
+                    if after < 1:
+                        im_ = im_.copy()
+                        im_.putalpha(im_.getchannel("A").point(lambda v: int(v * after)))
+                    frame.alpha_composite(im_, ((W - im_.width) // 2, y_))
+            if in_hook and r["kind"] == "intro":   # 노래 첫 외침은 훅 문구가 대신
+                lines = []
+            else:
+                lines = lab(("s", r["text"]), lambda: [label(x, FONT_BODY, 72, (255, 255, 255), "Black", stroke=9, maxw=1030)
+                                                        for x in wrap(r["text"], FONT_BODY, 72, "Black", 1000)])
+            yy = 0 if not lines else PIC_Y - 12 - sum(l.height - 16 for l in lines) if len(lines) > 1 else PIC_Y - lines[0].height + 6
             for l in lines:
                 ll = l.copy()
                 ll.putalpha(l.getchannel("A").point(lambda v: int(v * fa)))
@@ -164,8 +178,8 @@ def main(key, cut, ending, out, start=0, hook=""):
                 yy += l.height - 16
         cta = ctas[int((t - start) // 6) % 2]
         frame.alpha_composite(cta, ((W - cta.width) // 2, PIC_Y + PIC_H - cta.height - 20))
-        if hook_im and t - start < 3.0:   # 첫 3초: 큰 훅 문구 (넘기지 않게)
-            ha = min(1, (start + 3.0 - t) / .3)
+        if in_hook:   # 첫 3초: 큰 훅 문구 (넘기지 않게)
+            ha = min(1, (start + HOOK_T - t) / .3)
             hh = hook_im.copy()
             hh.putalpha(hook_im.getchannel("A").point(lambda v: int(v * ha)))
             frame.alpha_composite(hh, ((W - hook_im.width) // 2, 300))
@@ -173,7 +187,13 @@ def main(key, cut, ending, out, start=0, hook=""):
         rgb = frame.convert("RGB")
         if f < 1:
             rgb = Image.blend(Image.new("RGB", (W, H)), rgb, f)
+        if preview:
+            rgb.save(f"{out}_{i / FPS:05.2f}s.png")
+            continue
         p.stdin.write(rgb.tobytes())
+    if preview:
+        print("preview", sorted(want))
+        return
     p.stdin.close()
     p.wait()
 
