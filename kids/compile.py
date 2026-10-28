@@ -6,7 +6,7 @@ from kids import engine
 from kids.engine import *
 from kids.thumbs import TITLES
 
-FINAL = os.environ["FINAL"]; THUMBS = os.environ["THUMBS"]; TMP = os.environ.get("TMPDIR_K", "/tmp/kc")
+FINAL = os.environ["FINAL"]; THUMBS = os.environ.get("THUMBS", FINAL); TMP = os.environ.get("TMPDIR_K", "/tmp/kc")
 NIGHT = os.environ.get("NIGHT") == "1"
 SKY = vgrad((24, 30, 78), (78, 74, 140)) if NIGHT else vgrad((140, 205, 250), (222, 241, 255))
 INK = (70, 70, 140) if NIGHT else (95, 140, 225)   # 글자 테두리
@@ -47,8 +47,17 @@ def intro_drawer(title):
         return f
     return d
 
+def song_thumb(n):
+    """곡 썸네일. 썸네일 파일이 없으면 곡 영상의 45% 지점 장면을 대신 쓴다 (영상만 있어도 모음을 만들 수 있게)."""
+    hit = glob.glob(f"{THUMBS}/kids{n}_thumb.jpg")
+    if hit: return Image.open(hit[0])
+    os.makedirs(TMP, exist_ok=True)
+    src = glob.glob(f"{FINAL}/kids{n}_*.mp4")[0]; out = f"{TMP}/frame{n}.jpg"
+    subprocess.run([engine.FFMPEG, "-v", "error", "-y", "-ss", f"{dur(src) * 0.45:.2f}", "-i", src, "-frames:v", "1", out], check=True)
+    return Image.open(out)
+
 def next_drawer(n, idx):
-    th = Image.open(glob.glob(f"{THUMBS}/kids{n}_thumb.jpg")[0]).convert("RGBA").resize((880, 495))
+    th = song_thumb(n).convert("RGBA").resize((880, 495))
     m = Image.new("L", th.size, 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, th.width, th.height], 40, fill=255); th.putalpha(m)
     fr = new_layer(th.width + 24, th.height + 24); ImageDraw.Draw(fr).rounded_rectangle([0, 0, fr.width, fr.height], 50, fill=(255, 255, 255, 255)); fr.alpha_composite(th, (12, 12))
     fr = soft_shadow(fr, dx=0, dy=14, alpha=70, blur=14)
