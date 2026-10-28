@@ -27,6 +27,17 @@ def make(out, a, b, length, art="1"):
             paste(f, sp, x, 790)
         paste(f, fairy(50, "laugh"), 960, 240)
         paste(f, cloud_char(70, "laugh"), 760, 230); paste(f, cloud_char(60, "laugh", (255, 215, 230)), 1160, 250)
+    elif art == "6":  # 모음06 신나는 1시간: 해, 무지개, 비눗방울 몽글이, 공룡·양말·다람쥐·자동차·돌고래
+        from kids.s2_chars import toy_car
+        paste(f, rainbow(600, 26), 960, 780)
+        paste(f, sun(85), 1640, 210)
+        paste(f, bubble(120), 300, 250); paste(f, cloud_char(46, "laugh"), 300, 260)
+        paste(f, cloud_char(70, "laugh", (255, 215, 230)), 960, 230)
+        paste(f, dolphin(80), 620, 200, rot=-10)
+        paste(f, dino(100, 1, "laugh"), 230, 770)
+        paste(f, sock(80, "laugh"), 470, 820, rot=-10)
+        paste(f, toy_car(100, ang=20), 1450, 820)
+        paste(f, squirrel(78, "laugh", 0.6), 1720, 770)
     elif art == "5":  # 모음05 깔깔 효과음: 빵빵한 방귀 구름, 공룡, 자동차, 거품 괴물, 양말, 다람쥐
         from kids.s2_chars import toy_car, foam_monster
         paste(f, cloud_char(130, "puff", (255, 225, 235)), 330, 260, rot=-6)
