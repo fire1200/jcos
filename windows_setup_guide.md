@@ -53,6 +53,8 @@ python -m pip install pillow imageio-ffmpeg numpy librosa soundfile scipy
 |---|---|---|
 | 곡 그림 | `video\<곡 폴더>\images\` | `video\short_8_modern\images\00.png` … |
 | 곡 음원 | `video\<곡 폴더>\assets\song.mp3` | 1분 컷 ⑧ 음원 → `video\short_8_modern\assets\song.mp3` |
+| 냥계 엔딩 소리 | `video\<곡 폴더>\assets\ending.mp3` | `냥계엔딩소리_10곡_jcos폴더용.zip`을 jcos 폴더에 풀면 10곡이 제자리로 |
+| 냥계 엔딩 그림 | `video\<곡 폴더>\assets\E1.png`, `E2.png` | ⓪ 선사 → `video\short_0_prehistory\assets\E1.png` |
 | 폰트 2개 | `video\short_0_prehistory\assets\fonts\` (그리고 각 곡 폴더 `assets\fonts\`) | `BlackHanSans-Regular.ttf`, `NotoSansKR.ttf` |
 
 **폰트 받기**: https://fonts.google.com 에서 "Black Han Sans", "Noto Sans KR"을 검색 → **Get font → Download all** → 압축을 풀어 위 이름으로 넣기 (Noto Sans KR은 `NotoSansKR-VariableFont_wght.ttf`를 `NotoSansKR.ttf`로 이름 바꾸기)
