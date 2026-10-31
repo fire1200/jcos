@@ -1,0 +1,16 @@
+{
+  "duration": 160.5,
+  "title": "냥팡을 쫓아라! 전국 시도 추격송",
+  "subtitle": "지도 탐정단 1부 - 시도와 도청 (변경 전 구분)",
+  "timeline_years": ["수도권", "강원과 충청", "전라와 제주", "경상", "총정리"],
+  "intro_end": 18.4,
+  "outro_start": 161.5,
+  "scenes": [[0, "magic", 11]],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": ["g1_01", "g1_02"],
+  "outro_shots": ["g1_22"],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
