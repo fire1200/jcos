@@ -7,7 +7,9 @@ import math
 from kids.engine import *
 from kids import engine
 
-def _kws(line, words):
+def _kws(line, words, ignore=()):
+    for ig in ignore:                       # 다른 낱말 속 글자는 빼고 찾음 (예: '냄새'의 '새')
+        line = line.replace(ig, "_" * len(ig))
     found = []
     for kw in sorted(words, key=len, reverse=True):
         i = line.find(kw)
@@ -17,14 +19,14 @@ def _kws(line, words):
             i = line.find(kw, i + 1)
     return [k for _, _, k in sorted(found)]
 
-def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=False, zoom=1.6):
+def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=False, zoom=1.6, ignore=()):
     """words: {키워드: draw(f, x, y, scale, kind, t)}  labels: {키워드: 화면에 크게 쓸 글자}"""
     def setup(lines, total):
         ctx = base_setup(lines, total)
         seq, last = [], None
         for i, l in enumerate(lines):                # 줄마다 단어 목록, 단어 없는 줄은 바로 앞 단어를 이어 받음
             q = "?" in l["text"]                    # 물음 줄은 단어가 들어 있어도 아직 숨겨 둠 ("엄마 어디 있나?")
-            k = [] if q else _kws(l["text"], words)
+            k = [] if q else _kws(l["text"], words, ignore)
             if k: last = k[-1]
             seq.append((k, None if (k or q) else last, q))
         ctx["fw"] = seq
@@ -58,6 +60,11 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
                 from kids.fw_chars import blanket
                 paste(f, cloud_char(95, look), cx - 150, cy - 150 + 14 * math.sin(t * 3), rot=w)   # 이불 위로 몽글이가 빼꼼
                 paste(f, blanket(190), cx, cy + 60, rot=w * 0.3)
+            elif hide in ("tunnel", "basket", "closet"):        # 2차: 터널·바구니·옷장 뒤에서 몽글이가 빼꼼
+                from kids import fw_chars2
+                obj = {"tunnel": fw_chars2.tunnel(150), "basket": fw_chars2.basket(150), "closet": fw_chars2.closet(120)}[hide]
+                paste(f, cloud_char(90, look), cx - 250, cy - 230 + 14 * math.sin(t * 3), rot=w)
+                paste(f, obj, cx, cy + 60, rot=w * 0.25)
             elif hide == "fence":
                 g = ImageDraw.Draw(f)
                 for k in range(7):
