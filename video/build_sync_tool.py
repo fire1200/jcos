@@ -41,7 +41,9 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("short_6_joseon_early", "간략 ⑥ 반짝반짝 조선 전기", "반짝조선전기"),
          ("short_7_joseon_late", "간략 ⑦ 주먹 쥐고 조선 후기", "주먹조선후기"),
          ("short_8_modern", "간략 ⑧ 캉캉 근대사", "캉캉근대사"),
-         ("short_9_contemporary", "간략 ⑨ 다그닥 현대사", "다그닥현대사")]
+         ("short_9_contemporary", "간략 ⑨ 다그닥 현대사", "다그닥현대사"),
+         ("geo_1_chase", "지리 1부 전국 시도 추격송", "지리1추격송"),
+         ("geo_2_pass", "지리 2부 옛 지도 고개 넘기송", "지리2고개송")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",

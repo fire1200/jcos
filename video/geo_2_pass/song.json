@@ -1,0 +1,16 @@
+{
+  "duration": 150.0,
+  "title": "냥팡을 쫓아라! 옛 지도 고개 넘기송",
+  "subtitle": "지도 탐정단 2부 - 옛 지방 이름",
+  "timeline_years": ["경기", "철령관", "관동", "호서와 호남", "영남", "총정리"],
+  "intro_end": 10.0,
+  "outro_start": 151.0,
+  "scenes": [[0, "magic", 11]],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": ["g2_01", "g2_02", "g2_03"],
+  "outro_shots": ["g2_19", "g2_20"],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
