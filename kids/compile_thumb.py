@@ -27,6 +27,16 @@ def make(out, a, b, length, art="1"):
             paste(f, sp, x, 790)
         paste(f, fairy(50, "laugh"), 960, 240)
         paste(f, cloud_char(70, "laugh"), 760, 230); paste(f, cloud_char(60, "laugh", (255, 215, 230)), 1160, 250)
+    elif art == "7":  # 첫말 노래 모음: 구름 가족, 아기 몽이, 동물 친구, 맘마 그릇
+        from kids.fw_chars import mom, dad, baby, baby_cloud, chick, rice_bowl
+        paste(f, sun(70), 1660, 200)
+        paste(f, mom(80, "laugh"), 300, 250); paste(f, dad(80, "laugh"), 620, 230)
+        paste(f, baby_cloud(70, "laugh"), 1300, 240)
+        paste(f, baby(70, "wave", None, "laugh"), 200, 760)
+        paste(f, puppy(70, "laugh"), 430, 940)
+        paste(f, cat(70, "laugh"), 1530, 940)
+        paste(f, chick(65, "laugh"), 1760, 860)
+        paste(f, rice_bowl(70), 1760, 600)
     elif art == "6":  # 모음06 신나는 1시간: 해, 무지개, 비눗방울 몽글이, 공룡·양말·다람쥐·자동차·돌고래
         from kids.s2_chars import toy_car
         paste(f, rainbow(600, 26), 960, 780)
