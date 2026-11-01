@@ -150,7 +150,7 @@ class MapPanel:
         if title:
             f = self.font(48)
             d.text((self.w / 2, 58), title, font=f, fill=(60, 40, 30), anchor="mm", stroke_width=6, stroke_fill=(255, 255, 255))
-        if kinds and self.old:
+        if kinds and self.old and self.w >= 560:
             f = self.font(26)
             for k, members in OLD.items():
                 if k == "기호":
@@ -159,7 +159,7 @@ class MapPanel:
                 cx = sum(x for x, y in pts) / len(pts)
                 cy = sum(y for x, y in pts) / len(pts)
                 d.text((cx, cy), k, font=f, fill=(60, 40, 30), anchor="mm", stroke_width=4, stroke_fill=(255, 255, 255))
-        elif kinds:
+        elif kinds and self.w >= 560:   # 좁은 판(썸네일)에는 범례 생략
             y = self.h - 34
             x = 24
             f = self.font(24)
