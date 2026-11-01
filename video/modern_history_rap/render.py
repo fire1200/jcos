@@ -11,10 +11,12 @@
 """
 import argparse
 import csv
+import json
 import math
 import os
 import re
 import subprocess
+import sys
 from multiprocessing import Pool
 
 import numpy as np
@@ -51,6 +53,7 @@ SUBTITLE = CFG["subtitle"]
 TIMELINE_YEARS = CFG["timeline_years"]
 SCIENCE = CFG["layout"] == "science"
 SHORT = CFG["layout"] == "short"   # 간략본: 연도는 맨 위에 작게, 채널 이름은 오른쪽 위
+GEO = CFG.get("map")   # 지리송: "now"(지금 시도 지도) 또는 "old"(옛 지도). 왼쪽에 지도 판, 설명은 지도 제목으로
 
 
 def hexc(s):
@@ -814,7 +817,8 @@ def draw_card(img, r, t):
         lab = T.label(r["year"], FONT_DISPLAY, 100 if SCIENCE or SHORT else 150, None, (255, 255, 255), shadow=14,
                       glow=((255, 200, 140), 22, .55), maxw=1500 if SHORT else 1800)
         cy = 20 + lab.shape[0] / 2 if SCIENCE or SHORT else 300
-        over(img, lab, (W - lab.shape[1]) // 2, int(cy - lab.shape[0] / 2 + rise), a_in)
+        cx = MAP_RIGHT_CX if GEO else W // 2
+        over(img, lab, cx - lab.shape[1] // 2, int(cy - lab.shape[0] / 2 + rise), a_in)
         return
     if not r["year"]:
         return
@@ -822,8 +826,12 @@ def draw_card(img, r, t):
     year_txt, ev_txt = r["year"], r["event"]
     if kind == "quiz" and p < .42:
         ev_txt = "?"
-    if kind == "quizr" and p < .45:
+    if kind == "quizr" and p < .45 and not GEO:
         year_txt = "?"
+    if GEO:   # 설명은 지도 판 제목이 맡고, 여기는 단원 이름만 오른쪽에
+        ylab = T.label(year_txt, FONT_DISPLAY, 96, None, (255, 255, 255), shadow=14, glow=((255, 196, 130), 22, .6), maxw=1150)
+        over(img, ylab, MAP_RIGHT_CX - ylab.shape[1] // 2, int(4 + rise), a_in)
+        return
     if SCIENCE:   # 단원 이름은 맨 위에 작게(2/3), 설명은 크게(2배), 길면 " · "에서 두 줄
         ylab = T.label(year_txt, FONT_DISPLAY, 140, None, (255, 255, 255), shadow=16, glow=((255, 196, 130), 26, .6), maxw=1800)
         yy = int(4 + rise)
@@ -936,6 +944,56 @@ def scene_frame(t):
     return img
 
 
+# ---------------------------------------------------------------- 지리송 지도 판
+
+MAP_X, MAP_Y, MAP_W, MAP_H = 40, 40, 600, 760
+MAP_RIGHT_CX = (MAP_X + MAP_W + W) // 2
+_MAPS, _MAP_IMG = {}, {}
+if GEO:
+    sys.path.insert(0, os.path.dirname(HERE))
+    from geo_map import MapPanel
+    _MAP_PANEL = MapPanel(FONT_DISPLAY, MAP_W, MAP_H, old=GEO == "old")
+    _MAPS = {re.sub(r"[^가-힣A-Za-z0-9]", "", k): v
+             for k, v in json.load(open(os.path.join(SONG_DIR, "map.json"), encoding="utf-8")).items()}
+
+
+def map_spec(t):
+    """t까지 나온 줄 가운데 지도 설정이 있는 마지막 줄 (없는 줄은 앞 지도를 그대로)."""
+    cur = (None, -1.0)
+    for r in LINES:
+        if r["start"] > t:
+            break
+        k = re.sub(r"[^가-힣A-Za-z0-9]", "", r["text"])
+        # 정답 줄은 "3, 2, 1…"을 다 센 뒤에 지도 정답이 나오게
+        t0 = r["start"] + .6 * (r["end"] - r["start"]) if r["kind"] == "quizr" else r["start"]
+        if k in _MAPS and t0 <= t:
+            cur = (k, t0)
+    return cur
+
+
+def map_image(key):
+    if key not in _MAP_IMG:
+        spec = dict(_MAPS.get(key, {}))
+        if "box" in spec:
+            spec["box"] = tuple(spec["box"])
+        spec["labels"] = [tuple(x) for x in spec.get("labels", [])]
+        _MAP_IMG[key] = np.asarray(_MAP_PANEL.draw(**spec), np.float32) / 255
+    return _MAP_IMG[key]
+
+
+def draw_map(img, t):
+    t_in, t_out = CFG["intro_end"], CFG["outro_start"]
+    a = ease((t - t_in) / .5) * ease((t_out - t) / .5)
+    if a <= 0:
+        return
+    key, t0 = map_spec(t)
+    prev = map_spec(t0 - 1e-3)[0] if t0 > 0 else None
+    k = ease((t - t0) / .35) if t0 >= 0 else 1
+    if k < 1:
+        over(img, map_image(prev), MAP_X, MAP_Y, a)
+    over(img, map_image(key), MAP_X, MAP_Y, a * k)
+
+
 # CLEAN=1: 자막·연도 카드·연도 바 없이 그림만 (싱크 도구에서 쓸 미리보기용)
 CLEAN = os.environ.get("CLEAN") == "1"
 
@@ -949,6 +1007,8 @@ def overlay(img, t):
         draw_title(img, t, 0.2, t_in)
     if t >= t_out:
         draw_title(img, t, t_out + .4, DURATION + 5, y=440)
+    if GEO:
+        draw_map(img, t)
     if r:
         if r["kind"] not in ("intro", "outro"):
             draw_card(img, r, t)

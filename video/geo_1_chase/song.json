@@ -9,6 +9,7 @@
   "effects": {},
   "fill_gaps": true,
   "layout": "science",
+  "map": "now",
   "intro_shots": ["g1_01", "g1_02"],
   "outro_shots": ["g1_22"],
   "gap_montage": 2.5,
