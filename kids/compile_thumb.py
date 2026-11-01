@@ -18,6 +18,21 @@ def make(out, a, b, length, art="1"):
         paste(f, badge(length, (70, 70, 140)), 1740, 980)
         paste(f, badge("창작동요"), 180, 70)
         f.convert("RGB").resize((1280, 720), Image.LANCZOS).save(out, quality=92); return
+    if art == "8":  # 잠자리 동요 모음 2: 밤하늘, 웃는 달, 이불 덮고 자는 아기 몽이, 별 요정, 곰 인형
+        from kids.fw_chars import baby_cloud, blanket, pillow
+        f = vgrad((22, 28, 74), (80, 72, 140))
+        for i in range(50):
+            paste(f, star(5 + i % 5, (255, 236, 170)), (i * 433) % W, (i * 197) % 600 + 20, alpha=0.5 + 0.1 * (i % 5))
+        hills(f, 900, (100, 92, 160), 25, 1.4)
+        paste(f, moon(140, face_kind="smile"), 1620, 250)
+        paste(f, fairy(70, "smile"), 300, 250)
+        paste(f, pillow(85), 250, 800); paste(f, baby_cloud(62, "squint"), 250, 770); paste(f, blanket(85), 250, 930)
+        paste(f, bear(85, "smile"), 1730, 860)
+        paste(f, big_text(a, 140, (255, 255, 255), (70, 70, 140)), 960, 510)
+        paste(f, big_text(b, 150, (255, 240, 120), (70, 70, 140)), 960, 690)
+        paste(f, badge(length, (70, 70, 140)), 1740, 980)
+        paste(f, badge("잠자리 동요"), 200, 70)
+        f.convert("RGB").resize((1280, 720), Image.LANCZOS).save(out, quality=92); return
     f = vgrad((150, 210, 250), (235, 247, 255))
     hills(f, 860, (180, 228, 160), 30, 1.6)
     if art == "4":  # 모음04 전곡: 해와 달, 친구들 모두
