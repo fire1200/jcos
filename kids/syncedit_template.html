@@ -139,7 +139,7 @@ details summary { cursor: pointer; color: var(--muted); }
     </div>
     <canvas id="over" aria-label="곡 전체 보기. 누르면 그 위치로 이동"></canvas>
     <p class="keys">
-      <kbd>Space</kbd> 재생/멈춤 · <kbd>Enter</kbd> 선택한 줄을 <b>지금 위치</b>로 맞추고 다음 줄로 ·
+      <kbd>Space</kbd> 재생/멈춤 (가사 글자 칸에서 쓰는 중일 때만 빼고) · <kbd>Enter</kbd> 선택한 줄을 <b>지금 위치</b>로 맞추고 다음 줄로 ·
       <kbd>↑</kbd><kbd>↓</kbd> 줄 선택 · <kbd>←</kbd><kbd>→</kbd> 0.05초 이동 (<kbd>Shift</kbd> 0.25초) ·
       <kbd>P</kbd> 선택 줄부터 듣기 · <kbd>L</kbd> 반복 · <kbd>S</kbd> 안 부른 줄 · <kbd>Ctrl</kbd>+<kbd>Z</kbd> 되돌리기 ·
       파형의 막대는 <b>마우스로 끌어서</b> 옮깁니다
@@ -265,7 +265,7 @@ $("file").addEventListener("change", async e => {
       setSave("파형 없이 재생합니다 (막대는 그대로 쓸 수 있어요)", "warn"); }
     catch (e2) { setSave("이 파일은 열 수 없습니다. mp3 파일을 골라 주세요", "warn"); return; }
   }
-  $("emptyWave").hidden = true; draw();
+  $("emptyWave").hidden = true; e.target.blur(); draw();   // 음원 칸에 초점이 남으면 Space가 파일 창을 다시 엶
 });
 
 /* ---------- 가사 표 ---------- */
@@ -409,7 +409,13 @@ addEventListener("resize", draw);
 
 /* ---------- 키보드 ---------- */
 document.addEventListener("keydown", e => {
-  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") return;
+  const tg = e.target, typing = tg.tagName === "TEXTAREA" || tg.tagName === "SELECT" || (tg.tagName === "INPUT" && tg.type !== "file" && tg.type !== "number");
+  // Space는 가사 글자를 쓰는 칸만 빼고 어디서나 재생/멈춤 (버튼·음원 칸·시각 칸에 초점이 있어도)
+  if (e.key === " " && !typing) {
+    e.preventDefault(); if (tg.tagName === "BUTTON" || tg.tagName === "INPUT") tg.blur();   // 버튼이 한 번 더 눌려 도로 멈추는 것 방지
+    if (audio.src) audio.paused ? audio.play() : audio.pause(); return;
+  }
+  if (tg.tagName === "INPUT" || tg.tagName === "SELECT" || tg.tagName === "TEXTAREA") return;
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); undo(); return; }
   switch (e.key) {
     case " ": e.preventDefault(); if (audio.src) audio.paused ? audio.play() : audio.pause(); break;
