@@ -87,13 +87,34 @@ def portal(e2, rep):
     m = ndimage.binary_dilation(m, iterations=4)
     ys, xs = np.nonzero(m)
     x0, x1, y0, y1 = xs.min(), xs.max(), ys.min(), ys.max()
-    pic = cover(rep, x1 - x0 + 1, y1 - y0 + 1)
+    pic = rep.resize((x1 - x0 + 1, y1 - y0 + 1), Image.LANCZOS) if isinstance(rep, Image.Image) else cover(rep, x1 - x0 + 1, y1 - y0 + 1)
     layer = e2.copy()
     layer.paste(pic, (x0, y0))
     mask = Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(3))
     out = Image.composite(layer, e2, mask)
     glow = Image.fromarray((ndimage.binary_dilation(m, iterations=14) & ~m).astype(np.uint8) * 90).filter(ImageFilter.GaussianBlur(12))
     return Image.composite(Image.new("RGB", (W, H), (255, 250, 220)), out, glow)
+
+
+def human_card(song, w=900, h=900):
+    """인간계 전곡 영상을 문 너머로 보여 주는 카드: 노을 하늘 + 큰 재생 단추 + 곡 이름."""
+    top, bot = np.array([60, 70, 150]), np.array([255, 190, 140])
+    k = np.linspace(0, 1, h)[:, None, None]
+    im = Image.fromarray((top * (1 - k) + bot * k).repeat(w, 1).astype(np.uint8))
+    d = ImageDraw.Draw(im)
+    cx, cy, r = w // 2, int(h * .30), int(w * .15)
+    d.ellipse((cx - r - 14, cy - r - 14, cx + r + 14, cy + r + 14), fill=(255, 255, 255))
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(230, 40, 50))
+    d.polygon([(cx - r * .35, cy - r * .5), (cx - r * .35, cy + r * .5), (cx + r * .55, cy)], fill=(255, 255, 255))
+    f1 = ImageFont.truetype(FONT_DISPLAY, 104)
+    d.text((cx, int(h * .52)), "인간계 전곡", font=f1, fill=(255, 255, 255), anchor="mm", stroke_width=8, stroke_fill=(60, 30, 40))
+    name = song.rpartition(" ")[0].lstrip("⓪①②③④⑤⑥⑦⑧⑨ ")   # 동그라미 숫자는 이 글꼴에 없음
+    size = 72
+    while ImageFont.truetype(FONT_DISPLAY, size).getlength(name) > w * .8:
+        size -= 4
+    d.text((cx, int(h * .64)), name, font=ImageFont.truetype(FONT_DISPLAY, size), fill=(255, 236, 140), anchor="mm",
+           stroke_width=6, stroke_fill=(60, 30, 40))
+    return im
 
 
 def text_img(text, size, fill, font=FONT_BODY, stroke=8, weight="Bold", maxw=1760):
@@ -149,8 +170,8 @@ def main(key, audio, e1p, e2p, out):
     sf.write(wav, y.T, sr)
 
     e1 = cover(e1p, W, H)
-    # 전곡 그림이 없으면(작업 폴더에 안 남은 경우) 문 안쪽은 E2의 하늘색 빛 그대로
-    e2 = portal(cover(e2p, W, H), rep) if os.path.exists(rep) else cover(e2p, W, H)
+    # 전곡 그림이 없으면(작업 폴더에 안 남은 경우) 문 안쪽에 "인간계 전곡" 재생 화면을 그려 넣음
+    e2 = portal(cover(e2p, W, H), rep if os.path.exists(rep) else human_card(caps[3].split("→")[0].strip()))
     caps_im = [text_img(c, 92 if i < 3 else 80, (255, 226, 120) if i == 3 else (255, 255, 255)) for i, c in enumerate(caps)]
     quip_im = text_img(quip, 46, (255, 255, 255), stroke=6, weight="Bold")
     n = int(dur * FPS)
