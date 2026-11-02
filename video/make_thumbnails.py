@@ -10,7 +10,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FONTS = os.path.join(HERE, "modern_history_rap", "assets", "fonts")
+FONTS = os.environ.get("FONTS", os.path.join(HERE, "modern_history_rap", "assets", "fonts"))
 OUT = os.environ.get("OUT", os.path.join(HERE, "out"))
 W, H = 1280, 720
 CHANNEL = "호크마 차일드 스터디"
@@ -143,6 +143,10 @@ THUMBS2 = [
 
 # 고양이 1분 컷(냥계 버전) v2: 고양이 그림을 오른쪽에 크게, 글자는 왼쪽 판에
 THUMBS4 = [
+    ("thumb_cat_prehistory", "short_0_prehistory/images/E2.png", .28, "선사 시대", "구석기~철기", (255, 190, 90), (60, 34, 16)),
+    ("thumb_cat_samguk_rise", "short_1_samguk_rise/images/E2.png", .28, "고조선과 삼국", "BC 2333~553", (255, 220, 70), (56, 40, 8)),
+    ("thumb_cat_samguk_war", "short_2_samguk_war/images/E2.png", .28, "삼국 통일", "562~676", (150, 210, 255), (16, 36, 70)),
+    ("thumb_cat_nambukguk", "short_3_nambukguk/images/E2.png", .28, "남북국 시대", "685~935", (120, 220, 200), (12, 50, 56)),
     ("thumb_cat_joseon_early", "short_6_joseon_early/images/E2.png", .25, "조선 전기", "1388~1498", (255, 214, 64), (24, 26, 70)),
     ("thumb_cat_joseon_late", "short_7_joseon_late/images/E2.png", .30, "조선 후기", "1608~1863", (140, 230, 160), (20, 52, 44)),
     ("thumb_cat_modern", "short_8_modern/images/E2.png", .28, "근대사", "1866~1945", (255, 150, 190), (70, 16, 30)),

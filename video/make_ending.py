@@ -149,7 +149,8 @@ def main(key, audio, e1p, e2p, out):
     sf.write(wav, y.T, sr)
 
     e1 = cover(e1p, W, H)
-    e2 = portal(cover(e2p, W, H), rep)
+    # 전곡 그림이 없으면(작업 폴더에 안 남은 경우) 문 안쪽은 E2의 하늘색 빛 그대로
+    e2 = portal(cover(e2p, W, H), rep) if os.path.exists(rep) else cover(e2p, W, H)
     caps_im = [text_img(c, 92 if i < 3 else 80, (255, 226, 120) if i == 3 else (255, 255, 255)) for i, c in enumerate(caps)]
     quip_im = text_img(quip, 46, (255, 255, 255), stroke=6, weight="Bold")
     n = int(dur * FPS)
