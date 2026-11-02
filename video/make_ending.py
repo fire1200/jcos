@@ -96,13 +96,16 @@ def portal(e2, rep):
     return Image.composite(Image.new("RGB", (W, H), (255, 250, 220)), out, glow)
 
 
-def human_card(song, w=900, h=900):
-    """인간계 전곡 영상을 문 너머로 보여 주는 카드: 노을 하늘 + 큰 재생 단추 + 곡 이름."""
-    top, bot = np.array([60, 70, 150]), np.array([255, 190, 140])
-    k = np.linspace(0, 1, h)[:, None, None]
-    im = Image.fromarray((top * (1 - k) + bot * k).repeat(w, 1).astype(np.uint8))
+def human_card(song, w=900, h=900, bg=None):
+    """인간계 전곡 영상을 문 너머로 보여 주는 카드: 전곡 그림(없으면 노을 하늘) + 큰 재생 단추 + 곡 이름."""
+    if bg:
+        im = Image.blend(cover(bg, w, h), Image.new("RGB", (w, h), (30, 20, 40)), .25)
+    else:
+        top, bot = np.array([60, 70, 150]), np.array([255, 190, 140])
+        k = np.linspace(0, 1, h)[:, None, None]
+        im = Image.fromarray((top * (1 - k) + bot * k).repeat(w, 1).astype(np.uint8))
     d = ImageDraw.Draw(im)
-    cx, cy, r = w // 2, int(h * .30), int(w * .15)
+    cx, cy, r = w // 2, int(h * .30), int(w * (.10 if bg else .15))   # 전곡 그림이 있으면 단추를 작게
     d.ellipse((cx - r - 14, cy - r - 14, cx + r + 14, cy + r + 14), fill=(255, 255, 255))
     d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(230, 40, 50))
     d.polygon([(cx - r * .35, cy - r * .5), (cx - r * .35, cy + r * .5), (cx + r * .55, cy)], fill=(255, 255, 255))
@@ -171,7 +174,11 @@ def main(key, audio, e1p, e2p, out):
 
     e1 = cover(e1p, W, H)
     # 전곡 그림이 없으면(작업 폴더에 안 남은 경우) 문 안쪽에 "인간계 전곡" 재생 화면을 그려 넣음
-    e2 = portal(cover(e2p, W, H), rep if os.path.exists(rep) else human_card(caps[3].split("→")[0].strip()))
+    # 곡 폴더 images/H.png = 사용자가 준 인간계 전곡 대표 그림
+    human = os.path.join(HERE, key, "images", "H.png")
+    song = caps[3].split("→")[0].strip()
+    e2 = portal(cover(e2p, W, H), human_card(song, bg=human) if os.path.exists(human)
+                else rep if os.path.exists(rep) else human_card(song))
     caps_im = [text_img(c, 92 if i < 3 else 80, (255, 226, 120) if i == 3 else (255, 255, 255)) for i, c in enumerate(caps)]
     quip_im = text_img(quip, 46, (255, 255, 255), stroke=6, weight="Bold")
     n = int(dur * FPS)
