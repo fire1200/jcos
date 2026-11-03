@@ -204,6 +204,48 @@ def penguin(s, kind="smile", flap=0, scarf=None):
         g.rounded_rectangle([cx - s * 0.75, cy - s * 0.2, cx + s * 0.75, cy + s * 0.05], int(s * 0.1), fill=_c(scarf))
     return soft_shadow(L, alpha=40)
 
+# ======================= 15. 펭귄 가족 =======================
+FAMILY_P = ["아기", "엄마", "아빠", "할머니", "할아버지"]
+
+@lru_cache(maxsize=None)
+def penguin_member(who, s, kind="smile", flap=0):
+    """펭귄 가족: 아기(노란 털모자) · 엄마(분홍 리본) · 아빠(파란 목도리) · 할머니(안경·보라 숄) · 할아버지(흰 눈썹·지팡이)."""
+    scarf = {"아빠": (90, 150, 230), "할머니": (190, 150, 220)}.get(who)
+    L = penguin(s, kind, flap, scarf).copy(); g = ImageDraw.Draw(L)
+    pad = (L.width - s * 2.8) / 2; cx, cy = pad + s * 1.4, pad + s * 1.6     # soft_shadow 여백 보정
+    top = cy - s * 1.25
+    if who == "아기":
+        g.chord([cx - s * 0.7, top - s * 0.35, cx + s * 0.7, top + s * 0.75], 180, 360, fill=(255, 215, 90, 255))
+        g.rounded_rectangle([cx - s * 0.72, top + s * 0.12, cx + s * 0.72, top + s * 0.32], int(s * 0.08), fill=(255, 240, 200, 255))
+        g.ellipse([cx - s * 0.16, top - s * 0.55, cx + s * 0.16, top - s * 0.23], fill=(255, 240, 200, 255))
+    elif who == "엄마":
+        bx, by = cx + s * 0.45, top + s * 0.15
+        g.polygon([(bx, by), (bx - s * 0.35, by - s * 0.22), (bx - s * 0.35, by + s * 0.22)], fill=(250, 120, 160, 255))
+        g.polygon([(bx, by), (bx + s * 0.35, by - s * 0.22), (bx + s * 0.35, by + s * 0.22)], fill=(250, 120, 160, 255))
+        g.ellipse([bx - s * 0.09, by - s * 0.09, bx + s * 0.09, by + s * 0.09], fill=(255, 170, 200, 255))
+    elif who == "할머니":
+        ey = cy - s * 0.58
+        for sgn in (-1, 1):
+            g.ellipse([cx + sgn * s * 0.19 - s * 0.15, ey - s * 0.13, cx + sgn * s * 0.19 + s * 0.15, ey + s * 0.13], outline=(120, 90, 70, 255), width=max(2, int(s * 0.05)))
+        g.line([cx - s * 0.04, ey, cx + s * 0.04, ey], fill=(120, 90, 70, 255), width=max(2, int(s * 0.05)))
+        g.ellipse([cx - s * 0.28, top - s * 0.18, cx + s * 0.28, top + s * 0.2], fill=(235, 235, 245, 255))   # 쪽머리
+    elif who == "할아버지":
+        for sgn in (-1, 1):                                                                                    # 흰 눈썹
+            g.ellipse([cx + sgn * s * 0.2 - s * 0.16, cy - s * 0.82, cx + sgn * s * 0.2 + s * 0.16, cy - s * 0.66], fill=(250, 250, 250, 255))
+        x = cx + s * 1.0                                                                                       # 지팡이
+        g.line([x, cy - s * 0.2, x, cy + s * 1.25], fill=(170, 120, 80, 255), width=max(3, int(s * 0.1)))
+        g.arc([x - s * 0.25, cy - s * 0.4, x + s * 0.05, cy - s * 0.05], 180, 360, fill=(170, 120, 80, 255), width=max(3, int(s * 0.1)))
+    return L
+
+def ice_bg(f):
+    g = ImageDraw.Draw(f)
+    hills(f, 640, (235, 245, 255), 30, 1.2); hills(f, 700, (220, 238, 252), 24, 1.6)
+    g.rectangle([0, 780, W, H], fill=(205, 232, 250, 255))                                                     # 얼음판
+    for i in range(9):
+        x = 80 + i * 230; g.line([x, 830 + (i % 3) * 30, x + 120, 830 + (i % 3) * 30], fill=(250, 255, 255, 255), width=6)
+    for x, sc in ((260, 1.0), (1680, 0.8)):                                                                    # 눈 쌓인 얼음 봉우리
+        g.polygon([(x - 160 * sc, 780), (x, 520 * sc + 780 * (1 - sc)), (x + 160 * sc, 780)], fill=(240, 248, 255, 255))
+
 @lru_cache(maxsize=None)
 def cheetah(s, kind="laugh"):
     col = (250, 200, 90)
