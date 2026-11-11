@@ -200,3 +200,80 @@ def sheets(out):
         paste(f, im, x, y)
         paste(f, big_text(name, 44, (255, 255, 255), (95, 140, 225)), x, y + 230)
     f.convert("RGB").save(out, quality=90)
+
+
+# ---------- ⑪ 장난감 ----------
+@lru_cache(maxsize=None)
+def ball(s, kind="laugh"):
+    L = new_layer(int(s * 2.4), int(s * 2.4), (240, 100, 110)); g = ImageDraw.Draw(L)
+    cx = cy = s * 1.2; r = s * 1.05
+    g.ellipse([cx - r, cy - r, cx + r, cy + r], fill=_c((240, 100, 110)))
+    g.pieslice([cx - r, cy - r, cx + r, cy + r], 200, 260, fill=_c((255, 215, 90)))
+    g.pieslice([cx - r, cy - r, cx + r, cy + r], 20, 80, fill=_c((110, 170, 240)))
+    g.ellipse([cx - r * 0.7, cy - r * 0.75, cx - r * 0.35, cy - r * 0.4], fill=_c((255, 255, 255), 170))
+    face(L, cx, cy + s * 0.15, s * 0.6, kind)
+    return soft_shadow(L, alpha=40)
+
+
+@lru_cache(maxsize=None)
+def blocks(s, kind="laugh"):
+    L = new_layer(int(s * 3.0), int(s * 3.0), (120, 180, 240)); g = ImageDraw.Draw(L)
+    b = s * 0.95
+    for (x, y, col, ch) in ((s * 0.1, s * 1.9, (240, 110, 120), "ㄱ"), (s * 1.1, s * 1.9, (120, 180, 240), "ㄴ"), (s * 0.6, s * 0.95, (255, 205, 90), "ㄷ")):
+        g.rounded_rectangle([x, y, x + b, y + b], int(s * 0.12), fill=_c(col))
+        g.rounded_rectangle([x + b * 0.15, y + b * 0.15, x + b * 0.85, y + b * 0.85], int(s * 0.08), outline=_c(_lt(col, 60)), width=max(2, int(s * 0.06)))
+    face(L, s * 0.6 + b / 2, s * 0.95 + b * 0.55, s * 0.35, kind)
+    return soft_shadow(L, alpha=40)
+
+
+@lru_cache(maxsize=None)
+def rattle(s, kind="laugh"):
+    L = new_layer(int(s * 2.4), int(s * 3.4), (255, 190, 210)); g = ImageDraw.Draw(L)
+    cx = s * 1.2
+    g.rounded_rectangle([cx - s * 0.16, s * 1.8, cx + s * 0.16, s * 3.2], int(s * 0.16), fill=_c((140, 200, 230)))   # 손잡이
+    g.ellipse([cx - s * 0.35, s * 2.95, cx + s * 0.35, s * 3.35], fill=_c((140, 200, 230)))
+    g.ellipse([cx - s * 0.95, s * 0.1, cx + s * 0.95, s * 2.0], fill=_c((255, 190, 210)))                        # 방울
+    g.ellipse([cx - s * 0.95, s * 0.85, cx + s * 0.95, s * 1.25], fill=_c((255, 225, 120)))
+    face(L, cx, s * 0.75, s * 0.5, kind)
+    return soft_shadow(L, alpha=40)
+
+
+# ---------- 16 · 17 ----------
+@lru_cache(maxsize=None)
+def frog(s, kind="laugh"):
+    col = (120, 200, 110)
+    L = new_layer(int(s * 2.6), int(s * 2.2), col); g = ImageDraw.Draw(L); cx, cy = s * 1.3, s * 1.25
+    for sgn in (-1, 1):
+        g.ellipse([cx + sgn * s * 0.5 - s * 0.35, cy - s * 1.05, cx + sgn * s * 0.5 + s * 0.35, cy - s * 0.35], fill=_c(col))
+        g.ellipse([cx + sgn * s * 0.5 - s * 0.2, cy - s * 0.9, cx + sgn * s * 0.5 + s * 0.2, cy - s * 0.5], fill=_c((255, 255, 255)))
+        g.ellipse([cx + sgn * s * 0.5 - s * 0.09, cy - s * 0.78, cx + sgn * s * 0.5 + s * 0.09, cy - s * 0.6], fill=_c((50, 50, 60)))
+    g.ellipse([cx - s * 1.05, cy - s * 0.6, cx + s * 1.05, cy + s * 0.85], fill=_c(col))
+    g.ellipse([cx - s * 0.6, cy + s * 0.0, cx + s * 0.6, cy + s * 0.8], fill=_c((205, 240, 180)))
+    g.arc([cx - s * 0.45, cy - s * 0.35, cx + s * 0.45, cy + s * 0.15], 20, 160, fill=_c((60, 110, 60)), width=max(3, int(s * 0.07)))
+    for sgn in (-1, 1): g.ellipse([cx + sgn * s * 0.7 - s * 0.14, cy - s * 0.15, cx + sgn * s * 0.7 + s * 0.14, cy - s * 0.03], fill=_c((255, 160, 175)))
+    return soft_shadow(L, alpha=40)
+
+
+@lru_cache(maxsize=None)
+def fish(s, kind="laugh", col=(110, 160, 240)):
+    L = new_layer(int(s * 3.0), int(s * 2.0), col); g = ImageDraw.Draw(L); cx, cy = s * 1.3, s * 1.0
+    g.polygon([(cx + s * 0.9, cy), (cx + s * 1.6, cy - s * 0.6), (cx + s * 1.6, cy + s * 0.6)], fill=_c(_dk(col, 25)))
+    g.ellipse([cx - s * 1.15, cy - s * 0.8, cx + s * 1.1, cy + s * 0.8], fill=_c(col))
+    g.ellipse([cx - s * 0.75, cy - s * 0.4, cx - s * 0.45, cy - s * 0.1], fill=_c((255, 255, 255)))
+    g.ellipse([cx - s * 0.66, cy - s * 0.32, cx - s * 0.52, cy - s * 0.18], fill=_c((50, 50, 70)))
+    g.ellipse([cx - s * 1.05, cy + s * 0.05, cx - s * 0.8, cy + s * 0.3], fill=_c((90, 60, 80)))           # 뻐끔 입
+    for k in range(3): g.arc([cx - s * 0.1 + k * s * 0.3, cy - s * 0.3, cx + s * 0.3 + k * s * 0.3, cy + s * 0.3], 120, 240, fill=_c(_lt(col, 50)), width=max(2, int(s * 0.06)))
+    return soft_shadow(L, alpha=40)
+
+
+@lru_cache(maxsize=None)
+def rubber_duck(s, kind="laugh"):
+    col = (255, 215, 70)
+    L = new_layer(int(s * 3.0), int(s * 2.6), col); g = ImageDraw.Draw(L); cx, cy = s * 1.4, s * 1.5
+    g.ellipse([cx - s * 1.2, cy - s * 0.4, cx + s * 1.25, cy + s * 0.95], fill=_c(col))                                # 몸
+    g.polygon([(cx + s * 0.9, cy - s * 0.1), (cx + s * 1.45, cy - s * 0.55), (cx + s * 1.3, cy + s * 0.2)], fill=_c(col))  # 꼬리
+    g.ellipse([cx - s * 1.1, cy - s * 1.35, cx + s * 0.1, cy - s * 0.15], fill=_c(col))                                # 머리
+    g.ellipse([cx - s * 1.55, cy - s * 0.8, cx - s * 0.85, cy - s * 0.45], fill=_c((250, 140, 60)))                     # 부리
+    g.ellipse([cx - s * 0.2, cy + s * 0.05, cx + s * 0.75, cy + s * 0.55], fill=_c(_dk(col, 25)))                       # 날개
+    face(L, cx - s * 0.55, cy - s * 0.85, s * 0.45, kind)
+    return soft_shadow(L, alpha=40)

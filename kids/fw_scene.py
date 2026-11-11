@@ -60,6 +60,9 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
                 from kids.fw_chars import blanket
                 paste(f, cloud_char(95, look), cx - 150, cy - 150 + 14 * math.sin(t * 3), rot=w)   # 이불 위로 몽글이가 빼꼼
                 paste(f, blanket(190), cx, cy + 60, rot=w * 0.3)
+            elif hide == "toybox":                                 # ⑪ 장난감 상자 뚜껑이 들썩들썩
+                paste(f, cloud_char(90, look), cx - 250, cy - 230 + 14 * math.sin(t * 3), rot=w)
+                paste(f, toybox(150, open_=0.25 + 0.25 * math.sin(t * 6)), cx, cy + 40, rot=w * 0.3)
             elif hide in ("tunnel", "basket", "closet"):        # 2차: 터널·바구니·옷장 뒤에서 몽글이가 빼꼼
                 from kids import fw_chars2
                 obj = {"tunnel": fw_chars2.tunnel(150), "basket": fw_chars2.basket(150), "closet": fw_chars2.closet(120)}[hide]
