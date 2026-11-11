@@ -28,7 +28,9 @@ def draw(t, ctx):
     for x, ph, r, sp in SNOW:                                             # 눈
         y = ((ph + t * 0.05 * sp) % 1) * 820
         paste(f, star(int(r), (255, 255, 255)), (x + 40 * math.sin(t * sp + x)) % W, y, alpha=0.8)
-    sec, s0, s1 = section_at(ctx["sp"], t); idx, dt, line = line_info(ctx, t)
+    sec, s0, s1 = section_at(ctx["sp"], t)
+    idx = max([i for i, l in enumerate(ctx["lines"]) if l["start"] <= t], default=-1)   # 자막 없이 그리는 썸네일에서도 가족이 보이게 줄 시각으로 판단
+    dt = t - ctx["lines"][idx]["start"] if idx >= 0 else t; line = ctx["lines"][idx]["text"] if idx >= 0 else ""
     li = max(0, min(len(ctx["fam"]) - 1, idx))
     fam = ctx["fam"][li] if idx >= 0 else []
     focus = ctx["focus"][li] if idx >= 0 else None
