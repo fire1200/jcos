@@ -15,7 +15,7 @@ def setup(lines, total):
     ctx = base_setup(lines, total)
     seen, order, focus = [], [], []
     for l in lines:                        # 줄마다: 지금까지 나온 가족, 이 줄에서 주인공
-        who = next((m for m in sorted(FAMILY_P, key=len, reverse=True) if l["text"].startswith(m + " ") or l["text"].startswith(m + "펭")), None)
+        who = next((m for m in sorted(FAMILY_P, key=len, reverse=True) if l["text"].replace(" ", "").startswith(m + "펭귄")), None)   # "아기 손을 잡아요"는 엄마 절이므로 "OO 펭귄"일 때만
         if who and who not in seen: seen.append(who)
         order.append(list(seen)); focus.append(who or (focus[-1] if focus else None))
     ctx["fam"], ctx["focus"] = order, focus
