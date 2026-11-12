@@ -48,6 +48,7 @@ def draw(t, ctx):
     idx = max([i for i, l in enumerate(ctx["lines"]) if l["start"] <= t], default=-1)   # 썸네일(자막 없이)에서도 장면이 맞게 줄 시각으로 판단
     dt = t - ctx["lines"][idx]["start"] if idx >= 0 else t; line = ctx["lines"][idx]["text"] if idx >= 0 else ""
     n = ctx["cars"][idx] if idx >= 0 else 0
+    if sec in ("Chorus", "Bridge", "Outro"): n = 5                                         # 후렴은 "다섯 칸 기차" — 다섯 칸을 모두 보여 주고 함께 셈
     moving = sec in ("Chorus", "Bridge", "Outro", "Intro")
     _bg(f, t * 260 if moving else t * 60)
     if sec == "Bridge" and ("무지개" in line or "도착" in line):
@@ -77,7 +78,8 @@ def draw(t, ctx):
     for k in range(n):
         name, col, rider = CARS[k]
         _car(f, lx - 270 - k * 240, 700 + bob, col, rider, lit == k, t, k)
-    if lit >= 0 and ("하나 둘" in line or "하나, 둘" in line):
+    if not ctx["sched"]: pass                                                              # 썸네일: 큰 글자는 제목과 겹치므로 생략
+    elif lit >= 0 and ("하나 둘" in line or "하나, 둘" in line):
         paste(f, big_text(COUNT[lit], 130, (255, 255, 255), CARS[lit][1]), 960, 330, scale=0.9 + 0.2 * ease(min(1, (dt % 0.55) / 0.2)))
     else:
         for word, colr in [("뿌뿌", INK), ("칙칙폭폭", INK)] + [(c[0], c[1]) for c in CARS]:
