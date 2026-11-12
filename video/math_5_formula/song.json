@@ -1,0 +1,16 @@
+{
+  "duration": 158.6,
+  "title": "6·12·8 공식송",
+  "subtitle": "5학년 2학기 수학 - 소수의 곱셈, 직육면체, 평균과 가능성",
+  "timeline_years": ["직육면체", "소수의 곱셈", "평균", "가능성", "퀴즈"],
+  "intro_end": 6.0,
+  "outro_start": 159.6,
+  "scenes": [[0, "magic", 11]],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "intro_shots": ["m5_01"],
+  "outro_shots": ["m5_14"],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
