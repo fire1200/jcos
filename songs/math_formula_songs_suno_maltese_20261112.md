@@ -153,7 +153,7 @@ energetic Korean kids pop chant, 128 BPM, punchy drums, brass hits, counting sho
 구십 점! (구십 점!)
 
 [Bridge]
-뭉치이가 개껌을 안 먹을 가능성?
+뭉치가 개껌을 안 먹을 가능성?
 불가능하다, 영! (영!)
 동전 던져 그림 면이 나올 가능성?
 반반이다, 이분의 일! (이분의 일!)
