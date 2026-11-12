@@ -44,7 +44,9 @@ def draw(t, ctx):
     global BG
     if BG is None: BG = SKY.copy(); hills(BG, 700, (170, 220, 150), 22, 1.4)
     f = BG.copy()
-    sec, s0, s1 = section_at(ctx["sp"], t); idx, dt, line = line_info(ctx, t)
+    sec, s0, s1 = section_at(ctx["sp"], t)
+    idx = max([i for i, l in enumerate(ctx["lines"]) if l["start"] <= t], default=-1)   # 썸네일(자막 없이)에서도 장면이 맞게 줄 시각으로 판단
+    dt = t - ctx["lines"][idx]["start"] if idx >= 0 else t; line = ctx["lines"][idx]["text"] if idx >= 0 else ""
     n = ctx["cars"][idx] if idx >= 0 else 0
     moving = sec in ("Chorus", "Bridge", "Outro", "Intro")
     _bg(f, t * 260 if moving else t * 60)

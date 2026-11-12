@@ -20,10 +20,12 @@ def draw(t, ctx):
     global BG
     if BG is None: BG = SKY.copy(); bathroom(BG)
     f = BG.copy()
-    sec, s0, s1 = section_at(ctx["sp"], t); idx, dt, line = line_info(ctx, t)
+    sec, s0, s1 = section_at(ctx["sp"], t)
+    idx = max([i for i, l in enumerate(ctx["lines"]) if l["start"] <= t], default=-1)   # 썸네일(자막 없이)에서도 장면이 맞게 줄 시각으로 판단
+    dt = t - ctx["lines"][idx]["start"] if idx >= 0 else t; line = ctx["lines"][idx]["text"] if idx >= 0 else ""
     g = ImageDraw.Draw(f)
     g.rounded_rectangle([660, 120, 1260, 560], 60, fill=(240, 248, 255, 255), outline=(170, 210, 230, 255), width=14)   # 거울 위 물방울 지우기
-    in_tub = not (sec == "Verse 1" and "첨벙" not in line and idx >= 0 and ctx["sched"][idx][0] < s0 + 6) or sec != "Verse 1"
+    in_tub = not (sec == "Verse 1" and "첨벙" not in line and idx >= 0 and ctx["lines"][idx]["start"] < s0 + 6) or sec != "Verse 1"
     towel = sec in ("Bridge", "Outro") and ("수건" in line or "뽀송" in line or sec == "Outro")
     my = 545 if in_tub else 400
     if sec == "Verse 1" and "첨벙" in line: my = 400 + 145 * ease(min(1, dt / 0.5))                       # 첨벙! 들어가기
