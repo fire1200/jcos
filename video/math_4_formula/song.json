@@ -2,15 +2,31 @@
   "duration": 159.4,
   "title": "사각형 공식송",
   "subtitle": "4학년 2학기 수학 - 사각형, 꺾은선그래프, 다각형",
-  "timeline_years": ["사각형", "꺾은선그래프", "다각형", "퀴즈"],
-  "intro_end": 6.0,
+  "timeline_years": [
+    "사각형",
+    "꺾은선그래프",
+    "다각형",
+    "퀴즈"
+  ],
+  "intro_end": 8.79,
   "outro_start": 160.4,
-  "scenes": [[0, "magic", 11]],
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
   "effects": {},
   "fill_gaps": true,
   "layout": "science",
-  "intro_shots": ["m4_01"],
-  "outro_shots": ["m4_14"],
+  "intro_shots": [
+    "m4_01"
+  ],
+  "outro_shots": [
+    "m4_14"
+  ],
   "gap_montage": 2.5,
-  "split_long": 99
+  "split_long": 99,
+  "panel": "math"
 }

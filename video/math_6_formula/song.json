@@ -1,16 +1,34 @@
 {
-  "duration": 160.1,
+  "duration": 123.0,
   "title": "3.14 공식송",
   "subtitle": "6학년 2학기 수학 - 비례식, 원의 넓이, 원기둥과 원뿔과 구",
-  "timeline_years": ["비례식", "비례배분", "원", "원기둥", "원뿔과 구", "퀴즈"],
-  "intro_end": 5.0,
-  "outro_start": 161.1,
-  "scenes": [[0, "magic", 11]],
+  "timeline_years": [
+    "비례식",
+    "비례배분",
+    "원",
+    "원기둥",
+    "원뿔과 구",
+    "퀴즈"
+  ],
+  "intro_end": 7.09,
+  "outro_start": 124.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
   "effects": {},
   "fill_gaps": true,
   "layout": "science",
-  "intro_shots": ["m6_01"],
-  "outro_shots": ["m6_14", "m6_13", "m6_12", "m6_10", "m6_08", "m6_05"],
+  "intro_shots": [
+    "m6_01"
+  ],
+  "outro_shots": [
+    "m6_14"
+  ],
   "gap_montage": 2.5,
-  "split_long": 99
+  "split_long": 99,
+  "panel": "math"
 }

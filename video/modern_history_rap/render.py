@@ -53,7 +53,8 @@ SUBTITLE = CFG["subtitle"]
 TIMELINE_YEARS = CFG["timeline_years"]
 SCIENCE = CFG["layout"] == "science"
 SHORT = CFG["layout"] == "short"   # 간략본: 연도는 맨 위에 작게, 채널 이름은 오른쪽 위
-GEO = CFG.get("map")   # 지리송: "now"(지금 시도 지도) 또는 "old"(옛 지도). 왼쪽에 지도 판, 설명은 지도 제목으로
+MATH = CFG.get("panel") == "math"   # 수학 공식송: 왼쪽에 공식 카드
+GEO = CFG.get("map") or MATH   # 지리송: "now"(지금 시도 지도) 또는 "old"(옛 지도). 왼쪽에 지도 판, 설명은 지도 제목으로
 
 
 def hexc(s):
@@ -951,10 +952,17 @@ MAP_RIGHT_CX = (MAP_X + MAP_W + W) // 2
 _MAPS, _MAP_IMG = {}, {}
 if GEO:
     sys.path.insert(0, os.path.dirname(HERE))
-    from geo_map import MapPanel
-    _MAP_PANEL = MapPanel(FONT_DISPLAY, MAP_W, MAP_H, old=GEO == "old")
-    _MAPS = {re.sub(r"[^가-힣A-Za-z0-9]", "", k): v
-             for k, v in json.load(open(os.path.join(SONG_DIR, "map.json"), encoding="utf-8")).items()}
+    if MATH:
+        from math_panel import MathPanel, spec_for
+        _MAP_PANEL = MathPanel(FONT_BODY, MAP_W, MAP_H)
+        _song = os.path.basename(SONG_DIR)
+        _MAPS = {re.sub(r"[^가-힣A-Za-z0-9]", "", r["text"]): spec_for(_song, r["event"])
+                 for r in LINES if spec_for(_song, r["event"])}
+    else:
+        from geo_map import MapPanel
+        _MAP_PANEL = MapPanel(FONT_DISPLAY, MAP_W, MAP_H, old=GEO == "old")
+        _MAPS = {re.sub(r"[^가-힣A-Za-z0-9]", "", k): v
+                 for k, v in json.load(open(os.path.join(SONG_DIR, "map.json"), encoding="utf-8")).items()}
 
 
 def map_spec(t):
@@ -974,9 +982,10 @@ def map_spec(t):
 def map_image(key):
     if key not in _MAP_IMG:
         spec = dict(_MAPS.get(key, {}))
-        if "box" in spec:
-            spec["box"] = tuple(spec["box"])
-        spec["labels"] = [tuple(x) for x in spec.get("labels", [])]
+        if not MATH:
+            if "box" in spec:
+                spec["box"] = tuple(spec["box"])
+            spec["labels"] = [tuple(x) for x in spec.get("labels", [])]
         _MAP_IMG[key] = np.asarray(_MAP_PANEL.draw(**spec), np.float32) / 255
     return _MAP_IMG[key]
 
