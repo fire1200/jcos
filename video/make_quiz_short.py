@@ -26,7 +26,29 @@ VY = 760                      # 세로 화면에서 영상이 놓이는 위치
 Q_T, INTRO_T, OUTRO_T = 2.2, 1.6, 2.6
 
 # 문제, 정답, 정답 구간(초, 1분 컷 영상 기준)
+# 시리즈마다 다른 글자 (곡 폴더 이름 앞부분으로 고름)
+THEMES = {
+    "short_": dict(badge="냥계 한국사 퀴즈", cta="▶ 노래로 외우기: 1분 컷 풀버전은 채널에서!", end1="다 맞혔냥?",
+                   end2="노래로 외우면 안 까먹는다냥!", end3="「호크마 차일드 스터디」에서 1분 컷 풀버전 보기"),
+    "math_": dict(badge="수학 탐정단 퀴즈", cta="▶ 노래로 외우기: 공식송 풀버전은 채널에서!", end1="다 맞혔멍?",
+                  end2="공식은 노래로 외우면 안 까먹는다멍!", end3="「호크마 차일드 스터디」에서 수학 공식송 보기"),
+}
+
+
+def theme(key):
+    return next(v for k, v in THEMES.items() if key.startswith(k))
+
+
 QUIZ = {
+    "math_4_formula": ("4학년 사각형", [("네 변의 길이가 모두 같은 사각형은?", "마름모", 38.73, 42.10),
+                                      ("한 쌍이라도 평행한 사각형은?", "사다리꼴", 23.60, 27.89),
+                                      ("평행사변형 이웃한 두 각의 합은?", "180도", 72.06, 75.14)]),
+    "math_5_formula": ("5학년 공식", [("직육면체의 모서리는 몇 개?", "12개", 130.15, 133.61),
+                                    ("0.3 × 0.4 는?", "0.12", 59.65, 63.71),
+                                    ("80, 90, 100점의 평균은?", "90점", 101.35, 105.35)]),
+    "math_6_formula": ("6학년 공식", [("외항의 곱은 무엇과 같을까?", "내항의 곱", 24.03, 27.50),
+                                    ("10을 2 : 3으로 나누면?", "4와 6", 31.51, 33.24),
+                                    ("원의 넓이 구하는 공식은?", "반지름×반지름×원주율", 41.69, 46.92)]),
     "short_1_samguk_rise": ("고조선과 삼국", [("단군왕검이 세운 나라는?", "고조선", 55.73, 57.74),
                                             ("주몽이 세운 나라는?", "고구려", 57.74, 59.18),
                                             ("신라가 한강을 차지한 해는?", "553년", 60.45, 63.05)]),
@@ -76,10 +98,10 @@ def ding():
 
 
 class Canvas:
-    def __init__(self, era):
-        self.badge = self.pill(label("냥계 한국사 퀴즈", FONT_BODY, 56, (30, 20, 15), "Black", stroke=0), (255, 214, 64))
-        self.era = label(f"{era} 몇 개 맞힐까?", FONT_DISPLAY, 96, (255, 255, 255), stroke=10)
-        self.cta = self.pill(label("▶ 노래로 외우기: 1분 컷 풀버전은 채널에서!", FONT_BODY, 46, (255, 255, 255), "Black", stroke=6, maxw=980),
+    def __init__(self, era, th):
+        self.badge = self.pill(label(th["badge"], FONT_BODY, 56, (30, 20, 15), "Black", stroke=0), (255, 214, 64))
+        self.era = label(f"{era} 몇 개 맞힐까?", FONT_DISPLAY, 96, (255, 255, 255), stroke=10, maxw=1000)
+        self.cta = self.pill(label(th["cta"], FONT_BODY, 46, (255, 255, 255), "Black", stroke=6, maxw=980),
                              (215, 40, 50))
 
     @staticmethod
@@ -108,7 +130,8 @@ class Canvas:
 
 def main(key, src, out):
     era, qs = QUIZ[key]
-    cv = Canvas(era)
+    th = theme(key)
+    cv = Canvas(era, th)
     preview = os.environ.get("PREVIEW")
     frames_out, audio = [], []
 
@@ -172,9 +195,9 @@ def main(key, src, out):
                 frames_out[j].save(f"{out}_q{qi + 1}_{j}.png")
     # 끝: 채널 안내
     last = frames[-1]
-    end1 = label("다 맞혔냥?", FONT_DISPLAY, 120, (255, 230, 90), stroke=11)
-    end2 = label("노래로 외우면 안 까먹는다냥!", FONT_BODY, 62, (255, 255, 255), "Black", stroke=8, maxw=1000)
-    end3 = label("「호크마 차일드 스터디」에서 1분 컷 풀버전 보기", FONT_BODY, 50, (255, 255, 255), "Black", stroke=7, maxw=1000)
+    end1 = label(th["end1"], FONT_DISPLAY, 120, (255, 230, 90), stroke=11)
+    end2 = label(th["end2"], FONT_BODY, 62, (255, 255, 255), "Black", stroke=8, maxw=1000)
+    end3 = label(th["end3"], FONT_BODY, 50, (255, 255, 255), "Black", stroke=7, maxw=1000)
     for i in range(int(OUTRO_T * FPS)):
         f, vb = cv.base(last, dim=.55)
         y = 300
