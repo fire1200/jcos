@@ -1,0 +1,17 @@
+{
+  "duration": 127.8,
+  "title": "100·60·24 공식송",
+  "subtitle": "2학년 2학기 수학 - 네 자리 수, 곱셈, 길이 재기, 시각과 시간, 표와 그래프",
+  "timeline_years": ["길이와 시간", "네 자리 수", "곱셈", "시각과 시간", "길이 재기", "표와 그래프", "퀴즈"],
+  "intro_end": 6.5,
+  "outro_start": 128.8,
+  "scenes": [[0, "magic", 11]],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "panel": "math",
+  "intro_shots": ["m2_01"],
+  "outro_shots": ["m2_12"],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
