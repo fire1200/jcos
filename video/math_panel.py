@@ -575,3 +575,275 @@ def spec_for(song, event):
         if key in event:
             return spec
     return None
+
+
+# ------------------------------------------------------------------ 2 · 3학년
+def frac(c, x, y, top, bot, size=64, col=INK, whole=None):
+    """세로 분수 (대분수면 whole)."""
+    if whole is not None:
+        c.text((x - size * .55, y), str(whole), int(size * 1.25), col)
+        x += size * .25
+    c.text((x, y - size * .62), str(top), size, col)
+    c.line([(x - size * .55, y), (x + size * .55, y)], col, 6)
+    c.text((x, y + size * .62), str(bot), size, col)
+
+
+def bar(c, x0, y0, w, h, n, k, col=(255, 190, 110)):
+    """n칸 중 k칸 색칠한 막대."""
+    for i in range(n):
+        x = x0 + w * i / n
+        c.d.rectangle([x * SS, y0 * SS, (x + w / n) * SS, (y0 + h) * SS], fill=col if i < k else (255, 255, 255), outline=INK, width=4 * SS)
+
+
+def s_ruler(c, mode="m"):
+    x0, x1, y = 70, 530, 300
+    c.d.rectangle([x0 * SS, (y - 50) * SS, x1 * SS, (y + 20) * SS], fill=(255, 226, 150), outline=INK, width=5 * SS)
+    for i in range(101):
+        x = x0 + (x1 - x0) * i / 100
+        h = 34 if i % 10 == 0 else 14
+        c.line([(x, y + 20), (x, y + 20 - h)], INK, 3 if i % 10 else 4)
+    if mode == "m":
+        c.text((300, y - 110), "1 m", 80, RED)
+        c.text((300, y + 110), "= 100 cm", 70, BLUE)
+    else:
+        c.d.rectangle([x0 * SS, (y + 60) * SS, (x0 + (x1 - x0) * .3) * SS, (y + 90) * SS], fill=(140, 190, 250), outline=INK, width=4 * SS)
+        c.text((300, y - 110), "130 cm", 76, RED)
+        c.text((300, y + 160), "= 1 m 30 cm", 64, BLUE)
+
+
+def s_clock(c, mode="60"):
+    ce, r = (300, 330), 190
+    c.circle(ce, r, (255, 250, 235), INK, 8)
+    for i in range(60):
+        a = math.radians(i * 6 - 90)
+        r1 = r - (24 if i % 5 == 0 else 11)
+        c.line([(ce[0] + r1 * math.cos(a), ce[1] + r1 * math.sin(a)), (ce[0] + (r - 4) * math.cos(a), ce[1] + (r - 4) * math.sin(a))], INK, 5 if i % 5 == 0 else 2)
+    for i in range(1, 13):
+        a = math.radians(i * 30 - 90)
+        c.text((ce[0] + (r - 50) * math.cos(a), ce[1] + (r - 50) * math.sin(a)), str(i), 30)
+    hh = math.radians(4 * 30 + 15 - 90)
+    mm = math.radians(30 * 6 - 90)
+    c.line([ce, (ce[0] + 95 * math.cos(hh), ce[1] + 95 * math.sin(hh))], RED, 12)
+    c.line([ce, (ce[0] + 150 * math.cos(mm), ce[1] + 150 * math.sin(mm))], BLUE, 8)
+    c.circle(ce, 10, INK, None)
+    if mode == "hands":
+        c.text((110, 560), "짧은바늘 = 시", 34, RED)
+        c.text((470, 560), "긴바늘 = 분", 34, BLUE)
+    else:
+        c.arc(ce, r + 18, -90, 260, RED, 7)
+        c.text((300, 566), "긴바늘 한 바퀴 = 60분", 36, RED)
+
+
+def s_day(c):
+    x0, x1, y = 60, 540, 300
+    c.d.rectangle([x0 * SS, y * SS, 300 * SS, (y + 80) * SS], fill=(255, 220, 120), outline=INK, width=5 * SS)
+    c.d.rectangle([300 * SS, y * SS, x1 * SS, (y + 80) * SS], fill=(150, 170, 230), outline=INK, width=5 * SS)
+    c.text((180, y + 40), "오전 12시간", 34)
+    c.text((420, y + 40), "오후 12시간", 34, (255, 255, 255))
+    c.circle((110, 210), 44, (255, 200, 60), None)
+    c.d.chord([440 * SS, 166 * SS, 528 * SS, 254 * SS], 60, 300, fill=(255, 230, 120))
+    c.text((300, 470), "하루 = 24시간", 66, RED)
+
+
+def s_cells(c, n=7, cap=""):
+    cols = 7 if n == 7 else 6
+    w = 70
+    x0 = 300 - cols * w / 2
+    for i in range(n):
+        x, y = x0 + (i % cols) * w, 240 + (i // cols) * (w + 10)
+        c.d.rounded_rectangle([x * SS, y * SS, (x + w - 8) * SS, (y + w - 8) * SS], 10 * SS, fill=(255, 226, 150) if n == 7 else (190, 225, 255), outline=INK, width=4 * SS)
+        c.text((x + w / 2 - 4, y + w / 2 - 4), str(i + 1), 30)
+    c.text((300, 470), cap, 64, RED)
+
+
+def s_summary(c, items=()):
+    y = 210
+    for t, col in items:
+        c.text((300, y), t, c.fit(t, 66, 520), col)
+        y += 120
+
+
+def s_blocks(c):
+    for i in range(10):
+        x = 80 + (i % 5) * 92
+        y = 170 + (i // 5) * 150
+        c.d.rectangle([x * SS, y * SS, (x + 80) * SS, (y + 80) * SS], fill=(255, 210, 120), outline=INK, width=4 * SS)
+        for k in range(1, 10):
+            c.line([(x + 8 * k, y), (x + 8 * k, y + 80)], (200, 150, 80), 1)
+            c.line([(x, y + 8 * k), (x + 80, y + 8 * k)], (200, 150, 80), 1)
+        c.text((x + 40, y + 104), "100", 26)
+    c.text((300, 520), "100 × 10 = 1000", 56, RED)
+
+
+def s_place(c):
+    heads = ["천", "백", "십", "일"]
+    digs = ["5", "3", "8", "4"]
+    for i in range(4):
+        x = 90 + i * 110
+        c.d.rectangle([x * SS, 200 * SS, (x + 104) * SS, 270 * SS], fill=(255, 214, 64), outline=INK, width=4 * SS)
+        c.d.rectangle([x * SS, 270 * SS, (x + 104) * SS, 380 * SS], fill=(255, 255, 255), outline=INK, width=4 * SS)
+        c.text((x + 52, 235), heads[i], 40)
+        c.text((x + 52, 325), digs[i], 70, RED)
+    c.text((300, 460), "5384", 80, BLUE)
+
+
+def s_dots(c, eq=False):
+    for k, (rows, cols, ox) in enumerate(((3, 4, 60), (4, 3, 340))):
+        for r in range(rows):
+            for q in range(cols):
+                c.circle((ox + 30 + q * 46, 200 + r * 46), 17, (255, 150, 120) if k == 0 else (140, 190, 250), INK, 3)
+        c.text((ox + 30 + (cols - 1) * 23, 410), f"{rows} × {cols} = 12", 40)
+    c.text((300, 500), "3 × 4 = 4 × 3", 60, RED)
+
+
+def s_zero(c, mode=0):
+    if mode == 0:
+        c.text((300, 260), "0 × 5 = 0", 80)
+        c.text((300, 380), "7 × 0 = 0", 80)
+    else:
+        c.text((300, 260), "1 × 5 = 5", 80)
+        c.text((300, 380), "7 × 1 = 7", 80)
+
+
+def s_table(c):
+    data = [("사과", "4"), ("포도", "6"), ("딸기", "3")]
+    for i, (a, b) in enumerate([("과일", "학생 수")] + data):
+        y = 170 + i * 80
+        for j, t in enumerate((a, b)):
+            x = 90 + j * 210
+            c.d.rectangle([x * SS, y * SS, (x + 210) * SS, (y + 80) * SS], fill=(255, 214, 64) if i == 0 else (255, 255, 255), outline=INK, width=4 * SS)
+            c.text((x + 105, y + 40), t, 36)
+
+
+def s_barchart(c):
+    data = [("사과", 4, (255, 150, 120)), ("포도", 6, (190, 150, 240)), ("딸기", 3, (255, 120, 150))]
+    c.line([(100, 160), (100, 470), (520, 470)], INK, 6)
+    for i, (n, v, col) in enumerate(data):
+        x = 160 + i * 125
+        for k in range(v):
+            c.circle((x + 30, 448 - k * 46), 20, col, INK, 3)
+        c.text((x + 30, 500), n, 32)
+
+
+def s_unit(c, kind="L"):
+    big, small, eq = {"L": ("1 L", "1000 mL", "들이"), "kg": ("1 kg", "1000 g", "무게"), "t": ("1 t", "1000 kg", "무게")}[kind]
+    if kind == "L":
+        c.d.rounded_rectangle([210 * SS, 150 * SS, 390 * SS, 400 * SS], 30 * SS, fill=(200, 230, 255), outline=INK, width=6 * SS)
+        c.d.rectangle([214 * SS, 230 * SS, 386 * SS, 396 * SS], fill=(120, 180, 250))
+    elif kind == "kg":
+        c.d.polygon(c.P([(220, 400), (380, 400), (350, 200), (250, 200)]), fill=(140, 140, 150))
+        c.circle((300, 185), 28, None, INK, 8)
+    else:
+        c.d.rounded_rectangle([140 * SS, 240 * SS, 460 * SS, 380 * SS], 20 * SS, fill=(255, 190, 90), outline=INK, width=6 * SS)
+        c.d.rectangle([380 * SS, 190 * SS, 460 * SS, 250 * SS], fill=(255, 190, 90), outline=INK, width=6 * SS)
+        for x in (200, 400):
+            c.circle((x, 390), 30, INK, None)
+    c.text((300, 470), f"{big} = {small}", 60, RED)
+    c.text((300, 540), eq, 34, BLUE)
+
+
+def s_fracbar(c, kind="proper"):
+    if kind == "proper":
+        bar(c, 90, 220, 420, 90, 4, 3)
+        frac(c, 300, 450, 3, 4, 70, RED)
+        c.text((440, 450), "분자 < 분모", 30, BLUE)
+    elif kind == "improper":
+        bar(c, 70, 170, 460, 80, 4, 4)
+        bar(c, 70, 280, 460, 80, 4, 1)
+        frac(c, 300, 450, 5, 4, 70, RED)
+        c.text((450, 450), "분자 ≥ 분모", 30, BLUE)
+    else:
+        bar(c, 70, 170, 460, 80, 4, 4)
+        bar(c, 70, 280, 460, 80, 4, 1)
+        frac(c, 290, 450, 1, 4, 66, RED, whole=1)
+        c.text((460, 450), "자연수 + 진분수", 26, BLUE)
+
+
+def s_division(c, mode="check"):
+    c.text((300, 220), "10 ÷ 3 = 3 … 1", 66)
+    if mode in ("check", "eq"):
+        c.text((300, 340), "3 × 3 + 1 = 10", 66, RED)
+        c.text((300, 430), "나누는 수 × 몫 + 나머지", 32, BLUE)
+    if mode == "rem":
+        c.text((300, 340), "나머지 1 < 나누는 수 3", 46, RED)
+
+
+def s_pictograph(c):
+    rows = [("가 마을", 2, 3), ("나 마을", 1, 5), ("다 마을", 3, 1)]
+    for i, (n, big, small) in enumerate(rows):
+        y = 200 + i * 105
+        c.text((110, y), n, 32)
+        x = 200
+        for _ in range(big):
+            c.circle((x, y), 30, (255, 120, 120), INK, 4)
+            x += 72
+        for _ in range(small):
+            c.circle((x - 14, y), 15, (255, 170, 170), INK, 3)
+            x += 40
+    c.circle((150, 535), 24, (255, 120, 120), INK, 4)
+    c.text((230, 535), "= 10", 34)
+    c.circle((360, 535), 12, (255, 170, 170), INK, 3)
+    c.text((420, 535), "= 1", 34)
+
+
+def s_center(c, mode="center"):
+    ce, r = (300, 330), 190
+    c.circle(ce, r, (255, 235, 210), INK, 7)
+    c.circle(ce, 12, RED if mode == "center" else INK, None)
+    if mode == "center":
+        c.text((300, 380), "원의 중심", 42, RED, stroke=6)
+    if mode in ("radius", "both"):
+        c.line([ce, (ce[0] + r * math.cos(-.7), ce[1] + r * math.sin(-.7))], RED, 8)
+        c.text((395, 255), "반지름", 36, RED, stroke=5)
+    if mode in ("diam", "both"):
+        c.line([(ce[0] - r, ce[1]), (ce[0] + r, ce[1])], BLUE, 8)
+        c.text((300, 370), "지름", 40, BLUE, stroke=5)
+
+
+SHAPES.update({"ruler": s_ruler, "clock": s_clock, "day": s_day, "cells": s_cells, "summary": s_summary, "blocks": s_blocks,
+               "place": s_place, "dots": s_dots, "zero": s_zero, "table": s_table, "barchart": s_barchart, "unit": s_unit,
+               "fracbar": s_fracbar, "division": s_division, "pictograph": s_pictograph, "center": s_center})
+
+RULES["math_2b_formula"] = [
+    R("몇 분?", "퀴즈", ["한 시간은 몇 분?"], "question"),
+    R("몇 cm?", "퀴즈", ["1 m는 몇 cm?"], "question"),
+    R("130 cm", "길이 재기", ["130 cm = 1 m 30 cm"], "ruler", mode="130"),
+    R("1 m = 100 cm", "길이", ["1 m = 100 cm"], "ruler", mode="m"),
+    R("1시간 = 60분", "시간", ["1시간 = 60분"], "clock"),
+    R("짧은바늘", "시계 읽기", ["짧은바늘은 시, 긴바늘은 분"], "clock", mode="hands"),
+    R("오전 12시간", "하루", ["오전 + 오후 = 24시간"], "day"),
+    R("하루 = 24시간", "하루", ["하루 = 24시간"], "day"),
+    R("100 · 60 · 24", "오늘의 암호", [], "summary", items=[("1 m = 100 cm", RED), ("1시간 = 60분", BLUE), ("하루 = 24시간", (40, 150, 70))]),
+    R("100이 10개", "네 자리 수", ["100이 10개면 1000"], "blocks"),
+    R("자리값", "네 자리 수", ["천 · 백 · 십 · 일의 자리"], "place"),
+    R("0 ×", "곱셈", ["0을 곱하면 언제나 0"], "zero", mode=0),
+    R("1 ×", "곱셈", ["1을 곱하면 그대로"], "zero", mode=1),
+    R("3 × 4", "곱셈", ["바꿔 곱해도 똑같다"], "dots"),
+    R("순서를 바꿔도", "곱셈", ["바꿔 곱해도 똑같다"], "dots"),
+    R("1주일", "시간", ["1주일 = 7일"], "cells", n=7, cap="1주일 = 7일"),
+    R("1년", "시간", ["1년 = 12개월"], "cells", n=12, cap="1년 = 12개월"),
+    R("표:", "표", ["수를 한눈에"], "table"),
+    R("그래프:", "그래프", ["많고 적음을 한눈에"], "barchart"),
+]
+RULES["math_3b_formula"] = [
+    R("몇 g?", "퀴즈", ["1 kg은 몇 g?"], "question"),
+    R("몇 배?", "퀴즈", ["지름은 반지름의 몇 배?"], "question"),
+    R("1 L = 1000 mL", "들이", [], "unit", kind="L"),
+    R("1 kg = 1000 g", "무게", [], "unit", kind="kg"),
+    R("1 t = 1000 kg", "무게", [], "unit", kind="t"),
+    R("1000 · 1000 · 1000", "오늘의 암호", [], "summary", items=[("1 L = 1000 mL", RED), ("1 kg = 1000 g", BLUE), ("1 t = 1000 kg", (40, 150, 70))]),
+    R("대분수", "대분수", ["자연수와 진분수로 된 분수"], "fracbar", kind="mixed"),
+    R("진분수", "진분수", ["분자가 분모보다 작은 분수"], "fracbar", kind="proper"),
+    R("가분수", "가분수", ["분자가 분모와 같거나 큰 분수"], "fracbar", kind="improper"),
+    R("원의 중심", "원", ["원의 한가운데 = 원의 중심"], "center", mode="center"),
+    R("반지름:", "원", ["중심에서 원 위의 한 점까지"], "center", mode="radius"),
+    R("지름:", "원", ["중심을 지나는 선분"], "center", mode="diam"),
+    R("지름 = 반지름 × 2", "원", ["지름 = 반지름 × 2"], "center", mode="both"),
+    R("나머지 <", "나눗셈", ["나머지는 나누는 수보다 작다"], "division", mode="rem"),
+    R("10 ÷ 3", "나눗셈", ["10 ÷ 3 = 3 … 1"], "division", mode="eq"),
+    R("나눗셈 확인", "나눗셈 확인", ["나누는 수 × 몫 + 나머지"], "division", mode="check"),
+    R("나누는 수 × 몫", "나눗셈 확인", ["= 나누어지는 수"], "division", mode="check"),
+    R("= 나누어지는 수", "나눗셈 확인", ["= 나누어지는 수"], "division", mode="check"),
+    R("그림그래프", "그림그래프", ["그림으로 나타낸 그래프"], "pictograph"),
+    R("큰 그림", "그림그래프", ["큰 그림 10 · 작은 그림 1"], "pictograph"),
+]

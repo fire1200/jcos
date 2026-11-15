@@ -21,6 +21,10 @@ THUMBS = [
      dict(title="직육면체", lines=["면 6 · 모서리 12", "꼭짓점 8"], shape="cuboid", kw=dict(mode="all")), "썸네일_수학5_육십이팔공식송.jpg"),
     ("math_6_formula", "m6_08", "6학년 2학기 수학", ["3.14", "공식송!"],
      dict(title="원의 넓이", lines=["반지름 × 반지름", "× 원주율"], shape="circle", kw=dict(mode="area")), "썸네일_수학6_삼점일사공식송.jpg"),
+    ("math_2b_formula", "m2_03", "2학년 2학기 수학", ["100 · 60 · 24", "공식송!"],
+     dict(title="시간", lines=["1시간 = 60분", "하루 = 24시간"], shape="clock", kw=dict(mode="60")), "썸네일_수학2-2_백육십스물넷공식송.jpg"),
+    ("math_3b_formula", "m3b_04", "3학년 2학기 수학", ["천! 천! 천!", "공식송!"],
+     dict(title="오늘의 암호", lines=[], shape="summary", kw=dict(items=[("1 L = 1000 mL", (225, 35, 45)), ("1 kg = 1000 g", (40, 110, 220)), ("1 t = 1000 kg", (40, 150, 70))])), "썸네일_수학3-2_천천천공식송.jpg"),
 ]
 
 
@@ -32,6 +36,8 @@ def font(path, size, weight=None):
 
 
 for song, img, badge, lines, card, name in THUMBS:
+    if os.environ.get("ONLY") and os.environ["ONLY"] not in song:
+        continue
     W, H = 1280, 720
     bg = Image.open(os.path.join(HERE, song, "images", img + ".png")).convert("RGB")
     k = max(W / bg.width, H / bg.height) * 1.12   # 조금 키워서 강아지를 크게
