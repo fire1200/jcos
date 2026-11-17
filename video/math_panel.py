@@ -847,3 +847,156 @@ RULES["math_3b_formula"] = [
     R("그림그래프", "그림그래프", ["그림으로 나타낸 그래프"], "pictograph"),
     R("큰 그림", "그림그래프", ["큰 그림 10 · 작은 그림 1"], "pictograph"),
 ]
+
+
+# ------------------------------------------------------------------ 3학년 1학기
+def head(c, p, q, col=INK, s=26):
+    """p→q 끝에 화살촉."""
+    a = math.atan2(q[1] - p[1], q[0] - p[0])
+    for d in (2.6, -2.6):
+        c.line([q, (q[0] + s * math.cos(a + d), q[1] + s * math.sin(a + d))], col, 7)
+
+
+def s_len(c, kind="cm"):
+    if kind == "cm":
+        x0, x1, y = 80, 520, 300
+        c.d.rectangle([x0 * SS, (y - 70) * SS, x1 * SS, (y + 20) * SS], fill=(255, 226, 150), outline=INK, width=5 * SS)
+        for i in range(11):
+            x = x0 + 20 + 400 * i / 10
+            h = 60 if i in (0, 10) else (40 if i == 5 else 26)
+            c.line([(x, y + 20), (x, y + 20 - h)], RED if i in (0, 10) else INK, 4)
+        c.text((100, y - 100), "0", 34)
+        c.text((500, y - 100), "1 cm", 34)
+        c.text((300, y + 70), "작은 눈금 10칸 = 10 mm", 32, BLUE)
+        c.text((300, 470), "1 cm = 10 mm", 64, RED)
+    else:
+        c.d.rectangle([60 * SS, 300 * SS, 540 * SS, 360 * SS], fill=(120, 120, 130))
+        for k in range(8):
+            x = 80 + k * 60
+            c.line([(x, 330), (x + 30, 330)], (255, 255, 255), 5)
+        c.line([(80, 270), (80, 390)], RED, 6)
+        c.line([(520, 270), (520, 390)], RED, 6)
+        c.text((300, 240), "1000 m", 56, BLUE)
+        c.text((300, 470), "1 km = 1000 m", 64, RED)
+
+
+def s_sec(c):
+    ce, r = (300, 320), 140
+    c.circle(ce, r, (255, 250, 235), INK, 8)
+    c.d.rectangle([282 * SS, 158 * SS, 318 * SS, 180 * SS], fill=INK)
+    for i in range(60):
+        a = math.radians(i * 6 - 90)
+        r1 = r - (22 if i % 5 == 0 else 10)
+        c.line([(ce[0] + r1 * math.cos(a), ce[1] + r1 * math.sin(a)), (ce[0] + (r - 4) * math.cos(a), ce[1] + (r - 4) * math.sin(a))], INK, 4 if i % 5 == 0 else 2)
+    c.arc(ce, r + 16, -90, 268, RED, 7)
+    c.line([ce, (ce[0], ce[1] - 115)], RED, 7)
+    c.circle(ce, 9, INK, None)
+    c.text((300, 540), "1분 = 60초", 64, RED)
+
+
+def s_lines(c, kind="seg"):
+    y, a, b = 320, (150, 320), (450, 320)
+    if kind == "seg":
+        c.line([a, b], INK, 8)
+    elif kind == "ray":
+        c.line([a, (550, y)], INK, 8)
+        head(c, a, (552, y), INK)
+    else:
+        c.line([(48, y), (552, y)], INK, 8)
+        head(c, b, (552, y), INK)
+        head(c, a, (48, y), INK)
+    for p, n in ((a, "ㄱ"), (b, "ㄴ")):
+        c.circle(p, 13, RED, None)
+        c.text((p[0], p[1] + 50), n, 40)
+    name = {"seg": "선분 ㄱㄴ", "ray": "반직선 ㄱㄴ", "line": "직선 ㄱㄴ"}[kind]
+    c.text((300, 200), name, 58, RED)
+    c.text((300, 470), {"seg": "두 점을 곧게 이은 선", "ray": "한쪽으로 끝없이 →", "line": "← 양쪽으로 끝없이 →"}[kind], 36, BLUE)
+
+
+def s_angle3(c, right=False):
+    v = (170, 450)
+    p = (520, 450)
+    q = (170, 150) if right else (440, 190)
+    for e in (p, q):
+        c.line([v, e], INK, 8)
+        head(c, v, e, INK)
+    if right:
+        c.right_angle(v, p, q, 46)
+        c.text((300, 540), "직각 = 종이를 두 번 접은 모양", 34, BLUE)
+    else:
+        c.angle(v, p, q, 70)
+        c.text((300, 540), "꼭짓점에서 그은 두 반직선", 34, BLUE)
+    c.circle(v, 12, RED, None)
+    c.text((v[0] - 30, v[1] + 30), "꼭짓점", 26)
+
+
+def s_shape3(c, kind="rtri"):
+    if kind == "rtri":
+        pts = [(130, 470), (470, 470), (130, 190)]
+        c.poly(pts, SOFT["p"])
+        c.right_angle(pts[0], pts[1], pts[2], 34)
+    else:
+        pts = RECT if kind == "rect" else SQUA
+        c.poly(pts, SOFT["b"] if kind == "rect" else SOFT["g"])
+        for i in range(4):
+            c.right_angle(pts[i], pts[(i + 1) % 4], pts[i - 1], 28)
+        if kind == "squa":
+            for i in range(4):
+                c.tick(pts[i], pts[(i + 1) % 4], 1)
+
+
+def s_divmul(c):
+    for g in range(2):
+        x0 = 120 + g * 220
+        c.d.rounded_rectangle([x0 * SS, 170 * SS, (x0 + 160) * SS, 290 * SS], 24 * SS, outline=BLUE, width=5 * SS)
+        for k in range(3):
+            c.circle((x0 + 32 + k * 48, 230), 18, (255, 170, 90), INK, 3)
+    c.text((300, 370), "6 ÷ 2 = 3", 66)
+    c.text((300, 450), "↕", 50, BLUE)
+    c.text((300, 530), "2 × 3 = 6", 66, RED)
+
+
+def s_frac3(c, mode="whole"):
+    if mode == "dec":
+        bar(c, 60, 220, 480, 80, 10, 1)
+        frac(c, 200, 430, 1, 10, 64, RED)
+        c.text((310, 430), "=", 64)
+        c.text((420, 430), "0.1", 76, BLUE)
+        return
+    ce, r = (300, 270), 130
+    for k in range(4):
+        c.d.pieslice([(ce[0] - r) * SS, (ce[1] - r) * SS, (ce[0] + r) * SS, (ce[1] + r) * SS], -90 + k * 90, k * 90,
+                     fill=(255, 190, 110) if k == 0 else (255, 245, 225), outline=INK, width=5 * SS)
+    if mode == "names":
+        frac(c, 270, 490, 1, 4, 54, RED)
+        c.text((390, 456), "← 분자", 32, RED)
+        c.text((390, 524), "← 분모", 32, BLUE)
+    else:
+        c.text((300, 520), "똑같이 4조각 중 1조각", 34, BLUE)
+
+
+SHAPES.update({"len": s_len, "sec": s_sec, "lines": s_lines, "angle3": s_angle3, "shape3": s_shape3,
+               "divmul": s_divmul, "frac3": s_frac3})
+
+RULES["math_3a_formula"] = [
+    R("몇 m?", "퀴즈", ["1 km는 몇 m?"], "question"),
+    R("곧은 선은?", "퀴즈", ["양쪽으로 끝없이 가는 곧은 선은?"], "question"),
+    R("1 cm = 10 mm", "길이", [], "len", kind="cm"),
+    R("1 km = 1000 m", "길이", [], "len", kind="km"),
+    R("1분 = 60초", "시간", [], "sec"),
+    R("10 · 1000 · 60", "오늘의 암호", [], "summary", items=[("1 cm = 10 mm", RED), ("1 km = 1000 m", BLUE), ("1분 = 60초", (40, 150, 70))]),
+    R("반직선:", "반직선", ["한 점에서 한쪽으로 끝없이"], "lines", kind="ray"),
+    R("선분:", "선분", ["두 점을 곧게 이은 선"], "lines", kind="seg"),
+    R("직선:", "직선", ["양쪽으로 끝없이 뻗은 곧은 선"], "lines", kind="line"),
+    R("각:", "각", ["한 점에서 그은 두 반직선"], "angle3"),
+    R("직각삼각형", "직각삼각형", ["직각이 하나인 삼각형"], "shape3", kind="rtri"),
+    R("직사각형", "직사각형", ["네 각이 모두 직각"], "shape3", kind="rect"),
+    R("정사각형", "정사각형", ["네 변 같고 네 각 직각"], "shape3", kind="squa"),
+    R("직각", "직각", ["종이를 반듯하게 두 번 접은 각"], "angle3", right=True),
+    R("6 ÷ 2", "나눗셈", ["곱셈으로 확인!"], "divmul"),
+    R("짝꿍", "나눗셈", ["나눗셈의 짝꿍은 곱셈"], "divmul"),
+    R("분수:", "분수", ["똑같이 나눈 것 중의 얼마"], "frac3", mode="whole"),
+    R("분모와 분자", "분수", ["아래는 분모, 위는 분자"], "frac3", mode="names"),
+    R("1/10", "소수", ["1/10 = 0.1"], "frac3", mode="dec"),
+    R("직선", "직선", ["양쪽으로 끝없이 뻗은 곧은 선"], "lines", kind="line"),
+]
