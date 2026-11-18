@@ -1000,3 +1000,478 @@ RULES["math_3a_formula"] = [
     R("1/10", "소수", ["1/10 = 0.1"], "frac3", mode="dec"),
     R("직선", "직선", ["양쪽으로 끝없이 뻗은 곧은 선"], "lines", kind="line"),
 ]
+
+
+# ------------------------------------------------------------------ 1학기 (2-1 · 4-1 · 5-1 · 6-1)
+GREEN = (40, 150, 70)
+
+
+def s_basic(c, kind="tri"):
+    if kind == "circle":
+        c.circle((300, 320), 160, SOFT["b"], INK, 7)
+        c.text((300, 540), "변 0 · 꼭짓점 0", 44, BLUE)
+        return
+    p = ngon(3, (300, 350), 190, -90) if kind == "tri" else [(130, 190), (470, 190), (470, 470), (130, 470)]
+    c.poly(p, SOFT["p"] if kind == "tri" else SOFT["y"], INK, 8)
+    for v in p:
+        c.circle(v, 15, RED, (255, 255, 255), 3)
+    n = len(p)
+    c.text((300, 540), f"변 {n} · 꼭짓점 {n}", 48, BLUE)
+
+
+def s_tens(c):
+    for i in range(10):
+        x = 85 + i * 46
+        for k in range(10):
+            c.d.rectangle([x * SS, (150 + k * 32) * SS, (x + 34) * SS, (180 + k * 32) * SS], fill=(150, 200, 250), outline=INK, width=2 * SS)
+    c.text((300, 520), "10 × 10 = 100", 60, RED)
+
+
+def s_place3(c):
+    heads, digs, cols = ["백", "십", "일"], ["3", "4", "5"], [RED, BLUE, GREEN]
+    for i in range(3):
+        x = 120 + i * 125
+        c.d.rectangle([x * SS, 180 * SS, (x + 120) * SS, 250 * SS], fill=(255, 214, 64), outline=INK, width=4 * SS)
+        c.d.rectangle([x * SS, 250 * SS, (x + 120) * SS, 360 * SS], fill=(255, 255, 255), outline=INK, width=4 * SS)
+        c.text((x + 60, 215), heads[i], 40)
+        c.text((x + 60, 305), digs[i], 72, cols[i])
+    c.text((300, 440), "345", 80)
+    c.text((300, 530), "300 + 40 + 5", 50, BLUE)
+
+
+def s_column(c, mode="add"):
+    a, b, r, op = ("27", "15", "42", "+") if mode == "add" else ("42", "15", "27", "−")
+    xs = (330, 400)
+    for row, s in ((0, a), (1, b), (2, r)):
+        y = 220 + row * 110 + (20 if row == 2 else 0)
+        for i, ch in enumerate(s):
+            c.text((xs[i], y), ch, 80, RED if row == 2 else INK)
+    c.text((240, 330), op, 80)
+    c.line([(210, 395), (450, 395)], INK, 7)
+    if mode == "add":
+        c.text((330, 150), "1", 44, RED)
+        c.text((300, 560), "10이 되면 받아올림!", 40, BLUE)
+    else:
+        c.line([(310, 205), (350, 235)], RED, 5)
+        c.text((310, 150), "3", 40, RED)
+        c.text((420, 150), "10", 40, RED)
+        c.text((300, 560), "모자라면 받아내림!", 40, BLUE)
+
+
+def s_cmruler(c):
+    x0, y = 70, 360
+    c.d.rectangle([(x0 - 20) * SS, y * SS, 550 * SS, (y + 90) * SS], fill=(255, 226, 150), outline=INK, width=5 * SS)
+    for i in range(10):
+        x = x0 + i * 52
+        c.line([(x, y), (x, y + 34)], INK, 4)
+        c.text((x, y + 60), str(i), 28, RED if i == 0 else INK)
+    c.d.rounded_rectangle([x0 * SS, 270 * SS, (x0 + 5 * 52) * SS, 320 * SS], 10 * SS, fill=(150, 200, 250), outline=INK, width=4 * SS)
+    c.d.polygon(c.P([(x0 + 260, 270), (x0 + 310, 295), (x0 + 260, 320)]), fill=(255, 210, 160))
+    c.line([(x0, 250), (x0, 345)], RED, 4)
+    c.text((x0 + 20, 210), "0에 맞춰!", 36, RED, anchor="lm")
+    c.text((300, 540), "1 cm가 5번 = 5 cm", 46, BLUE)
+
+
+def s_sort(c):
+    groups = [((255, 120, 120), "빨강"), ((120, 170, 250), "파랑"), ((255, 205, 60), "노랑")]
+    for i, (col, name) in enumerate(groups):
+        x = 110 + i * 190
+        c.d.rounded_rectangle([(x - 75) * SS, 170 * SS, (x + 75) * SS, 440 * SS], 20 * SS, fill=(255, 255, 255), outline=INK, width=4 * SS)
+        c.text((x, 200), name, 32)
+        for k in range(3):
+            y = 260 + k * 60
+            if k == 0:
+                c.circle((x, y), 22, col, INK, 3)
+            elif k == 1:
+                c.poly([(x - 24, y - 20), (x + 24, y - 20), (x + 24, y + 20), (x - 24, y + 20)], col, INK, 3)
+            else:
+                c.poly(ngon(3, (x, y + 4), 28), col, INK, 3)
+    c.text((300, 520), "기준: 색깔", 50, RED)
+
+
+def s_groups(c, mode="mul"):
+    for g in range(5):
+        x = 70 + g * 95
+        c.d.rounded_rectangle([x * SS, 190 * SS, (x + 80) * SS, 300 * SS], 18 * SS, outline=BLUE, width=4 * SS)
+        for k in range(2):
+            c.circle((x + 40, 220 + k * 50), 18, (255, 170, 90), INK, 3)
+    c.text((300, 400), "2 × 5 = 10", 70, RED)
+    c.text((300, 500), "2씩 5묶음 = 2의 5배", 40, BLUE)
+
+
+def s_deg(c, mode="90"):
+    if mode == "90":
+        v = (180, 450)
+        c.line([v, (500, 450)], INK, 8)
+        c.line([v, (180, 160)], INK, 8)
+        c.right_angle(v, (500, 450), (180, 160), 50)
+        c.text((300, 540), "직각 = 90°", 60, RED)
+    elif mode == "180":
+        p = [(110, 440), (490, 440), (330, 180)]
+        c.poly(p, SOFT["p"], INK, 7)
+        for i, col in enumerate((RED, BLUE, GREEN)):
+            c.angle(p[i], p[(i + 1) % 3], p[i - 1], 46, col)
+        c.text((300, 540), "세 각의 합 = 180°", 52, RED)
+    else:
+        p = [(130, 200), (470, 170), (500, 450), (110, 460)]
+        c.poly(p, SOFT["y"], INK, 7)
+        for i, col in enumerate((RED, BLUE, GREEN, (150, 80, 200))):
+            c.angle(p[i], p[(i + 1) % 4], p[i - 1], 42, col)
+        c.d.line(c.P([p[0], p[2]]), fill=(150, 140, 135), width=3 * SS)
+        c.text((300, 540), "네 각의 합 = 360°", 52, RED)
+
+
+def s_bignum(c, mode="man"):
+    rows = {"man": ("1000이 10개", "10000", "1만"), "eok": ("1만이 1만 개", "1 0000 0000", "1억"),
+            "jo": ("1억이 1만 개", "1 0000 0000 0000", "1조")}
+    if mode == "read":
+        c.text((300, 230), "5 2847 0000", 64)
+        c.text((150, 330), "억", 50, RED)
+        c.text((330, 330), "만", 50, BLUE)
+        c.text((300, 440), "5억 2847만", 64, RED)
+        c.text((300, 530), "네 자리씩 끊어 읽기", 40, BLUE)
+        return
+    a, num, name = rows[mode]
+    c.text((300, 220), a, 56, BLUE)
+    c.text((300, 330), num, c.fit(num, 64, 520))
+    c.text((300, 450), "= " + name, 80, RED)
+
+
+def s_angkind(c, kind="acute"):
+    v = (130, 440)
+    c.line([v, (520, 440)], INK, 8)
+    ang = 50 if kind == "acute" else 130
+    e = (v[0] + 330 * math.cos(math.radians(-ang)), v[1] + 330 * math.sin(math.radians(-ang)))
+    if kind == "obtuse":
+        v = (330, 440)
+        c.line([(130, 440), v], (255, 255, 255), 9)
+        c.line([v, (560, 440)], INK, 8)
+        e = (v[0] + 260 * math.cos(math.radians(-ang)), v[1] + 260 * math.sin(math.radians(-ang)))
+        c.dashed(v, (v[0], v[1] - 230), (150, 140, 135), 4)
+        c.angle(v, (560, 440), e, 60, RED)
+    else:
+        c.dashed(v, (v[0], v[1] - 260), (150, 140, 135), 4)
+        c.angle(v, (520, 440), e, 70, RED)
+    c.line([v, e], INK, 8)
+    c.text((300, 540), "0° < 예각 < 90°" if kind == "acute" else "90° < 둔각 < 180°", 50, RED)
+
+
+def flag(c, ox, oy, s=1.0, mode="id"):
+    """오른쪽을 가리키는 깃발 모양 (뒤집기·돌리기를 보이기 좋게 비대칭)."""
+    pts = [(0, 0), (90, 0), (90, 40), (40, 40), (40, 120), (0, 120)]
+    tf = {"id": lambda x, y: (x, y), "lr": lambda x, y: (90 - x, y), "ud": lambda x, y: (x, 120 - y),
+          "rot": lambda x, y: (120 - y, x)}[mode]
+    q = [(ox + tf(x, y)[0] * s, oy + tf(x, y)[1] * s) for x, y in pts]
+    c.poly(q, (255, 170, 90) if mode == "id" else (150, 200, 250), INK, 5)
+
+
+def s_move(c, mode="push"):
+    flag(c, 80, 230)
+    m = {"push": "id", "lr": "lr", "ud": "ud", "rot": "rot"}[mode]
+    c.text((300, 290), "→", 70, RED)
+    flag(c, 390, 230, 1.0, m)
+    if mode == "push":
+        c.poly([(390, 230), (480, 230), (480, 270), (430, 270), (430, 350), (390, 350)], (255, 170, 90), INK, 5)
+    txt = {"push": "밀기: 모양 그대로", "lr": "뒤집기: 왼쪽 ↔ 오른쪽", "ud": "뒤집기: 위 ↔ 아래", "rot": "돌리기: 시계 방향 90°"}[mode]
+    c.text((300, 470), txt, c.fit(txt, 46, 520), BLUE)
+
+
+def s_area(c, kind="rect"):
+    if kind == "rect":
+        p = [(110, 200), (490, 200), (490, 430), (110, 430)]
+        c.poly(p, SOFT["b"], INK, 7)
+        c.text((300, 465), "가로", 34, BLUE)
+        c.text((530, 315), "세로", 34, BLUE)
+        f = "가로 × 세로"
+    elif kind == "para":
+        p = [(190, 200), (510, 200), (420, 430), (100, 430)]
+        c.poly(p, SOFT["g"], INK, 7)
+        c.dashed((190, 200), (190, 430), RED, 5)
+        c.right_angle((190, 430), (420, 430), (190, 200), 20)
+        c.text((215, 315), "높이", 32, RED, anchor="lm")
+        c.text((260, 465), "밑변", 34, BLUE)
+        f = "밑변 × 높이"
+    elif kind == "tri":
+        p = [(100, 430), (500, 430), (230, 190)]
+        c.poly(p, SOFT["p"], INK, 7)
+        c.dashed((230, 190), (230, 430), RED, 5)
+        c.right_angle((230, 430), (500, 430), (230, 190), 20)
+        c.text((255, 330), "높이", 32, RED, anchor="lm")
+        c.text((300, 465), "밑변", 34, BLUE)
+        f = "밑변 × 높이 ÷ 2"
+    elif kind == "trap":
+        p = [(200, 200), (400, 200), (510, 430), (90, 430)]
+        c.poly(p, SOFT["y"], INK, 7)
+        c.dashed((200, 200), (200, 430), RED, 5)
+        c.text((300, 170), "윗변", 32, BLUE)
+        c.text((300, 465), "아랫변", 32, BLUE)
+        c.text((215, 320), "높이", 30, RED, anchor="lm")
+        f = "(윗변 + 아랫변) × 높이 ÷ 2"
+    else:
+        p = [(300, 170), (480, 320), (300, 470), (120, 320)]
+        c.poly(p, SOFT["v"], INK, 7)
+        c.dashed((300, 170), (300, 470), RED, 5)
+        c.dashed((120, 320), (480, 320), BLUE, 5)
+        f = "대각선 × 대각선 ÷ 2"
+    c.text((300, 540), f, c.fit(f, 52, 540), RED)
+
+
+def s_m2(c):
+    c.d.rectangle([150 * SS, 160 * SS, 450 * SS, 460 * SS], fill=SOFT["g"], outline=INK, width=6 * SS)
+    c.text((300, 140), "1 m = 100 cm", 32, BLUE)
+    c.text((300, 310), "1 m²", 80, INK)
+    c.text((300, 540), "1 m² = 10000 cm²", 54, RED)
+
+
+def s_order(c, mode="paren"):
+    if mode == "paren":
+        c.text((300, 230), "(2 + 3) × 4", 64)
+        c.text((300, 330), "= 5 × 4", 58, BLUE)
+        c.text((300, 430), "= 20", 66, RED)
+        c.text((300, 160), "괄호 먼저", 34, RED)
+    elif mode == "mul":
+        c.text((300, 230), "2 + 3 × 4", 64)
+        c.text((300, 330), "= 2 + 12", 58, BLUE)
+        c.text((300, 430), "= 14", 66, RED)
+        c.text((300, 160), "곱셈 먼저", 34, RED)
+    else:
+        c.text((300, 200), "괄호 ( )", 56, RED)
+        c.text((300, 290), "↓", 46)
+        c.text((300, 370), "× ÷", 56, BLUE)
+        c.text((300, 450), "↓", 46)
+        c.text((300, 530), "+ −  (앞에서부터)", 46, GREEN)
+
+
+def s_divmul5(c, mode="div"):
+    if mode == "div":
+        c.text((300, 210), "12의 약수", 50, BLUE)
+        c.text((300, 320), "1, 2, 3, 4, 6, 12", 52, RED)
+        c.text((300, 430), "12 ÷ 3 = 4 (나누어떨어짐)", 34)
+    else:
+        c.text((300, 210), "3의 배수", 50, BLUE)
+        c.text((300, 320), "3, 6, 9, 12, …", 56, RED)
+        c.text((300, 430), "3 × 1, 3 × 2, 3 × 3, …", 36)
+
+
+def s_reduce(c, mode="reduce"):
+    if mode == "reduce":
+        frac(c, 150, 300, 6, 8, 66)
+        c.text((235, 300), "=", 60)
+        frac(c, 330, 300, 3, 4, 66, RED)
+        c.text((470, 300), "÷ 2", 44, BLUE)
+        c.text((300, 470), "분모·분자를 공약수로 나누기", 34, BLUE)
+    elif mode == "common":
+        frac(c, 110, 300, 1, 2, 60)
+        c.text((180, 300), ",", 50)
+        frac(c, 240, 300, 1, 3, 60)
+        c.text((330, 300), "→", 50, RED)
+        frac(c, 420, 300, 3, 6, 60, RED)
+        c.text((480, 300), ",", 50)
+        frac(c, 540, 300, 2, 6, 60, RED)
+        c.text((300, 470), "분모를 같게!", 44, BLUE)
+    else:
+        frac(c, 90, 300, 1, 2, 56)
+        c.text((150, 300), "+", 50)
+        frac(c, 210, 300, 1, 3, 56)
+        c.text((270, 300), "=", 50)
+        frac(c, 330, 300, 3, 6, 56, BLUE)
+        c.text((390, 300), "+", 50)
+        frac(c, 450, 300, 2, 6, 56, BLUE)
+        c.text((300, 430), "= 5/6", 60, RED)
+        c.text((300, 520), "통분하고 더하기", 40, BLUE)
+
+
+def prism(c, n, cx=300, cy=330, pyramid=False, hi=None):
+    """각기둥/각뿔 (밑면 n각형). hi: 'v' 꼭짓점 · 'f' 면 · 'e' 모서리 강조."""
+    base = [(cx + 170 * math.cos(math.radians(360 * k / n + 90)), cy + 130 + 55 * math.sin(math.radians(360 * k / n + 90))) for k in range(n)]
+    if pyramid:
+        top = [(cx, cy - 170)]
+    else:
+        top = [(x, y - 270) for x, y in base]
+    ecol = RED if hi == "e" else INK
+    fcol = (255, 200, 90) if hi == "f" else (210, 232, 255)
+    if not pyramid:
+        c.poly(top, fcol, None)
+    for k in range(n):
+        a, b = base[k], base[(k + 1) % n]
+        front = (a[1] + b[1]) / 2 > cy + 130
+        if front:
+            t = [top[0]] if pyramid else [top[(k + 1) % n], top[k]]
+            c.poly([a, b] + t, (255, 200, 90) if hi == "f" else (228, 243, 255), None)
+    for k in range(n):
+        a, b = base[k], base[(k + 1) % n]
+        front = (a[1] + b[1]) / 2 > cy + 130 - 1
+        if front:
+            c.line([a, b], ecol, 6)
+        else:
+            c.dashed(a, b, ecol if hi == "e" else (150, 140, 135), 4)
+        t = top[0] if pyramid else top[k]
+        if a[1] >= cy + 130 - 1 or pyramid and a[1] >= cy + 100:
+            c.line([a, t], ecol, 6)
+        else:
+            c.dashed(a, t, ecol if hi == "e" else (150, 140, 135), 4)
+        if not pyramid:
+            c.line([top[k], top[(k + 1) % n]], ecol, 6)
+    if hi == "v":
+        for v in base + top:
+            c.circle(v, 11, RED, (255, 255, 255), 3)
+
+
+def s_prism(c, part="v", pyramid=False):
+    prism(c, 6, pyramid=pyramid, hi=part)
+    n = 6
+    if pyramid:
+        f = {"v": f"꼭짓점 = 6 + 1 = 7", "f": "면 = 6 + 1 = 7", "e": "모서리 = 6 × 2 = 12"}[part]
+    else:
+        f = {"v": "꼭짓점 = 6 × 2 = 12", "f": "면 = 6 + 2 = 8", "e": "모서리 = 6 × 3 = 18"}[part]
+    c.text((300, 560), f, c.fit(f, 50, 540), RED)
+
+
+def s_prismtable(c, pyramid=False):
+    rows = [("꼭짓점", "× 2" if not pyramid else "+ 1"), ("면", "+ 2" if not pyramid else "+ 1"), ("모서리", "× 3" if not pyramid else "× 2")]
+    c.text((300, 170), "한 밑면의 변의 수", 36, BLUE)
+    for i, (a, b) in enumerate(rows):
+        y = 220 + i * 105
+        c.d.rounded_rectangle([90 * SS, y * SS, 510 * SS, (y + 88) * SS], 20 * SS, fill=(255, 255, 255), outline=INK, width=4 * SS)
+        c.text((200, y + 44), a, 46)
+        c.text((400, y + 44), b, 60, (RED, BLUE, GREEN)[i])
+
+
+def s_rate(c, mode="ratio"):
+    if mode == "ratio":
+        c.text((300, 200), "비율 =", 50)
+        c.text((300, 290), "비교하는 양", 50, RED)
+        c.line([(150, 340), (450, 340)], INK, 6)
+        c.text((300, 390), "기준량", 50, BLUE)
+        c.text((300, 500), "3 : 4 → 3 ÷ 4 = 0.75", 40)
+    elif mode == "percent":
+        c.text((300, 230), "백분율 = 비율 × 100", 48, RED)
+        c.text((300, 350), "0.25 × 100 = 25 %", 50, BLUE)
+        c.text((300, 450), "%  = 퍼센트", 40)
+    else:
+        parts = [(.4, (255, 150, 120)), (.25, (140, 190, 250)), (.2, (255, 214, 64)), (.15, (150, 220, 150))]
+        x = 70
+        for p, col in parts:
+            w = 460 * p
+            c.d.rectangle([x * SS, 180 * SS, (x + w) * SS, 250 * SS], fill=col, outline=INK, width=3 * SS)
+            c.text((x + w / 2, 215), f"{int(p * 100)}%", 26)
+            x += w
+        ce, r, a = (300, 410), 110, -90
+        for p, col in parts:
+            c.d.pieslice([(ce[0] - r) * SS, (ce[1] - r) * SS, (ce[0] + r) * SS, (ce[1] + r) * SS], a, a + 360 * p, fill=col, outline=INK, width=3 * SS)
+            a += 360 * p
+        c.text((300, 560), "전체 = 100 %", 46, RED)
+
+
+def s_vol(c, mode="vol"):
+    o = (90, -80)
+    A = [(110, 300), (380, 300), (380, 480), (110, 480)]
+    B = [(x + o[0], y + o[1]) for x, y in A]
+    hi = (255, 200, 90) if mode == "area" else None
+    c.poly([A[0], A[1], B[1], B[0]], hi or (205, 232, 255), None)
+    c.poly([A[1], B[1], B[2], A[2]], hi or (175, 212, 246), None)
+    c.poly(A, hi or (228, 243, 255), None)
+    if mode == "vol":
+        for k in range(1, 3):
+            c.line([(110 + 90 * k, 300), (110 + 90 * k, 480)], (150, 170, 200), 2)
+        c.line([(110, 390), (380, 390)], (150, 170, 200), 2)
+    for a, b in [(A[0], A[1]), (A[1], A[2]), (A[2], A[3]), (A[3], A[0]), (A[0], B[0]), (A[1], B[1]), (A[2], B[2]), (B[0], B[1]), (B[1], B[2])]:
+        c.line([a, b], INK, 6)
+    c.text((245, 510), "가로", 30, BLUE)
+    c.text((455, 425), "세로", 30, BLUE)
+    c.text((80, 390), "높이", 30, BLUE)
+    f = {"vol": "가로 × 세로 × 높이", "m3": "1 m³ = 1000000 cm³", "area": "여섯 면의 넓이의 합"}[mode]
+    c.text((300, 575), f, c.fit(f, 50, 540), RED)
+
+
+def s_fdiv(c):
+    frac(c, 90, 260, 2, 3, 54)
+    c.text((160, 260), "÷", 50)
+    c.text((215, 260), "2", 60)
+    c.text((272, 260), "=", 50)
+    frac(c, 335, 260, 2, 3, 54)
+    c.text((400, 260), "×", 50)
+    frac(c, 465, 260, 1, 2, 54, RED)
+    c.text((300, 420), "= 1/3", 66, RED)
+    c.text((300, 520), "÷ 자연수 → × 1/자연수", 40, BLUE)
+
+
+SHAPES.update({"basic": s_basic, "tens": s_tens, "place3": s_place3, "column": s_column, "cmruler": s_cmruler, "sort": s_sort,
+               "groups": s_groups, "deg": s_deg, "bignum": s_bignum, "angkind": s_angkind, "move": s_move, "area": s_area,
+               "m2": s_m2, "order": s_order, "divmul5": s_divmul5, "reduce": s_reduce, "prism": s_prism,
+               "prismtable": s_prismtable, "rate": s_rate, "vol": s_vol, "fdiv": s_fdiv})
+
+RULES["math_2a_formula"] = [
+    R("꼭짓점은 몇 개?", "퀴즈", ["삼각형의 꼭짓점은 몇 개?"], "question"),
+    R("2 × 5는?", "퀴즈", ["2 × 5는?"], "question"),
+    R("3 · 4 · 100", "오늘의 암호", [], "summary", items=[("삼각형 3", RED), ("사각형 4", BLUE), ("10이 10개 = 100", GREEN)]),
+    R("삼각형:", "삼각형", ["변 3개 · 꼭짓점 3개"], "basic", kind="tri"),
+    R("사각형:", "사각형", ["변 4개 · 꼭짓점 4개"], "basic", kind="quad"),
+    R("원:", "원", ["곧은 선도 꼭짓점도 없어요"], "basic", kind="circle"),
+    R("10이 10개", "백", ["10이 10개면 100"], "tens"),
+    R("345", "세 자리 수", ["백 3 · 십 4 · 일 5"], "place3"),
+    R("받아올림", "덧셈", ["27 + 15 = 42"], "column", mode="add"),
+    R("받아내림", "뺄셈", ["42 − 15 = 27"], "column", mode="sub"),
+    R("0에 맞춰", "길이 재기", ["눈금 0에 맞춰서 재요"], "cmruler"),
+    R("1 cm가 몇 번", "길이 재기", ["1 cm가 몇 번인지 세기"], "cmruler"),
+    R("분류", "분류하기", ["누가 나눠도 같은 기준"], "sort"),
+    R("2 × 5", "곱셈", ["2씩 5묶음 = 10"], "groups"),
+    R("2의 5배", "곱셈", ["2의 5배 = 10"], "groups"),
+]
+RULES["math_4a_formula"] = [
+    R("세 각의 합은?", "퀴즈", ["삼각형 세 각의 합은?"], "question"),
+    R("1만 개면?", "퀴즈", ["1만이 1만 개면?"], "question"),
+    R("90 · 180 · 360", "오늘의 암호", [], "summary", items=[("직각 = 90°", RED), ("삼각형 = 180°", BLUE), ("사각형 = 360°", GREEN)]),
+    R("직각 = 90°", "직각", [], "deg", mode="90"),
+    R("180°", "삼각형", [], "deg", mode="180"),
+    R("360°", "사각형", [], "deg", mode="360"),
+    R("1000이 10개", "큰 수", [], "bignum", mode="man"),
+    R("1만이 1만 개", "큰 수", [], "bignum", mode="eok"),
+    R("1억이 1만 개", "큰 수", [], "bignum", mode="jo"),
+    R("네 자리씩", "큰 수 읽기", [], "bignum", mode="read"),
+    R("예각", "예각", ["직각보다 작은 각"], "angkind", kind="acute"),
+    R("둔각", "둔각", ["직각보다 크고 180°보다 작은 각"], "angkind", kind="obtuse"),
+    R("밀기", "밀기", ["모양은 그대로"], "move", mode="push"),
+    R("왼쪽 ↔ 오른쪽", "뒤집기", ["왼쪽과 오른쪽이 바뀌어요"], "move", mode="lr"),
+    R("위 ↔ 아래", "뒤집기", ["위와 아래가 바뀌어요"], "move", mode="ud"),
+    R("돌리기", "돌리기", ["위쪽이 오른쪽으로"], "move", mode="rot"),
+    R("막대그래프", "막대그래프", ["막대 길이로 크기 비교"], "barchart"),
+]
+RULES["math_5a_formula"] = [
+    R("넓이는?", "퀴즈", ["삼각형의 넓이는?"], "question"),
+    R("무엇부터?", "퀴즈", ["괄호 · 곱셈 · 덧셈, 무엇부터?"], "question"),
+    R("넓이 공식 3개", "오늘의 암호", [], "summary", items=[("직사각형: 가로 × 세로", RED), ("평행사변형: 밑변 × 높이", BLUE), ("삼각형: 밑변 × 높이 ÷ 2", GREEN)]),
+    R("직사각형", "직사각형의 넓이", [], "area", kind="rect"),
+    R("평행사변형", "평행사변형의 넓이", [], "area", kind="para"),
+    R("사다리꼴", "사다리꼴의 넓이", [], "area", kind="trap"),
+    R("마름모", "마름모의 넓이", [], "area", kind="rhom"),
+    R("삼각형", "삼각형의 넓이", [], "area", kind="tri"),
+    R("m²", "넓이의 단위", [], "m2"),
+    R("괄호", "혼합 계산", ["괄호 안을 먼저!"], "order", mode="paren"),
+    R("× ÷ 먼저", "혼합 계산", ["곱셈·나눗셈 먼저!"], "order", mode="mul"),
+    R("앞에서부터", "혼합 계산 순서", [], "order", mode="seq"),
+    R("약수", "약수", ["나누어떨어지게 하는 수"], "divmul5", mode="div"),
+    R("배수", "배수", ["몇 배 한 수"], "divmul5", mode="mul"),
+    R("약분", "약분", [], "reduce", mode="reduce"),
+    R("통분하고 더하기", "분수의 덧셈", [], "reduce", mode="add"),
+    R("통분", "통분", [], "reduce", mode="common"),
+]
+RULES["math_6a_formula"] = [
+    R("모서리는 몇 개?", "퀴즈", ["육각기둥의 모서리는 몇 개?"], "question"),
+    R("몇 %?", "퀴즈", ["비율 0.25는 몇 %?"], "question"),
+    R("×2 · +2 · ×3", "오늘의 암호", [], "prismtable"),
+    R("각기둥 꼭짓점", "각기둥의 꼭짓점", [], "prism", part="v"),
+    R("각기둥 면", "각기둥의 면", [], "prism", part="f"),
+    R("각기둥 모서리", "각기둥의 모서리", [], "prism", part="e"),
+    R("각뿔 꼭짓점", "각뿔의 꼭짓점", [], "prism", part="v", pyramid=True),
+    R("각뿔 면", "각뿔의 면", [], "prism", part="f", pyramid=True),
+    R("각뿔 모서리", "각뿔의 모서리", [], "prism", part="e", pyramid=True),
+    R("+1 · +1 · ×2", "각뿔", [], "prismtable", pyramid=True),
+    R("비율 =", "비율", [], "rate", mode="ratio"),
+    R("백분율", "백분율", [], "rate", mode="percent"),
+    R("100 %", "띠그래프 · 원그래프", [], "rate", mode="graph"),
+    R("부피", "직육면체의 부피", [], "vol", mode="vol"),
+    R("m³", "부피의 단위", [], "vol", mode="m3"),
+    R("겉넓이", "직육면체의 겉넓이", [], "vol", mode="area"),
+    R("÷ (자연수)", "분수의 나눗셈", [], "fdiv"),
+]
