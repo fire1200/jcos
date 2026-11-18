@@ -1,5 +1,5 @@
 {
-  "duration": 138.5,
+  "duration": 150.0,
   "title": "나누기 2! 넓이 공식송",
   "subtitle": "5학년 1학기 수학 - 다각형의 넓이, 혼합 계산, 약수와 배수, 약분과 통분",
   "timeline_years": [
@@ -9,8 +9,8 @@
     "약분과 통분",
     "퀴즈"
   ],
-  "intro_end": 7.0,
-  "outro_start": 139.5,
+  "intro_end": 6.0,
+  "outro_start": 151.0,
   "scenes": [
     [
       0,
