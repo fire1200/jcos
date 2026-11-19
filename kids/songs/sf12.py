@@ -21,3 +21,9 @@ def _ok(f, x, y, sc, kind, t):                         # 괜찮아 — 엄마랑
 WORDS = {"아야": _aya, "호": _ho, "뚝": _ttuk, "괜찮아": _ok}
 LAB = {"아야": "아야!", "호": "호~", "뚝": "뚝!", "괜찮아": "괜찮아"}
 setup, draw = make_song("아야 호~ 괜찮아", WORDS, LAB, ((255, 225, 230), (255, 248, 245)), (225, 110, 140), hide="cloud", zoom=1.3)
+
+def _open(f, t):                                       # 첫 화면: 아기 몽이와 엄마 구름이 바로 보이며 손 흔들기
+    paste(f, mom(100, "laugh"), 640, 470 + 10 * math.sin(t * 2.5))
+    paste(f, baby(95, "wave", None, "laugh"), 1000, 470, scale=1.25, rot=4 * math.sin(t * 5))
+    paste(f, big_text("♥", 70, (255, 130, 160), (255, 255, 255)), 820, 230 + 12 * math.sin(t * 3))
+setup, draw = make_song("아야 호~ 괜찮아", WORDS, LAB, ((255, 225, 230), (255, 248, 245)), (225, 110, 140), hide="cloud", zoom=1.3, opening=_open)

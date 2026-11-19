@@ -19,7 +19,8 @@ def _kws(line, words, ignore=()):
             i = line.find(kw, i + 1)
     return [k for _, _, k in sorted(found)]
 
-def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=False, zoom=1.6, ignore=()):
+def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=False, zoom=1.6, ignore=(), opening=None):
+    """opening: (f, t) 를 그리는 함수. 주면 영상 첫 몇 초에 주인공들을 바로 보여 주고(숨바꼭질 전), 큰 제목은 2초만 위쪽에 작게 띄운다."""
     """words: {키워드: draw(f, x, y, scale, kind, t)}  labels: {키워드: 화면에 크게 쓸 글자}"""
     def setup(lines, total):
         ctx = base_setup(lines, total)
@@ -48,6 +49,18 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
         dt = t - L[i]["start"] if i >= 0 else t
         dur = (L[i + 1]["start"] if i + 1 < len(L) else ctx["total"]) - L[i]["start"] if i >= 0 else 4
         kws, sticky, q = ctx["fw"][i] if i >= 0 else ([], None, True)
+        if opening is not None:                       # 첫 화면: 0초부터 캐릭터가 보이게 (첫 줄 시작까지, 3~7초)
+            op_end = min(7.0, max(3.0, L[0]["start"] if L else 3.0))
+            if t < op_end:
+                opening(f, t)
+                from kids.fw_chars import baby_cloud
+                bx, byy = (230, 790) if engine.CAPTIONS else (1320, 830)
+                paste(f, baby_cloud(80, "laugh"), bx, byy + 10 * math.sin(t * 2))
+                if t < 2.0:
+                    paste(f, big_text(title, 90, (255, 255, 255), ink), W / 2, 110, alpha=max(0.0, min(1, (2.0 - t) / 0.4)))
+                if t > 4.0 or sec != "Intro":
+                    draw_caption(f, ctx["sched"], t, fg=cap_fg or ink)
+                return f
         cx, cy = 820, 540
         baby_kind = "smile"
         if i < 0 or q or (not kws and not sticky):
@@ -103,7 +116,7 @@ def make_song(title, words, labels, bg, ink, hide="cloud", cap_fg=None, night=Fa
         from kids.fw_chars import baby_cloud
         bx, byy = (230, 790) if engine.CAPTIONS else (1320, 830)    # 쇼츠(가운데만 잘림)에서도 보이게
         paste(f, baby_cloud(80, "squint" if night and sec in ("Chorus", "Outro") else baby_kind), bx, byy + 10 * math.sin(t * 2), rot=4 * math.sin(t * 1.7))
-        title_card(f, t, title, (255, 255, 255), ink, y=150)
+        if opening is None: title_card(f, t, title, (255, 255, 255), ink, y=150)
         if t > 4.0 or sec != "Intro":
             draw_caption(f, ctx["sched"], t, fg=cap_fg or ink)
         return f

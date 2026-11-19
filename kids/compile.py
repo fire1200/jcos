@@ -64,11 +64,11 @@ def next_drawer(n, idx):
     a, b = TITLES[n]
     def d(t):
         f = SKY.copy(); clouds(f, t)
-        paste(f, cloud_char(120, "o" if t < 1.2 else "laugh"), 330, 560 + bob(t, 16, 1.2))
-        paste(f, big_text(f"{idx}번째 노래는?", 80, (255, 255, 255), INK), 330, 300, alpha=min(1, t / 0.3))
-        k = ease(max(0, t - 0.5) / 0.5)
-        paste(f, fr, 1220, 520, scale=0.6 + 0.4 * k, alpha=k)
-        paste(f, big_text(f"{a} {b}", 84, (255, 240, 120), INK), 1220, 900, alpha=min(1, max(0, t - 1.0) / 0.4))
+        paste(f, cloud_char(120, "laugh"), 330, 560 + bob(t, 16, 1.2))
+        paste(f, big_text("다음 노래!", 80, (255, 255, 255), INK), 330, 300, alpha=min(1, t / 0.2))
+        k = ease(min(1, t / 0.3))
+        paste(f, fr, 1220, 520, scale=0.8 + 0.2 * k, alpha=k)
+        paste(f, big_text(f"{a} {b}", 84, (255, 240, 120), INK), 1220, 900, alpha=min(1, t / 0.3))
         return f
     return d
 
@@ -85,10 +85,13 @@ def outro_drawer():
 if __name__ == "__main__":
     out, title, songs = sys.argv[1], sys.argv[2], sys.argv[3:]
     os.makedirs(TMP, exist_ok=True)
+    # 2026-11-19 방향: 소개 화면 없이 0초부터 첫 곡, 곡 사이 카드는 NEXT_SEC(기본 2초). 예전 방식은 OLD_INTRO=1
+    OLD = os.environ.get("OLD_INTRO") == "1"; NEXT_SEC = 4.0 if OLD else float(os.environ.get("NEXT_SEC", "2.0"))
     parts = []
-    card(f"{TMP}/intro.mp4", 5.0, intro_drawer(title)); parts.append(("intro", f"{TMP}/intro.mp4"))
+    if OLD: card(f"{TMP}/intro.mp4", 5.0, intro_drawer(title)); parts.append(("intro", f"{TMP}/intro.mp4"))
     for i, n in enumerate(songs, 1):
-        card(f"{TMP}/next{i:02d}_{n}.mp4", 4.0, next_drawer(n, i)); parts.append(("next", f"{TMP}/next{i:02d}_{n}.mp4"))
+        if OLD or i > 1:
+            card(f"{TMP}/next{i:02d}_{n}.mp4", NEXT_SEC, next_drawer(n, i)); parts.append(("next", f"{TMP}/next{i:02d}_{n}.mp4"))
         parts.append((n, glob.glob(f"{FINAL}/kids{n}_*.mp4")[0]))
     card(f"{TMP}/outro.mp4", 6.0, outro_drawer()); parts.append(("outro", f"{TMP}/outro.mp4"))
     # 챕터 시각
@@ -97,7 +100,7 @@ if __name__ == "__main__":
         if kind == "intro": chapters.append((t, "시작 인사"))
         elif kind == "next": pass
         elif kind == "outro": chapters.append((t, "마무리 인사"))
-        else: chapters.append((t - 4.0, " ".join(TITLES[kind])))
+        else: chapters.append((max(0.0, t - (NEXT_SEC if (OLD or chapters) else 0.0)), " ".join(TITLES[kind])))
         t += dur(p)
     ins = []
     for _, p in parts: ins += ["-i", p]
