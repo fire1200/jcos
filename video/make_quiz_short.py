@@ -104,6 +104,26 @@ def grab(src, t0, dur):
     return frames, aud
 
 
+def zoom(fr, k):
+    """가운데 기준으로 k배 확대 (멈춘 화면이 덜 딱딱하게)."""
+    if k <= 1.0:
+        return fr
+    h, w = fr.shape[:2]
+    cw, ch = int(w / k), int(h / k)
+    x, y = (w - cw) // 2, (h - ch) // 3
+    return np.asarray(Image.fromarray(fr[y:y + ch, x:x + cw]).resize((w, h), Image.BILINEAR))
+
+
+def fade(a, sec=.06):
+    """끝을 살짝 줄여 툭 끊기는 소리를 없앰."""
+    n = min(int(sec * SR), len(a) // 2)
+    if n:
+        r = np.linspace(0, 1, n)[:, None]
+        a[:n] *= r
+        a[-n:] *= r[::-1]
+    return a
+
+
 def tick(t):
     """째깍 소리 (짧은 나무 두드림)."""
     n = int(.05 * SR)
@@ -155,6 +175,7 @@ def main(key, src, out):
     cv = Canvas(era, th)
     preview = os.environ.get("PREVIEW")
     frames_out, audio = [], []
+    ans_spans = []   # 정답 구간 (노래가 크게 나오는 곳)
 
     def emit(img):
         frames_out.append(img.convert("RGB"))
@@ -177,7 +198,7 @@ def main(key, src, out):
         qa = np.zeros((int(Q_T * SR), 2), np.float32)
         for i in range(int(Q_T * FPS)):
             t = i / FPS
-            f, vb = cv.base(frames[0], dim=.45)
+            f, vb = cv.base(zoom(frames[0], 1 + .05 * t / Q_T), dim=.45)
             y = 260
             f.alpha_composite(qn, ((W - qn.width) // 2, y))
             y += qn.height - 10
@@ -207,9 +228,10 @@ def main(key, src, out):
             aa = al.resize((int(al.width * s), int(al.height * s)))
             f.alpha_composite(aa, ((W - aa.width) // 2, vb + 40))
             emit(f)
-        ans = aud[:len(frames) * SR // FPS].copy()
+        ans = fade(aud[:len(frames) * SR // FPS].copy())
         d = ding()
         ans[:len(d)] += d[:len(ans)]
+        ans_spans.append((sum(len(x) for x in audio), len(ans)))
         audio.append(ans)
         if preview:
             for j in (len(frames_out) - len(frames) - 10, len(frames_out) - 5):
@@ -236,7 +258,26 @@ def main(key, src, out):
         print("preview", len(frames_out) / FPS)
         return
     wav = out + ".wav"
-    sf.write(wav, np.clip(np.concatenate(audio), -1, 1), SR)
+    mix = np.concatenate(audio)
+    # 문제·처음·끝 화면에도 노래를 작게 깔아 소리가 끊기지 않게 (정답 구간에서는 살짝 빼기)
+    bed_t0 = max(0.0, qs[0][2] - 4)
+    b = subprocess.run([FF, "-v", "error", "-ss", f"{bed_t0:.3f}", "-t", f"{len(mix) / SR + .5:.3f}", "-i", src, "-vn", "-ac", "2",
+                        "-ar", str(SR), "-f", "f32le", "-"], capture_output=True, check=True)
+    bed = np.frombuffer(b.stdout, np.float32).reshape(-1, 2)
+    if len(bed) < len(mix):   # 노래가 짧으면 처음부터 다시
+        bed = np.concatenate([bed] * (len(mix) // max(1, len(bed)) + 1))
+    bed = bed[:len(mix)].copy()
+    g = np.full(len(mix), .28, np.float32)
+    r = int(.15 * SR)
+    for st, n in ans_spans:
+        g[st:st + n] = 0
+        g[max(0, st - r):st] = np.minimum(g[max(0, st - r):st], np.linspace(.28, 0, st - max(0, st - r)))
+        e = st + n
+        g[e:e + r] = np.minimum(g[e:e + r], np.linspace(0, .28, len(g[e:e + r])))
+    g[:int(.3 * SR)] *= np.linspace(0, 1, int(.3 * SR))
+    g[-int(1.2 * SR):] *= np.linspace(1, 0, int(1.2 * SR))
+    mix = mix + bed * g[:, None]
+    sf.write(wav, np.clip(mix, -1, 1), SR)
     p = subprocess.Popen([FF, "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                           "-i", wav, "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k",
                           "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
