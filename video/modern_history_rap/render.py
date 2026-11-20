@@ -816,7 +816,7 @@ def draw_card(img, r, t):
     rise = (1 - ease((t - r["start"]) / .45)) * 30
     if kind in ("hook", "gang") and r["year"]:
         lab = T.label(r["year"], FONT_DISPLAY, 100 if SCIENCE or SHORT else 150, None, (255, 255, 255), shadow=14,
-                      glow=((255, 200, 140), 22, .55), maxw=1500 if SHORT else 1800)
+                      glow=((255, 200, 140), 22, .55), maxw=480 if GEO else 1500 if SHORT else 1800)
         cy = 20 + lab.shape[0] / 2 if SCIENCE or SHORT else 300
         cx = MAP_RIGHT_CX if GEO else W // 2
         over(img, lab, cx - lab.shape[1] // 2, int(cy - lab.shape[0] / 2 + rise), a_in)
@@ -830,7 +830,7 @@ def draw_card(img, r, t):
     if kind == "quizr" and p < .45 and not GEO:
         year_txt = "?"
     if GEO:   # 설명은 지도 판 제목이 맡고, 여기는 단원 이름만 오른쪽에
-        ylab = T.label(year_txt, FONT_DISPLAY, 96, None, (255, 255, 255), shadow=14, glow=((255, 196, 130), 22, .6), maxw=1150)
+        ylab = T.label(year_txt, FONT_DISPLAY, 96, None, (255, 255, 255), shadow=14, glow=((255, 196, 130), 22, .6), maxw=480)
         over(img, ylab, MAP_RIGHT_CX - ylab.shape[1] // 2, int(4 + rise), a_in)
         return
     if SCIENCE:   # 단원 이름은 맨 위에 작게(2/3), 설명은 크게(2배), 길면 " · "에서 두 줄
