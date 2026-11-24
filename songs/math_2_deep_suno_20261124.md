@@ -1,7 +1,7 @@
 # 2학년 수학 심화 「더하기 1! 정각 먼저!」 — 음원(Suno) 스크립트 (2026-11-24)
 
 호크마 수학 그림 교실 자료 **「달력으로 날짜 세기」(8쪽)** 와 **「시각과 시간」(9쪽)** 의 내용을 한 곡으로 묶었습니다.
-지난 수학 공식송과 같은 **말티즈 수학 탐정단(뭉치·솜이·삐약이)** 분위기이고, **3분 이내**, 대사 웃음 2개 + 퀴즈 2개입니다.
+지난 수학 공식송과 같은 **말티즈 수학 탐정단(뭉치·솜이·삐약이)** 분위기이고, **3분 이내**, **웃음 장면 6개** + 퀴즈 2개입니다.
 
 ## 자료에서 가져온 핵심 (노래 한 줄 = 자료 한 쪽)
 
@@ -24,7 +24,7 @@
 
 **Style of Music**
 ```
-cheerful Korean kids pop chant, 120 BPM, handclaps, xylophone, ticking clock percussion, bouncy bass, short punchy lines, call-and-response with kids choir, every line very clear Korean diction, funny spoken puppy dialogue between verses, comedic sound effects, educational, 2 minutes 40 seconds, no long intro
+cheerful Korean kids pop chant, 120 BPM, handclaps, xylophone, ticking clock percussion, bouncy bass, short punchy lines, call-and-response with kids choir, every line very clear Korean diction, funny spoken puppy dialogue between verses, comedic sound effects, educational, under 3 minutes, no long intro
 ```
 
 **Exclude Styles**
@@ -61,6 +61,11 @@ slow, ballad, sad, dark, heavy metal, autotune, mumble, long intro, long outro
 일월은 삼십일일까지, 사월은 삼십일까지
 이월은 이십팔일, 가끔 이십구일! 달력부터 확인! (확인!)
 
+[Spoken, puppy voice]
+이월 삼십일에 내 생일 파티 하자멍!
+땡! 이월엔 삼십일이 없어!
+…파티 취소다멍. (훌쩍)
+
 [Chorus]
 날짜를 셀 땐 끝 빼기 처음, 더하기 일! (더하기 일!)
 시간을 셀 땐 정각까지 먼저! (정각 먼저!)
@@ -72,6 +77,12 @@ slow, ballad, sad, dark, heavy metal, autotune, mumble, long intro, long outro
 여덟 시에 시작, 아홉 시 사십 분에 끝
 그 사이 길이는 한 시간 사십 분! (한 시간 사십 분!)
 긴바늘 한 칸은 오 분! 오, 십, 십오, 이십! (이십 분!)
+
+[Spoken, puppy voice]
+버스는 세 시 출발, 지금은 두 시 오십 분!
+십 분 남았으니까… 십 분만 자고 가야지. 쿨쿨…
+삐약! 삐약! 버스 간다!
+기다려라멍!
 
 [Verse 4]
 네 시 오십 분부터 이십 분 동안 간식
@@ -89,11 +100,16 @@ slow, ballad, sad, dark, heavy metal, autotune, mumble, long intro, long outro
 아침 아홉 시에서 열두 시간 지나면
 밤 아홉 시! (밤 아홉 시!)
 
+[Spoken, puppy voice]
+시계 모양이 똑같으니까 밤 아홉 시에 학교 간다멍!
+땡! 밤에는 자야지!
+
 [Quiz]
 사일부터 육일까지 매일 한 번, 모두 몇 번? 삼, 이, 일!
 세 번!
 두 시 오십오 분은 세 시 몇 분 전? 삼, 이, 일!
-오 분 전!
+오 년 전이다멍!
+땡! 오 분 전!
 
 [Final Chorus]
 날짜를 셀 땐 끝 빼기 처음, 더하기 일! (더하기 일!)
@@ -114,10 +130,23 @@ slow, ballad, sad, dark, heavy metal, autotune, mumble, long intro, long outro
 - 2시 50분 = **3시 10분 전**, 2시 55분 = **3시 5분 전** (자료 4·9쪽)
 - 긴바늘 한 바퀴 60분 = 1시간, 짧은바늘 한 바퀴 12시간, 오전 9시 + 12시간 = 오후 9시 (자료 7·8쪽)
 - 대사의 "4일 ~ 6일 = 2일"은 **일부러 틀린 답**이고 바로 "땡!"으로 고칩니다 (자료 7쪽: 날짜 칸을 세면 3일, 흐른 시간은 2일).
+- 웃음 장면 속 틀린 말(2월 30일, 10분 남았으니 자기, 밤 9시에 학교, 5년 전)도 모두 바로 "땡!"으로 바로잡아, 자료의 핵심(달마다 마지막 날, 몇 분 전, 오전·오후, 몇 분 전)을 한 번 더 외우게 했습니다.
+
+## 웃음 장면 6개
+
+| 곳 | 장면 | 다시 외우는 것 |
+|---|---|---|
+| 1절 뒤 | 4일~6일을 "6 빼기 4 = 2일"이라고 우김 → 첫날 화분이 목마름 | 더하기 1 |
+| 2절 뒤 | "2월 30일에 생일 파티!" → 2월엔 30일이 없어 → 파티 취소 (훌쩍) | 달마다 마지막 날 |
+| 3절 뒤 | 버스 10분 전이라고 "10분만 자고 가야지" → 삐약이가 깨움 → "기다려라멍!" | 몇 분 전 |
+| 4절 뒤 | "간식 20분 말고 20시간!" | 시간의 길이 |
+| 5절 뒤 | 시계 모양이 같으니 "밤 9시에 학교 간다멍!" | 오전·오후 |
+| 퀴즈 | "오 년 전이다멍!" → 땡! 오 분 전 | 몇 분 전 |
 
 ## Suno에서 고를 때
 
 - 3~4개 만들어 **3분 이내 · 숫자가 또렷한 것 · 대사가 말로 들리는 것**을 골라 주세요.
+- 웃음 대사가 늘어 3분을 넘으면 **가운데 [Chorus] 하나를 빼세요** (처음과 마지막 후렴은 남김).
 - 숫자는 한글로 적었습니다. 영상 자막은 숫자·기호로 넣습니다 (6 − 4 + 1 = 3, 4시 50분 + 20분 = 5시 10분).
 - 파일 이름: `수학2-심화_더하기일정각먼저.mp3`
 
