@@ -1475,3 +1475,156 @@ RULES["math_6a_formula"] = [
     R("겉넓이", "직육면체의 겉넓이", [], "vol", mode="area"),
     R("÷ (자연수)", "분수의 나눗셈", [], "fdiv"),
 ]
+
+
+# ------------------------------------------------------------------ 2학년 심화 (달력 · 시각과 시간)
+def clockface(c, ce, r, h, m, col=INK, nums=True):
+    c.circle(ce, r, (255, 250, 235), col, 6)
+    for i in range(60):
+        a = math.radians(i * 6 - 90)
+        r1 = r - (r * .14 if i % 5 == 0 else r * .06)
+        c.line([(ce[0] + r1 * math.cos(a), ce[1] + r1 * math.sin(a)), (ce[0] + (r - 3) * math.cos(a), ce[1] + (r - 3) * math.sin(a))],
+               INK, 3 if i % 5 == 0 else 1)
+    if nums:
+        for i in range(1, 13):
+            a = math.radians(i * 30 - 90)
+            c.text((ce[0] + r * .72 * math.cos(a), ce[1] + r * .72 * math.sin(a)), str(i), max(14, int(r * .2)))
+    hh = math.radians((h % 12) * 30 + m * .5 - 90)
+    mm = math.radians(m * 6 - 90)
+    c.line([ce, (ce[0] + r * .5 * math.cos(hh), ce[1] + r * .5 * math.sin(hh))], RED, max(5, r / 14))
+    c.line([ce, (ce[0] + r * .8 * math.cos(mm), ce[1] + r * .8 * math.sin(mm))], BLUE, max(3, r / 22))
+    c.circle(ce, max(4, r / 18), INK, None)
+
+
+def dcell(c, x, y, w, h, top, big, fill=(232, 244, 226), num=None):
+    c.d.rounded_rectangle([x * SS, y * SS, (x + w) * SS, (y + h) * SS], 14 * SS, fill=fill, outline=(70, 120, 80), width=3 * SS)
+    if top:
+        c.d.rounded_rectangle([x * SS, y * SS, (x + w) * SS, (y + 30) * SS], 14 * SS, fill=(50, 105, 70))
+        c.text((x + w / 2, y + 15), top, 20, (255, 255, 255))
+    c.text((x + w / 2, y + h / 2 + (8 if top else 0)), big, int(min(w, h) * .32))
+    if num is not None:
+        c.circle((x + w / 2, y + h + 30), 20, (50, 105, 70), None)
+        c.text((x + w / 2, y + h + 30), str(num), 24, (255, 255, 255))
+
+
+def s_days(c, mode="count"):
+    for i, d in enumerate(("4일", "5일", "6일")):
+        dcell(c, 90 + i * 150, 190, 120, 130, "3월", d, ((232, 244, 226), (250, 240, 210), (232, 244, 226))[i], i + 1)
+    if mode == "count":
+        c.text((300, 450), "모두 3번", 60, RED)
+    else:
+        c.text((300, 440), "6 − 4 + 1 = 3", 62, RED)
+        c.text((300, 520), "첫날도 세요!", 36, BLUE)
+
+
+def s_monthsplit(c):
+    labels = [("1월", "30일"), ("1월", "31일"), ("2월", "1일"), ("2월", "2일")]
+    for i, (m, d) in enumerate(labels):
+        x = 60 + i * 122 + (22 if i >= 2 else 0)
+        dcell(c, x, 200, 104, 120, m, d, (232, 244, 226) if i < 2 else (250, 240, 210), i + 1)
+    c.line([(300, 180), (300, 380)], RED, 5)
+    c.text((300, 450), "2 + 2 = 4", 62, RED)
+    c.text((300, 525), "달이 바뀌면 나눠 세기", 34, BLUE)
+
+
+def s_monthend(c):
+    for i, (m, e) in enumerate((("1월", "31일까지"), ("4월", "30일까지"), ("2월", "28일 또는 29일"))):
+        x = 50 + i * 172
+        c.d.rounded_rectangle([x * SS, 190 * SS, (x + 156) * SS, 250 * SS], 14 * SS, fill=(50, 105, 70))
+        c.text((x + 78, 220), m, 36, (255, 255, 255))
+        c.d.rounded_rectangle([x * SS, 260 * SS, (x + 156) * SS, 380 * SS], 14 * SS, fill=(232, 244, 226) if i != 1 else (250, 240, 210))
+        c.text((x + 78, 320), e, c.fit(e, 30, 140))
+    c.text((300, 470), "달력부터 확인!", 56, RED)
+
+
+def s_whenhow(c):
+    clockface(c, (140, 290), 105, 8, 0)
+    clockface(c, (460, 290), 105, 9, 40)
+    c.text((140, 425), "8시", 40)
+    c.text((460, 425), "9시 40분", 40)
+    c.line([(255, 290), (345, 290)], RED, 6)
+    head_ = math.atan2(0, 1)
+    c.line([(345, 290), (325, 278)], RED, 6)
+    c.line([(345, 290), (325, 302)], RED, 6)
+    c.text((300, 250), "시간", 30, RED)
+    c.text((300, 500), "시각 = 언제?  시간 = 얼마나?", 34, BLUE)
+    c.text((300, 560), "1시간 40분", 54, RED)
+
+
+def s_fivemin(c):
+    clockface(c, (300, 260), 130, 3, 20)
+    ce, r = (300, 260), 130
+    c.arc(ce, r + 14, -90, 30, RED, 8)
+    x0, x1, y = 90, 510, 470
+    c.line([(x0, y), (x1, y)], INK, 5)
+    for i, t in enumerate(("0분", "5분", "10분", "15분", "20분")):
+        x = x0 + (x1 - x0) * i / 4
+        c.line([(x, y - 12), (x, y + 12)], INK, 4)
+        c.text((x, y + 40), t, 26)
+    c.text((300, 560), "숫자 한 칸 = 5분", 46, RED)
+
+
+def s_oclock(c):
+    for i, (h, m, t) in enumerate(((4, 50, "4시 50분"), (5, 0, "5시"), (5, 10, "5시 10분"))):
+        x = 110 + i * 190
+        clockface(c, (x, 250), 75, h, m, nums=False)
+        c.text((x, 350), t, 30)
+    c.line([(110, 410), (490, 410)], INK, 5)
+    for x in (110, 300, 490):
+        c.circle((x, 410), 8, RED, None)
+    c.text((205, 445), "10분", 30, BLUE)
+    c.text((395, 445), "10분", 30, BLUE)
+    c.text((300, 530), "정각까지 먼저!", 54, RED)
+
+
+def s_before(c, m=50):
+    clockface(c, (300, 270), 140, 2, m)
+    c.text((300, 470), f"2시 {m}분", 50)
+    c.text((300, 545), f"= 3시 {60 - m}분 전", 56, RED)
+
+
+def s_hands(c):
+    for i, (txt, sub, col) in enumerate((("긴바늘 한 바퀴", "60분 = 1시간", BLUE), ("짧은바늘 한 바퀴", "12시간", RED))):
+        x = 160 + i * 280
+        clockface(c, (x, 300), 95, 12 if i else 3, 0, nums=False)
+        c.arc((x, 300), 110, -90, 268, col, 7)
+        c.text((x, 160), txt, 30, col)
+        c.text((x, 440), sub, 34, col)
+    c.text((300, 530), "하루 = 24시간", 48, RED)
+
+
+def s_ampm(c):
+    for i, (t, col, bg) in enumerate((("오전 9시", INK, (255, 236, 170)), ("오후 9시", (255, 255, 255), (70, 80, 140)))):
+        x = 160 + i * 280
+        c.d.rounded_rectangle([(x - 125) * SS, 150 * SS, (x + 125) * SS, 420 * SS], 24 * SS, fill=bg)
+        clockface(c, (x, 270), 95, 9, 0, nums=False)
+        c.text((x, 395), t, 34, col)
+    c.text((300, 470), "+ 12시간", 44, BLUE)
+    c.text((300, 545), "시계 모양은 같아요", 40, RED)
+
+
+def s_deepsum(c):
+    c.text((300, 220), "날짜 = 끝 − 처음 + 1", 46, RED)
+    c.text((300, 320), "(같은 달, 첫날·끝날 모두 셀 때)", 26, BLUE)
+    c.text((300, 430), "시간 = 정각까지 먼저", 46, (40, 150, 70))
+
+
+SHAPES.update({"days": s_days, "monthsplit": s_monthsplit, "monthend": s_monthend, "whenhow": s_whenhow, "fivemin": s_fivemin,
+               "oclock": s_oclock, "before": s_before, "hands": s_hands, "ampm": s_ampm, "deepsum": s_deepsum})
+
+RULES["math_2d_formula"] = [
+    R("모두 몇 번?", "퀴즈", ["4일부터 6일까지 매일 한 번, 모두 몇 번?"], "question"),
+    R("3시 몇 분 전?", "퀴즈", ["2시 55분은 3시 몇 분 전?"], "question"),
+    R("3시 5분 전", "몇 분 전", [], "before", m=55),
+    R("더하기 1 · 정각 먼저", "오늘의 암호", [], "deepsum"),
+    R("끝 − 처음 + 1", "날짜 세기", [], "days", mode="formula"),
+    R("4일 · 5일 · 6일", "날짜 세기", ["하루 한 번씩 콕, 콕, 콕!"], "days", mode="count"),
+    R("2 + 2 = 4", "달이 바뀌면", [], "monthsplit"),
+    R("마지막 날", "달마다 마지막 날", [], "monthend"),
+    R("시각 · 시간", "시각과 시간", [], "whenhow"),
+    R("5분", "긴바늘 읽기", [], "fivemin"),
+    R("정각까지", "정각 먼저", ["4시 50분 + 20분 = 5시 10분"], "oclock"),
+    R("3시 10분 전", "몇 분 전", [], "before", m=50),
+    R("한 바퀴", "바늘 한 바퀴", [], "hands"),
+    R("오전", "오전과 오후", [], "ampm"),
+]
