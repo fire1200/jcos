@@ -53,7 +53,8 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("math_2a_formula", "수학 2학년 1학기 삼·사·백 공식송", "수학2-1삼사백"),
          ("math_4a_formula", "수학 4학년 1학기 90·180·360 공식송", "수학4-1구십백팔십"),
          ("math_5a_formula", "수학 5학년 1학기 나누기 2 넓이 공식송", "수학5-1넓이"),
-         ("math_6a_formula", "수학 6학년 1학기 ×2·+2·×3 공식송", "수학6-1각기둥")]
+         ("math_6a_formula", "수학 6학년 1학기 ×2·+2·×3 공식송", "수학6-1각기둥"),
+         ("math_2d_formula", "수학 2학년 심화 더하기 1! 정각 먼저!", "수학2-심화")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",
