@@ -35,6 +35,8 @@ THUMBS = [
      dict(title="오늘의 암호", lines=[], shape="summary", kw=dict(items=[("직각 = 90°", (225, 35, 45)), ("삼각형 = 180°", (40, 110, 220)), ("사각형 = 360°", (40, 150, 70))])), "썸네일_수학4-1_구십백팔십삼백육십공식송.jpg"),
     ("math_6a_formula", "m61_09", "6학년 1학기 수학", ["×2 · +2 · ×3", "공식송!"],
      dict(title="각기둥", lines=[], shape="prismtable", kw=dict()), "썸네일_수학6-1_각기둥공식송.jpg"),
+    ("math_2d_formula", "m2d_05", "2학년 수학 심화", ["더하기 1!", "정각 먼저!"],
+     dict(title="날짜 세기", lines=[], shape="days", kw=dict(mode="formula")), "썸네일_수학2-심화_더하기일정각먼저.jpg"),
 ]
 
 
