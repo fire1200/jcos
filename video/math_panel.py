@@ -55,6 +55,23 @@ class Canvas:
         self.d.arc([(c[0] - r) * SS, (c[1] - r) * SS, (c[0] + r) * SS, (c[1] + r) * SS], a0, a1, fill=col, width=int(w * SS))
 
     def text(self, xy, s, size=40, col=INK, anchor="mm", stroke=0):
+        import re
+        if anchor == "mm" and re.search(r"\d+/\d+", s):   # 1/2 → 진짜 분수 모양
+            parts = re.split(r"(\d+/\d+)", s)
+            f, fs = self.font(size), self.font(size * .72)
+            ws = [f.getlength(p) / SS if "/" not in p else max(fs.getlength(q) for q in p.split("/")) / SS + size * .2 for p in parts]
+            x = xy[0] - sum(ws) / 2
+            for p, w in zip(parts, ws):
+                if "/" in p:
+                    a, b = p.split("/")
+                    cx = x + w / 2
+                    self.line([(cx - w / 2 + size * .08, xy[1]), (cx + w / 2 - size * .08, xy[1])], col, max(2, size * .06))
+                    self.d.text((cx * SS, (xy[1] - size * .06) * SS), a, font=fs, fill=col, anchor="mb")
+                    self.d.text((cx * SS, (xy[1] + size * .06) * SS), b, font=fs, fill=col, anchor="mt")
+                elif p:
+                    self.d.text((x * SS, xy[1] * SS), p, font=f, fill=col, anchor="lm", stroke_width=int(stroke * SS), stroke_fill=(255, 255, 255))
+                x += w
+            return
         self.d.text((xy[0] * SS, xy[1] * SS), s, font=self.font(size), fill=col, anchor=anchor,
                     stroke_width=int(stroke * SS), stroke_fill=(255, 255, 255))
 

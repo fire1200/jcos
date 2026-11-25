@@ -579,11 +579,15 @@ class Text:
         while maxw and f.getbbox(text)[2] > maxw and size > 20:
             size -= 2
             f = self.font(path, size, weight)
-        x0, y0, x1, y1 = f.getbbox(text)
         pad = 40
-        w, h = x1 - x0 + pad * 2, y1 - y0 + pad * 2
-        m = Image.new("L", (w, h), 0)
-        ImageDraw.Draw(m).text((pad - x0, pad - y0), text, font=f, fill=255)
+        if FRAC_RE.search(text):
+            m = frac_mask(text, f, self.font(path, int(size * .78), weight), pad)
+            w, h = m.size
+        else:
+            x0, y0, x1, y1 = f.getbbox(text)
+            w, h = x1 - x0 + pad * 2, y1 - y0 + pad * 2
+            m = Image.new("L", (w, h), 0)
+            ImageDraw.Draw(m).text((pad - x0, pad - y0), text, font=f, fill=255)
         a = np.asarray(m).astype(np.float32) / 255
         out = np.zeros((h, w, 4), np.float32)
         sh = np.clip(blur(a, shadow) * 1.15 + blur(a, shadow * .35) * .5, 0, .85) if shadow else np.zeros_like(a)
@@ -601,6 +605,53 @@ class Text:
             out[..., 3] = na
         self.cache[key] = out
         return out
+
+
+FRAC_RE = re.compile(r"(\d+)/(\d+)")
+
+
+def frac_mask(text, f, fs, pad):
+    """'1/8' 같은 분수를 진짜 분수(분자 위 · 가로선 · 분모 아래)로 그린 글자 마스크."""
+    parts, last = [], 0
+    for mt in FRAC_RE.finditer(text):
+        if mt.start() > last:
+            parts.append(("t", text[last:mt.start()]))
+        parts.append(("f", mt.group(1), mt.group(2)))
+        last = mt.end()
+    if last < len(text):
+        parts.append(("t", text[last:]))
+    asc, desc = f.getmetrics()
+    ref = f.getbbox("가")
+    mid = (ref[1] + ref[3]) / 2           # 글자 가운데 높이 (기준선 위쪽 좌표)
+    sh = fs.getbbox("0")
+    nh = sh[3] - sh[1]
+    gap = max(3, int(f.size * .08))
+    top = min(ref[1], mid - gap - nh - sh[1] + sh[1]) - 4
+    bot = max(ref[3], mid + gap + nh) + 4
+    widths = []
+    for p in parts:
+        if p[0] == "t":
+            widths.append(f.getlength(p[1]))
+        else:
+            widths.append(max(fs.getlength(p[1]), fs.getlength(p[2])) + f.size * .22)
+    W = int(sum(widths)) + pad * 2
+    H = int(bot - top) + pad * 2
+    m = Image.new("L", (W, H), 0)
+    d = ImageDraw.Draw(m)
+    oy = pad - top
+    x = pad
+    for p, w in zip(parts, widths):
+        if p[0] == "t":
+            d.text((x, oy), p[1], font=f, fill=255)
+        else:
+            cx = x + w / 2
+            ly = oy + mid
+            lw = w - f.size * .12
+            d.line([(cx - lw / 2, ly), (cx + lw / 2, ly)], fill=255, width=max(3, int(f.size * .07)))
+            d.text((cx, ly - gap), p[1], font=fs, fill=255, anchor="mb")
+            d.text((cx, ly + gap), p[2], font=fs, fill=255, anchor="mt")
+        x += w
+    return m
 
 
 TX = None

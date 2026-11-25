@@ -39,6 +39,8 @@ THUMBS = [
      dict(title="날짜 세기", lines=[], shape="days", kw=dict(mode="formula")), "썸네일_수학2-심화_더하기일정각먼저.jpg"),
     ("math_2t_formula", "m2t_02", "2학년 수학 심화 · 시간", ["정각까지", "깡충!"],
      dict(title="긴바늘 읽기", lines=[], shape="x5", kw=dict()), "썸네일_수학2-심화2_시간.jpg"),
+    ("math_3d_formula", "m3d_03", "3학년 수학 심화 · 분수", ["분모 크면", "작아진다!"],
+     dict(title="단위분수 비교", lines=[], shape="pizzas", kw=dict()), "썸네일_수학3-심화_분수.jpg"),
 ]
 
 
