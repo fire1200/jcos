@@ -1537,18 +1537,17 @@ def s_monthend(c):
     c.text((300, 470), "달력부터 확인!", 56, RED)
 
 
-def s_whenhow(c):
-    clockface(c, (140, 290), 105, 8, 0)
-    clockface(c, (460, 290), 105, 9, 40)
-    c.text((140, 425), "8시", 40)
-    c.text((460, 425), "9시 40분", 40)
+def s_whenhow(c, h1=8, m1=0, h2=9, m2=40, gap="1시간 40분"):
+    clockface(c, (140, 290), 105, h1, m1)
+    clockface(c, (460, 290), 105, h2, m2)
+    c.text((140, 425), f"{h1}시" + (f" {m1}분" if m1 else ""), 40)
+    c.text((460, 425), f"{h2}시" + (f" {m2}분" if m2 else ""), 40)
     c.line([(255, 290), (345, 290)], RED, 6)
-    head_ = math.atan2(0, 1)
     c.line([(345, 290), (325, 278)], RED, 6)
     c.line([(345, 290), (325, 302)], RED, 6)
     c.text((300, 250), "시간", 30, RED)
     c.text((300, 500), "시각 = 언제?  시간 = 얼마나?", 34, BLUE)
-    c.text((300, 560), "1시간 40분", 54, RED)
+    c.text((300, 560), gap, 54, RED)
 
 
 def s_fivemin(c):
@@ -1627,4 +1626,262 @@ RULES["math_2d_formula"] = [
     R("3시 10분 전", "몇 분 전", [], "before", m=50),
     R("한 바퀴", "바늘 한 바퀴", [], "hands"),
     R("오전", "오전과 오후", [], "ampm"),
+]
+
+
+# ------------------------------------------------------------------ 2학년 심화 달력편 · 시간편, 3학년 심화 분수
+import calendar as _cal
+
+CAL_G, CAL_H = (50, 105, 70), (255, 214, 64)
+
+
+def s_cal(c, y=2026, mo=3, hl=(4, 5, 6), cap="", nums=True):
+    """실제 달력 (일요일 시작), hl 날짜에 노란 칸 + 순서 번호."""
+    c.d.rounded_rectangle([40 * SS, 150 * SS, 560 * SS, 200 * SS], 12 * SS, fill=CAL_G)
+    c.text((300, 175), f"{y}년 {mo}월", 30, (255, 255, 255))
+    for i, w in enumerate("일월화수목금토"):
+        c.text((40 + 74.3 * i + 37, 222), w, 22, RED if i == 0 else BLUE if i == 6 else INK)
+    first, n = _cal.monthrange(y, mo)
+    col0 = (first + 1) % 7
+    rows = (col0 + n + 6) // 7
+    ch = min(60, 330 / rows)
+    order = {d: k + 1 for k, d in enumerate(hl)}
+    for d in range(1, n + 1):
+        k = col0 + d - 1
+        x, yy = 40 + 74.3 * (k % 7), 240 + ch * (k // 7)
+        on = d in order
+        c.d.rounded_rectangle([(x + 3) * SS, (yy + 3) * SS, (x + 71) * SS, (yy + ch - 3) * SS], 8 * SS,
+                              fill=CAL_H if on else (255, 255, 255), outline=(200, 200, 190), width=2 * SS)
+        c.text((x + 37, yy + ch / 2), str(d), int(ch * .42), RED if k % 7 == 0 else BLUE if k % 7 == 6 else INK)
+        if on and nums:
+            c.circle((x + 62, yy + 12), 11, CAL_G, None)
+            c.text((x + 62, yy + 12), str(order[d]), 14, (255, 255, 255))
+    if cap:
+        c.text((300, 600), cap, c.fit(cap, 50, 540), RED)
+
+
+def s_cal2(c, y=2026, a=(1, (30, 31)), b=(2, (1, 2)), cap=""):
+    """두 달을 이어서: 앞 달 마지막 줄 + 다음 달 첫 줄만."""
+    k = 1
+    for idx, (mo, days) in enumerate((a, b)):
+        top = 160 + idx * 190
+        c.d.rounded_rectangle([40 * SS, top * SS, 560 * SS, (top + 40) * SS], 12 * SS, fill=CAL_G)
+        c.text((300, top + 20), f"{y}년 {mo}월", 26, (255, 255, 255))
+        first, n = _cal.monthrange(y, mo)
+        col0 = (first + 1) % 7
+        for d in days:
+            pos = col0 + d - 1
+            x = 40 + 74.3 * (pos % 7)
+            yy = top + 50 + 60 * (0 if idx else 0)
+            c.d.rounded_rectangle([(x + 3) * SS, yy * SS, (x + 71) * SS, (yy + 64) * SS], 8 * SS, fill=CAL_H, outline=(200, 200, 190), width=2 * SS)
+            c.text((x + 37, yy + 32), str(d), 30)
+            c.circle((x + 37, yy + 90), 16, CAL_G, None)
+            c.text((x + 37, yy + 90), str(k), 20, (255, 255, 255))
+            k += 1
+    c.line([(40, 345), (560, 345)], RED, 4)
+    if cap:
+        c.text((300, 580), cap, c.fit(cap, 50, 540), RED)
+
+
+def s_year12(c):
+    for i in range(12):
+        mo = i + 1
+        x, y = 50 + (i % 3) * 172, 150 + (i // 3) * 98
+        n = 28 if mo == 2 else _cal.monthrange(2026, mo)[1]
+        col = (190, 215, 245) if mo == 2 else (232, 244, 226) if n == 31 else (250, 240, 200)
+        c.d.rounded_rectangle([x * SS, y * SS, (x + 160) * SS, (y + 88) * SS], 14 * SS, fill=col)
+        c.text((x + 80, y + 26), f"{mo}월", 28)
+        c.text((x + 80, y + 62), "28일 또는 29일" if mo == 2 else f"{n}일까지", 24 if mo == 2 else 28, RED if n == 31 else INK)
+    c.text((300, 565), "초록 31 · 노랑 30 · 파랑 2월", 34, BLUE)
+
+
+def s_knuckle(c):
+    for row, months in enumerate(((1, 2, 3, 4, 5, 6, 7), (8, 9, 10, 11, 12))):
+        y = 240 + row * 190
+        x0 = 60
+        pts = []
+        for i, mo in enumerate(months):
+            x = x0 + i * 72
+            bump = i % 2 == 0
+            cy = y - (34 if bump else 0)
+            pts.append((x, cy))
+            c.circle((x, cy), 30, (255, 220, 190) if bump else (240, 200, 170), INK, 3)
+            c.text((x, cy), f"{mo}월", 22, RED if bump else BLUE)
+            c.text((x, cy + 58 if bump else cy + 52), "31" if bump else ("28·29" if mo == 2 else "30"), 20, RED if bump else BLUE)
+    c.text((300, 150), "주먹 셈: 볼록 = 31일", 40, RED)
+    c.text((300, 560), "쏙 = 30일 · 2월만 따로", 40, BLUE)
+
+
+def s_dayswait(c):
+    for i, d in enumerate(("4일", "5일", "6일")):
+        dcell(c, 70 + i * 160, 180, 130, 120, "3월", d, (250, 240, 210))
+    c.text((300, 350), "날짜 칸 = 3일", 44, BLUE)
+    c.line([(135, 400), (455, 400)], RED, 6)
+    for x in (135, 295, 455):
+        c.circle((x, 400), 9, RED, None)
+    c.text((215, 430), "하루", 26, RED)
+    c.text((375, 430), "하루", 26, RED)
+    c.text((300, 500), "오전 9시 → 오전 9시", 30)
+    c.text((300, 565), "흐른 시간 = 2일", 50, RED)
+
+
+def s_x5(c):
+    ce, r = (300, 330), 175
+    clockface(c, ce, r - 30, 3, 20)
+    for i in range(1, 12):
+        a = math.radians(i * 30 - 90)
+        c.circle((ce[0] + r * math.cos(a), ce[1] + r * math.sin(a)), 20, (255, 236, 170), None)
+        c.text((ce[0] + r * math.cos(a), ce[1] + r * math.sin(a)), str(i * 5), 20, RED)
+    c.text((300, 132), "긴바늘 숫자 × 5 = 분", 40, RED)
+    c.text((300, 545), "4 × 5 = 20 → 3시 20분", 40, BLUE)
+
+
+def s_readclock(c, h=3, m=0, line1="긴바늘 12 = 정각", line2="3시"):
+    clockface(c, (300, 290), 150, h, m)
+    c.text((300, 485), line1, 40, BLUE)
+    c.text((300, 555), line2, 58, RED)
+
+
+def s_jump(c):
+    x0, x1, y = 60, 540, 330
+    c.line([(x0, y), (x1, y)], INK, 6)
+    marks = ((x0, "4시 50분"), (300, "5시"), (x1, "5시 10분"))
+    for x, t in marks:
+        c.line([(x, y - 14), (x, y + 14)], INK, 5)
+        c.text((x if x != x1 else x - 20, y + 46), t, 28)
+    for a, b in ((x0, 300), (300, x1)):
+        c.arc(((a + b) / 2, y), (b - a) / 2, 180, 360, RED, 6)
+        c.text(((a + b) / 2, y - (b - a) / 2 - 24), "+10분", 30, RED)
+    c.text((300, 470), "정각까지 깡충 → 남은 분 깡충", 34, BLUE)
+    c.text((300, 545), "= 5시 10분", 56, RED)
+
+
+def pizza(c, ce, r, n, k, col=(255, 190, 110)):
+    for i in range(n):
+        c.d.pieslice([(ce[0] - r) * SS, (ce[1] - r) * SS, (ce[0] + r) * SS, (ce[1] + r) * SS], -90 + 360 * i / n, -90 + 360 * (i + 1) / n,
+                     fill=col if i < k else (255, 245, 225), outline=INK, width=4 * SS)
+
+
+def s_pizzas(c):
+    for i, n in enumerate((2, 4, 8)):
+        x = 110 + i * 190
+        pizza(c, (x, 300), 80, n, 1)
+        frac(c, x, 450, 1, n, 46, RED)
+    c.text((300, 160), "같은 피자", 34, BLUE)
+    c.text((300, 565), "분모가 클수록 작아져요", 42, RED)
+
+
+def s_fcompare(c):
+    bar(c, 70, 190, 460, 70, 5, 3)
+    bar(c, 70, 300, 460, 70, 5, 2, (150, 200, 250))
+    frac(c, 300, 450, 3, 5, 56, RED)
+    c.text((380, 450), ">", 60)
+    frac(c, 460, 450, 2, 5, 56, BLUE)
+    c.text((140, 450), "분모 같으면", 26)
+    c.text((300, 565), "분자 큰 게 커요", 44, RED)
+
+
+def s_unequal(c):
+    ce, r = (200, 320), 140
+    for a0, a1, col in ((-90, 60, (255, 190, 110)), (60, 150, (255, 245, 225)), (150, 220, (255, 245, 225)), (220, 270, (255, 245, 225))):
+        c.d.pieslice([(ce[0] - r) * SS, (ce[1] - r) * SS, (ce[0] + r) * SS, (ce[1] + r) * SS], a0, a1, fill=col, outline=INK, width=4 * SS)
+    c.line([(400, 230), (520, 350)], RED, 12)
+    c.line([(520, 230), (400, 350)], RED, 12)
+    c.text((300, 510), "크기가 다르면", 40, BLUE)
+    c.text((300, 570), "분수라고 못 해요", 44, RED)
+
+
+def s_cookies(c, k=1, g=3):
+    per = 12 // g
+    w = 480 / g
+    for j in range(g):
+        x0 = 60 + j * w
+        c.d.rounded_rectangle([(x0 + 5) * SS, 170 * SS, (x0 + w - 5) * SS, 330 * SS], 20 * SS, fill=(255, 236, 170) if j < k else (255, 255, 255), outline=BLUE, width=4 * SS)
+        for i in range(per):
+            cols = 2
+            cx = x0 + w / 2 + ((i % cols) - .5) * 52
+            cy = 210 + (i // cols) * 62 if per > 2 else 250
+            c.circle((cx, cy), 22, (205, 150, 90), INK, 3)
+    c.text((300, 400), f"12 ÷ {g} = {per}", 54)
+    if k == 1:
+        c.text((300, 480), f"12의 1/{g} = {per}", 50, RED)
+    else:
+        c.text((300, 480), f"{per} × {k} = {per * k}", 50, BLUE)
+        c.text((300, 550), f"12의 {k}/{g} = {per * k}", 50, RED)
+
+
+def s_improper(c):
+    bar(c, 70, 170, 460, 70, 4, 4)
+    bar(c, 70, 260, 460, 70, 4, 3)
+    frac(c, 140, 440, 7, 4, 56)
+    c.text((230, 440), "=", 56)
+    frac(c, 360, 440, 3, 4, 56, RED, whole=1)
+    c.text((300, 570), "7 ÷ 4 = 1 … 3", 44, BLUE)
+
+
+def s_mixed(c):
+    frac(c, 150, 280, 1, 3, 60, RED, whole=2)
+    c.text((260, 280), "=", 60)
+    frac(c, 380, 280, 7, 3, 60, BLUE)
+    c.text((300, 440), "2 × 3 + 1 = 7", 54)
+    c.text((300, 540), "곱하고 더해요", 44, RED)
+
+
+def s_choco(c):
+    for i in range(10):
+        x = 60 + i * 48
+        c.d.rounded_rectangle([x * SS, 190 * SS, (x + 44) * SS, 300 * SS], 6 * SS, fill=(120, 75, 45) if i >= 7 else (255, 245, 225), outline=INK, width=3 * SS)
+    c.text((230, 330), "먹은 7칸", 26, RED)
+    c.text((470, 330), "남은 3칸", 26, BLUE)
+    frac(c, 230, 440, 1, 10, 50, RED)
+    c.text((350, 440), "= 0.1", 50)
+    c.text((300, 560), "0.1이 7개 = 0.7", 50, RED)
+
+
+SHAPES.update({"cal": s_cal, "cal2": s_cal2, "year12": s_year12, "knuckle": s_knuckle, "dayswait": s_dayswait, "x5": s_x5,
+               "readclock": s_readclock, "jump": s_jump, "pizzas": s_pizzas, "fcompare": s_fcompare, "unequal": s_unequal,
+               "cookies": s_cookies, "improper": s_improper, "mixed": s_mixed, "choco": s_choco})
+
+RULES["math_2c_formula"] = [
+    R("모두 몇 번?", "퀴즈", ["5월 7일부터 9일까지 하루 한 번, 모두 몇 번?"], "question"),
+    R("도장은 몇 개?", "퀴즈", ["4월 29일부터 5월 2일까지, 도장은 몇 개?"], "question"),
+    R("5월 7일", "5월 7일 ~ 9일", [], "cal", mo=5, hl=(7, 8, 9), cap="모두 3번"),
+    R("4월 29일", "4월 29일 ~ 5월 2일", [], "cal2", a=(4, (29, 30)), b=(5, (1, 2)), cap="4월은 30일까지! 4개"),
+    R("짚어서 세기", "짚어서 세기", ["어디서 시작? 다음 칸은? 끝나는 날도!"], "cal", mo=3, hl=(4, 5, 6)),
+    R("3월 4일", "3월 4일 ~ 6일", [], "cal", mo=3, hl=(4, 5, 6), cap="모두 3번"),
+    R("1월 30일", "1월 30일 ~ 2월 2일", [], "cal2", a=(1, (30, 31)), b=(2, (1, 2)), cap="2개 + 2개 = 4개"),
+    R("1월 25일", "1월 25일 ~ 2월 3일", [], "cal2", a=(1, (25, 26, 27, 28, 29, 30, 31)), b=(2, (1, 2, 3)), cap="7일 + 3일 = 10일"),
+    R("주먹 셈", "주먹 셈", [], "knuckle"),
+    R("열두 달", "달마다 날수", [], "year12"),
+    R("흐른 시간", "날짜와 시간", [], "dayswait"),
+]
+RULES["math_2t_formula"] = [
+    R("몇 분 전?", "퀴즈", ["2시 55분은 3시 몇 분 전?"], "question"),
+    R("4시 20분까지는?", "퀴즈", ["3시부터 4시 20분까지는?"], "question"),
+    R("3시 5분 전", "몇 분 전", [], "before", m=55),
+    R("1시간 20분", "시간", [], "whenhow", h1=3, m1=0, h2=4, m2=20, gap="1시간 20분"),
+    R("× 5", "긴바늘 읽기", [], "x5"),
+    R("정각", "정각", [], "readclock", h=3, m=0, line1="긴바늘 12 = 정각", line2="3시"),
+    R("30분", "30분", [], "readclock", h=3, m=30, line1="긴바늘 6 = 30분", line2="3시 30분"),
+    R("3시 20분", "3시 20분", [], "readclock", h=3, m=20, line1="긴바늘 4 × 5 = 20", line2="3시 20분"),
+    R("시각 · 시간", "시각과 시간", [], "whenhow"),
+    R("깡충", "정각까지 깡충", [], "jump"),
+    R("10분 전", "몇 분 전", [], "before", m=50),
+    R("한 바퀴", "바늘 한 바퀴", [], "hands"),
+    R("오전", "오전과 오후", [], "ampm"),
+]
+RULES["math_3d_formula"] = [
+    R("더 큰 것은?", "퀴즈", ["1/2과 1/4, 더 큰 것은?"], "question"),
+    R("12개의 1/4은?", "퀴즈", ["12개의 1/4은?"], "question"),
+    R("1/2 > 1/4", "단위분수 비교", [], "pizzas"),
+    R("12의 1/4 = 3", "분수만큼", [], "cookies", k=1, g=4),
+    R("단위분수", "단위분수 비교", [], "pizzas"),
+    R("분자 큰 게", "분모가 같으면", [], "fcompare"),
+    R("똑같이", "똑같이 나누기", [], "unequal"),
+    R("12의 1/3", "분수만큼", [], "cookies", k=1),
+    R("12의 2/3", "분수만큼", [], "cookies", k=2),
+    R("나누고 곱해", "분수만큼", [], "cookies", k=2),
+    R("7/4", "가분수 → 대분수", [], "improper"),
+    R("7/3", "대분수 → 가분수", [], "mixed"),
+    R("0.7", "분수와 소수", [], "choco"),
 ]

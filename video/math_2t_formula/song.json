@@ -1,0 +1,34 @@
+{
+  "duration": 138.5,
+  "title": "정각까지 깡충! 시간 탐정",
+  "subtitle": "2학년 수학 심화 - 시각과 시간",
+  "timeline_years": [
+    "시계 읽기",
+    "시각과 시간",
+    "정각까지 깡충",
+    "몇 분 전",
+    "오전과 오후",
+    "퀴즈"
+  ],
+  "intro_end": 7.0,
+  "outro_start": 139.5,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "panel": "math",
+  "intro_shots": [
+    "m2t_01"
+  ],
+  "outro_shots": [
+    "m2d_12"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
