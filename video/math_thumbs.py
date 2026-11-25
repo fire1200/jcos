@@ -41,6 +41,8 @@ THUMBS = [
      dict(title="긴바늘 읽기", lines=[], shape="x5", kw=dict()), "썸네일_수학2-심화2_시간.jpg"),
     ("math_3d_formula", "m3d_03", "3학년 수학 심화 · 분수", ["분모 크면", "작아진다!"],
      dict(title="단위분수 비교", lines=[], shape="pizzas", kw=dict()), "썸네일_수학3-심화_분수.jpg"),
+    ("math_2c_formula", "m2c_05", "2학년 수학 심화 · 달력", ["짚어서", "세자!"],
+     dict(title="3월 4일 ~ 6일", lines=[], shape="cal", kw=dict(mo=3, hl=(4, 5, 6), cap="모두 3번")), "썸네일_수학2-심화1_달력.jpg"),
 ]
 
 
