@@ -1,5 +1,5 @@
 {
-  "duration": 138.5,
+  "duration": 165,
   "title": "짚어서 세자! 달력 탐정",
   "subtitle": "2학년 수학 심화 - 달력으로 날짜 세기",
   "timeline_years": [
@@ -10,8 +10,8 @@
     "날짜와 시간",
     "퀴즈"
   ],
-  "intro_end": 7.0,
-  "outro_start": 139.5,
+  "intro_end": 6.0,
+  "outro_start": 166,
   "scenes": [
     [
       0,
