@@ -57,7 +57,9 @@ SONGS = [("prehistory_song", "⓪ 선사 시대 (구석기~철기)", "선사시�
          ("math_2d_formula", "수학 2학년 심화 더하기 1! 정각 먼저!", "수학2-심화"),
          ("math_2c_formula", "수학 2학년 심화 ① 달력 짚어서 세자!", "수학2-심화1달력"),
          ("math_2t_formula", "수학 2학년 심화 ② 시간 정각까지 깡충!", "수학2-심화2시간"),
-         ("math_3d_formula", "수학 3학년 심화 분수", "수학3-심화분수")]
+         ("math_3d_formula", "수학 3학년 심화 분수", "수학3-심화분수"),
+         ("math_4n_formula", "수학 4학년 심화 ① 나눗셈", "수학4-심화1나눗셈"),
+         ("math_4f_formula", "수학 4학년 심화 ② 분수의 덧셈과 뺄셈", "수학4-심화2분수")]
 # 링크(Artifact) 버전에 올린 싱크용 영상 주소
 WEB_VIDEO = {"joseon_early_rap": "/_blob/61bdc5240ff2935162e047be45eb4fbb",
              "joseon_late_rap": "/_blob/ba6d2b107b74ba103604804bea64768b",

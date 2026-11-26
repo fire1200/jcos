@@ -58,16 +58,16 @@ class Canvas:
         import re
         if anchor == "mm" and re.search(r"\d+/\d+", s):   # 1/2 → 진짜 분수 모양
             parts = re.split(r"(\d+/\d+)", s)
-            f, fs = self.font(size), self.font(size * .72)
-            ws = [f.getlength(p) / SS if "/" not in p else max(fs.getlength(q) for q in p.split("/")) / SS + size * .2 for p in parts]
+            f, fs = self.font(size), self.font(size * .9)
+            ws = [f.getlength(p) / SS if "/" not in p else max(fs.getlength(q) for q in p.split("/")) / SS + size * .3 for p in parts]
             x = xy[0] - sum(ws) / 2
             for p, w in zip(parts, ws):
                 if "/" in p:
                     a, b = p.split("/")
                     cx = x + w / 2
                     self.line([(cx - w / 2 + size * .08, xy[1]), (cx + w / 2 - size * .08, xy[1])], col, max(2, size * .06))
-                    self.d.text((cx * SS, (xy[1] - size * .06) * SS), a, font=fs, fill=col, anchor="mb")
-                    self.d.text((cx * SS, (xy[1] + size * .06) * SS), b, font=fs, fill=col, anchor="mt")
+                    self.d.text((cx * SS, (xy[1] - size * .08) * SS), a, font=fs, fill=col, anchor="mb")
+                    self.d.text((cx * SS, (xy[1] + size * .08) * SS), b, font=fs, fill=col, anchor="mt")
                 elif p:
                     self.d.text((x * SS, xy[1] * SS), p, font=f, fill=col, anchor="lm", stroke_width=int(stroke * SS), stroke_fill=(255, 255, 255))
                 x += w
@@ -1901,4 +1901,152 @@ RULES["math_3d_formula"] = [
     R("7/4", "가분수 → 대분수", [], "improper"),
     R("7/3", "대분수 → 가분수", [], "mixed"),
     R("0.7", "분수와 소수", [], "choco"),
+]
+
+
+# ------------------------------------------------------------------ 4학년 심화: 두 자리 수 나눗셈 · 분수의 덧셈과 뺄셈
+def s_ldiv(c, a=156, b=24, q="6", rows=(("144", 3, INK), ("12", 3, RED)), note="", qcol=RED):
+    """세로 나눗셈. rows: (글자, 오른쪽 끝 자리 위치(1부터), 색). 마지막 줄 위에는 선."""
+    cw = 54
+    sa = str(a)
+    x_right = 430
+    xs = lambda k: x_right - (len(sa) - k) * cw     # k번째 자리(1부터) 가운데 x
+    y0 = 270
+    c.text((xs(1) - cw * 1.6, y0), str(b), 52)
+    c.d.arc([(xs(1) - cw * .95) * SS, (y0 - 34) * SS, (xs(1) - cw * .35) * SS, (y0 + 40) * SS], 270, 90, fill=INK, width=5 * SS)
+    c.line([(xs(1) - cw * .65, y0 - 34), (x_right + cw * .6, y0 - 34)], INK, 5)
+    for k, ch in enumerate(sa, 1):
+        c.text((xs(k), y0), ch, 52)
+    for k, ch in enumerate(q):
+        c.text((xs(len(sa) - len(q) + 1 + k), y0 - 78), ch, 52, qcol)
+    y = y0 + 64
+    for i, (txt, endpos, col) in enumerate(rows):
+        if txt == "-":
+            c.line([(xs(1) - cw * .5, y - 32), (x_right + cw * .5, y - 32)], INK, 4)
+            continue
+        for k, ch in enumerate(txt):
+            c.text((xs(endpos - len(txt) + 1 + k), y), ch, 46, col)
+        y += 60
+    if note:
+        c.text((300, 610), note, c.fit(note, 40, 540), BLUE)
+
+
+def s_estimate(c, b=24, r=20, a=156, ar=150, q=7, prod=168, ok=6, mode="big"):
+    c.text((300, 170), f"{b}는 {r}쯤!", 50, BLUE)
+    c.text((300, 250), f"{ar} ÷ {r} → 몫 {q}쯤", 44)
+    if mode == "big":
+        c.text((300, 340), f"{b} × {q} = {prod}", 50)
+        c.text((300, 410), f"{prod} > {a}  너무 커!", 42, RED)
+        c.text((300, 510), f"하나 작게 → {ok}", 58, RED)
+    else:
+        c.text((300, 340), f"{b} × {q} = {prod},  {a} − {prod} = {a - prod}", 36)
+        c.text((300, 410), f"{a - prod} ≥ {b}  남은 게 커!", 42, RED)
+        c.text((300, 510), f"하나 크게 → {ok}", 58, RED)
+
+
+def s_steps4(c):
+    steps = (("어림", (255, 214, 64)), ("곱하고", (150, 200, 250)), ("빼고", (255, 170, 150)), ("내려", (160, 220, 160)))
+    ce, r = (300, 360), 165
+    for i, (t, col) in enumerate(steps):
+        a = math.radians(-90 + i * 90)
+        x, y = ce[0] + r * math.cos(a), ce[1] + r * math.sin(a)
+        c.circle((x, y), 62, col, INK, 4)
+        c.text((x, y), t, 34)
+        a2 = math.radians(-90 + i * 90 + 45)
+        c.text((ce[0] + r * .9 * math.cos(a2), ce[1] + r * .9 * math.sin(a2)), "→", 36, RED)
+    c.text((300, 360), "반복!", 44, RED)
+
+
+def s_divcheck(c):
+    c.text((300, 200), "156 ÷ 24 = 6 … 12", 50)
+    c.text((300, 300), "나머지 12 < 나누는 수 24", 38, BLUE)
+    c.text((300, 400), "24 × 6 + 12 = 156", 54, RED)
+    c.text((300, 500), "나누는 수 × 몫 + 나머지", 34, BLUE)
+    c.text((300, 550), "= 나누어지는 수", 34, BLUE)
+
+
+def fbar(c, x0, y0, w, h, n, k, col=(255, 190, 110), k2=0, col2=(150, 200, 250)):
+    for i in range(n):
+        x = x0 + w * i / n
+        fill = col if i < k else col2 if i < k + k2 else (255, 255, 255)
+        c.d.rectangle([x * SS, y0 * SS, (x + w / n) * SS, (y0 + h) * SS], fill=fill, outline=INK, width=3 * SS)
+
+
+def s_fadd(c, wrong=False):
+    fbar(c, 70, 170, 460, 70, 5, 2, k2=1)
+    c.text((300, 300), "2/5 + 1/5", 54)
+    if wrong:
+        c.text((300, 400), "≠ 3/10", 62, (150, 140, 135))
+        c.line([(180, 380), (420, 420)], RED, 8)
+        c.text((300, 530), "분모는 더하지 않아요!", 42, RED)
+    else:
+        c.text((300, 410), "= 3/5", 70, RED)
+        c.text((300, 530), "분모는 그대로, 분자끼리!", 40, BLUE)
+
+
+def s_fimp(c):
+    fbar(c, 70, 160, 460, 60, 5, 4, k2=1)
+    fbar(c, 70, 235, 460, 60, 5, 0, k2=2)
+    c.text((300, 350), "4/5 + 3/5 = 7/5", 50)
+    c.text((300, 450), "= 1과 2/5", 62, RED)
+    c.text((300, 545), "5/5는 1!", 42, BLUE)
+
+
+def s_fone(c):
+    fbar(c, 70, 170, 460, 70, 7, 5, col2=(220, 220, 220), k2=2)
+    c.text((300, 290), "1 = 7/7", 58, BLUE)
+    c.text((300, 400), "7/7 − 2/7 = 5/7", 54, RED)
+    c.text((300, 520), "1은 분모만큼!", 46, RED)
+
+
+def s_fborrow(c, wrong=False):
+    c.text((300, 175), "3과 1/5 − 1과 3/5", 48)
+    c.text((300, 265), "↓ 3에서 1을 빌려 와요", 32, BLUE)
+    if wrong:
+        c.text((300, 360), "1/5 + 10/5 = 11/5", 46, (150, 140, 135))
+        c.line([(140, 340), (460, 380)], RED, 8)
+        c.text((300, 460), "1/5 + 5/5 = 6/5", 52, RED)
+        c.text((300, 550), "10 말고 분모만큼 5!", 40, BLUE)
+    else:
+        c.text((300, 360), "2와 6/5 − 1과 3/5", 50, RED)
+        c.text((300, 460), "= 1과 3/5", 62, RED)
+        c.text((300, 550), "1 = 5/5", 40, BLUE)
+
+
+def s_fviaimp(c):
+    c.text((300, 190), "3과 1/5 = 16/5", 48)
+    c.text((300, 280), "1과 3/5 = 8/5", 48)
+    c.text((300, 380), "16/5 − 8/5 = 8/5", 50, BLUE)
+    c.text((300, 480), "= 1과 3/5", 62, RED)
+    c.text((300, 565), "두 방법 모두 같아요!", 36, BLUE)
+
+
+SHAPES.update({"ldiv": s_ldiv, "estimate": s_estimate, "steps4": s_steps4, "divcheck": s_divcheck, "fadd": s_fadd,
+               "fimp": s_fimp, "fone": s_fone, "fborrow": s_fborrow, "fviaimp": s_fviaimp})
+
+RULES["math_4n_formula"] = [
+    R("몫은?", "퀴즈", ["몫을 7로 어림했더니 곱한 값이 너무 커! 몫은?"], "question"),
+    R("이상이면?", "퀴즈", ["나머지가 나누는 수 이상이면?"], "question"),
+    R("어림 · 곱 · 빼 · 내", "오늘의 암호", [], "summary", items=[("나누는 수는 몇십으로 어림", BLUE), ("곱해서 크면 하나 작게", RED), ("남은 게 크면 하나 크게", (40, 150, 70))]),
+    R("너무 커", "몫이 너무 크면", [], "estimate"),
+    R("156 ÷ 24 = 6 … 12", "156 ÷ 24", [], "ldiv", a=156, b=24, q="6", rows=(("144", 3, INK), ("-", 0, INK), ("12", 3, RED)), note="몫 6, 나머지 12"),
+    R("24 × 100", "너무 큰 몫", ["24 × 100 = 2400"], "ldiv", a=156, b=24, q="100", rows=(("2400", 3, RED),), qcol=(150, 140, 135)),
+    R("남은 게 커", "몫이 너무 작으면", [], "estimate", b=18, r=20, a=92, ar=92, q=4, prod=72, ok=5, mode="small"),
+    R("92 ÷ 18 = 5 … 2", "92 ÷ 18", [], "ldiv", a=92, b=18, q="5", rows=(("90", 2, INK), ("-", 0, INK), ("2", 2, RED)), note="몫 5, 나머지 2"),
+    R("552 ÷ 24 = 23", "552 ÷ 24", [], "ldiv", a=552, b=24, q="23", rows=(("48", 2, INK), ("-", 0, INK), ("72", 3, BLUE), ("72", 3, INK), ("-", 0, INK), ("0", 3, RED)), note="앞 두 자리부터 · 내려서 다시"),
+    R("72 − 72 = 0", "자리를 맞춰 빼요", [], "ldiv", a=552, b=24, q="23", rows=(("48", 2, INK), ("-", 0, INK), ("72", 3, BLUE), ("72", 3, INK), ("-", 0, INK), ("0", 3, RED)), note="72 − 72 = 0"),
+    R("어림하고", "나눗셈 순서", [], "steps4"),
+    R("확인", "확인하기", [], "divcheck"),
+]
+RULES["math_4f_formula"] = [
+    R("분수로 바꾸면?", "퀴즈", ["1을 분모가 7인 분수로 바꾸면?"], "question"),
+    R("2/5 + 1/5은?", "퀴즈", ["2/5 + 1/5은?"], "question"),
+    R("분모는 그대로 · 1은 분모만큼", "오늘의 암호", [], "summary", items=[("분모는 그대로", BLUE), ("분자끼리 계산", RED), ("1은 분모만큼", (40, 150, 70))]),
+    R("3/10", "분모를 더하면?", [], "fadd", wrong=True),
+    R("2/5 + 1/5 = 3/5", "분모가 같은 분수의 덧셈", [], "fadd"),
+    R("7/5 = 1과 2/5", "가분수 → 대분수", [], "fimp"),
+    R("1 = 7/7", "1은 분모만큼", [], "fone"),
+    R("11/5", "분자에 10? 땡!", [], "fborrow", wrong=True),
+    R("2와 6/5", "받아내림", [], "fborrow"),
+    R("16/5 − 8/5", "가분수로 확인", [], "fviaimp"),
 ]
