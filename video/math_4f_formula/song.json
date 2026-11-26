@@ -1,17 +1,15 @@
 {
-  "duration": 159,
+  "duration": 160,
   "title": "분모는 그대로! 1은 분모만큼!",
   "subtitle": "4학년 수학 심화 - 분모가 같은 분수의 덧셈과 뺄셈",
   "timeline_years": [
     "분모는 그대로",
-    "가분수",
     "1은 분모만큼",
     "받아내림",
-    "가분수로 확인",
     "퀴즈"
   ],
   "intro_end": 6.0,
-  "outro_start": 160,
+  "outro_start": 161,
   "scenes": [
     [
       0,
