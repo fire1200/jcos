@@ -7,16 +7,16 @@
 
 ## 1. 한눈에 (음원 마감순)
 
-| 공개 | 파일 이름 | 곡 | 묶음 | 빠르기 | **음원 마감** |
+| 공개 | 파일 이름 | 곡 | 묶음 | 편곡 · 빠르기 | **음원 마감** |
 | --- | --- | --- | --- | --- | --- |
-| 12/6 (일) 10:00 | `kids18.mp3` | 첫눈 오는 날 눈사람 | 겨울 신곡 | 96 | **12/2 (수)** |
-| 12/10 (목) 17:00 | `life01.mp3` | 뽀득뽀득 손 씻기 | 생활 노래 ① | 92 | 12/6 (일) |
-| 12/13 (일) 10:00 | `life02.mp3` | 쏙쏙 장난감 정리 | 생활 노래 ② | 98 | 12/9 (수) |
-| 12/17 (목) 17:00 | `kids19.mp3` | 반짝반짝 트리 꾸미기 | 겨울 신곡 | 100 | 12/13 (일) |
-| 12/20 (일) 10:00 | `life03.mp3` | 잘 자요 안녕 | 생활 노래 ③ (자장가) | 66 | 12/16 (수) |
-| 12/24 (목) 17:00 | `kids20.mp3` | 몽글이 크리스마스 선물 | 겨울 신곡 | 104 | 12/20 (일) |
-| 12/27 (일) 10:00 | `life04.mp3` | 안녕하세요 인사 노래 | 생활 노래 ④ | 94 | 12/23 (수) |
-| 12/31 (목) 17:00 | `kids21.mp3` | 안녕 새해, 떡국 냠냠 | 새해 신곡 | 100 | 12/27 (일) |
+| 12/6 (일) 10:00 | `kids18.mp3` | 첫눈 오는 날 눈사람 | 겨울 신곡 | 폴카 112 | **12/2 (수)** |
+| 12/10 (목) 17:00 | `life01.mp3` | 뽀득뽀득 손 씻기 | 생활 노래 ① | 칼립소 100 | 12/6 (일) |
+| 12/13 (일) 10:00 | `life02.mp3` | 쏙쏙 장난감 정리 | 생활 노래 ② | 행진곡 108 | 12/9 (수) |
+| 12/17 (목) 17:00 | `kids19.mp3` | 반짝반짝 트리 꾸미기 | 겨울 신곡 | 스윙 120 | 12/13 (일) |
+| 12/20 (일) 10:00 | `life03.mp3` | 잘 자요 안녕 | 생활 노래 ③ (자장가) | 3박자 60 | 12/16 (수) |
+| 12/24 (목) 17:00 | `kids20.mp3` | 몽글이 크리스마스 선물 | 겨울 신곡 | 키즈 팝 118 | 12/20 (일) |
+| 12/27 (일) 10:00 | `life04.mp3` | 안녕하세요 인사 노래 | 생활 노래 ④ | 레게 90 | 12/23 (수) |
+| 12/31 (목) 17:00 | `kids21.mp3` | 안녕 새해, 떡국 냠냠 | 새해 신곡 | 국악 96 | 12/27 (일) |
 
 - 미리 여러 곡을 만들어 보내 주셔도 됩니다. 영상도 미리 만들어 둡니다.
 - 생활 노래 ④는 `production_december_20261127.md`의 「냠냠 골고루」에서 **「안녕하세요 인사 노래」로 바꿨습니다.** 밥 먹기는 첫말③ 「맘마 냠냠」과 주제가 겹쳐서, 비슷한 영상이 또 나오는 것을 피했습니다.
@@ -29,22 +29,39 @@
 4. 크리스마스 곡은 **기존 캐럴과 선율이 비슷하게 들리면 버립니다** (징글벨, 루돌프 사슴코, 고요한 밤 등).
 5. 「반짝반짝」이 들어간 곡은 **「반짝반짝 작은 별」 선율과 비슷하게 들리면 버립니다.**
 
+## 2-1. 곡마다 편곡을 다르게 (11/27 의견 반영)
+
+"음악 스타일이 너무 같다"는 의견에 따라 **8곡의 편곡을 모두 다르게** 바꿨습니다. 지금까지 곡은 대부분 마림바·우쿨렐레·글로켄슈필에 여성 보컬이었습니다.
+
+아기들이 잘 반응하는 요소는 곡마다 공통으로 넣었습니다.
+- **높고 밝은, 아기에게 말 걸듯 부르는 목소리** (과장된 억양)
+- **주고받기**: 한 사람이 부르면 아이들이 따라 대답
+- **또렷한 박자와 몸이 들썩이는 리듬** (자장가만 예외)
+- **소리 효과**: 물방울, 방울, 웃음소리, "짠!" 같은 외침
+
+| 곡 | 편곡 | 목소리 |
+| --- | --- | --- |
+| 18 눈사람 | 폴카 (아코디언, 튜바) | 높은 여성 + 아이들 외침 |
+| 손 씻기 | 칼립소 (스틸 드럼, 봉고) | 아기에게 말 걸듯 |
+| 장난감 정리 | 장난감 행진곡 (작은북, 카주) | **남녀가 주고받기** + 아이들 대답 |
+| 트리 꾸미기 | 스윙 재즈 (콘트라베이스, 비브라폰) | 여성 + 아이들 대답 |
+| 잘 자요 안녕 | 3박자 자장가 (오르골, 첼로) | 속삭임 + 허밍 |
+| 크리스마스 선물 | 키즈 팝 댄스 (손뼉, 신스 벨) | 높고 신나는 여성 + 외침 |
+| 인사 노래 | 느긋한 레게 (뒷박 우쿨렐레) | 여성 → 아이들이 따라 대답 |
+| 새해 떡국 | 국악 (장구, 가야금) | 여성 + 아이들 |
+
 ## 3. 만드는 방법
 
 1. **Custom** 켜기 → **Lyrics**에 `가사` 상자 통째로 → **Style of Music**에 스타일 → **Title**에 제목
 2. 신곡(18~21)은 `스타일 1안`으로 먼저 만들고, 마음에 들지 않으면 `스타일 2안`으로 한 번 더 만듭니다.
 3. 생활 노래는 스타일이 하나입니다. 4개 이상 뽑아 아래 점검표로 고릅니다.
+4. 편곡이 스타일과 다르게 나오면(예: 폴카인데 평범한 팝) 다시 만듭니다. **편곡이 곡마다 달라야 합니다.**
 
-**제외어 (Exclude Styles)**
-
-신곡 (18~21):
+**제외어 (Exclude Styles)** — 모든 곡 같음
 ```
-rap, trap, heavy drums, distorted guitar, EDM drop, autotune, adult pop vocal, vibrato-heavy, scream, horror, sad minor ballad, long instrumental intro
+rap, trap, heavy drums, distorted guitar, EDM drop, autotune, adult sensual vocal, vibrato-heavy, scream, horror, sad minor ballad, long instrumental intro, heavy reverb
 ```
-생활 노래 (첫말과 같음):
-```
-reverb, choir, male vocals, rap, autotune, fast tempo, long intro
-```
+- 생활 노래에서 쓰던 `choir, male vocals` 제외는 **뺐습니다.** 정리 노래는 남녀가 주고받고, 인사 노래는 아이들이 따라 대답하기 때문입니다.
 
 **점검표**
 - [ ] 첫 소리가 3초 안에 나온다
@@ -66,13 +83,15 @@ reverb, choir, male vocals, rap, autotune, fast tempo, long intro
 
 **선율:** "펑펑 펑펑"은 위에서 아래로 내려옵니다. "데굴데굴 굴려서"는 아래에서 위로 올라갑니다. "안녕 눈사람"에서 끝맺습니다.
 
+**편곡:** 통통 튀는 폴카 (아코디언·튜바) · 3초 안에 노래
+
 **스타일 1안**
 ```
-Korean children's song, sparkling winter, sleigh bells, glockenspiel, acoustic guitar, soft strings, light hand claps, bright warm female vocal with kids choir on chorus, simple singable melody in major key, narrow vocal range, 96 BPM, song starts immediately with the first words, no instrumental intro
+Korean children's winter song, bouncy polka, accordion, tuba oom-pah bass, sleigh bells, glockenspiel, hand claps, high bright playful female vocal in sing-song baby-talk style, kids shouting answers on chorus, giggles, very simple repetitive melody in major key, 112 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **스타일 2안**
 ```
-Korean kids winter song, gentle and dreamy, celesta, harp, soft piano, light sleigh bells, gentle female vocal with soft kids choir, major key, slow simple melody, 84 BPM, song starts immediately with the first words, no instrumental intro
+Korean kids winter song, music box waltz in 3/4, celesta, sleigh bells, pizzicato strings, soft female vocal with gentle humming, very simple melody in major key, 96 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **가사**
 ```
@@ -135,9 +154,11 @@ Korean kids winter song, gentle and dreamy, celesta, harp, soft piano, light sle
 
 **선율:** "뽀득뽀득"은 같은 음을 네 번 콕콕 찍습니다. "깨끗해!"는 위로 올라가며 끝냅니다. 「생일 축하 노래」 선율에 맞춰 부르는 흔한 손 씻기 노래와 **겹치지 않게** 새 선율로 만듭니다.
 
-**스타일**
+**편곡:** 섬나라 칼립소 (스틸 드럼·물방울 소리)
+
+**스타일 1안**
 ```
-Korean nursery song for babies about washing hands, 92 BPM, bright and bubbly, soft clear female voice, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, marimba, ukulele, water drop sounds, soap bubble pops, dry close vocal, no reverb, no choir, simple repeating melody
+Korean nursery song for babies about washing hands, calypso island groove, steel drums, ukulele, shaker, bongos, water drops and soap bubble pops, high bright sing-song female voice like talking to a baby, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, dry close vocal, simple repeating melody, 100 BPM
 ```
 **가사**
 ```
@@ -194,9 +215,11 @@ Korean nursery song for babies about washing hands, 92 BPM, bright and bubbly, s
 
 **선율:** "쏙!"은 짧고 높게 한 번 찍습니다. "다 했다!"는 손뼉과 함께 끝냅니다.
 
-**스타일**
+**편곡:** 장난감 행진곡 (작은북·카주) · 남녀 주고받기
+
+**스타일 1안**
 ```
-Korean nursery song for babies about tidying up toys, 98 BPM, cheerful and bouncy, soft clear female voice, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, xylophone, toy piano, bouncy bass, wood block, hand claps, dry close vocal, no reverb, no choir, simple repeating melody
+Korean nursery song for babies about tidying up toys, toy marching band, snare drum brushes, kazoo, toy trumpet, xylophone, tuba, friendly warm male voice and bright female voice taking turns, kids answering each word, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, simple repeating melody, 108 BPM
 ```
 **가사**
 ```
@@ -253,13 +276,15 @@ Korean nursery song for babies about tidying up toys, 98 BPM, cheerful and bounc
 
 **선율:** "콕!"은 짧게 찍습니다. "불을 켜면 짠!"에서 한 음 크게 올라갑니다. **「반짝반짝 작은 별」, 「징글벨」과 비슷하게 들리면 버립니다.**
 
+**편곡:** 스윙 재즈 크리스마스 (콘트라베이스·비브라폰)
+
 **스타일 1안**
 ```
-Korean children's Christmas song, festive and cozy, sleigh bells, glockenspiel, acoustic guitar, pizzicato strings, light hand claps, bright warm female vocal with kids choir on chorus, original simple melody in major key, narrow vocal range, 100 BPM, song starts immediately with the first words, no instrumental intro
+Korean children's Christmas song, playful kids swing jazz, upright bass, brushed drums, vibraphone, muted trumpet, finger snaps, sleigh bells, bright cheerful female vocal with kids choir answering, original simple singable melody, 120 BPM swing feel, song starts immediately with the first words, no instrumental intro
 ```
 **스타일 2안**
 ```
-Korean kids holiday song, warm and twinkly, celesta, music box, soft piano, light shaker, gentle female vocal with soft kids choir, original simple melody in major key, 92 BPM, song starts immediately with the first words, no instrumental intro
+Korean kids holiday song, warm doo-wop style, piano, soft brushed drums, glockenspiel, bell tree, gentle female vocal with kids backing vocals ooh-wah, original simple melody in major key, 96 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **가사**
 ```
@@ -320,9 +345,11 @@ Korean kids holiday song, warm and twinkly, celesta, music box, soft piano, ligh
 
 **선율:** 넓게 오르내리지 않고, 낮은 음 안에서 흔들의자처럼 오갑니다. "잘 자요"는 늘 같은 세 음으로 내려옵니다.
 
-**스타일**
+**편곡:** 3박자 흔들 자장가 (오르골·허밍)
+
+**스타일 1안**
 ```
-Korean lullaby for babies, 66 BPM, very calm and soft, gentle hushed female voice, very clear slow Korean pronunciation, song starts immediately with the first words, no instrumental intro, soft music box, warm piano, light harp, soft pad, dry close vocal, no reverb, no choir, no drums, simple rocking melody, gradually quieter toward the end
+Korean lullaby for babies, slow rocking waltz in 3/4 time, 60 BPM, music box, soft nylon guitar, warm cello, gentle heartbeat-like soft pulse, very soft hushed female voice with humming between lines, very clear slow Korean pronunciation, song starts immediately with the first words, no instrumental intro, dry close vocal, no drums, gradually quieter toward the end
 ```
 **가사**
 ```
@@ -380,13 +407,15 @@ Korean lullaby for babies, 66 BPM, very calm and soft, gentle hushed female voic
 
 **선율:** "똑똑똑"은 같은 음 세 번입니다. "선물이에요!"는 위로 올라가며 밝게 끝냅니다. **기존 캐럴과 비슷하게 들리면 버립니다.**
 
+**편곡:** 신나는 키즈 팝 댄스 (손뼉·신스 벨)
+
 **스타일 1안**
 ```
-Korean children's Christmas song, joyful and warm, sleigh bells, glockenspiel, bright piano, brass section light accents, hand claps, bright warm female vocal with kids choir on chorus, original simple melody in major key, narrow vocal range, 104 BPM, song starts immediately with the first words, no instrumental intro
+Korean children's Christmas song, bright bubblegum kids pop dance, punchy but soft kick, hand claps, synth bells, sleigh bells, plucky synth bass, high energetic cute female vocal, kids shouting "Merry Christmas!", catchy simple hook in major key, 118 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **스타일 2안**
 ```
-Korean kids Christmas song, cozy and sweet, acoustic guitar, celesta, soft strings, light jingle bells, gentle female vocal with soft kids choir, original simple melody in major key, 96 BPM, song starts immediately with the first words, no instrumental intro
+Korean kids Christmas song, cozy acoustic folk pop, acoustic guitar, banjo, glockenspiel, stomp and clap, warm female vocal with kids choir, original simple melody in major key, 104 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **가사**
 ```
@@ -447,9 +476,11 @@ Korean kids Christmas song, cozy and sweet, acoustic guitar, celesta, soft strin
 
 **선율:** 인사말마다 같은 모양의 짧은 선율을 반복해서, 말만 바뀌고 노래는 같게 들리게 합니다. "꾸벅!"에서 한 박 쉽니다.
 
-**스타일**
+**편곡:** 느긋한 레게 (뒷박 우쿨렐레) · 아이들이 따라 대답
+
+**스타일 1안**
 ```
-Korean nursery song for babies about greetings, 94 BPM, friendly and warm, soft clear female voice, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, acoustic guitar, glockenspiel, soft bass, light hand claps, dry close vocal, no reverb, no choir, simple repeating melody
+Korean nursery song for babies about greetings, gentle kids reggae with offbeat ukulele, melodica, soft bass, light rimshot, warm friendly female voice singing each word and a small group of kids echoing it back, very clear slow Korean pronunciation, song starts immediately with the first word, no instrumental intro, simple repeating melody, 90 BPM
 ```
 **가사**
 ```
@@ -506,13 +537,15 @@ Korean nursery song for babies about greetings, 94 BPM, friendly and warm, soft 
 
 **선율:** "새해 복 많이 받으세요"는 또박또박 한 음절씩 짚습니다. "후루룩 냠냠"은 미끄러지듯 내려옵니다. 국악 느낌은 가볍게만 넣습니다.
 
+**편곡:** 국악 동요 (장구 굿거리 장단·가야금)
+
 **스타일 1안**
 ```
-Korean children's New Year song, bright and festive, gayageum light accents, xylophone, acoustic guitar, soft janggu-style hand percussion, hand claps, bright warm female vocal with kids choir on chorus, simple singable melody in major key, narrow vocal range, 100 BPM, song starts immediately with the first words, no instrumental intro
+Korean children's New Year song, Korean traditional fusion, janggu in gutgeori rhythm feel, gayageum, haegeum light accents, small gong, xylophone, bright warm female vocal with kids choir, simple singable melody, 96 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **스타일 2안**
 ```
-Korean kids New Year song, warm and cheerful, marimba, piano, light flute, soft hand drum, gentle female vocal with soft kids choir, simple melody in major key, 92 BPM, song starts immediately with the first words, no instrumental intro
+Korean kids New Year song, cheerful brass and marimba march, light snare, piano, hand claps, bright female vocal with kids choir, simple melody in major key, 104 BPM, song starts immediately with the first words, no instrumental intro
 ```
 **가사**
 ```
