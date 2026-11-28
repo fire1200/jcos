@@ -1,0 +1,31 @@
+{
+  "duration": 175.0,
+  "title": "평화 지킴이 냥냥단",
+  "subtitle": "6학년 2학기 사회송 (하) - 독도와 통일 · 지구촌 평화",
+  "timeline_years": [
+    "독도와 통일",
+    "지구촌 평화와 미래",
+    "퀴즈"
+  ],
+  "intro_end": 12.0,
+  "outro_start": 176.0,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "panel": "math",
+  "intro_shots": [
+    "so6b_01"
+  ],
+  "outro_shots": [
+    "so6b_12"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}

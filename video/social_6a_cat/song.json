@@ -1,0 +1,31 @@
+{
+  "duration": 175.2,
+  "title": "지구 한 바퀴 냥냥 여행",
+  "subtitle": "6학년 2학기 사회송 (상) - 세계 여러 나라의 자연과 문화",
+  "timeline_years": [
+    "세계의 자연환경",
+    "기후와 생활",
+    "퀴즈"
+  ],
+  "intro_end": 9.0,
+  "outro_start": 176.2,
+  "scenes": [
+    [
+      0,
+      "magic",
+      11
+    ]
+  ],
+  "effects": {},
+  "fill_gaps": true,
+  "layout": "science",
+  "panel": "math",
+  "intro_shots": [
+    "so6a_01"
+  ],
+  "outro_shots": [
+    "so6a_12"
+  ],
+  "gap_montage": 2.5,
+  "split_long": 99
+}
