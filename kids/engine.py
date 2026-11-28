@@ -642,3 +642,8 @@ def sub_index(ctx, sec, s0, t):
         if out and l["start"] - out[-1]["start"] > 25: break
         out.append(l)
     return max([i for i, l in enumerate(out) if l["start"] <= t], default=0)
+
+def quick_title(f, t, title, stroke=(95, 140, 225), y=110, dur=2.0):
+    """2026-11 새 첫 화면: 0초부터 장면을 보여 주고, 큰 제목은 위쪽에 2초만."""
+    if t < dur:
+        paste(f, big_text(title, 96, (255, 255, 255), stroke), W / 2, y, alpha=max(0.0, min(1.0, (dur - t) / 0.4)))
