@@ -5,7 +5,7 @@ import csv, json, re, sys, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 tag, asr, dur = sys.argv[1], sys.argv[2], float(sys.argv[3])
-song = os.path.join(HERE, "..", f"social_{tag}_cat")
+song = os.path.join(HERE, "..", os.environ.get("SONG", f"social_{tag}_cat"))
 spec = [l.rstrip("\n") for l in open(os.path.join(HERE, f"{tag}.txt"), encoding="utf-8")]
 years = [y.strip() for y in spec[0].split(":", 1)[1].split("|")]
 rows = [l.split("|", 4) for l in spec[1:] if l.strip()]
