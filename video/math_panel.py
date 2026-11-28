@@ -2147,3 +2147,110 @@ RULES.update({
         S("C:펀치", "냥냥 펀치!", ["평화 통일", "지구촌 평화", "세계 시민"]),
     ],
 })
+
+
+# ------------------------------------------------------------------ 4학년 심화 이야기판 (사탕 봉지 · 피자 조각)
+def bag(c, x, y, full=True, w=70, h=90):
+    c.d.rounded_rectangle([(x - w / 2) * SS, (y - h / 2) * SS, (x + w / 2) * SS, (y + h / 2) * SS], 18 * SS,
+                          fill=(255, 236, 200) if full else (245, 245, 245), outline=INK if full else (170, 170, 170), width=4 * SS)
+    c.line([(x - 14, y - h / 2 - 8), (x + 14, y - h / 2 - 8)], RED, 6)
+    if full:
+        for i in range(6):
+            c.circle((x - 18 + (i % 3) * 18, y - 10 + (i // 3) * 26), 9, ((255, 120, 120), (120, 180, 255), (255, 210, 80))[i % 3], INK, 2)
+
+
+def s_bags(c, n=7, empty_last=False, left=0, top="", mid="", bot="", botcol=RED):
+    per_row = min(n, 5)
+    for i in range(n):
+        x = 300 + (i % per_row - (per_row - 1) / 2) * 88
+        y = 270 + (i // per_row) * 112
+        bag(c, x, y, not (empty_last and i == n - 1))
+    if empty_last:
+        x = 300 + ((n - 1) % per_row - (per_row - 1) / 2) * 88
+        c.text((x, 270 + ((n - 1) // per_row) * 112), "?", 50, RED)
+    if left:
+        for i in range(min(left, 20)):
+            c.circle((150 + (i % 10) * 32, 480 + (i // 10) * 30 - (90 if n <= 5 else 0)), 11, ((255, 120, 120), (120, 180, 255), (255, 210, 80))[i % 3], INK, 2)
+    if top:
+        c.text((300, 160), top, 36, BLUE)
+    if mid:
+        c.text((300, 440), mid, 48)
+    if bot:
+        c.text((300, 565), bot, c.fit(bot, 44, 540), botcol)
+
+
+def s_cover0(c, a=140, b=20, q=7):
+    c.text((300, 200), f"{a} ÷ {b}", 64)
+    sa, sb = str(a), str(b)
+    for x, t in ((190, sa[:-1]), (380, sb[:-1])):
+        c.text((x, 330), t, 70, anchor="rm")
+        c.circle((x + 34, 330), 30, (255, 214, 64), INK, 4)
+        c.text((x + 34, 330), "0", 40, (170, 140, 60))
+    c.text((300, 330), "÷", 64)
+    c.text((300, 440), f"{sa[:-1]} ÷ {sb[:-1]} = {q}", 66, RED)
+    c.text((300, 540), "0을 손가락으로 가려요!", 40, BLUE)
+
+
+def s_fread(c):
+    pizza(c, (300, 270), 115, 5, 2)
+    c.text((300, 440), "2/5", 78, RED)
+    c.text((300, 530), "위 2: 가진 조각 수", 36, RED)
+    c.text((300, 580), "아래 5: 자른 조각 수", 36, BLUE)
+
+
+def s_f510(c):
+    pizza(c, (170, 290), 105, 5, 3)
+    pizza(c, (430, 290), 105, 10, 3)
+    c.text((170, 450), "3/5", 64, RED)
+    c.text((430, 450), "3/10", 64, (150, 140, 135))
+    c.line([(380, 430), (480, 470)], RED, 7)
+    c.text((300, 560), "10조각 → 조각이 작아져요!", 38, BLUE)
+
+
+def s_fpizza_borrow(c, stage=1):
+    if stage == 1:
+        for i, x in enumerate((140, 300)):
+            pizza(c, (x, 260), 72, 5, 5)
+        c.d.pieslice([(460 - 72) * SS, (260 - 72) * SS, (460 + 72) * SS, (260 + 72) * SS], -90, -18, fill=(255, 190, 110), outline=INK, width=4 * SS)
+        c.text((300, 400), "2와 1/5", 64)
+        c.text((300, 500), "3조각 먹고 싶은데 1조각뿐!", 36, RED)
+    else:
+        pizza(c, (150, 260), 72, 5, 5)
+        pizza(c, (330, 260), 72, 5, 5, col=(255, 160, 90))
+        c.d.pieslice([(480 - 60) * SS, (260 - 60) * SS, (480 + 60) * SS, (260 + 60) * SS], -90, -18, fill=(255, 190, 110), outline=INK, width=4 * SS)
+        c.text((300, 400), "1과 6/5 − 3/5", 56)
+        c.text((300, 480), "= 1과 3/5", 64, RED)
+        c.text((300, 565), "한 판 잘라 5조각 더!", 38, BLUE)
+
+
+SHAPES.update({"bags": s_bags, "cover0": s_cover0, "fread": s_fread, "f510": s_f510, "fpb": s_fpizza_borrow})
+
+RULES["math_4n_formula"] = [
+    R("Q:모자라면", "퀴즈", ["사탕이 모자라면?"], "question"),
+    R("Q:남으면", "퀴즈", ["남은 사탕으로 한 봉지 더 되면?"], "question"),
+    R("C:암호", "오늘의 암호", [], "summary", items=[("나누는 수는 몇십으로 어림", BLUE), ("0을 가리고 쉽게 나눠", (40, 150, 70)),
+                                                 ("모자라면 봉지 하나 줄여", RED), ("남으면 봉지 하나 늘려", (150, 80, 200))]),
+    R("C:140문제", "사탕 140개, 22개씩", [], "bags", n=5, top="몇 봉지가 될까?", mid="140 ÷ 22", bot="22는 20쯤!", botcol=BLUE),
+    R("C:0가리기", "0을 가려요", [], "cover0", a=140, b=20, q=7),
+    R("C:7봉지", "일곱 봉지 담아 보기", [], "bags", n=7, empty_last=True, top="22 × 7 = 154", bot="사탕은 140개뿐! 모자라!"),
+    R("C:6봉지", "봉지 하나 줄여요", [], "bags", n=6, left=8, top="22 × 6 = 132", bot="6봉지, 남은 사탕 8개"),
+    R("C:140세로", "140 ÷ 22", [], "ldiv", a=140, b=22, q="6", rows=(("132", 3, INK), ("-", 0, INK), ("8", 3, RED)), note="몫 6, 나머지 8"),
+    R("C:96문제", "사탕 96개, 19개씩", [], "bags", n=4, left=20, top="19는 20쯤 → 4봉지쯤", bot="19 × 4 = 76, 사탕 20개 남음!"),
+    R("C:5봉지", "봉지 하나 늘려요", [], "bags", n=5, left=1, top="19 × 5 = 95", bot="5봉지, 남은 사탕 1개"),
+    R("C:96세로", "96 ÷ 19", [], "ldiv", a=96, b=19, q="5", rows=(("95", 2, INK), ("-", 0, INK), ("1", 2, RED)), note="몫 5, 나머지 1"),
+    R("C:끝", "언제 끝?", [], "summary", items=[("남은 사탕은", BLUE), ("한 봉지보다 적어야", BLUE), ("끝!", RED)]),
+]
+
+RULES["math_4f_formula"] = [
+    R("Q:더하기", "퀴즈", ["2/5 + 1/5은?"], "question"),
+    R("Q:한판", "퀴즈", ["아래 숫자가 5라면 피자 한 판은 몇 조각?"], "question"),
+    R("C:암호", "오늘의 암호", [], "summary", items=[("아래: 몇 조각으로 잘랐나", BLUE), ("위: 몇 조각 가졌나", RED),
+                                                 ("조각 수만 세요", (40, 150, 70)), ("모자라면 한 판 잘라!", (150, 80, 200))]),
+    R("C:읽기", "분수 읽기", [], "fread"),
+    R("C:더하기", "조각 수만 더해요", [], "fadd"),
+    R("C:10조각", "분모도 더하면?", [], "f510"),
+    R("C:1빼기", "한 판 = 5조각", [], "fone", n=5, k=2),
+    R("C:빌리기1", "피자 두 판과 한 조각", [], "fpb", stage=1),
+    R("C:빌리기2", "한 판 잘라 오기", [], "fpb", stage=2),
+    R("C:열조각", "한 판은 몇 조각?", [], "fborrow", wrong=True, w=2),
+]
